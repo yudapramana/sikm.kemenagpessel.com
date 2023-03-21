@@ -3,12 +3,12 @@
         <div class="container">
             <div class="row mb-2 justify-content-md-center">
                 <div class="col-sm-5">
-                    <h1 class="m-0"> Tentang <strong>Buku Tamu Digital</strong></h1>
+                    <h1 class="m-0"> Kontak <strong>SIKM KemenagPessel</strong></h1>
                 </div>
                 <div class="col-sm-5">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Buku Tamu</a></li>
-                        <li class="breadcrumb-item"><a href="#">Tentang</a></li>
+                        <li class="breadcrumb-item"><a href="#">SIKM KemenagPessel</a></li>
+                        <li class="breadcrumb-item"><a href="#">Kontak</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div>
@@ -27,23 +27,22 @@
                         </div>
 
                         <div class="card-body text-center">
-                            <div class="row text-center">
+                            <div class="text-center">
 
-                                <h3>
-                                    <p>
-                                        <i>
-                                            <b>
-                                                “Untuk Pengaduan, Laporan, Konsultasi mengenai Masalah, Bug, atau Saran pada
-                                                Aplikasi Silahkan Langsung Hubungi Admin”
-                                            </b>
-                                        </i>
-                                    </p>
-                                </h3>
+                                <p style="font-size:x-large">
+                                    <i>
+                                        <b>
+                                            “Untuk Pengaduan, Laporan, Konsultasi mengenai Masalah, Bug, atau Saran pada
+                                            Aplikasi Silahkan Langsung Hubungi Admin”
+                                        </b>
+                                    </i>
+                                </p>
 
-                                <h5>
+                                <p style="font-size:large">
                                     ADMIN : Pramana Yuda Sayeti, S.Kom <br>
                                     Kontak : 0896 7754 2744 <br>
-                                </h5>
+                                </p> 
+                                <br>
                                 <small>(CPNS Pranata Komputer di Subbagian Tata Usaha Kantor Kementerian Agama Kab. Pesisir
                                     Selatan)</small>
 
