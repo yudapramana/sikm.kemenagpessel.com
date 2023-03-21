@@ -47,25 +47,85 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
       disabled: false,
       editModal: false,
       columns: [{
-        data: 'DT_RowIndex'
+        data: 'DT_RowIndex',
+        className: 'text-center'
       }, {
         data: 'layanan.name'
       }, {
-        data: 'date_string'
+        data: 'date_string',
+        className: 'text-center'
       }, {
-        data: 'name'
+        data: 'name',
+        className: 'text-center'
       }, {
-        data: 'address'
+        data: 'address',
+        className: 'text-center'
       }, {
-        data: 'gender'
+        data: 'gender',
+        className: 'text-center'
       }, {
-        data: 'age'
+        data: 'age',
+        className: 'text-center'
       }, {
-        data: 'work'
+        data: 'work',
+        className: 'text-center'
       }, {
-        data: 'education'
+        data: 'education',
+        className: 'text-center'
       }, {
-        data: 'average'
+        data: 'answer_1',
+        className: 'text-center fontsmaller'
+      }, {
+        data: 'answer_2',
+        className: 'text-center fontsmaller'
+      }, {
+        data: 'answer_3',
+        className: 'text-center fontsmaller'
+      }, {
+        data: 'answer_4',
+        className: 'text-center fontsmaller'
+      }, {
+        data: 'answer_5',
+        className: 'text-center fontsmaller'
+      }, {
+        data: 'answer_6',
+        className: 'text-center fontsmaller'
+      }, {
+        data: 'answer_7',
+        className: 'text-center fontsmaller'
+      }, {
+        data: 'answer_8',
+        className: 'text-center fontsmaller'
+      }, {
+        data: 'answer_9',
+        className: 'text-center fontsmaller'
+      }, {
+        data: 'answer_10',
+        className: 'text-center fontsmaller'
+      }, {
+        data: 'answer_11',
+        className: 'text-center fontsmaller'
+      }, {
+        data: 'answer_12',
+        className: 'text-center fontsmaller'
+      }, {
+        data: 'answer_13',
+        className: 'text-center fontsmaller'
+      }, {
+        data: 'answer_14',
+        className: 'text-center fontsmaller'
+      }, {
+        data: 'answer_15',
+        className: 'text-center fontsmaller'
+      }, {
+        data: 'average',
+        className: 'text-center'
+      }, {
+        data: 'improvement',
+        className: 'text-center'
+      }, {
+        data: 'feedback',
+        className: 'text-center'
       }]
     };
   },
@@ -111,12 +171,12 @@ __webpack_require__.r(__webpack_exports__);
 var _withScopeId = function _withScopeId(n) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-6ff8212c"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
 };
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"content-header\" data-v-6ff8212c><div class=\"container\" data-v-6ff8212c><div class=\"row mb-2 justify-content-md-center\" data-v-6ff8212c><div class=\"col-sm-6\" data-v-6ff8212c><h1 class=\"m-0\" data-v-6ff8212c> Daftar <strong data-v-6ff8212c> Jawaban Survey</strong></h1></div><div class=\"col-sm-6\" data-v-6ff8212c><ol class=\"breadcrumb float-sm-right\" data-v-6ff8212c><li class=\"breadcrumb-item\" data-v-6ff8212c><a href=\"#\" data-v-6ff8212c>Survey IKM</a></li><li class=\"breadcrumb-item\" data-v-6ff8212c><a href=\"#\" data-v-6ff8212c>Respon</a></li><li class=\"breadcrumb-item active\" data-v-6ff8212c>Index</li></ol></div></div></div></div>", 1);
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"content-header\" data-v-6ff8212c><div class=\"container-fluid\" data-v-6ff8212c><div class=\"row mb-2 justify-content-md-center\" data-v-6ff8212c><div class=\"col-sm-6\" data-v-6ff8212c><h1 class=\"m-0\" data-v-6ff8212c> Daftar <strong data-v-6ff8212c> Jawaban Survey</strong></h1></div><div class=\"col-sm-6\" data-v-6ff8212c><ol class=\"breadcrumb float-sm-right\" data-v-6ff8212c><li class=\"breadcrumb-item\" data-v-6ff8212c><a href=\"#\" data-v-6ff8212c>Survey IKM</a></li><li class=\"breadcrumb-item\" data-v-6ff8212c><a href=\"#\" data-v-6ff8212c>Respon</a></li><li class=\"breadcrumb-item active\" data-v-6ff8212c>Index</li></ol></div></div></div></div>", 1);
 var _hoisted_2 = {
   "class": "content"
 };
 var _hoisted_3 = {
-  "class": "container"
+  "class": "container-fluid"
 };
 var _hoisted_4 = {
   "class": "row justify-content-md-center"
@@ -138,7 +198,131 @@ var _hoisted_8 = {
   "class": "card-body"
 };
 var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "No"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Layanan di Survey"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tanggal"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Nama"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Alamat"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Jenis Kelamin"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Umur"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Pekerjaan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Pendidikan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "avg")])], -1 /* HOISTED */);
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", {
+    style: {
+      "font-size": "small!important"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    rowspan: "2"
+  }, "No"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    rowspan: "2",
+    width: "20%"
+  }, "Layanan di Survey"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    rowspan: "2"
+  }, "Tanggal"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    rowspan: "2"
+  }, "Nama"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    rowspan: "2"
+  }, "Alamat"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    rowspan: "2"
+  }, "Jenis Kelamin"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    rowspan: "2"
+  }, "Umur"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    rowspan: "2"
+  }, "Pekerjaan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    rowspan: "2"
+  }, "Pendidikan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    colspan: "15"
+  }, "Jawaban"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    rowspan: "2"
+  }, "avg"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    rowspan: "2"
+  }, "improvement"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    rowspan: "2"
+  }, "feedback")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    style: {
+      "font-size": "smaller!important"
+    }
+  }, "1"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    style: {
+      "font-size": "smaller!important"
+    }
+  }, "2"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    style: {
+      "font-size": "smaller!important"
+    }
+  }, "3"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    style: {
+      "font-size": "smaller!important"
+    }
+  }, "4"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    style: {
+      "font-size": "smaller!important"
+    }
+  }, "5"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    style: {
+      "font-size": "smaller!important"
+    }
+  }, "6"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    style: {
+      "font-size": "smaller!important"
+    }
+  }, "7"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    style: {
+      "font-size": "smaller!important"
+    }
+  }, "8"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    style: {
+      "font-size": "smaller!important"
+    }
+  }, "9"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    style: {
+      "font-size": "smaller!important"
+    }
+  }, "10"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    style: {
+      "font-size": "smaller!important"
+    }
+  }, "11"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    style: {
+      "font-size": "smaller!important"
+    }
+  }, "12"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    style: {
+      "font-size": "smaller!important"
+    }
+  }, "13"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    style: {
+      "font-size": "smaller!important"
+    }
+  }, "14"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center align-middle",
+    style: {
+      "font-size": "smaller!important"
+    }
+  }, "15")])], -1 /* HOISTED */);
+});
+var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", {
+    "class": "table-sm fontsmall"
+  }, null, -1 /* HOISTED */);
 });
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -146,14 +330,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DataTable, {
     columns: $data.columns,
     data: $data.data,
-    "class": "display table table-hover table-striped",
+    "class": "display table table-hover table-bordered",
     width: "100%",
     options: {
-      order: false
+      order: false,
+      scrollX: true,
+      sort: false
     }
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_9];
+      return [_hoisted_9, _hoisted_10];
     }),
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["columns", "data"])])])])])])])], 64 /* STABLE_FRAGMENT */);
@@ -303,7 +489,7 @@ ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_u
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_bootstrap_dist_css_bootstrap_css__WEBPACK_IMPORTED_MODULE_2__["default"]);
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_datatables_net_bs5_css_dataTables_bootstrap5_css__WEBPACK_IMPORTED_MODULE_3__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-6ff8212c] {\n    margin-left: 0 !important;\n}\n.main-footer[data-v-6ff8212c] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-6ff8212c] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-6ff8212c] {\n    --bs-navbar-padding-x: 1rem !important;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-6ff8212c] {\n    margin-left: 0 !important;\n}\n.main-footer[data-v-6ff8212c] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-6ff8212c] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-6ff8212c] {\n    --bs-navbar-padding-x: 1rem !important;\n}\n.fontsmaller[data-v-6ff8212c] {\n    font-size:x-small !important;\n}\n.fontsmall[data-v-6ff8212c] {\n    font-size:small !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

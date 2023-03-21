@@ -1,6 +1,6 @@
 <template>
     <div class="content-header">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row mb-2 justify-content-md-center">
                 <div class="col-sm-6">
                     <h1 class="m-0"> Daftar <strong> Jawaban Survey</strong></h1>
@@ -17,7 +17,7 @@
     </div>
 
     <div class="content">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row justify-content-md-center">
 
                 <div class="col-lg-12">
@@ -28,22 +28,43 @@
 
                         <div class="card-body">
 
-                                <DataTable :columns="columns" :data="data" class="display table table-hover table-striped" width="100%"
-                                    :options="{ order: false }" >
-                                    <thead>
+                                <DataTable :columns="columns" :data="data" class="display table table-hover table-bordered" width="100%"
+                                    :options="{ order: false, scrollX: true, sort: false }" >
+                                    <thead style="font-size:small!important;">
                                         <tr>
-                                            <th>No</th>
-                                            <th>Layanan di Survey</th>
-                                            <th>Tanggal</th>
-                                            <th>Nama</th>
-                                            <th>Alamat</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Umur</th>
-                                            <th>Pekerjaan</th>
-                                            <th>Pendidikan</th>
-                                            <th>avg</th>
+                                            <th class="text-center align-middle" rowspan="2">No</th>
+                                            <th class="text-center align-middle" rowspan="2" width="20%">Layanan di Survey</th>
+                                            <th class="text-center align-middle" rowspan="2">Tanggal</th>
+                                            <th class="text-center align-middle" rowspan="2">Nama</th>
+                                            <th class="text-center align-middle" rowspan="2">Alamat</th>
+                                            <th class="text-center align-middle" rowspan="2">Jenis Kelamin</th>
+                                            <th class="text-center align-middle" rowspan="2">Umur</th>
+                                            <th class="text-center align-middle" rowspan="2">Pekerjaan</th>
+                                            <th class="text-center align-middle" rowspan="2">Pendidikan</th>
+                                            <th class="text-center align-middle" colspan="15">Jawaban</th>
+                                            <th class="text-center align-middle" rowspan="2">avg</th>
+                                            <th class="text-center align-middle" rowspan="2">improvement</th>
+                                            <th class="text-center align-middle" rowspan="2">feedback</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center align-middle" style="font-size:smaller!important;">1</th>
+                                            <th class="text-center align-middle" style="font-size:smaller!important;">2</th>
+                                            <th class="text-center align-middle" style="font-size:smaller!important;">3</th>
+                                            <th class="text-center align-middle" style="font-size:smaller!important;">4</th>
+                                            <th class="text-center align-middle" style="font-size:smaller!important;">5</th>
+                                            <th class="text-center align-middle" style="font-size:smaller!important;">6</th>
+                                            <th class="text-center align-middle" style="font-size:smaller!important;">7</th>
+                                            <th class="text-center align-middle" style="font-size:smaller!important;">8</th>
+                                            <th class="text-center align-middle" style="font-size:smaller!important;">9</th>
+                                            <th class="text-center align-middle" style="font-size:smaller!important;">10</th>
+                                            <th class="text-center align-middle" style="font-size:smaller!important;">11</th>
+                                            <th class="text-center align-middle" style="font-size:smaller!important;">12</th>
+                                            <th class="text-center align-middle" style="font-size:smaller!important;">13</th>
+                                            <th class="text-center align-middle" style="font-size:smaller!important;">14</th>
+                                            <th class="text-center align-middle" style="font-size:smaller!important;">15</th>
                                         </tr>
                                     </thead>
+                                    <tbody class="table-sm fontsmall"></tbody>
                                 </DataTable>
 
                         </div>
@@ -89,16 +110,33 @@ export default {
             disabled: false,
             editModal: false,
             columns: [
-                { data: 'DT_RowIndex' },
+                { data: 'DT_RowIndex', className: 'text-center' },
                 { data: 'layanan.name' },
-                { data: 'date_string' },
-                { data: 'name' },
-                { data: 'address' },
-                { data: 'gender' },
-                { data: 'age' },
-                { data: 'work' },
-                { data: 'education' },
-                { data: 'average' },
+                { data: 'date_string', className: 'text-center' },
+                { data: 'name', className: 'text-center' },
+                { data: 'address', className: 'text-center' },
+                { data: 'gender', className: 'text-center' },
+                { data: 'age', className: 'text-center' },
+                { data: 'work', className: 'text-center' },
+                { data: 'education', className: 'text-center' },
+                { data: 'answer_1', className: 'text-center fontsmaller' },
+                { data: 'answer_2', className: 'text-center fontsmaller' },
+                { data: 'answer_3', className: 'text-center fontsmaller' },
+                { data: 'answer_4', className: 'text-center fontsmaller' },
+                { data: 'answer_5', className: 'text-center fontsmaller' },
+                { data: 'answer_6', className: 'text-center fontsmaller' },
+                { data: 'answer_7', className: 'text-center fontsmaller' },
+                { data: 'answer_8', className: 'text-center fontsmaller' },
+                { data: 'answer_9', className: 'text-center fontsmaller' },
+                { data: 'answer_10', className: 'text-center fontsmaller' },
+                { data: 'answer_11', className: 'text-center fontsmaller' },
+                { data: 'answer_12', className: 'text-center fontsmaller' },
+                { data: 'answer_13', className: 'text-center fontsmaller' },
+                { data: 'answer_14', className: 'text-center fontsmaller' },
+                { data: 'answer_15', className: 'text-center fontsmaller' },
+                { data: 'average', className: 'text-center' },
+                { data: 'improvement', className: 'text-center' },
+                { data: 'feedback', className: 'text-center' },
             ]
         };
     },
@@ -149,5 +187,13 @@ export default {
 
 .main-header {
     --bs-navbar-padding-x: 1rem !important;
+}
+
+.fontsmaller {
+    font-size:x-small !important;
+}
+
+.fontsmall {
+    font-size:small !important;
 }
 </style>

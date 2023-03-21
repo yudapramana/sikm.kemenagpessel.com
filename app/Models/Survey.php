@@ -4,6 +4,7 @@ namespace App\Models;
  
 use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class Survey extends Model
 {
@@ -20,8 +21,11 @@ class Survey extends Model
     protected $with = ['layanan'];
 
     public function getDateStringAttribute() {
-        $date = substr($this->attributes['created_at'], 0, 10);
-        return $date;
+        // $date = substr($this->attributes['created_at'], 0, 10) . substr($this->attributes['created_at'], 10, 8);
+        // return $date;
+       $date =  Carbon::createFromDate($this->attributes['created_at']);
+       $datestring = $date->toDateTimeString();
+       return $datestring;
     }
 
     public function layanan() {
