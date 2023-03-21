@@ -137,7 +137,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const publicPages = ['/login', '/register', '/landing', '/thanks', '/daftar-tamu', '/tentang', '/kontak', '/isi-survey', '/rekap-tahunan'];
+    const publicPages = ['/login', '/register', '/landing', '/thanks', '/daftar-tamu', '/tentang', '/kontak', '/isi-survey', '/rekap-tahunan', '/rekap-triwulan'];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem('user');
 
