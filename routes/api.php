@@ -146,7 +146,7 @@ Route::post('/store/survey', function (Request $request) {
     }
 
     $rekapTahunan->mutu_pelayanan = $mutuPelayanan;
-    $rekapTahunan->konversi = ($index_pelayanan / 4) * 100;
+    $rekapTahunan->konversi = number_format( ( ($index_pelayanan / 4) * 100 ), 2);
 
     $rekapTahunan->save();
 

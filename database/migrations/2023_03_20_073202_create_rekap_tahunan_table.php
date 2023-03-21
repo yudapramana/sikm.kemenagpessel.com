@@ -19,7 +19,7 @@ class CreateRekapTahunanTable extends Migration
 
             $table->integer('tahun');
             $table->unsignedInteger('id_layanan');
-            $table->float('konversi', 4, 2)->default(0);
+            $table->float('konversi', 5, 2)->default(0);
             $table->enum('mutu_pelayanan', [
                 'A (Sangat Baik)', 
                 'B (Baik)', 
