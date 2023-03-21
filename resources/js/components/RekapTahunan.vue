@@ -28,8 +28,8 @@
 
                         <div class="card-body">
 
-                                <DataTable :columns="columns" :data="data" class="display table table-hover table-striped" width="100%"
-                                    :options="{ order: false }" >
+                                <DataTable :columns="columns" :data="data" class="display table table-hover table-bordered" width="100%"
+                                    :options="{ order: false, sort: false }" >
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -38,7 +38,7 @@
                                             <th>Konversi</th>
                                             <th>Mutu Pelayanan</th>
                                             <th>Jumlah Responden</th>
-                                            <th>Aksi</th>
+                                            <th width="10%">Aksi</th>
                                         </tr>
                                     </thead>
                                 </DataTable>
