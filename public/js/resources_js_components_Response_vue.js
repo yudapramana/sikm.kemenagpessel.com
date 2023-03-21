@@ -489,7 +489,7 @@ ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_u
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_bootstrap_dist_css_bootstrap_css__WEBPACK_IMPORTED_MODULE_2__["default"]);
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_datatables_net_bs5_css_dataTables_bootstrap5_css__WEBPACK_IMPORTED_MODULE_3__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-6ff8212c] {\n    margin-left: 0 !important;\n}\n.main-footer[data-v-6ff8212c] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-6ff8212c] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-6ff8212c] {\n    --bs-navbar-padding-x: 1rem !important;\n}\n.fontsmaller[data-v-6ff8212c] {\n    font-size:x-small !important;\n}\n.fontsmall[data-v-6ff8212c] {\n    font-size:small !important;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-6ff8212c] {\n    margin-left: 0 !important;\n}\n.main-footer[data-v-6ff8212c] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-6ff8212c] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-6ff8212c] {\n    --bs-navbar-padding-x: 1rem !important;\n}\n.fontsmaller[data-v-6ff8212c] {\n    font-size:x-small !important;\n}\n.fontsmall[data-v-6ff8212c] {\n    font-size:small !important;\n}\n.dataTables_wrapper .dataTables_paginate .paginate_button[data-v-6ff8212c] {\n    padding: 0 !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

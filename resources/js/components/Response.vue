@@ -196,4 +196,8 @@ export default {
 .fontsmall {
     font-size:small !important;
 }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0 !important;
+}
 </style>

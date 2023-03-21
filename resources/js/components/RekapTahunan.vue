@@ -29,7 +29,7 @@
                         <div class="card-body">
 
                                 <DataTable :columns="columns" :data="data" class="display table table-hover table-bordered" width="100%"
-                                    :options="{ order: false, sort: false }" >
+                                    :options="{ order: false, sort: false, paging: false }" >
                                     <thead>
                                         <tr>
                                             <th>No</th>

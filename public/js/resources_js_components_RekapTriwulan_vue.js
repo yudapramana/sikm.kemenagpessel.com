@@ -186,7 +186,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     width: "100%",
     options: {
       order: false,
-      soft: false
+      sort: false,
+      paging: false
     }
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
