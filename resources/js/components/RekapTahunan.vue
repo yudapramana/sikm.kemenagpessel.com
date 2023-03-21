@@ -33,7 +33,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Layanan</th>
+                                            <th  width="35%">Nama Layanan</th>
                                             <th class="text-center">Nilai Index Pelayanan</th>
                                             <th>Konversi</th>
                                             <th>Mutu Pelayanan</th>
