@@ -1,14 +1,14 @@
 <template>
     <div class="content-header">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row mb-2 justify-content-md-center">
                 <div class="col-sm-6">
-                    <h1 class="m-0"> Daftar <strong> Tamu</strong></h1>
+                    <h1 class="m-0"> Rekapitulasi Triwulan <strong> {{ triwulan }}</strong></h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Buku Tamu</a></li>
-                        <li class="breadcrumb-item"><a href="#">Daftar Tamu</a></li>
+                        <li class="breadcrumb-item"><a href="#">Survey IKM</a></li>
+                        <li class="breadcrumb-item"><a href="#">Rekapitulasi Triwulan</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div>
@@ -17,36 +17,32 @@
     </div>
 
     <div class="content">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row justify-content-md-center">
 
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title m-0">Daftar Buku Tamu</h4>
+                            <h4 class="card-title m-0">Rekapitulasi Triwulan <strong> {{ triwulan }}</strong></h4>
                         </div>
 
                         <div class="card-body">
-                            <div class="row">
 
-                                <DataTable :columns="columns" :data="data" class="display" width="100%"
-                                    :options="{ order: false }">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Tanggal</th>
-                                            <th>Nama</th>
-                                            <th>Kelamin</th>
-                                            <th>Email</th>
-                                            <th>no_hp</th>
-                                            <th>Organisasi</th>
-                                            <th>Jabatan</th>
-                                            <th>Keperluan - Tujuan</th>
-                                        </tr>
-                                    </thead>
-                                </DataTable>
+                            <DataTable :columns="columns" :data="data" class="display table table-hover table-striped"
+                                width="100%" :options="{ order: false }">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Layanan</th>
+                                        <th class="text-center">Nilai Index Pelayanan</th>
+                                        <th>Konversi</th>
+                                        <th>Mutu Pelayanan</th>
+                                        <th>Jumlah Responden</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                            </DataTable>
 
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,19 +82,18 @@ export default {
     data() {
         return {
             data: [],
+            triwulan: 1,
             loading: false,
             disabled: false,
             editModal: false,
             columns: [
-                { data: 'DT_RowIndex' },
-                { data: 'date' },
-                { data: 'name' },
-                { data: 'gender' },
-                { data: 'email' },
-                { data: 'no_hp' },
-                { data: 'organisasi' },
-                { data: 'jabatan' },
-                { data: 'keperluan_tujuan' },
+                { data: 'DT_RowIndex', className: "text-center" },
+                { data: 'layanan.name' },
+                { data: 'index_pelayanan', className: "text-center" },
+                { data: 'konversi', className: "text-center" },
+                { data: 'mutu_pelayanan', className: "text-center" },
+                { data: 'jumlah_responden', className: "text-center" },
+                { data: 'aksi', className: "text-center" },
             ]
         };
     },
@@ -109,10 +104,10 @@ export default {
         },
         loadData() {
             axios
-                .get('/api/guest')
+                .get('/api/get/rekapitulasi-triwulan/' + this.$route.query.quarter)
                 .then((response) => {
-                    console.log('response getUsers');
-                    console.log(response.data.data);
+                    console.log('response getRekapTahunan');
+                    console.log(response.data);
                     this.data = response.data.data;
                     this.$Progress.finish();
                 });
@@ -126,7 +121,20 @@ export default {
     },
     mounted() {
         this.loadData();
+        this.triwulan = this.$route.query.quarter;
+        // alert(this.$route.query.year);
     },
+    watch: {
+        '$route.query.quarter': {
+            handler: function (quarter) {
+                console.log('quarter');
+                console.log(quarter);
+                this.loadData();
+            },
+            deep: true,
+            immediate: true
+        }
+    }
 };
 </script>
   

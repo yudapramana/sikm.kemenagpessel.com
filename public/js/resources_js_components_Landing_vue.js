@@ -12,192 +12,150 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _services_guest_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/guest.service */ "./resources/js/services/guest.service.js");
-/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.es.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vform/src/components/bootstrap5 */ "./node_modules/vform/src/components/bootstrap5/index.js");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/user.service */ "./resources/js/services/user.service.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.es.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vform/src/components/bootstrap5 */ "./node_modules/vform/src/components/bootstrap5/index.js");
 
 
 
 
-var quiz = {
-    user: "Dave",
-    questions: [{
-      text: "What is the full form of HTTP?",
-      responses: [{
-        text: "Hyper text transfer package"
-      }, {
-        text: "Hyper text transfer protocol",
-        correct: true
-      }, {
-        text: "Hyphenation text test program"
-      }, {
-        text: "None of the above"
-      }]
-    }, {
-      text: "HTML document start and end with which tag pairs?",
-      responses: [{
-        text: "HTML",
-        correct: true
-      }, {
-        text: "WEB"
-      }, {
-        text: "HEAD"
-      }, {
-        text: "BODY"
-      }]
-    }, {
-      text: "Which tag is used to create body text in HTML?",
-      responses: [{
-        text: "HEAD"
-      }, {
-        text: "BODY",
-        correct: true
-      }, {
-        text: "TITLE"
-      }, {
-        text: "TEXT"
-      }]
-    }, {
-      text: "Outlook Express is _________",
-      responses: [{
-        text: "E-Mail Client",
-        correct: true
-      }, {
-        text: "Browser"
-      }, {
-        text: "Search Engine"
-      }, {
-        text: "None of the above"
-      }]
-    }, {
-      text: "What is a search engine?",
-      responses: [{
-        text: "A hardware component "
-      }, {
-        text: "A machinery engine that search data"
-      }, {
-        text: "A web site that searches anything",
-        correct: true
-      }, {
-        text: "A program that searches engines"
-      }]
-    }, {
-      text: "What does the .com domain represents?",
-      responses: [{
-        text: "Network"
-      }, {
-        text: "Education"
-      }, {
-        text: "Commercial",
-        correct: true
-      }, {
-        text: "None of the above"
-      }]
-    }, {
-      text: "In Satellite based communication, VSAT stands for? ",
-      responses: [{
-        text: " Very Small Aperture Terminal",
-        correct: true
-      }, {
-        text: "Varying Size Aperture Terminal "
-      }, {
-        text: "Very Small Analog Terminal"
-      }, {
-        text: "None of the above"
-      }]
-    }, {
-      text: "What is the full form of TCP/IP? ",
-      responses: [{
-        text: "Telephone call protocol / international protocol"
-      }, {
-        text: "Transmission control protocol / internet protocol",
-        correct: true
-      }, {
-        text: "Transport control protocol / internet protocol "
-      }, {
-        text: "None of the above"
-      }]
-    }, {
-      text: "What is the full form of HTML?",
-      responses: [{
-        text: "Hyper text marking language"
-      }, {
-        text: "Hyphenation text markup language "
-      }, {
-        text: "Hyper text markup language",
-        correct: true
-      }, {
-        text: "Hyphenation test marking language"
-      }]
-    }, {
-      text: "\"Yahoo\", \"Infoseek\" and \"Lycos\" are _________?",
-      responses: [{
-        text: "Browsers "
-      }, {
-        text: "Search Engines",
-        correct: true
-      }, {
-        text: "News Group"
-      }, {
-        text: "None of the above"
-      }]
-    }]
-  },
-  userResponseSkelaton = Array(quiz.questions.length).fill(null);
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Landing",
+  computed: {
+    currentUser: function currentUser() {
+      return this.$store.state.auth.user;
+    }
+  },
+  components: {
+    'has-error': vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_4__.HasError,
+    'alert-error': vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_4__.AlertError
+  },
   data: function data() {
     return {
-      quiz: quiz,
-      questionIndex: 0,
-      userResponses: userResponseSkelaton,
-      isActive: false
+      timestamp: "",
+      loading: false,
+      disabled: false,
+      editModal: false,
+      director: null,
+      c_agenda: null,
+      weekday: ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"],
+      form: new vform__WEBPACK_IMPORTED_MODULE_2__["default"]({
+        id: "",
+        name: "",
+        gender: "",
+        no_hp: "",
+        email: "",
+        address: "",
+        organisasi: "",
+        jabatan: "",
+        keperluan: "",
+        tujuan: ""
+      })
     };
   },
-  computed: {
-    charIndex: function charIndex() {
-      return function (i) {
-        return String.fromCharCode(97 + i);
-      };
+  methods: {
+    getNow: function getNow() {
+      var today = new Date();
+      var date = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+      var time = ('0' + (today.getHours() + 1)).slice(-2) + ":" + ('0' + (today.getMinutes() + 1)).slice(-2) + ":" + ('0' + (today.getSeconds() + 1)).slice(-2);
+      var day_name = this.weekday[today.getDay()];
+      var dateTime = day_name + ', ' + date + ' ' + time;
+      this.timestamp = dateTime;
+    },
+    logOut: function logOut() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/login');
+    },
+    // loadDirector() {
+    //     UserService.getDirector().then(
+    //         (response) => {
+    //             console.log('response director');
+    //             console.log(response);
+    //             this.director = response.data.director;
+    //             this.c_agenda = response.data.c_agenda;
+    //         },
+    //         (error) => {
+    //             alert(error);
+    //         }
+    //     );
+    // },
+    saveData: function saveData() {
+      var _this = this;
+      this.$Progress.start();
+      this.loading = true;
+      this.disabled = true;
+      console.log('this.form');
+      console.log(this.form);
+      console.log('this.form.name');
+      console.log(this.form.name);
+      _services_guest_service__WEBPACK_IMPORTED_MODULE_0__["default"].store(this.form).then(function (response) {
+        console.log('response');
+        console.log(response);
+        var data = response.data;
+        if (data.code == 200) {
+          Toast.fire({
+            icon: "success",
+            title: "Data saved successfully"
+          });
+          var timerInterval;
+          sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+            title: 'Berhasil!',
+            icon: 'success',
+            text: 'Data Anda berhasil tersimpan!',
+            html: 'Data Anda berhasil tersimpan! <br> Modal akan ditutup dalam waktu <b></b> milliseconds.',
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: function didOpen() {
+              sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().showLoading();
+              var b = sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().getHtmlContainer().querySelector('b');
+              timerInterval = setInterval(function () {
+                b.textContent = sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().getTimerLeft();
+              }, 100);
+            },
+            willClose: function willClose() {
+              clearInterval(timerInterval);
+            }
+          }).then(function (result) {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().DismissReason.timer)) {
+              console.log('I was closed by the timer');
+              _this.$router.push('/thanks');
+            }
+          });
+          _this.loading = false;
+          _this.disabled = false;
+          _this.$Progress.finish();
+        } else {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire("Failed", data.message, "warning");
+        }
+      }, function (error) {
+        console.log('error local');
+        console.log(error);
+        console.log('error local message');
+        console.log(error.message);
+        _this.loading = false;
+        _this.disabled = false;
+        _this.$Progress.fail();
+        // Swal.fire(
+        //     "Failed",
+        //     'Mohon untuk mengisi kolom yang kosong',
+        //     "warning"
+        // );
+
+        sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire("Failed", error.message, "warning");
+      });
     }
   },
-  methods: {
-    loadQuestion: function loadQuestion() {
-      axios.get('/api/get/questions').then(function (response) {
-        console.log(response);
-      });
-    },
-    restart: function restart() {
-      this.questionIndex = 0;
-      this.userResponses = Array(this.quiz.questions.length).fill(null);
-    },
-    selectOption: function selectOption(index) {
-      // Vue.set(this.userResponses, this.questionIndex, index);
-      this.userResponses[this.questionIndex] = index;
-      console.log(this.userResponses);
-    },
-    next: function next() {
-      if (this.questionIndex < this.quiz.questions.length) this.questionIndex++;
-    },
-    prev: function prev() {
-      if (this.quiz.questions.length > 0) this.questionIndex--;
-    },
-    // Return "true" count in userResponses
-    score: function score() {
-      var score = 0;
-      for (var i = 0; i < this.userResponses.length; i++) {
-        if (typeof this.quiz.questions[i].responses[this.userResponses[i]] !== "undefined" && this.quiz.questions[i].responses[this.userResponses[i]].correct) {
-          score = score + 1;
-        }
-      }
-      return score;
-
-      //return this.userResponses.filter(function(val) { return val }).length;
-    }
+  created: function created() {
+    this.$Progress.start();
+    setInterval(this.getNow, 1000);
+    // this.loadDirector();
   },
   mounted: function mounted() {
-    this.loadQuestion();
+    this.$Progress.finish();
   }
 });
 
@@ -218,102 +176,69 @@ __webpack_require__.r(__webpack_exports__);
 var _withScopeId = function _withScopeId(n) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-15bf0008"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
 };
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"content-header\" data-v-15bf0008><div class=\"container\" data-v-15bf0008><div class=\"row mb-2 justify-content-md-center\" data-v-15bf0008><div class=\"col-sm-6\" data-v-15bf0008><h1 class=\"m-0\" data-v-15bf0008>Quesioner <strong data-v-15bf0008>Survey Kepuasan Pelayanan</strong></h1></div><div class=\"col-sm-6\" data-v-15bf0008><ol class=\"breadcrumb float-sm-right\" data-v-15bf0008><li class=\"breadcrumb-item\" data-v-15bf0008><a href=\"#\" data-v-15bf0008>Buku Tamu</a></li><li class=\"breadcrumb-item\" data-v-15bf0008><a href=\"#\" data-v-15bf0008>Formulir</a></li><li class=\"breadcrumb-item active\" data-v-15bf0008>Isi Formulir</li></ol></div></div></div></div>", 1);
+var _hoisted_1 = {
+  "class": "container-fluid m-0 p-0"
+};
 var _hoisted_2 = {
-  "class": "content"
+  "class": "jumbotron jumbotron-fluid new-font"
 };
 var _hoisted_3 = {
-  "class": "container"
+  "class": "mx-5 text-white"
 };
-var _hoisted_4 = {
-  "class": "questionBox"
-};
-var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
-    "class": "title is-6"
-  }, "VueQuiz", -1 /* HOISTED */);
+    "class": "display-4"
+  }, "S-IKM", -1 /* HOISTED */);
 });
-var _hoisted_6 = {
-  "class": "progressContainer"
+var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+    style: {
+      "font-size": "x-large !important"
+    }
+  }, "Kementerian Agama", -1 /* HOISTED */);
+});
+var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+    style: {
+      "font-size": "x-large !important"
+    }
+  }, "Kabupaten Pesisir Selatan", -1 /* HOISTED */);
+});
+var _hoisted_7 = {
+  "class": "lead"
 };
-var _hoisted_7 = ["value"];
-var _hoisted_8 = {
-  "class": "titleContainer title"
-};
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Pelajari Lebih Lanjut");
 var _hoisted_9 = {
-  "class": "optionContainer"
+  "class": "lead"
 };
-var _hoisted_10 = ["onClick"];
-var _hoisted_11 = {
-  "class": "questionFooter"
-};
-var _hoisted_12 = {
-  "class": "pagination",
-  role: "navigation",
-  "aria-label": "pagination"
-};
-var _hoisted_13 = ["disabled"];
-var _hoisted_14 = ["disabled"];
-var _hoisted_15 = {
-  "class": "icon"
-};
-var _hoisted_16 = {
-  "class": "title"
-};
-var _hoisted_17 = {
-  "class": "subtitle"
-};
-var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-});
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("restart ");
-var _hoisted_20 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-    "class": "fa fa-refresh"
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Isi Survey");
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "content"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_21 = [_hoisted_19, _hoisted_20];
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("questionBox"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" transition "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("qusetionContainer"), $data.questionIndex < $data.quiz.questions.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-    "class": "questionContainer",
-    key: $data.questionIndex
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("header", null, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("progress"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("progress", {
-    "class": "progress is-info is-small",
-    value: $data.questionIndex / $data.quiz.questions.length * 100,
-    max: "100"
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.questionIndex / $data.quiz.questions.length * 100) + "%", 9 /* TEXT, PROPS */, _hoisted_7), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.questionIndex / $data.quiz.questions.length * 100) + "% complete", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/progress")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" questionTitle "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.quiz.questions[$data.questionIndex].text), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" quizOptions "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.quiz.questions[$data.questionIndex].responses, function (response, index) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["option", {
-        'is-selected': $data.userResponses[$data.questionIndex] == index + 1
-      }]),
-      onClick: function onClick($event) {
-        return $options.selectOption(index + 1);
-      },
-      key: index
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.charIndex(index)) + ". " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(response.text), 11 /* TEXT, CLASS, PROPS */, _hoisted_10);
-  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("quizFooter: navigation and progress"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("footer", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("pagination"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" back button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    "class": "button",
-    onClick: _cache[0] || (_cache[0] = function ($event) {
-      $options.prev();
+  var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"content-header\">\n        <div class=\"container\">\n            <div class=\"row mb-2 justify-content-md-center\">\n                <div class=\"col-sm-5\">\n                    <h1 class=\"m-0\"> Silahkan isi <strong>Buku Tamu</strong></h1>\n                </div>\n                <div class=\"col-sm-5\">\n                    <ol class=\"breadcrumb float-sm-right\">\n                        <li class=\"breadcrumb-item\"><a href=\"#\">Buku Tamu</a></li>\n                        <li class=\"breadcrumb-item\"><a href=\"#\">Formulir</a></li>\n                        <li class=\"breadcrumb-item active\">Isi Formulir</li>\n                    </ol>\n                </div>\n            </div>\n        </div>\n    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.timestamp), 1 /* TEXT */), _hoisted_4, _hoisted_5, _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "tentang",
+    "class": "btn btn-primary btn-lg btn-sm",
+    role: "button"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_8];
     }),
-    disabled: $data.questionIndex < 1
-  }, " Back ", 8 /* PROPS */, _hoisted_13), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" next button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["button", $data.userResponses[$data.questionIndex] == null ? '' : 'is-active']),
-    onClick: _cache[1] || (_cache[1] = function ($event) {
-      $options.next();
+    _: 1 /* STABLE */
+  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "isi-survey",
+    "class": "btn btn-warning btn-lg btn-sm",
+    role: "button"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_10];
     }),
-    disabled: $data.questionIndex >= $data.quiz.questions.length
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.userResponses[$data.questionIndex] == null ? 'Skip' : 'Next'), 11 /* TEXT, CLASS, PROPS */, _hoisted_14)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/pagination")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/quizFooter")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/questionContainer"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("quizCompletedResult"), $data.questionIndex >= $data.quiz.questions.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-    key: $data.questionIndex,
-    "class": "quizCompleted has-text-centered"
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" quizCompletedIcon: Achievement Icon "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["fa", $options.score() > 3 ? 'fa-check-circle-o is-active' : 'fa-times-circle'])
-  }, null, 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("resultTitleBlock"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_16, " You did " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.score() > 7 ? 'an amazing' : $options.score() < 4 ? 'a poor' : 'a good') + " job! ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_17, " Total score: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.score()) + " / " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.quiz.questions.length), 1 /* TEXT */), _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    "class": "button",
-    onClick: _cache[2] || (_cache[2] = function ($event) {
-      return $options.restart();
-    })
-  }, _hoisted_21), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/resultTitleBlock")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/quizCompetedResult")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/questionBox")])])], 64 /* STABLE_FRAGMENT */);
+    _: 1 /* STABLE */
+  })])])])]), _hoisted_11], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -381,10 +306,8 @@ __webpack_require__.r(__webpack_exports__);
 // Imports
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Montserrat:400,400i,700);"]);
-___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-15bf0008] {\n    margin-left: 0 !important;\n}\n.main-footer[data-v-15bf0008] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-15bf0008] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-15bf0008] {\n    --bs-navbar-padding-x: 1rem !important;\n}\nbody[data-v-15bf0008] {\n    font-family: \"Open Sans\", sans-serif;\n    font-size: 14px;\n    height: 100vh;\n    background: #cfd8dc;\n    /* mocking native UI */\n    cursor: default !important;\n    /* remove text selection cursor */\n    -webkit-user-select: none;\n       -moz-user-select: none;\n            user-select: none;\n    /* remove text selection */\n    user-drag: none;\n    /* disbale element dragging */\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.button[data-v-15bf0008] {\n    transition: 0.3s;\n}\n.title[data-v-15bf0008],\n.subtitle[data-v-15bf0008] {\n    font-family: Montserrat, sans-serif;\n    font-weight: normal;\n}\n.animated[data-v-15bf0008] {\n    transition-duration: 0.15s;\n}\n\n/* .container {\n    margin: 0 0.5rem;\n} */\n.questionBox[data-v-15bf0008] {\n    /* max-width: 30rem; */\n    /* width: 30rem; */\n    min-height: 30rem;\n    background: #fafafa;\n    position: relative;\n    display: flex;\n    border-radius: 0.5rem;\n    overflow: hidden;\n    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\n    margin: 0 auto !important;\n}\n.questionBox header[data-v-15bf0008] {\n    background: rgba(0, 0, 0, 0.025);\n    padding: 1.5rem;\n    text-align: center;\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n.questionBox header h1[data-v-15bf0008] {\n    font-weight: bold;\n    margin-bottom: 1rem !important;\n}\n.questionBox header .progressContainer[data-v-15bf0008] {\n    width: 60%;\n    margin: 0 auto;\n}\n.questionBox header .progressContainer>progress[data-v-15bf0008] {\n    margin: 0 auto;\n    border-radius: 5rem;\n    overflow: hidden;\n    border: none;\n    color: #3d5afe;\n}\n.questionBox header .progressContainer>progress[data-v-15bf0008]::-moz-progress-bar {\n    background: #3d5afe;\n}\n.questionBox header .progressContainer>progress[data-v-15bf0008]::-webkit-progress-value {\n    background: #3d5afe;\n}\n.questionBox header .progressContainer>p[data-v-15bf0008] {\n    margin: 0;\n    margin-top: 0.5rem;\n}\n.questionBox .titleContainer[data-v-15bf0008] {\n    text-align: center;\n    margin: 0 auto;\n    padding: 1.5rem;\n}\n.questionBox .quizForm[data-v-15bf0008] {\n    display: block;\n    white-space: normal;\n    height: 100%;\n    width: 100%;\n}\n.questionBox .quizForm .quizFormContainer[data-v-15bf0008] {\n    height: 100%;\n    margin: 15px 18px;\n}\n.questionBox .quizForm .quizFormContainer .field-label[data-v-15bf0008] {\n    text-align: left;\n    margin-bottom: 0.5rem;\n}\n.questionBox .quizCompleted[data-v-15bf0008] {\n    width: 100%;\n    padding: 1rem;\n    text-align: center;\n}\n.questionBox .quizCompleted>.icon[data-v-15bf0008] {\n    color: #ff5252;\n    font-size: 5rem;\n}\n.questionBox .quizCompleted>.icon .is-active[data-v-15bf0008] {\n    color: #00e676;\n}\n.questionBox .questionContainer[data-v-15bf0008] {\n    white-space: normal;\n    height: 100%;\n    width: 100%;\n}\n.questionBox .questionContainer .optionContainer[data-v-15bf0008] {\n    margin-top: 12px;\n    flex-grow: 1;\n}\n.questionBox .questionContainer .optionContainer .option[data-v-15bf0008] {\n    border-radius: 290486px;\n    padding: 9px 18px;\n    margin: 0 18px;\n    margin-bottom: 12px;\n    transition: 0.3s;\n    cursor: pointer;\n    background-color: rgba(0, 0, 0, 0.05);\n    color: rgba(0, 0, 0, 0.85);\n    border: transparent 1px solid;\n}\n.questionBox .questionContainer .optionContainer .option.is-selected[data-v-15bf0008] {\n    border-color: rgba(0, 0, 0, 0.25);\n    background-color: white;\n}\n.questionBox .questionContainer .optionContainer .option[data-v-15bf0008]:hover {\n    background-color: rgba(0, 0, 0, 0.1);\n}\n.questionBox .questionContainer .optionContainer .option[data-v-15bf0008]:active {\n    transform: scaleX(0.9);\n}\n.questionBox .questionContainer .questionFooter[data-v-15bf0008] {\n    background: rgba(0, 0, 0, 0.025);\n    border-top: 1px solid rgba(0, 0, 0, 0.1);\n    width: 100%;\n    align-self: flex-end;\n}\n.questionBox .questionContainer .questionFooter .pagination[data-v-15bf0008] {\n    margin: 15px 25px;\n}\n.pagination[data-v-15bf0008] {\n    display: flex;\n    justify-content: space-between;\n}\n.button[data-v-15bf0008] {\n    padding: 0.5rem 1rem;\n    border: 1px solid rgba(0, 0, 0, 0.25);\n    border-radius: 5rem;\n    margin: 0 0.25rem;\n    transition: 0.3s;\n}\n.button[data-v-15bf0008]:hover {\n    cursor: pointer;\n    background: #eceff1;\n    border-color: rgba(0, 0, 0, 0.25);\n}\n.button.is-active[data-v-15bf0008] {\n    background: #3d5afe;\n    color: white;\n    border-color: transparent;\n}\n.button.is-active[data-v-15bf0008]:hover {\n    background: #0a2ffe;\n}\n@media screen and (min-width: 769px) {\n.questionBox[data-v-15bf0008] {\n        align-items: center;\n        justify-content: center;\n}\n.questionBox .questionContainer[data-v-15bf0008] {\n        display: flex;\n        flex-direction: column;\n}\n}\n@media screen and (max-width: 768px) {\n.sidebar[data-v-15bf0008] {\n        height: auto !important;\n        border-radius: 6px 6px 0px 0px;\n}\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-15bf0008] {\n    margin-left: 0 !important;\n}\n.main-footer[data-v-15bf0008] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-15bf0008] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-15bf0008] {\n    --bs-navbar-padding-x: 1rem !important;\n}\n.jumbotron[data-v-15bf0008] {\n    background-image: url(/img/sikm_beranda_3.png);\n    background-size: cover;\n    height: 100%;\n}\n.header-custom[data-v-15bf0008] {\n    background-color: transparent !important;\n}\n.table-borderless>tbody>tr>td[data-v-15bf0008],\n.table-borderless>tbody>tr>th[data-v-15bf0008],\n.table-borderless>tfoot>tr>td[data-v-15bf0008],\n.table-borderless>tfoot>tr>th[data-v-15bf0008],\n.table-borderless>thead>tr>td[data-v-15bf0008],\n.table-borderless>thead>tr>th[data-v-15bf0008] {\n    border: none;\n}\n.table-sm> :not(caption)>*>*[data-v-15bf0008] {\n    padding: 0 !important;\n}\n.table-sm th[data-v-15bf0008],\n.table-sm td[data-v-15bf0008] {\n    padding: 0 !important;\n}\n.new-font[data-v-15bf0008] {\n    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

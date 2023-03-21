@@ -10,8 +10,11 @@ const Dashboard = () => import("./components/Dashboard.vue")
 const Login = () => import("./components/Login.vue")
 const Register = () => import("./components/Register.vue")
 const Landing = () => import("./components/Landing.vue")
+const IsiSurvey = () => import("./components/IsiSurvey.vue")
+const RekapTahunan = () => import("./components/RekapTahunan.vue")
+const RekapTriwulan = () => import("./components/RekapTriwulan.vue")
 const Thanks = () => import("./components/Thanks.vue")
-const DaftarTamu = () => import("./components/DaftarTamu.vue")
+const Response = () => import("./components/Response.vue")
 const Tentang = () => import("./components/Tentang.vue")
 const Kontak = () => import("./components/Kontak.vue")
 const DataUser = () => import("./components/user-role/DataUser.vue")
@@ -53,6 +56,11 @@ const routes = [
         component: LandingContainer,
         children: [
             {
+                path: "/isi-survey",
+                name: "IsiSurvey",
+                component: IsiSurvey,
+            },
+            {
                 path: "/login",
                 name: "Login",
                 component: Login,
@@ -73,9 +81,19 @@ const routes = [
                 component: Thanks,
             },
             {
-                path: "/daftar-tamu",
-                name: "DaftarTamu",
-                component: DaftarTamu,
+                path: "/response",
+                name: "Response",
+                component: Response,
+            },
+            {
+                path: "/rekap-tahunan",
+                name: "RekapTahunan",
+                component: RekapTahunan,
+            },
+            {
+                path: "/rekap-triwulan",
+                name: "RekapTriwulan",
+                component: RekapTriwulan,
             },
             {
                 path: "/tentang",
@@ -119,7 +137,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const publicPages = ['/login', '/register', '/landing', '/thanks', '/daftar-tamu', '/tentang', '/kontak'];
+    const publicPages = ['/login', '/register', '/landing', '/thanks', '/daftar-tamu', '/tentang', '/kontak', '/isi-survey', '/rekap-tahunan'];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem('user');
 

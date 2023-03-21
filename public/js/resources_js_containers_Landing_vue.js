@@ -21,7 +21,28 @@ __webpack_require__.r(__webpack_exports__);
     logOut: function logOut() {
       this.$store.dispatch('auth/logout');
       this.$router.push('/login');
-    }
+    } // toggleDropdown() {
+    //     $(".dropdown-toggle").dropdown('toggle');
+    // }
+  },
+  created: function created() {
+    document.body.classList.add('hold-transition', 'layout-top-nav');
+    document.body.classList.remove('hold-transition', 'sidebar-mini');
+  },
+  mounted: function mounted() {
+    document.body.classList.remove('hold-transition', 'sidebar-mini');
+    document.body.classList.add('hold-transition', 'layout-top-nav');
+    $('.navbar-toggler').on('click', function () {
+      $('.navbar-collapse').collapse('toggle');
+    });
+
+    // $('[data-widget="treeview"]').Treeview('init');
+
+    // $(".dropdown-toggle").dropdown();
+    // $(".dropdown-toggle").dropdown('toggle');
+  },
+  destroyed: function destroyed() {
+    document.body.classList.remove('hold-transition', 'layout-top-nav');
   }
 });
 
@@ -46,9 +67,9 @@ var _hoisted_1 = {
   "class": "main-header navbar navbar-expand-md navbar-light navbar-white"
 };
 var _hoisted_2 = {
-  "class": "container"
+  "class": "container-fluid"
 };
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<a href=\"/landing\" class=\"navbar-brand\" data-v-7c62b210><img src=\"http://res.cloudinary.com/kemenagpessel/image/upload/v1678080743/arsip_masuk/o2w50c0hdc98alyizelk.jpg\" alt=\"AdminLTE Logo\" class=\"brand-image\" style=\"opacity:.8;\" data-v-7c62b210><span class=\"brand-text font-weight-light\" data-v-7c62b210>Buku Tamu Digital</span></a><button class=\"navbar-toggler order-1\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarCollapse\" aria-controls=\"navbarCollapse\" aria-expanded=\"false\" aria-label=\"Toggle navigation\" data-v-7c62b210><span class=\"navbar-toggler-icon\" data-v-7c62b210></span></button>", 2);
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<a href=\"/landing\" class=\"navbar-brand\" data-v-7c62b210><img src=\"http://res.cloudinary.com/kemenagpessel/image/upload/v1678080743/arsip_masuk/o2w50c0hdc98alyizelk.jpg\" alt=\"AdminLTE Logo\" class=\"brand-image\" style=\"opacity:.8;\" data-v-7c62b210><span class=\"brand-text font-weight-light\" data-v-7c62b210>SIKM KemenagPessel</span></a><button class=\"navbar-toggler order-1\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarCollapse\" aria-controls=\"navbarCollapse\" aria-expanded=\"false\" aria-label=\"Toggle navigation\" data-v-7c62b210><span class=\"navbar-toggler-icon\" data-v-7c62b210></span></button>", 2);
 var _hoisted_5 = {
   "class": "collapse navbar-collapse order-3",
   id: "navbarCollapse"
@@ -59,46 +80,93 @@ var _hoisted_6 = {
 var _hoisted_7 = {
   "class": "nav-item"
 };
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Isi Buku Tamu");
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Beranda");
 var _hoisted_9 = {
   "class": "nav-item"
 };
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Daftar Tamu");
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Isi Survey");
 var _hoisted_11 = {
   key: 0,
   "class": "nav-item"
 };
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Dashboard");
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Respon");
 var _hoisted_13 = {
-  "class": "nav-item"
+  "class": "nav-item dropdown"
 };
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Tentang");
+var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    id: "dropdownSubMenu1",
+    href: "#",
+    "data-toggle": "dropdown",
+    "aria-haspopup": "true",
+    "aria-expanded": "false",
+    "class": "nav-link dropdown-toggle"
+  }, "Rekap Tahunan", -1 /* HOISTED */);
+});
 var _hoisted_15 = {
+  "aria-labelledby": "dropdownSubMenu1",
+  "class": "dropdown-menu border-0 shadow",
+  style: {
+    "left": "0px",
+    "right": "inherit"
+  }
+};
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Tahun 2023 ");
+var _hoisted_17 = {
+  "class": "nav-item dropdown"
+};
+var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    id: "dropdownSubMenu1",
+    href: "#",
+    "data-toggle": "dropdown",
+    "aria-haspopup": "true",
+    "aria-expanded": "false",
+    "class": "nav-link dropdown-toggle"
+  }, "Rekap Triwulan tahun berjalan", -1 /* HOISTED */);
+});
+var _hoisted_19 = {
+  "aria-labelledby": "dropdownSubMenu1",
+  "class": "dropdown-menu border-0 shadow",
+  style: {
+    "left": "0px",
+    "right": "inherit"
+  }
+};
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan I");
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan II");
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan III");
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan IV");
+var _hoisted_24 = {
   "class": "nav-item"
 };
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Kontak");
-var _hoisted_17 = {
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Tentang");
+var _hoisted_26 = {
+  "class": "nav-item"
+};
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Kontak");
+var _hoisted_28 = {
   key: 1,
   "class": "nav-item"
 };
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Login");
-var _hoisted_19 = {
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Login");
+var _hoisted_30 = {
   key: 2,
   "class": "nav-item"
 };
-var _hoisted_20 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_31 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Logout", -1 /* HOISTED */);
 });
-var _hoisted_21 = [_hoisted_20];
-var _hoisted_22 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_32 = [_hoisted_31];
+var _hoisted_33 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", {
     "class": "order-1 order-md-3 navbar-nav navbar-no-expand ml-auto"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item dropdown\">\n                    <a class=\"nav-link\" data-toggle=\"dropdown\" href=\"#\">\n                        <i class=\"nav-icon fas fa-house\"></i>\n                        <span class=\"badge badge-danger navbar-badge\">3</span>\n                    </a>\n                </li>\n\n                <li class=\"nav-item dropdown\">\n                    <a class=\"nav-link\" data-toggle=\"dropdown\" href=\"#\">\n                        <i class=\"fas fa-bell nav-icon \"></i>\n                        <span class=\"badge badge-warning navbar-badge\">15</span>\n                    </a>\n                </li>\n                <li class=\"nav-item\">\n                    <a class=\"nav-link\" data-widget=\"control-sidebar\" data-slide=\"true\" href=\"#\" role=\"button\">\n                        <i class=\"fas fa-th-large nav-icon \"></i>\n                    </a>\n                </li> "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\n                    <a href=\"https://ptsp.kemenagpessel.com\" class=\"nav-link\">Pelayanan Publik</a>\n                </li>\n                <li class=\"nav-item\">\n                    <a href=\"https://ppid.kemenagpessel.com\" class=\"nav-link\">Pelayanan Informasi</a>\n                </li>\n                <li class=\"nav-item\">\n                    <a href=\"https://datuak.kemenagpessel.com\" class=\"nav-link\">Satu Data</a>\n                </li> ")], -1 /* HOISTED */);
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"navbar-nav\">\n\n                    <li class=\"nav-item\">\n                        <router-link to=\"landing\" class=\"nav-link\">Beranda</router-link>\n                    </li>\n                    <li class=\"nav-item\">\n                        <router-link to=\"isi-survey\" class=\"nav-link\">Isi Survey</router-link>\n                    </li>\n                    <li class=\"nav-item\">\n                        <router-link to=\"daftar-tamu\" class=\"nav-link\">Daftar Tamu</router-link>\n                    </li>\n                    <li class=\"nav-item dropdown\">\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\n                            class=\"nav-link dropdown-toggle\">Rekap Tahunan</a>\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\n                            style=\"left: 0px; right: inherit;\">\n                            <li><a href=\"#\" class=\"dropdown-item\">Rekapitulasi Tahun 2023 </a></li>\n                        </ul>\n                    </li>\n                    <li class=\"nav-item dropdown\">\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\n                            class=\"nav-link dropdown-toggle\">Rekap Triwulan</a>\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\n                            style=\"left: 0px; right: inherit;\">\n                            <li><a href=\"#\" class=\"dropdown-item\">Triwulan I</a></li>\n                            <li><a href=\"#\" class=\"dropdown-item\">Triwulan II</a></li>\n                            <li><a href=\"#\" class=\"dropdown-item\">Triwulan III</a></li>\n                        </ul>\n                    </li>\n\n                    <li class=\"nav-item\">\n                        <router-link to=\"tentang\" class=\"nav-link\">Tentang</router-link>\n                    </li>\n                    <li class=\"nav-item\">\n                        <router-link to=\"kontak\" class=\"nav-link\">Kontak</router-link>\n                    </li>\n\n                    <li v-if=\"!currentUser\" class=\"nav-item\">\n                        <router-link to=\"login\" class=\"nav-link\">Login</router-link>\n                    </li>\n\n                    <li v-if=\"currentUser\" class=\"nav-item\">\n                        <a @click.prevent=\"logOut\" class=\"nav-link\">\n                            <p>Logout</p>\n                        </a>\n                    </li>\n                </ul> ")], -1 /* HOISTED */);
 });
-var _hoisted_23 = {
+var _hoisted_34 = {
   "class": "content-wrapper"
 };
-var _hoisted_24 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_35 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("footer", {
     "class": "main-footer"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -112,7 +180,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
   var _component_vue_progress_bar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("vue-progress-bar");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\n                        <router-link to=\"daftar-tamu\" class=\"nav-link\">Daftar Tamu</router-link>\n                    </li>\n                    <li class=\"nav-item\">\n                        <router-link to=\"dashboard\" class=\"nav-link\">Dashboard</router-link>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"https://ptsp.kemenagpessel.com\" class=\"nav-link\">Pelayanan Publik</a>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"https://ppid.kemenagpessel.com\" class=\"nav-link\">Pelayanan Informasi</a>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"https://datuak.kemenagpessel.com\" class=\"nav-link\">Satu Data</a>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"#\" class=\"nav-link\">Kontak</a>\n                    </li>\n\n                    <li v-if=\"!currentUser\" class=\"nav-item\">\n                        <router-link to=\"login\" class=\"nav-link\">Login</router-link>\n                    </li>\n\n                    <li v-if=\"currentUser\" class=\"nav-item\">\n                        <a @click.prevent=\"logOut\" class=\"nav-link\">\n                            <p>Logout</p>\n                        </a>\n                    </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: "landing",
     "class": "nav-link"
   }, {
@@ -121,7 +189,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     _: 1 /* STABLE */
   })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "daftar-tamu",
+    to: "isi-survey",
     "class": "nav-link"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -129,43 +197,83 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     _: 1 /* STABLE */
   })]), $options.currentUser ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "dashboard",
+    to: "response",
     "class": "nav-link"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_12];
     }),
     _: 1 /* STABLE */
-  })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "tentang",
-    "class": "nav-link"
-  }, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_14];
-    }),
-    _: 1 /* STABLE */
-  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "kontak",
-    "class": "nav-link"
+  })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "rekap-tahunan?year=2023",
+    "class": "dropdown-item"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_16];
     }),
     _: 1 /* STABLE */
-  })]), !$options.currentUser ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  })])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "rekap-triwulan?quarter=1",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_20];
+    }),
+    _: 1 /* STABLE */
+  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "rekap-triwulan?quarter=2",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_21];
+    }),
+    _: 1 /* STABLE */
+  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "rekap-triwulan?quarter=3",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_22];
+    }),
+    _: 1 /* STABLE */
+  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "rekap-triwulan?quarter=4",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_23];
+    }),
+    _: 1 /* STABLE */
+  })])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "tentang",
+    "class": "nav-link"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_25];
+    }),
+    _: 1 /* STABLE */
+  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "kontak",
+    "class": "nav-link"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_27];
+    }),
+    _: 1 /* STABLE */
+  })]), !$options.currentUser ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: "login",
     "class": "nav-link"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_18];
+      return [_hoisted_29];
     }),
     _: 1 /* STABLE */
-  })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $options.currentUser ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $options.currentUser ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.logOut && $options.logOut.apply($options, arguments);
     }, ["prevent"])),
     "class": "nav-link"
-  }, _hoisted_21)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), _hoisted_22])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_vue_progress_bar)]), _hoisted_24], 64 /* STABLE_FRAGMENT */);
+  }, _hoisted_32)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"navbar-nav\">\n\n                    <li class=\"nav-item\">\n                        <router-link to=\"landing\" class=\"nav-link\">Beranda</router-link>\n                    </li>\n                    <li class=\"nav-item\">\n                        <router-link to=\"isi-survey\" class=\"nav-link\">Isi Survey</router-link>\n                    </li>\n                    <li class=\"nav-item\">\n                        <router-link to=\"daftar-tamu\" class=\"nav-link\">Daftar Tamu</router-link>\n                    </li>\n                    <li class=\"nav-item dropdown\">\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\n                            class=\"nav-link dropdown-toggle\">Rekap Tahunan</a>\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\n                            style=\"left: 0px; right: inherit;\">\n                            <li><a href=\"#\" class=\"dropdown-item\">Rekapitulasi Tahun 2023 </a></li>\n                        </ul>\n                    </li>\n                    <li class=\"nav-item dropdown\">\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\n                            class=\"nav-link dropdown-toggle\">Rekap Triwulan</a>\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\n                            style=\"left: 0px; right: inherit;\">\n                            <li><a href=\"#\" class=\"dropdown-item\">Triwulan I</a></li>\n                            <li><a href=\"#\" class=\"dropdown-item\">Triwulan II</a></li>\n                            <li><a href=\"#\" class=\"dropdown-item\">Triwulan III</a></li>\n                        </ul>\n                    </li>\n\n                    <li class=\"nav-item\">\n                        <router-link to=\"tentang\" class=\"nav-link\">Tentang</router-link>\n                    </li>\n                    <li class=\"nav-item\">\n                        <router-link to=\"kontak\" class=\"nav-link\">Kontak</router-link>\n                    </li>\n\n                    <li v-if=\"!currentUser\" class=\"nav-item\">\n                        <router-link to=\"login\" class=\"nav-link\">Login</router-link>\n                    </li>\n\n                    <li v-if=\"currentUser\" class=\"nav-item\">\n                        <a @click.prevent=\"logOut\" class=\"nav-link\">\n                            <p>Logout</p>\n                        </a>\n                    </li>\n                </ul> ")]), _hoisted_33])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_vue_progress_bar)]), _hoisted_35], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
