@@ -19,7 +19,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         }
     </style>
 
-    <title>SIMBUTU DIGITAL - Sistem Informasi Buku Tamu Digital</title>
+    <title>SIKM KemenagPessel - Sistem Indeks Kepuasan Masyarakat</title>
 
     <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 </head>
