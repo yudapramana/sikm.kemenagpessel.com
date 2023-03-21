@@ -136,19 +136,19 @@ Route::post('/store/survey', function (Request $request) {
     $mutuPelayanan = null;
 
     switch ($index_pelayanan) {
-        case $index_pelayanan > 3.5:
+        case $index_pelayanan > 3.26:
             $mutuPelayanan = 'A (Sangat Baik)';
             break;
 
-        case $index_pelayanan > 3.2 && $index_pelayanan <= 3.5:
+        case $index_pelayanan > 2.51 && $index_pelayanan <= 3.25:
             $mutuPelayanan = 'B (Baik)';
             break;
 
-        case $index_pelayanan > 2.5 && $index_pelayanan <= 3.2:
+        case $index_pelayanan > 1.76 && $index_pelayanan <= 2.5:
             $mutuPelayanan = 'C (Kurang Baik)';
             break;
 
-        case $index_pelayanan <= 2.5:
+        case $index_pelayanan <= 1.75:
             $mutuPelayanan = 'D (Buruk)';
             break;
 
