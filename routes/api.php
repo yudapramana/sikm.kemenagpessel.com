@@ -56,13 +56,25 @@ Route::get('/get/questions', function () {
     return $data;
 });
 
-Route::get('/get/layanan', function () {
-    $layanans = \App\Models\DaftarLayanan::all();
+Route::get('/get/layanan/{id_unit}', function ($id_unit) {
+    $layanans = \App\Models\DaftarLayanan::where('id_unit_pengolah', $id_unit)->get();
     $data = [];
     foreach ($layanans as $key => $item) {
         $data[] = [
             'id' => $item->id_layanan,
-            'text' => $item->unit->name . ' - ' . $item->name
+            'text' => $item->name
+        ];
+    }
+    return $data;
+});
+
+Route::get('/get/unit/', function () {
+    $layanans = \App\Models\UnitPengolah::all();
+    $data = [];
+    foreach ($layanans as $key => $item) {
+        $data[] = [
+            'id' => $item->id_unit_pengolah,
+            'text' => $item->name
         ];
     }
     return $data;

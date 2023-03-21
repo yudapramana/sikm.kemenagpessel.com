@@ -192,7 +192,7 @@ var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
     "class": "card-header"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
     "class": "card-title m-0"
-  }, "Daftar Buku Tamu")], -1 /* HOISTED */);
+  }, "Rekapitulasi Respon")], -1 /* HOISTED */);
 });
 var _hoisted_8 = {
   "class": "card-body"

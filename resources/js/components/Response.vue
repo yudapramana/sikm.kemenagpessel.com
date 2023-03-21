@@ -23,7 +23,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title m-0">Daftar Buku Tamu</h4>
+                            <h4 class="card-title m-0">Rekapitulasi Respon</h4>
                         </div>
 
                         <div class="card-body">

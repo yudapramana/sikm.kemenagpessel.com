@@ -160,6 +160,7 @@ var quiz = {
       userResponses: userResponseSkelaton,
       isActive: false,
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["default"]({
+        id_unit_pengolah: null,
         id_layanan: null,
         name: null,
         address: null,
@@ -173,7 +174,8 @@ var quiz = {
         improvement: 'Tidak ada yang perlu diperbaiki'
       }),
       myValue: '',
-      myOptions: ['op1', 'op2', 'op3'],
+      myOptions: [],
+      myOptionsLayanan: [],
       genderOptions: ['Laki-laki', 'Perempuan'],
       educationOptions: ['SD', 'SMP atau Sederajat', 'SMA atau Sederajat', 'Strata 1 (S1)', 'Strata 2 (S2)', 'Strata 3 (S3)'],
       workOptions: ['PNS / TNI / POLRI', 'Pegawai Swasta', 'Wiraswasta', 'Tenaga Honor / Ahli / Kontrak', 'Pelajar / Mahasiswa', 'Lainnya'],
@@ -192,19 +194,26 @@ var quiz = {
     'has-error': vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_4__.HasError
   },
   methods: {
-    loadLayanan: function loadLayanan() {
+    loadUnit: function loadUnit() {
       var _this = this;
-      axios.get('/api/get/layanan').then(function (response) {
+      axios.get('/api/get/unit').then(function (response) {
         console.log(response);
         _this.myOptions = response.data;
       });
     },
-    loadQuestion: function loadQuestion() {
+    loadLayanan: function loadLayanan(id_unit_pengolah) {
       var _this2 = this;
+      axios.get('/api/get/layanan/' + id_unit_pengolah).then(function (response) {
+        console.log(response);
+        _this2.myOptionsLayanan = response.data;
+      });
+    },
+    loadQuestion: function loadQuestion() {
+      var _this3 = this;
       axios.get('/api/get/questions').then(function (response) {
         // console.log(response);
-        _this2.quiz.questions = response.data;
-        _this2.userResponses = Array(_this2.quiz.questions.length).fill(null);
+        _this3.quiz.questions = response.data;
+        _this3.userResponses = Array(_this3.quiz.questions.length).fill(null);
       });
     },
     restart: function restart() {
@@ -250,7 +259,7 @@ var quiz = {
       //return this.userResponses.filter(function(val) { return val }).length;
     },
     submitSurvey: function submitSurvey() {
-      var _this3 = this;
+      var _this4 = this;
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
@@ -259,27 +268,38 @@ var quiz = {
         console.log('response storeSurvey');
         console.log(response);
         setTimeout(function () {
-          _this3.loading = false;
-          _this3.disabled = false;
-          _this3.$Progress.finish();
+          _this4.loading = false;
+          _this4.disabled = false;
+          _this4.$Progress.finish();
           Toast.fire({
             icon: "success",
             title: "Data saved successfully"
           });
-          if (_this3.questionIndex < _this3.quiz.questions.length + 1) _this3.questionIndex++;
+          if (_this4.questionIndex < _this4.quiz.questions.length + 1) _this4.questionIndex++;
         }, 1000);
       })["catch"](function (error) {
         console.log(error);
         sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire("Failed", error, "warning");
-        _this3.loading = false;
-        _this3.disabled = false;
-        _this3.$Progress.finish();
+        _this4.loading = false;
+        _this4.disabled = false;
+        _this4.$Progress.finish();
       });
     }
   },
   mounted: function mounted() {
-    this.loadLayanan();
+    this.loadUnit();
     this.loadQuestion();
+  },
+  watch: {
+    'form.id_unit_pengolah': {
+      handler: function handler(id_unit_pengolah) {
+        console.log('id_unit_pengolah');
+        console.log(id_unit_pengolah);
+        this.loadLayanan(id_unit_pengolah);
+      },
+      deep: true,
+      immediate: true
+    }
   }
 });
 
@@ -335,7 +355,7 @@ var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "inputText",
     "class": "col-sm-3 col-form-label"
-  }, "Nama Pelayanan", -1 /* HOISTED */);
+  }, "Unit Pelayanan", -1 /* HOISTED */);
 });
 var _hoisted_10 = {
   "class": "col-sm-9"
@@ -347,7 +367,7 @@ var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "inputText",
     "class": "col-sm-3 col-form-label"
-  }, "Nama Responden", -1 /* HOISTED */);
+  }, "Nama Pelayanan", -1 /* HOISTED */);
 });
 var _hoisted_13 = {
   "class": "col-sm-9"
@@ -359,7 +379,7 @@ var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "inputText",
     "class": "col-sm-3 col-form-label"
-  }, "Alamat", -1 /* HOISTED */);
+  }, "Nama Responden", -1 /* HOISTED */);
 });
 var _hoisted_16 = {
   "class": "col-sm-9"
@@ -371,7 +391,7 @@ var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "inputText",
     "class": "col-sm-3 col-form-label"
-  }, "No Telp / HP", -1 /* HOISTED */);
+  }, "Alamat", -1 /* HOISTED */);
 });
 var _hoisted_19 = {
   "class": "col-sm-9"
@@ -381,8 +401,9 @@ var _hoisted_20 = {
 };
 var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": "inputText",
     "class": "col-sm-3 col-form-label"
-  }, "Usia", -1 /* HOISTED */);
+  }, "No Telp / HP", -1 /* HOISTED */);
 });
 var _hoisted_22 = {
   "class": "col-sm-9"
@@ -393,7 +414,7 @@ var _hoisted_23 = {
 var _hoisted_24 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "class": "col-sm-3 col-form-label"
-  }, "Jenis Kelamin", -1 /* HOISTED */);
+  }, "Usia", -1 /* HOISTED */);
 });
 var _hoisted_25 = {
   "class": "col-sm-9"
@@ -404,7 +425,7 @@ var _hoisted_26 = {
 var _hoisted_27 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "class": "col-sm-3 col-form-label"
-  }, "Pendidikan Terakhir", -1 /* HOISTED */);
+  }, "Jenis Kelamin", -1 /* HOISTED */);
 });
 var _hoisted_28 = {
   "class": "col-sm-9"
@@ -415,46 +436,57 @@ var _hoisted_29 = {
 var _hoisted_30 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "class": "col-sm-3 col-form-label"
-  }, "Pekerjaan", -1 /* HOISTED */);
+  }, "Pendidikan Terakhir", -1 /* HOISTED */);
 });
 var _hoisted_31 = {
   "class": "col-sm-9"
 };
 var _hoisted_32 = {
+  "class": "row mb-3"
+};
+var _hoisted_33 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "col-sm-3 col-form-label"
+  }, "Pekerjaan", -1 /* HOISTED */);
+});
+var _hoisted_34 = {
+  "class": "col-sm-9"
+};
+var _hoisted_35 = {
   "class": "questionFooter"
 };
-var _hoisted_33 = {
+var _hoisted_36 = {
   "class": "pagination",
   role: "navigation",
   "aria-label": "pagination"
 };
-var _hoisted_34 = ["disabled"];
-var _hoisted_35 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_37 = ["disabled"];
+var _hoisted_38 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
     "class": "title is-6"
   }, "Survey Indeks Kepuasan Masyarakat", -1 /* HOISTED */);
 });
-var _hoisted_36 = {
+var _hoisted_39 = {
   "class": "progressContainer"
 };
-var _hoisted_37 = ["value"];
-var _hoisted_38 = {
+var _hoisted_40 = ["value"];
+var _hoisted_41 = {
   "class": "titleContainer title"
 };
-var _hoisted_39 = {
+var _hoisted_42 = {
   "class": "optionContainer"
 };
-var _hoisted_40 = ["onClick"];
-var _hoisted_41 = {
+var _hoisted_43 = ["onClick"];
+var _hoisted_44 = {
   "class": "questionFooter"
 };
-var _hoisted_42 = {
+var _hoisted_45 = {
   "class": "pagination",
   role: "navigation",
   "aria-label": "pagination"
 };
-var _hoisted_43 = ["disabled"];
-var _hoisted_44 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_46 = ["disabled"];
+var _hoisted_47 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("header", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
     "class": "title is-6"
   }, "Survey Indeks Kepuasan Masyarakat"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
@@ -465,87 +497,87 @@ var _hoisted_44 = /*#__PURE__*/_withScopeId(function () {
     }
   }, ".: Feedback Responden :.")], -1 /* HOISTED */);
 });
-var _hoisted_45 = {
+var _hoisted_48 = {
   "class": "row m-3"
 };
-var _hoisted_46 = {
+var _hoisted_49 = {
   "class": "col-12"
 };
-var _hoisted_47 = {
+var _hoisted_50 = {
   "class": "row mb-3"
 };
-var _hoisted_48 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_51 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "class": "col-sm-3 col-form-label"
   }, "Perbaikan yang perlu dilakukan", -1 /* HOISTED */);
 });
-var _hoisted_49 = {
+var _hoisted_52 = {
   "class": "col-sm-9"
 };
-var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option selected=\"selected\" value=\"Tidak ada yang perlu diperbaiki\" data-v-528d9344>Tidak ada yang perlu diperbaiki </option><option value=\"Kebijakan Pelayanan\" data-v-528d9344>Kebijakan Pelayanan</option><option value=\"Profesionalisme SDM\" data-v-528d9344>Profesionalisme SDM</option><option value=\"Kualitas Sarana dan Prasarana\" data-v-528d9344>Kualitas Sarana dan Prasarana </option><option value=\"Sistem Informasi dan Pelayanan Publik\" data-v-528d9344>Sistem Informasi dan Pelayanan Publik</option><option value=\"Konsultasi dan Pengaduan\" data-v-528d9344>Konsultasi dan Pengaduan</option><option value=\"Penghilangan Praktek Pungli\" data-v-528d9344>Penghilangan Praktek Pungli</option><option value=\"Penghilangan Praktek diluar Prosedur\" data-v-528d9344>Penghilangan Praktek diluar Prosedur</option><option value=\"Penghilangan Praktek Percaloan\" data-v-528d9344>Penghilangan Praktek Percaloan </option>", 9);
-var _hoisted_59 = [_hoisted_50];
-var _hoisted_60 = {
+var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option selected=\"selected\" value=\"Tidak ada yang perlu diperbaiki\" data-v-528d9344>Tidak ada yang perlu diperbaiki </option><option value=\"Kebijakan Pelayanan\" data-v-528d9344>Kebijakan Pelayanan</option><option value=\"Profesionalisme SDM\" data-v-528d9344>Profesionalisme SDM</option><option value=\"Kualitas Sarana dan Prasarana\" data-v-528d9344>Kualitas Sarana dan Prasarana </option><option value=\"Sistem Informasi dan Pelayanan Publik\" data-v-528d9344>Sistem Informasi dan Pelayanan Publik</option><option value=\"Konsultasi dan Pengaduan\" data-v-528d9344>Konsultasi dan Pengaduan</option><option value=\"Penghilangan Praktek Pungli\" data-v-528d9344>Penghilangan Praktek Pungli</option><option value=\"Penghilangan Praktek diluar Prosedur\" data-v-528d9344>Penghilangan Praktek diluar Prosedur</option><option value=\"Penghilangan Praktek Percaloan\" data-v-528d9344>Penghilangan Praktek Percaloan </option>", 9);
+var _hoisted_62 = [_hoisted_53];
+var _hoisted_63 = {
   "class": "row mb-3"
 };
-var _hoisted_61 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_64 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "inputText",
     "class": "col-sm-3 col-form-label"
   }, "Saran dan Kritik yang Membangun", -1 /* HOISTED */);
 });
-var _hoisted_62 = {
+var _hoisted_65 = {
   "class": "col-sm-9"
 };
-var _hoisted_63 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_66 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
 });
-var _hoisted_64 = {
+var _hoisted_67 = {
   "class": "questionFooter"
 };
-var _hoisted_65 = {
+var _hoisted_68 = {
   "class": "pagination",
   role: "navigation",
   "aria-label": "pagination"
 };
-var _hoisted_66 = ["disabled"];
-var _hoisted_67 = ["disabled"];
-var _hoisted_68 = {
+var _hoisted_69 = ["disabled"];
+var _hoisted_70 = ["disabled"];
+var _hoisted_71 = {
   "class": "fa fa-spinner fa-spin"
 };
-var _hoisted_69 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)('Submit & Finish'));
-var _hoisted_70 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_72 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)('Submit & Finish'));
+var _hoisted_73 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "icon"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     "class": "fa fa-check-circle is-active"
   })], -1 /* HOISTED */);
 });
-var _hoisted_71 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_74 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
     style: {
       "font-size": "x-large"
     }
   }, "Terima Kasih telah mengisi Survey / Kuesioner", -1 /* HOISTED */);
 });
-var _hoisted_72 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_75 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
 });
-var _hoisted_73 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_76 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
 });
-var _hoisted_74 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_77 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     "class": "fa fa-home"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_75 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("  Beranda ");
-var _hoisted_76 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_78 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("  Beranda ");
+var _hoisted_79 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     "class": "fa fa-refresh"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_77 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("  Isi Ulang Survey");
-var _hoisted_78 = [_hoisted_76, _hoisted_77];
+var _hoisted_80 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("  Isi Ulang Survey");
+var _hoisted_81 = [_hoisted_79, _hoisted_80];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Select2 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Select2");
   var _component_has_error = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("has-error");
@@ -555,7 +587,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: $data.questionIndex
   }, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     id: "biodataForm",
-    onSubmit: _cache[9] || (_cache[9] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+    onSubmit: _cache[10] || (_cache[10] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return _ctx.editModal ? _ctx.updateData() : _ctx.saveData();
     }, ["prevent"]))
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
@@ -566,52 +598,64 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.form.id = $event;
     })
   }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select2, {
-    modelValue: $data.form.id_layanan,
+    modelValue: $data.form.id_unit_pengolah,
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return $data.form.id_layanan = $event;
+      return $data.form.id_unit_pengolah = $event;
     }),
     options: $data.myOptions,
+    settings: {
+      theme: 'default',
+      width: '100%',
+      placeholder: 'Pilih Unit Layanan'
+    },
+    required: ""
+  }, null, 8 /* PROPS */, ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select2, {
+    modelValue: $data.form.id_layanan,
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $data.form.id_layanan = $event;
+    }),
+    options: $data.myOptionsLayanan,
     settings: {
       theme: 'default',
       width: '100%',
       placeholder: 'Pilih Layanan'
     },
     required: ""
-  }, null, 8 /* PROPS */, ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 8 /* PROPS */, ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", {
       'is-invalid': $data.form.errors.has('name')
     }]),
     id: "name",
     name: "name",
-    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return $data.form.name = $event;
     }),
     required: ""
   }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.name]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_has_error, {
     form: $data.form,
     field: "name"
-  }, null, 8 /* PROPS */, ["form"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+  }, null, 8 /* PROPS */, ["form"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     "class": "form-control",
     name: "address",
     id: "address",
     cols: "30",
     rows: "2",
-    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $data.form.address = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.address]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.address]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": "form-control",
     id: "no_hp",
     name: "no_hp",
     required: "",
-    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return $data.form.no_hp = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.no_hp]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select name=\"age\" id=\"age\" class=\"form-control\" v-model=\"form.age\" placeholder=\"-- Pilih Usia --\">\n                                            <option value=\"\">-- Pilih Usia --</option>\n                                            <option selected=\"selected\" value=\"Dibawah 20 Tahun\">Dibawah 20 Tahun</option>\n                                            <option value=\"21 s/d 30 Tahun\">21 s/d 30 Tahun</option>\n                                            <option value=\"31 s/d 40 Tahun\">31 s/d 40 Tahun</option>\n                                            <option value=\"41 s/d 50 Tahun\">41 s/d 50 Tahun</option>\n                                            <option value=\"Diatas 50 Tahun\">Diatas 50 Tahun</option>\n                                        </select> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select2, {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.no_hp]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [_hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select name=\"age\" id=\"age\" class=\"form-control\" v-model=\"form.age\" placeholder=\"-- Pilih Usia --\">\n                                            <option value=\"\">-- Pilih Usia --</option>\n                                            <option selected=\"selected\" value=\"Dibawah 20 Tahun\">Dibawah 20 Tahun</option>\n                                            <option value=\"21 s/d 30 Tahun\">21 s/d 30 Tahun</option>\n                                            <option value=\"31 s/d 40 Tahun\">31 s/d 40 Tahun</option>\n                                            <option value=\"41 s/d 50 Tahun\">41 s/d 50 Tahun</option>\n                                            <option value=\"Diatas 50 Tahun\">Diatas 50 Tahun</option>\n                                        </select> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select2, {
     modelValue: $data.form.age,
-    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+    "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
       return $data.form.age = $event;
     }),
     options: $data.ageOptions,
@@ -621,9 +665,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       placeholder: '-- Pilih Usia --'
     },
     required: ""
-  }, null, 8 /* PROPS */, ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [_hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select name=\"gender\" id=\"gender\" class=\"form-control\" v-model=\"form.gender\">\n                                            <option value=\"\">-- Pilih Jenis Kelamin --</option>\n                                            <option selected=\"selected\" value=\"Laki-laki\">Laki-laki</option>\n                                            <option value=\"Perempuan\">Perempuan</option>\n                                        </select> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select2, {
+  }, null, 8 /* PROPS */, ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [_hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select name=\"gender\" id=\"gender\" class=\"form-control\" v-model=\"form.gender\">\n                                            <option value=\"\">-- Pilih Jenis Kelamin --</option>\n                                            <option selected=\"selected\" value=\"Laki-laki\">Laki-laki</option>\n                                            <option value=\"Perempuan\">Perempuan</option>\n                                        </select> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select2, {
     modelValue: $data.form.gender,
-    "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+    "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
       return $data.form.gender = $event;
     }),
     options: $data.genderOptions,
@@ -633,9 +677,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       placeholder: '-- Pilih Jenis Kelamin --'
     },
     required: ""
-  }, null, 8 /* PROPS */, ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [_hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select name=\"education\" id=\"education\" class=\"form-control\"\n                                            v-model=\"form.education\">\n                                            <option selected=\"selected\" value=\"\">-- Pilih Pendidikan Terakhir --</option>\n                                            <option value=\"SD\">SD</option>\n                                            <option value=\"SMP atau Sederajat\">SMP atau Sederajat</option>\n                                            <option value=\"SMA atau Sederajat\">SMA atau Sederajat</option>\n                                            <option value=\"Strata 1 (S1)\">Strata 1 (S1)</option>\n                                            <option value=\"Strata 2 (S2)\">Strata 2 (S2)</option>\n                                            <option value=\"Strata 3 (S3)\">Strata 3 (S3)</option>\n                                        </select> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select2, {
+  }, null, 8 /* PROPS */, ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [_hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select name=\"education\" id=\"education\" class=\"form-control\"\n                                            v-model=\"form.education\">\n                                            <option selected=\"selected\" value=\"\">-- Pilih Pendidikan Terakhir --</option>\n                                            <option value=\"SD\">SD</option>\n                                            <option value=\"SMP atau Sederajat\">SMP atau Sederajat</option>\n                                            <option value=\"SMA atau Sederajat\">SMA atau Sederajat</option>\n                                            <option value=\"Strata 1 (S1)\">Strata 1 (S1)</option>\n                                            <option value=\"Strata 2 (S2)\">Strata 2 (S2)</option>\n                                            <option value=\"Strata 3 (S3)\">Strata 3 (S3)</option>\n                                        </select> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select2, {
     modelValue: $data.form.education,
-    "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
       return $data.form.education = $event;
     }),
     options: $data.educationOptions,
@@ -645,9 +689,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       placeholder: '-- Pilih Pendidikan Terakhir --'
     },
     required: ""
-  }, null, 8 /* PROPS */, ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [_hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select name=\"work\" id=\"work\" class=\"form-control\" v-model=\"form.work\">\n                                            <option selected=\"selected\" value=\"\">-- Pilih Pekerjaan --</option>\n                                            <option value=\"PNS / TNI / POLRI\">PNS / TNI / POLRI</option>\n                                            <option value=\"Pegawai Swasta\">Pegawai Swasta</option>\n                                            <option value=\"Wiraswasta\">Wiraswasta</option>\n                                            <option value=\"Tenaga Honor / Ahli / Kontrak\">Tenaga Honor / Ahli / Kontrak</option>\n                                            <option value=\"Pelajar / Mahasiswa\">Pelajar / Mahasiswa</option>\n                                            <option value=\"Lainnya\">Lainnya</option>\n                                        </select> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select2, {
+  }, null, 8 /* PROPS */, ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [_hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select name=\"work\" id=\"work\" class=\"form-control\" v-model=\"form.work\">\n                                            <option selected=\"selected\" value=\"\">-- Pilih Pekerjaan --</option>\n                                            <option value=\"PNS / TNI / POLRI\">PNS / TNI / POLRI</option>\n                                            <option value=\"Pegawai Swasta\">Pegawai Swasta</option>\n                                            <option value=\"Wiraswasta\">Wiraswasta</option>\n                                            <option value=\"Tenaga Honor / Ahli / Kontrak\">Tenaga Honor / Ahli / Kontrak</option>\n                                            <option value=\"Pelajar / Mahasiswa\">Pelajar / Mahasiswa</option>\n                                            <option value=\"Lainnya\">Lainnya</option>\n                                        </select> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select2, {
     modelValue: $data.form.work,
-    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
+    "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
       return $data.form.work = $event;
     }),
     options: $data.workOptions,
@@ -657,25 +701,25 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       placeholder: '-- Pilih Pekerjaan --'
     },
     required: ""
-  }, null, 8 /* PROPS */, ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"row mb-3\">\n                                    <label class=\"col-sm-3 col-form-label\">Perbaikan yang perlu dilakukan</label>\n                                    <div class=\"col-sm-9\">\n                                        <select name=\"improvement\" id=\"improvement\" class=\"form-control\"\n                                            v-model=\"form.improvement\">\n                                            <option value=\"\">-- Pilih Pekerjaan --</option>\n                                            <option value=\"Kebijakan Pelayanan\">Kebijakan Pelayanan</option>\n                                            <option value=\"Profesionalisme SDM\">Profesionalisme SDM</option>\n                                            <option value=\"Kualitas Sarana dan Prasarana\">Kualitas Sarana dan Prasarana\n                                            </option>\n                                            <option value=\"Sistem Informasi dan Pelayanan Publik\">Sistem Informasi dan\n                                                Pelayanan Publik</option>\n                                            <option value=\"Konsultasi dan Pengaduan\">Konsultasi dan Pengaduan</option>\n                                            <option value=\"Penghilangan Praktek Pungli\">Penghilangan Praktek Pungli</option>\n                                            <option value=\"Penghilangan Praktek diluar Prosedur\">Penghilangan Praktek diluar\n                                                Prosedur</option>\n                                            <option value=\"Penghilangan Praktek Percaloan\">Penghilangan Praktek Percaloan\n                                            </option>\n                                            <option value=\"Tidak ada yang perlu diperbaiki\">Tidak ada yang perlu diperbaiki\n                                            </option>\n                                        </select>\n                                    </div>\n                                </div>\n\n                                <div class=\"row mb-3\">\n                                    <label for=\"inputText\" class=\"col-sm-3 col-form-label\">Saran dan Kritik yang\n                                        Membangun</label>\n                                    <div class=\"col-sm-9\">\n                                        <textarea class=\"form-control\" name=\"feedback\" id=\"feedback\" cols=\"30\" rows=\"2\"\n                                            v-model=\"form.feedback\"></textarea>\n                                    </div>\n                                </div> ")])])], 32 /* HYDRATE_EVENTS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("quizFooter: navigation and progress"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("footer", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("pagination"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" back button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, null, 8 /* PROPS */, ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"row mb-3\">\n                                    <label class=\"col-sm-3 col-form-label\">Perbaikan yang perlu dilakukan</label>\n                                    <div class=\"col-sm-9\">\n                                        <select name=\"improvement\" id=\"improvement\" class=\"form-control\"\n                                            v-model=\"form.improvement\">\n                                            <option value=\"\">-- Pilih Pekerjaan --</option>\n                                            <option value=\"Kebijakan Pelayanan\">Kebijakan Pelayanan</option>\n                                            <option value=\"Profesionalisme SDM\">Profesionalisme SDM</option>\n                                            <option value=\"Kualitas Sarana dan Prasarana\">Kualitas Sarana dan Prasarana\n                                            </option>\n                                            <option value=\"Sistem Informasi dan Pelayanan Publik\">Sistem Informasi dan\n                                                Pelayanan Publik</option>\n                                            <option value=\"Konsultasi dan Pengaduan\">Konsultasi dan Pengaduan</option>\n                                            <option value=\"Penghilangan Praktek Pungli\">Penghilangan Praktek Pungli</option>\n                                            <option value=\"Penghilangan Praktek diluar Prosedur\">Penghilangan Praktek diluar\n                                                Prosedur</option>\n                                            <option value=\"Penghilangan Praktek Percaloan\">Penghilangan Praktek Percaloan\n                                            </option>\n                                            <option value=\"Tidak ada yang perlu diperbaiki\">Tidak ada yang perlu diperbaiki\n                                            </option>\n                                        </select>\n                                    </div>\n                                </div>\n\n                                <div class=\"row mb-3\">\n                                    <label for=\"inputText\" class=\"col-sm-3 col-form-label\">Saran dan Kritik yang\n                                        Membangun</label>\n                                    <div class=\"col-sm-9\">\n                                        <textarea class=\"form-control\" name=\"feedback\" id=\"feedback\" cols=\"30\" rows=\"2\"\n                                            v-model=\"form.feedback\"></textarea>\n                                    </div>\n                                </div> ")])])], 32 /* HYDRATE_EVENTS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("quizFooter: navigation and progress"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("footer", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("pagination"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" back button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "button",
-    onClick: _cache[10] || (_cache[10] = function ($event) {
+    onClick: _cache[11] || (_cache[11] = function ($event) {
       $options.prev();
     }),
     disabled: $data.questionIndex == -1
-  }, " Back ", 8 /* PROPS */, _hoisted_34), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, " Back ", 8 /* PROPS */, _hoisted_37), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "button is-active",
-    onClick: _cache[11] || (_cache[11] = function ($event) {
+    onClick: _cache[12] || (_cache[12] = function ($event) {
       $options.nextBiodata();
     })
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)('Next'))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/pagination")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/quizFooter")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/biodataContainer"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("questionContainer"), $data.questionIndex < $data.quiz.questions.length && $data.questionIndex != -1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     "class": "questionContainer",
     key: $data.questionIndex
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("header", null, [_hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("progress"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("progress", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("header", null, [_hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("progress"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("progress", {
     "class": "progress is-info is-small",
     value: $data.questionIndex / $data.quiz.questions.length * 100,
     max: "100"
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.questionIndex / $data.quiz.questions.length * 100) + "%", 9 /* TEXT, PROPS */, _hoisted_37), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)('Survey Ke-' + ($data.questionIndex + 1) + ' dari ' + $data.quiz.questions.length) + " Total", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/progress")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" questionTitle "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.quiz.questions[$data.questionIndex].text), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" quizOptions "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.quiz.questions[$data.questionIndex].responses, function (response, index) {
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.questionIndex / $data.quiz.questions.length * 100) + "%", 9 /* TEXT, PROPS */, _hoisted_40), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)('Survey Ke-' + ($data.questionIndex + 1) + ' dari ' + $data.quiz.questions.length) + " Total", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/progress")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" questionTitle "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.quiz.questions[$data.questionIndex].text), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" quizOptions "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.quiz.questions[$data.questionIndex].responses, function (response, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["option", {
         'is-selected': $data.userResponses[$data.questionIndex] == index + 1
@@ -684,79 +728,79 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return $options.selectOption(index + 1);
       },
       key: index
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.charIndex(index)) + ". " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(response.text), 11 /* TEXT, CLASS, PROPS */, _hoisted_40);
-  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("quizFooter: navigation and progress"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("footer", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("pagination"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" back button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.charIndex(index)) + ". " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(response.text), 11 /* TEXT, CLASS, PROPS */, _hoisted_43);
+  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("quizFooter: navigation and progress"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("footer", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("pagination"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" back button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "button",
-    onClick: _cache[12] || (_cache[12] = function ($event) {
+    onClick: _cache[13] || (_cache[13] = function ($event) {
       $options.prev();
     }),
     disabled: $data.questionIndex < 1
-  }, " Back ", 8 /* PROPS */, _hoisted_43), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" next button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a class=\"button\" :class=\"(userResponses[questionIndex] == null) ? '' : 'is-active'\"\n                                v-on:click=\"next();\" :disabled=\"questionIndex >= quiz.questions.length\">\n                                {{ (userResponses[questionIndex] == null) ? 'Skip' : 'Next' }}\n                            </a> "), $data.userResponses[$data.questionIndex] != null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+  }, " Back ", 8 /* PROPS */, _hoisted_46), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" next button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a class=\"button\" :class=\"(userResponses[questionIndex] == null) ? '' : 'is-active'\"\n                                v-on:click=\"next();\" :disabled=\"questionIndex >= quiz.questions.length\">\n                                {{ (userResponses[questionIndex] == null) ? 'Skip' : 'Next' }}\n                            </a> "), $data.userResponses[$data.questionIndex] != null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
     key: 0,
     "class": "button is-active",
-    onClick: _cache[13] || (_cache[13] = function ($event) {
+    onClick: _cache[14] || (_cache[14] = function ($event) {
       $options.next();
     })
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)('Next'))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                             \n                            <a class=\"button is-active\"\n                                v-if=\"(userResponses[questionIndex] != null && questionIndex != quiz.questions.length - 1)\"\n                                v-on:click=\"next();\" :disabled=\"questionIndex >= quiz.questions.length\">\n                                {{ 'Next' }}\n                            </a>\n\n                            <button class=\"button is-active\"\n                                v-if=\"(userResponses[questionIndex] != null && questionIndex == quiz.questions.length - 1)\"\n                                v-on:click=\"submitSurvey();\" :disabled=\"disabled\">\n                                <i v-show=\"loading\" class=\"fa fa-spinner fa-spin\"></i>\n                                {{ 'Submit & Finish' }}\n                            </button> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a class=\"button\" :class=\"(userResponses[questionIndex] == null) ? '' : 'is-active'\"\n                                v-on:click=\"next();\" :disabled=\"questionIndex >= quiz.questions.length\">\n                                {{ (userResponses[questionIndex] == null) ? 'Skip' : 'Next' }}\n                            </a> ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/pagination")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/quizFooter")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/questionContainer"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("biodataContainer"), $data.questionIndex == $data.quiz.questions.length && $data.questionIndex != -1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     "class": "questionContainer",
     key: $data.questionIndex
-  }, [_hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+  }, [_hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     id: "feedbackForm",
-    onSubmit: _cache[17] || (_cache[17] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+    onSubmit: _cache[18] || (_cache[18] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return _ctx.editModal ? _ctx.updateData() : _ctx.saveData();
     }, ["prevent"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "hidden",
     name: "id_user",
     id: "id_user",
-    "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
+    "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
       return $data.form.id = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [_hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [_hoisted_51, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     name: "improvement",
     id: "improvement",
     "class": "form-control",
-    "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
+    "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
       return $data.form.improvement = $event;
     })
-  }, _hoisted_59, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.improvement]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_60, [_hoisted_61, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_62, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+  }, _hoisted_62, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.improvement]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_63, [_hoisted_64, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_65, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     "class": "form-control",
     name: "feedback",
     id: "feedback",
     cols: "30",
     rows: "10",
-    "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
+    "onUpdate:modelValue": _cache[17] || (_cache[17] = function ($event) {
       return $data.form.feedback = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.feedback]])])]), _hoisted_63])])], 32 /* HYDRATE_EVENTS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("quizFooter: navigation and progress"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("footer", _hoisted_64, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("pagination"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_65, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" back button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.feedback]])])]), _hoisted_66])])], 32 /* HYDRATE_EVENTS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("quizFooter: navigation and progress"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("footer", _hoisted_67, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("pagination"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_68, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" back button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "button",
-    onClick: _cache[18] || (_cache[18] = function ($event) {
+    onClick: _cache[19] || (_cache[19] = function ($event) {
       $options.prev();
     }),
     disabled: $data.questionIndex == -1
-  }, " Back ", 8 /* PROPS */, _hoisted_66), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a class=\"button is-active\" v-on:click=\"next();\">\n                                {{ 'Next' }}\n                            </a> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, " Back ", 8 /* PROPS */, _hoisted_69), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a class=\"button is-active\" v-on:click=\"next();\">\n                                {{ 'Next' }}\n                            </a> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "button is-active",
-    onClick: _cache[19] || (_cache[19] = function ($event) {
+    onClick: _cache[20] || (_cache[20] = function ($event) {
       $options.submitSurvey();
     }),
     disabled: $data.disabled
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", _hoisted_68, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.loading]]), _hoisted_69], 8 /* PROPS */, _hoisted_67)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/pagination")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/quizFooter")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/biodataContainer"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("quizCompletedResult"), $data.questionIndex == $data.quiz.questions.length + 1 && $data.questionIndex != -1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", _hoisted_71, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.loading]]), _hoisted_72], 8 /* PROPS */, _hoisted_70)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/pagination")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/quizFooter")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/biodataContainer"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("quizCompletedResult"), $data.questionIndex == $data.quiz.questions.length + 1 && $data.questionIndex != -1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     key: $data.questionIndex,
     "class": "quizCompleted has-text-centered"
-  }, [_hoisted_70, _hoisted_71, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h2 style=\"font-size:large\"><a href=\"#\" style=\"color:cadetblue !important;\">Klik Disini</a> untuk kembali ke halaman beranda </h2> "), _hoisted_72, _hoisted_73, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }, [_hoisted_73, _hoisted_74, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h2 style=\"font-size:large\"><a href=\"#\" style=\"color:cadetblue !important;\">Klik Disini</a> untuk kembali ke halaman beranda </h2> "), _hoisted_75, _hoisted_76, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     "class": "button",
     to: "landing"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_74, _hoisted_75];
+      return [_hoisted_77, _hoisted_78];
     }),
     _: 1 /* STABLE */
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "button",
-    onClick: _cache[20] || (_cache[20] = function ($event) {
+    onClick: _cache[21] || (_cache[21] = function ($event) {
       return $options.restart();
     })
-  }, _hoisted_78)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/quizCompetedResult"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("lastForm"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div v-if=\"questionIndex == quiz.questions.length && questionIndex != -1\" v-bind:key=\"questionIndex\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/lastForm")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/questionBox")])])], 64 /* STABLE_FRAGMENT */);
+  }, _hoisted_81)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/quizCompetedResult"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("lastForm"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div v-if=\"questionIndex == quiz.questions.length && questionIndex != -1\" v-bind:key=\"questionIndex\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/lastForm")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/questionBox")])])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -853,7 +897,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Montserrat:400,400i,700);"]);
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-528d9344] {\n    margin-left: 0 !important;\n}\n.main-footer[data-v-528d9344] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-528d9344] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-528d9344] {\n    --bs-navbar-padding-x: 1rem !important;\n}\nbody[data-v-528d9344] {\n    font-family: \"Open Sans\", sans-serif;\n    font-size: 14px;\n    height: 100vh;\n    background: #cfd8dc;\n    /* mocking native UI */\n    cursor: default !important;\n    /* remove text selection cursor */\n    -webkit-user-select: none;\n       -moz-user-select: none;\n            user-select: none;\n    /* remove text selection */\n    user-drag: none;\n    /* disbale element dragging */\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.button[data-v-528d9344] {\n    transition: 0.3s;\n}\n.title[data-v-528d9344],\n.subtitle[data-v-528d9344] {\n    font-family: Montserrat, sans-serif;\n    font-weight: normal;\n}\n.animated[data-v-528d9344] {\n    transition-duration: 0.15s;\n}\n\n/* .container {\n    margin: 0 0.5rem;\n} */\n.questionBox[data-v-528d9344] {\n    /* max-width: 30rem; */\n    /* width: 30rem; */\n    min-height: 30rem;\n    background: #fafafa;\n    position: relative;\n    display: flex;\n    border-radius: 0.5rem;\n    overflow: hidden;\n    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\n    margin: 0 auto !important;\n}\n.questionBox header[data-v-528d9344] {\n    background: rgba(0, 0, 0, 0.025);\n    padding: 1rem;\n    text-align: center;\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n.questionBox header h1[data-v-528d9344] {\n    font-weight: bold;\n    margin-bottom: 1rem !important;\n}\n.questionBox header .progressContainer[data-v-528d9344] {\n    width: 60%;\n    margin: 0 auto;\n}\n.questionBox header .progressContainer>progress[data-v-528d9344] {\n    margin: 0 auto;\n    border-radius: 5rem;\n    overflow: hidden;\n    border: none;\n    color: #3d5afe;\n}\n.questionBox header .progressContainer>progress[data-v-528d9344]::-moz-progress-bar {\n    background: #3d5afe;\n}\n.questionBox header .progressContainer>progress[data-v-528d9344]::-webkit-progress-value {\n    background: #3d5afe;\n}\n.questionBox header .progressContainer>p[data-v-528d9344] {\n    margin: 0;\n    margin-top: 0.5rem;\n}\n.questionBox .titleContainer[data-v-528d9344] {\n    text-align: center;\n    margin: 0 auto;\n    padding: 1.5rem;\n    font-size: large;\n    font-weight: bold;\n}\n.questionBox .quizForm[data-v-528d9344] {\n    display: block;\n    white-space: normal;\n    height: 100%;\n    width: 100%;\n}\n.questionBox .quizForm .quizFormContainer[data-v-528d9344] {\n    height: 100%;\n    margin: 15px 18px;\n}\n.questionBox .quizForm .quizFormContainer .field-label[data-v-528d9344] {\n    text-align: left;\n    margin-bottom: 0.5rem;\n}\n.questionBox .quizCompleted[data-v-528d9344] {\n    width: 100%;\n    padding: 1rem;\n    text-align: center;\n}\n.questionBox .quizCompleted>.icon[data-v-528d9344] {\n    color: #ff5252;\n    font-size: 5rem;\n}\n.questionBox .quizCompleted>.icon .is-active[data-v-528d9344] {\n    color: #00e676;\n}\n.questionBox .questionContainer[data-v-528d9344] {\n    white-space: normal;\n    height: 100%;\n    width: 100%;\n}\n.questionBox .questionContainer .optionContainer[data-v-528d9344] {\n    margin-top: 12px;\n    flex-grow: 1;\n}\n.questionBox .questionContainer .optionContainer .option[data-v-528d9344] {\n    border-radius: 290486px;\n    padding: 9px 18px;\n    margin: 0 18px;\n    margin-bottom: 12px;\n    transition: 0.3s;\n    cursor: pointer;\n    background-color: rgba(0, 0, 0, 0.05);\n    color: rgba(0, 0, 0, 0.85);\n    border: transparent 1px solid;\n}\n.questionBox .questionContainer .optionContainer .option.is-selected[data-v-528d9344] {\n    border-color: rgba(0, 0, 0, 0.25);\n    background-color: white;\n}\n.questionBox .questionContainer .optionContainer .option[data-v-528d9344]:hover {\n    background-color: rgba(0, 0, 0, 0.1);\n}\n.questionBox .questionContainer .optionContainer .option[data-v-528d9344]:active {\n    transform: scaleX(0.9);\n}\n.questionBox .questionContainer .questionFooter[data-v-528d9344] {\n    background: rgba(0, 0, 0, 0.025);\n    border-top: 1px solid rgba(0, 0, 0, 0.1);\n    width: 100%;\n    align-self: flex-end;\n}\n.questionBox .questionContainer .questionFooter .pagination[data-v-528d9344] {\n    margin: 15px 25px;\n}\n.pagination[data-v-528d9344] {\n    display: flex;\n    justify-content: space-between;\n}\n.button[data-v-528d9344] {\n    padding: 0.5rem 1rem;\n    border: 1px solid rgba(0, 0, 0, 0.25);\n    border-radius: 5rem;\n    margin: 0 0.25rem;\n    transition: 0.3s;\n}\n.button[data-v-528d9344]:hover {\n    cursor: pointer;\n    background: #eceff1;\n    border-color: rgba(0, 0, 0, 0.25);\n}\n.button.is-active[data-v-528d9344] {\n    background: #3d5afe;\n    color: white;\n    border-color: transparent;\n}\n.button.is-active[data-v-528d9344]:hover {\n    background: #0a2ffe;\n}\n@media screen and (min-width: 769px) {\n.questionBox[data-v-528d9344] {\n        align-items: center;\n        justify-content: center;\n}\n.questionBox .questionContainer[data-v-528d9344] {\n        display: flex;\n        flex-direction: column;\n}\n}\n@media screen and (max-width: 768px) {\n.sidebar[data-v-528d9344] {\n        height: auto !important;\n        border-radius: 6px 6px 0px 0px;\n}\n}\n\n/* \n.select2-container .select2-selection {\n    line-height: 1.6 !important;\n    height: 2.375rem !important;\n    border-radius: 3px !important;\n}\n\n.select2-selection .select2-selection--single {\n    line-height: 1.6 !important;\n    height: 2.275rem !important;\n    border-radius: 7px !important;\n}\n\n.select2-container--default .select2-selection--single .select2-selection__arrow {\n    height: 2.275rem !important;\n}\n\n.select2-selection--multiple {\n    overflow: hidden !important;\n    height: auto !important;\n}\n\n.select2-selection--single {\n    overflow: hidden !important;\n    height: auto !important;\n} */\nbutton[data-v-528d9344]:disabled,\nbutton[disabled][data-v-528d9344] {\n    background-color: grey !important;\n    background: gray !important;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-528d9344] {\n    margin-left: 0 !important;\n}\n.main-footer[data-v-528d9344] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-528d9344] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-528d9344] {\n    --bs-navbar-padding-x: 1rem !important;\n}\nbody[data-v-528d9344] {\n    font-family: \"Open Sans\", sans-serif;\n    font-size: 14px;\n    height: 100vh;\n    background: #cfd8dc;\n    /* mocking native UI */\n    cursor: default !important;\n    /* remove text selection cursor */\n    -webkit-user-select: none;\n       -moz-user-select: none;\n            user-select: none;\n    /* remove text selection */\n    user-drag: none;\n    /* disbale element dragging */\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.button[data-v-528d9344] {\n    transition: 0.3s;\n}\n.title[data-v-528d9344],\n.subtitle[data-v-528d9344] {\n    font-family: Montserrat, sans-serif;\n    font-weight: normal;\n}\n.animated[data-v-528d9344] {\n    transition-duration: 0.15s;\n}\n\n/* .container {\n    margin: 0 0.5rem;\n} */\n.questionBox[data-v-528d9344] {\n    /* max-width: 30rem; */\n    /* width: 30rem; */\n    min-height: 30rem;\n    background: #fafafa;\n    position: relative;\n    display: flex;\n    border-radius: 0.5rem;\n    overflow: hidden;\n    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\n    margin: 0 auto !important;\n}\n.questionBox header[data-v-528d9344] {\n    background: rgba(0, 0, 0, 0.025);\n    padding: 1rem;\n    text-align: center;\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n.questionBox header h1[data-v-528d9344] {\n    font-weight: bold;\n    margin-bottom: 1rem !important;\n}\n.questionBox header .progressContainer[data-v-528d9344] {\n    width: 60%;\n    margin: 0 auto;\n}\n.questionBox header .progressContainer>progress[data-v-528d9344] {\n    margin: 0 auto;\n    border-radius: 5rem;\n    overflow: hidden;\n    border: none;\n    color: #3d5afe;\n}\n.questionBox header .progressContainer>progress[data-v-528d9344]::-moz-progress-bar {\n    background: #3d5afe;\n}\n.questionBox header .progressContainer>progress[data-v-528d9344]::-webkit-progress-value {\n    background: #3d5afe;\n}\n.questionBox header .progressContainer>p[data-v-528d9344] {\n    margin: 0;\n    margin-top: 0.5rem;\n}\n.questionBox .titleContainer[data-v-528d9344] {\n    text-align: center;\n    margin: 0 auto;\n    padding: 1.5rem;\n    font-size: large;\n    font-weight: bold;\n}\n.questionBox .quizForm[data-v-528d9344] {\n    display: block;\n    white-space: normal;\n    height: 100%;\n    width: 100%;\n}\n.questionBox .quizForm .quizFormContainer[data-v-528d9344] {\n    height: 100%;\n    margin: 15px 18px;\n}\n.questionBox .quizForm .quizFormContainer .field-label[data-v-528d9344] {\n    text-align: left;\n    margin-bottom: 0.5rem;\n}\n.questionBox .quizCompleted[data-v-528d9344] {\n    width: 100%;\n    padding: 1rem;\n    text-align: center;\n}\n.questionBox .quizCompleted>.icon[data-v-528d9344] {\n    color: #ff5252;\n    font-size: 5rem;\n}\n.questionBox .quizCompleted>.icon .is-active[data-v-528d9344] {\n    color: #00e676;\n}\n.questionBox .questionContainer[data-v-528d9344] {\n    white-space: normal;\n    height: 100%;\n    width: 100%;\n}\n.questionBox .questionContainer .optionContainer[data-v-528d9344] {\n    margin-top: 12px;\n    flex-grow: 1;\n}\n.questionBox .questionContainer .optionContainer .option[data-v-528d9344] {\n    border-radius: 290486px;\n    padding: 9px 18px;\n    margin: 0 18px;\n    margin-bottom: 12px;\n    transition: 0.3s;\n    cursor: pointer;\n    background-color: rgba(0, 0, 0, 0.05);\n    color: rgba(0, 0, 0, 0.85);\n    border: transparent 1px solid;\n}\n.questionBox .questionContainer .optionContainer .option.is-selected[data-v-528d9344] {\n    border-color: rgba(0, 0, 0, 0.25);\n    /* background-color: white; */\n    background-color:greenyellow;\n}\n.questionBox .questionContainer .optionContainer .option[data-v-528d9344]:hover {\n    /* background-color: rgba(0, 0, 0, 0.1); */\n    background-color:green;\n}\n.questionBox .questionContainer .optionContainer .option[data-v-528d9344]:active {\n    transform: scaleX(0.9);\n}\n.questionBox .questionContainer .questionFooter[data-v-528d9344] {\n    background: rgba(0, 0, 0, 0.025);\n    border-top: 1px solid rgba(0, 0, 0, 0.1);\n    width: 100%;\n    align-self: flex-end;\n}\n.questionBox .questionContainer .questionFooter .pagination[data-v-528d9344] {\n    margin: 15px 25px;\n}\n.pagination[data-v-528d9344] {\n    display: flex;\n    justify-content: space-between;\n}\n.button[data-v-528d9344] {\n    padding: 0.5rem 1rem;\n    border: 1px solid rgba(0, 0, 0, 0.25);\n    border-radius: 5rem;\n    margin: 0 0.25rem;\n    transition: 0.3s;\n}\n.button[data-v-528d9344]:hover {\n    cursor: pointer;\n    background: #eceff1;\n    border-color: rgba(0, 0, 0, 0.25);\n}\n.button.is-active[data-v-528d9344] {\n    background: #3d5afe;\n    color: white;\n    border-color: transparent;\n}\n.button.is-active[data-v-528d9344]:hover {\n    background: #0a2ffe;\n}\n@media screen and (min-width: 769px) {\n.questionBox[data-v-528d9344] {\n        align-items: center;\n        justify-content: center;\n}\n.questionBox .questionContainer[data-v-528d9344] {\n        display: flex;\n        flex-direction: column;\n}\n}\n@media screen and (max-width: 768px) {\n.sidebar[data-v-528d9344] {\n        height: auto !important;\n        border-radius: 6px 6px 0px 0px;\n}\n}\n\n/* \n.select2-container .select2-selection {\n    line-height: 1.6 !important;\n    height: 2.375rem !important;\n    border-radius: 3px !important;\n}\n\n.select2-selection .select2-selection--single {\n    line-height: 1.6 !important;\n    height: 2.275rem !important;\n    border-radius: 7px !important;\n}\n\n.select2-container--default .select2-selection--single .select2-selection__arrow {\n    height: 2.275rem !important;\n}\n\n.select2-selection--multiple {\n    overflow: hidden !important;\n    height: auto !important;\n}\n\n.select2-selection--single {\n    overflow: hidden !important;\n    height: auto !important;\n} */\n.select2-selection .select2-selection--single[data-v-528d9344] {\n    display: block !important;\n    width: 100% !important;\n    height: calc(1.6em + 0.75rem + 2px) !important;\n    padding: 0.375rem 0.75rem !important;\n    font-size: 0.9rem !important;\n    font-weight: 400 !important;\n    line-height: 1.6 !important;\n    color: #495057 !important;\n    background-color: #fff !important;\n    background-clip: padding-box !important;\n    border: 1px solid #ced4da !important;\n    border-radius: 0.25rem !important;\n    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;\n}\n.select2-selection__rendered[data-v-528d9344] {\n    line-height: 31px !important;\n}\n.select2-container .select2-selection--single[data-v-528d9344] {\n    height: 35px !important;\n}\n.select2-selection__arrow[data-v-528d9344] {\n    height: 34px !important;\n}\nbutton[data-v-528d9344]:disabled,\nbutton[disabled][data-v-528d9344] {\n    background-color: grey !important;\n    background: gray !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

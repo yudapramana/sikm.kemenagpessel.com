@@ -45,9 +45,18 @@
 
 
                                 <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-3 col-form-label">Unit Pelayanan</label>
+                                    <div class="col-sm-9">
+                                        <Select2 v-model="form.id_unit_pengolah" :options="myOptions"
+                                            :settings="{ theme: 'default', width: '100%', placeholder: 'Pilih Unit Layanan' }"
+                                            required></Select2>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
                                     <label for="inputText" class="col-sm-3 col-form-label">Nama Pelayanan</label>
                                     <div class="col-sm-9">
-                                        <Select2 v-model="form.id_layanan" :options="myOptions"
+                                        <Select2 v-model="form.id_layanan" :options="myOptionsLayanan"
                                             :settings="{ theme: 'default', width: '100%', placeholder: 'Pilih Layanan' }"
                                             required></Select2>
                                     </div>
@@ -540,6 +549,7 @@ export default {
             userResponses: userResponseSkelaton,
             isActive: false,
             form: new Form({
+                id_unit_pengolah: null,
                 id_layanan: null,
                 name: null,
                 address: null,
@@ -553,7 +563,8 @@ export default {
                 improvement: 'Tidak ada yang perlu diperbaiki',
             }),
             myValue: '',
-            myOptions: ['op1', 'op2', 'op3'],
+            myOptions: [],
+            myOptionsLayanan: [],
             genderOptions: ['Laki-laki', 'Perempuan'],
             educationOptions: [
                 'SD',
@@ -586,12 +597,21 @@ export default {
         'has-error': HasError
     },
     methods: {
-        loadLayanan: function () {
+        loadUnit: function () {
             axios
-                .get('/api/get/layanan')
+                .get('/api/get/unit')
                 .then((response) => {
                     console.log(response);
                     this.myOptions = response.data;
+                });
+        },
+        loadLayanan: function (id_unit_pengolah) {
+
+            axios
+                .get('/api/get/layanan/' + id_unit_pengolah)
+                .then((response) => {
+                    console.log(response);
+                    this.myOptionsLayanan = response.data;
                 });
         },
         loadQuestion: function () {
@@ -702,13 +722,25 @@ export default {
         }
     },
     mounted() {
-        this.loadLayanan();
+        this.loadUnit();
         this.loadQuestion();
+    },
+    watch: {
+        'form.id_unit_pengolah': {
+            handler: function (id_unit_pengolah) {
+                console.log('id_unit_pengolah');
+                console.log(id_unit_pengolah);
+                this.loadLayanan(id_unit_pengolah);
+            },
+            deep: true,
+            immediate: true
+        }
     }
 
 };
 </script>
   
+<!-- <style scoped> -->
 <style scoped>
 .content-wrapper {
     margin-left: 0 !important;
@@ -880,11 +912,13 @@ body {
 
 .questionBox .questionContainer .optionContainer .option.is-selected {
     border-color: rgba(0, 0, 0, 0.25);
-    background-color: white;
+    /* background-color: white; */
+    background-color:greenyellow;
 }
 
 .questionBox .questionContainer .optionContainer .option:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    /* background-color: rgba(0, 0, 0, 0.1); */
+    background-color:green;
 }
 
 .questionBox .questionContainer .optionContainer .option:active {
@@ -976,6 +1010,32 @@ body {
     overflow: hidden !important;
     height: auto !important;
 } */
+
+.select2-selection .select2-selection--single {
+    display: block !important;
+    width: 100% !important;
+    height: calc(1.6em + 0.75rem + 2px) !important;
+    padding: 0.375rem 0.75rem !important;
+    font-size: 0.9rem !important;
+    font-weight: 400 !important;
+    line-height: 1.6 !important;
+    color: #495057 !important;
+    background-color: #fff !important;
+    background-clip: padding-box !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 0.25rem !important;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+}
+
+.select2-selection__rendered {
+    line-height: 31px !important;
+}
+.select2-container .select2-selection--single {
+    height: 35px !important;
+}
+.select2-selection__arrow {
+    height: 34px !important;
+}
 
 button:disabled,
 button[disabled] {
