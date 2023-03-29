@@ -26,8 +26,7 @@
                             <h4 class="card-title m-0">Rekapitulasi Triwulan <strong> {{ triwulan }}</strong></h4>
                         </div>
 
-                        <div class="card-body">
-
+                        <div class="card-body" style="overflow-x:auto;">
                             <DataTable :columns="columns" :data="data" class="display table table-hover table-bordered"
                                 width="100%" :options="{ order: false, sort: false, paging:false }">
                                 <thead>

@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row mb-2 justify-content-md-center">
                 <div class="col-sm-6">
-                    <h1 class="m-0"> Daftar <strong> Jawaban Survey</strong></h1>
+                    <h1 class="m-0"> Daftar <strong> Jawaban Survey</strong> <span class="text-muted">{{ status }}</span></h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -23,49 +23,107 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title m-0">Rekapitulasi Respon</h4>
+                            <h4 class="card-title m-0">Rekapitulasi Respon | <span class="text-muted">status {{ status }}</span> </h4>
                         </div>
 
-                        <div class="card-body">
+                        <div class="card-body" style="overflow-x:auto;">
 
-                                <DataTable :columns="columns" :data="data" class="display table table-hover table-bordered" width="100%"
-                                    :options="{ order: false, scrollX: true, sort: false }" >
-                                    <thead style="font-size:small!important;">
-                                        <tr>
-                                            <th class="text-center align-middle" rowspan="2">No</th>
-                                            <th class="text-center align-middle" rowspan="2" width="20%">Layanan di Survey</th>
-                                            <th class="text-center align-middle" rowspan="2">Tanggal</th>
-                                            <th class="text-center align-middle" rowspan="2">Nama</th>
-                                            <th class="text-center align-middle" rowspan="2">Alamat</th>
-                                            <th class="text-center align-middle" rowspan="2">Jenis Kelamin</th>
-                                            <th class="text-center align-middle" rowspan="2">Umur</th>
-                                            <th class="text-center align-middle" rowspan="2">Pekerjaan</th>
-                                            <th class="text-center align-middle" rowspan="2">Pendidikan</th>
-                                            <th class="text-center align-middle" colspan="15">Jawaban</th>
-                                            <th class="text-center align-middle" rowspan="2">avg</th>
-                                            <th class="text-center align-middle" rowspan="2">improvement</th>
-                                            <th class="text-center align-middle" rowspan="2">feedback</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center align-middle" style="font-size:smaller!important;">1</th>
-                                            <th class="text-center align-middle" style="font-size:smaller!important;">2</th>
-                                            <th class="text-center align-middle" style="font-size:smaller!important;">3</th>
-                                            <th class="text-center align-middle" style="font-size:smaller!important;">4</th>
-                                            <th class="text-center align-middle" style="font-size:smaller!important;">5</th>
-                                            <th class="text-center align-middle" style="font-size:smaller!important;">6</th>
-                                            <th class="text-center align-middle" style="font-size:smaller!important;">7</th>
-                                            <th class="text-center align-middle" style="font-size:smaller!important;">8</th>
-                                            <th class="text-center align-middle" style="font-size:smaller!important;">9</th>
-                                            <th class="text-center align-middle" style="font-size:smaller!important;">10</th>
-                                            <th class="text-center align-middle" style="font-size:smaller!important;">11</th>
-                                            <th class="text-center align-middle" style="font-size:smaller!important;">12</th>
-                                            <th class="text-center align-middle" style="font-size:smaller!important;">13</th>
-                                            <th class="text-center align-middle" style="font-size:smaller!important;">14</th>
-                                            <th class="text-center align-middle" style="font-size:smaller!important;">15</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="table-sm fontsmall"></tbody>
-                                </DataTable>
+                            <table class="table">
+                                <thead style="font-size:small!important;">
+                                    <tr>
+                                        <th class="text-center align-middle" rowspan="2">No</th>
+                                        <th class="text-center align-middle" rowspan="2" width="20%">Layanan di Survey</th>
+                                        <th class="text-center align-middle" rowspan="2" width="15%">Tanggal</th>
+                                        <th class="text-center align-middle" rowspan="2" width="25%">Biodata</th>
+                                        <th class="text-center align-middle" colspan="15">Jawaban</th>
+                                        <th class="text-center align-middle" rowspan="2">avg</th>
+                                        <th class="text-center align-middle" rowspan="2">improvement</th>
+                                        <th class="text-center align-middle" rowspan="2">feedback</th>
+                                        <th class="text-center align-middle" rowspan="2" width="10%">aksi</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center align-middle" style="font-size:smaller!important;">1</th>
+                                        <th class="text-center align-middle" style="font-size:smaller!important;">2</th>
+                                        <th class="text-center align-middle" style="font-size:smaller!important;">3</th>
+                                        <th class="text-center align-middle" style="font-size:smaller!important;">4</th>
+                                        <th class="text-center align-middle" style="font-size:smaller!important;">5</th>
+                                        <th class="text-center align-middle" style="font-size:smaller!important;">6</th>
+                                        <th class="text-center align-middle" style="font-size:smaller!important;">7</th>
+                                        <th class="text-center align-middle" style="font-size:smaller!important;">8</th>
+                                        <th class="text-center align-middle" style="font-size:smaller!important;">9</th>
+                                        <th class="text-center align-middle" style="font-size:smaller!important;">10</th>
+                                        <th class="text-center align-middle" style="font-size:smaller!important;">11</th>
+                                        <th class="text-center align-middle" style="font-size:smaller!important;">12</th>
+                                        <th class="text-center align-middle" style="font-size:smaller!important;">13</th>
+                                        <th class="text-center align-middle" style="font-size:smaller!important;">14</th>
+                                        <th class="text-center align-middle" style="font-size:smaller!important;">15</th>
+                                    </tr>
+                                </thead>
+                                <!-- <tbody class="table-sm fontsmall"> -->
+                                <!-- <tbody class="table-sm fontsmall"> -->
+                                <tbody class="table-sm fontsmall">
+
+                                    <tr v-for="item in data" :key="item.id_survey">
+                                        <td class="text-center font-smaller align-center">{{ item.DT_RowIndex }}</td>
+                                        <td class="font-smaller align-center">{{ item.layanan.name }}</td>
+                                        <td class="text-center font-smaller align-center">{{ item.date_string }}</td>
+                                        <td class="font-smaller align-center">{{ item.name }}</td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_1 }}
+                                        </td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_2 }}
+                                        </td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_3 }}
+                                        </td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_4 }}
+                                        </td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_5 }}
+                                        </td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_6 }}
+                                        </td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_7 }}
+                                        </td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_8 }}
+                                        </td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_9 }}
+                                        </td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_10 }}
+                                        </td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_11 }}
+                                        </td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_12 }}
+                                        </td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_13 }}
+                                        </td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_14 }}
+                                        </td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_15 }}
+                                        </td>
+                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.average }}
+                                        </td>
+                                        <td class="text-center font-smaller  align-center">{{ item.improvement }}</td>
+                                        <td class="text-center font-smaller  align-center">{{ item.feedback }}</td>
+                                        <td v-if="status == 'submitted'" class="text-center font-smaller  align-center">
+                                            <a class="button-accept badge badge-primary nav-link text-white"
+                                                style="cursor: pointer !important;"
+                                                @click="approve(item.id_survey)">setujui</a>&nbsp;&nbsp;
+                                            <a class="button-reject badge badge-secondary nav-link text-white"
+                                                style="cursor: pointer !important;"
+                                                @click="reject(item.id_survey)">tolak</a>
+                                        </td>
+
+                                        <td v-if="status != 'submitted'" class="text-center font-smaller  align-center">
+                                            -- no action --
+                                        </td>
+                                    </tr>
+
+                                    <tr v-if="data.length == 0">
+                                        <td class="text-center align-middle" style="font-size:large;" colspan="23">
+                                            .: Belum ada data :.
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
 
                         </div>
                     </div>
@@ -109,62 +167,93 @@ export default {
             loading: false,
             disabled: false,
             editModal: false,
-            columns: [
-                { data: 'DT_RowIndex', className: 'text-center' },
-                { data: 'layanan.name' },
-                { data: 'date_string', className: 'text-center' },
-                { data: 'name', className: 'text-center' },
-                { data: 'address', className: 'text-center' },
-                { data: 'gender', className: 'text-center' },
-                { data: 'age', className: 'text-center' },
-                { data: 'work', className: 'text-center' },
-                { data: 'education', className: 'text-center' },
-                { data: 'answer_1', className: 'text-center fontsmaller' },
-                { data: 'answer_2', className: 'text-center fontsmaller' },
-                { data: 'answer_3', className: 'text-center fontsmaller' },
-                { data: 'answer_4', className: 'text-center fontsmaller' },
-                { data: 'answer_5', className: 'text-center fontsmaller' },
-                { data: 'answer_6', className: 'text-center fontsmaller' },
-                { data: 'answer_7', className: 'text-center fontsmaller' },
-                { data: 'answer_8', className: 'text-center fontsmaller' },
-                { data: 'answer_9', className: 'text-center fontsmaller' },
-                { data: 'answer_10', className: 'text-center fontsmaller' },
-                { data: 'answer_11', className: 'text-center fontsmaller' },
-                { data: 'answer_12', className: 'text-center fontsmaller' },
-                { data: 'answer_13', className: 'text-center fontsmaller' },
-                { data: 'answer_14', className: 'text-center fontsmaller' },
-                { data: 'answer_15', className: 'text-center fontsmaller' },
-                { data: 'average', className: 'text-center' },
-                { data: 'improvement', className: 'text-center' },
-                { data: 'feedback', className: 'text-center' },
-            ]
         };
     },
     methods: {
+        approve(id) {
+            Swal.fire({
+                title: "Anda Yakin ingin ACC ?",
+                text: "Klik Batal untuk membatalkan",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "ACC",
+            }).then((result) => {
+                if (result.value) {
+                    axios
+                        .get('/api/survey/approved/' + id)
+                        .then((response) => {
+                            console.log(response.data);
+                            this.data = response.data.data;
+                            this.$Progress.finish();
+                        });
+                }
+                this.loadData();
+            });
+        },
+        reject(id) {
+            Swal.fire({
+                title: "Anda Yakin ingin TOLAK ?",
+                text: "Klik Batal untuk membatalkan",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "TOLAK",
+            }).then((result) => {
+                if (result.value) {
+                    axios
+                        .get('/api/survey/rejected/' + id)
+                        .then((response) => {
+                            console.log(response.data);
+                            this.data = response.data.data;
+                            this.$Progress.finish();
+                        });
+                }
+                this.loadData();
+            });
+        },
         logOut() {
             this.$store.dispatch('auth/logout');
             this.$router.push('/login');
         },
         loadData() {
             axios
-                .get('/api/get/surveys')
+                .get('/api/get/surveys/'  + this.$route.query.status)
                 .then((response) => {
                     console.log('response getUsers');
                     console.log(response.data);
                     this.data = response.data.data;
                     this.$Progress.finish();
                 });
+        },
+        clickHandlerAccept(event, index) {
+            console.log(`button ${index} clicked`)
+        },
+        clickHandlerReject(event, index) {
+            console.log(`button ${index} clicked`)
         }
     },
     mounted() {
         this.loadData();
+        this.status = this.$route.query.status;
     },
     created() {
         this.$Progress.start();
     },
-    mounted() {
-        this.loadData();
-    },
+    watch: {
+        '$route.query.status': {
+            handler: function (status) {
+                console.log('status');
+                console.log(status);
+                this.status = this.$route.query.status;
+                this.loadData();
+            },
+            deep: true,
+            immediate: true
+        }
+    }
 };
 </script>
   
@@ -190,14 +279,22 @@ export default {
 }
 
 .fontsmaller {
-    font-size:x-small !important;
+    font-size: x-small !important;
 }
 
 .fontsmall {
-    font-size:small !important;
+    font-size: small !important;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     padding: 0 !important;
 }
-</style>
+
+/* td {
+    padding: 0;
+    margin: 0;
+} */
+
+.font-smaller {
+    vertical-align: middle !important;
+}</style>

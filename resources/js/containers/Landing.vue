@@ -20,9 +20,22 @@
                     <li class="nav-item">
                         <router-link to="isi-survey" class="nav-link">Isi Survey</router-link>
                     </li>
-                    <li v-if="currentUser" class="nav-item">
+                    <!-- <li v-if="currentUser" class="nav-item">
                         <router-link to="response" class="nav-link">Respon</router-link>
+                    </li> -->
+
+                    <li v-if="currentUser" class="nav-item dropdown">
+                        <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            class="nav-link dropdown-toggle">Respon Survey</a>
+                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow"
+                            style="left: 0px; right: inherit;">
+                            <li><router-link to="response?status=submitted" class="dropdown-item">Submitted </router-link></li>
+                            <li><router-link to="response?status=rejected" class="dropdown-item">Rejected </router-link></li>
+                            <li><router-link to="response?status=approved" class="dropdown-item">Approved </router-link></li>
+                        </ul>
                     </li>
+
+
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             class="nav-link dropdown-toggle">Rekap Tahunan</a>

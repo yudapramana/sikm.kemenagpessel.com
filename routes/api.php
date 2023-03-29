@@ -116,40 +116,166 @@ Route::post('/store/survey', function (Request $request) {
 
 
 
-    $rekapTahunan = \App\Models\RekapTahunan::firstOrCreate([
-        'tahun' => date('Y'),
-        'id_layanan' => $data['id_layanan'],
-    ]);
+    // Rekap Tahunan
+    // $rekapTahunan = \App\Models\RekapTahunan::firstOrCreate([
+    //     'tahun' => date('Y'),
+    //     'id_layanan' => $survey['id_layanan'],
+    // ]);
 
-    $rJumlahResponden = $rekapTahunan->jumlah_responden;
-    $rTotalAvgIndividu = $rekapTahunan->total_average_individu;
+    // $rJumlahResponden = $rekapTahunan->jumlah_responden;
+    // $rTotalAvgIndividu = $rekapTahunan->total_average_individu;
 
-    $nJumlahResponden = $rJumlahResponden+1;
-    $nTotalAvgIndividu = $rTotalAvgIndividu + $average;
-    $index_pelayanan = round($nTotalAvgIndividu / $nJumlahResponden, 3);
+    // $nJumlahResponden = $rJumlahResponden+1;
+    // $nTotalAvgIndividu = $rTotalAvgIndividu + $average;
+    // $index_pelayanan = round($nTotalAvgIndividu / $nJumlahResponden, 3);
 
 
-    $rekapTahunan->jumlah_responden = $nJumlahResponden;
-    $rekapTahunan->total_average_individu = $nTotalAvgIndividu;
-    $rekapTahunan->index_pelayanan = $index_pelayanan;
+    // $rekapTahunan->jumlah_responden = $nJumlahResponden;
+    // $rekapTahunan->total_average_individu = $nTotalAvgIndividu;
+    // $rekapTahunan->index_pelayanan = $index_pelayanan;
 
-    $mutuPelayanan = null;
+    // $mutuPelayanan = null;
 
-    switch ($index_pelayanan) {
-        case $index_pelayanan > 3.26:
-            $mutuPelayanan = 'A (Sangat Baik)';
+    // switch ($index_pelayanan) {
+    //     case $index_pelayanan > 3.26:
+    //         $mutuPelayanan = 'A (Sangat Baik)';
+    //         break;
+
+    //     case $index_pelayanan > 2.51 && $index_pelayanan <= 3.25:
+    //         $mutuPelayanan = 'B (Baik)';
+    //         break;
+
+    //     case $index_pelayanan > 1.76 && $index_pelayanan <= 2.5:
+    //         $mutuPelayanan = 'C (Kurang Baik)';
+    //         break;
+
+    //     case $index_pelayanan <= 1.75:
+    //         $mutuPelayanan = 'D (Buruk)';
+    //         break;
+
+    //     default:
+    //         # code...
+    //         break;
+    // }
+
+    // $rekapTahunan->mutu_pelayanan = $mutuPelayanan;
+    // $rekapTahunan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
+
+    // $rekapTahunan->save();
+    // End of Rekap Tahunan
+
+    return $survey;
+});
+
+Route::get('/survey/{status}/{id_survey}', function ($status, $id_survey) {
+    $survey = \App\Models\Survey::find($id_survey);
+    $survey->status = $status;
+    $survey->save();
+
+    switch ($status) {
+        case 'approved':
+
+            $rekapTahunan = \App\Models\RekapTahunan::firstOrCreate([
+                'tahun' => date('Y'),
+                'id_layanan' => $survey->id_layanan,
+            ]);
+
+            $rJumlahResponden = $rekapTahunan->jumlah_responden;
+            $rTotalAvgIndividu = $rekapTahunan->total_average_individu;
+
+            $nJumlahResponden = $rJumlahResponden+1;
+            $nTotalAvgIndividu = $rTotalAvgIndividu + $survey->average;
+            $index_pelayanan = round($nTotalAvgIndividu / $nJumlahResponden, 3);
+
+
+            $rekapTahunan->jumlah_responden = $nJumlahResponden;
+            $rekapTahunan->total_average_individu = $nTotalAvgIndividu;
+            $rekapTahunan->index_pelayanan = $index_pelayanan;
+
+            $mutuPelayanan = null;
+
+            switch ($index_pelayanan) {
+                case $index_pelayanan > 3.26:
+                    $mutuPelayanan = 'A (Sangat Baik)';
+                    break;
+
+                case $index_pelayanan > 2.51 && $index_pelayanan <= 3.25:
+                    $mutuPelayanan = 'B (Baik)';
+                    break;
+
+                case $index_pelayanan > 1.76 && $index_pelayanan <= 2.5:
+                    $mutuPelayanan = 'C (Kurang Baik)';
+                    break;
+
+                case $index_pelayanan <= 1.75:
+                    $mutuPelayanan = 'D (Buruk)';
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
+
+            $rekapTahunan->mutu_pelayanan = $mutuPelayanan;
+            $rekapTahunan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
+
+            $rekapTahunan->save();
+
+
+            // Rekap Triwulan
+            $created_at = Carbon::createFromFormat('Y-m-d H:i:s', $survey->created_at);
+            $quarter = $created_at->quarter;
+
+            $rekapTriwulan = \App\Models\RekapTriwulan::firstOrCreate([
+                'tahun' => date('Y'),
+                'triwulan' => $quarter,
+                'id_layanan' => $survey->id_layanan,
+            ]);
+
+            $rJumlahResponden = $rekapTriwulan->jumlah_responden;
+            $rTotalAvgIndividu = $rekapTriwulan->total_average_individu;
+
+            $nJumlahResponden = $rJumlahResponden+1;
+            $nTotalAvgIndividu = $rTotalAvgIndividu + $survey->average;
+            $index_pelayanan = round($nTotalAvgIndividu / $nJumlahResponden, 3);
+
+
+            $rekapTriwulan->jumlah_responden = $nJumlahResponden;
+            $rekapTriwulan->total_average_individu = $nTotalAvgIndividu;
+            $rekapTriwulan->index_pelayanan = $index_pelayanan;
+
+            $mutuPelayanan = null;
+
+            switch ($index_pelayanan) {
+                case $index_pelayanan > 3.26:
+                    $mutuPelayanan = 'A (Sangat Baik)';
+                    break;
+
+                case $index_pelayanan > 2.51 && $index_pelayanan <= 3.25:
+                    $mutuPelayanan = 'B (Baik)';
+                    break;
+
+                case $index_pelayanan > 1.76 && $index_pelayanan <= 2.5:
+                    $mutuPelayanan = 'C (Kurang Baik)';
+                    break;
+
+                case $index_pelayanan <= 1.75:
+                    $mutuPelayanan = 'D (Buruk)';
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
+
+            $rekapTriwulan->mutu_pelayanan = $mutuPelayanan;
+            $rekapTriwulan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
+            $rekapTriwulan->save();
+
             break;
 
-        case $index_pelayanan > 2.51 && $index_pelayanan <= 3.25:
-            $mutuPelayanan = 'B (Baik)';
-            break;
+        case 'rejected':
 
-        case $index_pelayanan > 1.76 && $index_pelayanan <= 2.5:
-            $mutuPelayanan = 'C (Kurang Baik)';
-            break;
-
-        case $index_pelayanan <= 1.75:
-            $mutuPelayanan = 'D (Buruk)';
             break;
 
         default:
@@ -157,20 +283,101 @@ Route::post('/store/survey', function (Request $request) {
             break;
     }
 
-    $rekapTahunan->mutu_pelayanan = $mutuPelayanan;
-    $rekapTahunan->konversi = number_format( ( ($index_pelayanan / 4) * 100 ), 2);
-
-    $rekapTahunan->save();
-
     return $survey;
 });
 
-
-Route::get('/get/surveys', function () {
-    $surveys = \App\Models\Survey::all();
+Route::get('/get/surveys/{status}', function ($status) {
+    $surveys = \App\Models\Survey::where('status', $status)->get();
 
     return Datatables::of($surveys)
                 ->addIndexColumn()
+                ->addColumn('biodata', function ($sur) {
+                    $textHTML = '<table class="insidetable table table-borderless" style="background:transparent;">';
+                    $textHTML .= '<tr>';
+                    $textHTML .= '<td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">nama_lengkap</td> <td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">:&nbsp;&nbsp;</td>  <td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">'.$sur->name.'</td>';
+                    $textHTML .= '</tr>';
+                    $textHTML .= '<tr>';
+                    $textHTML .= '<td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">alamat</td> <td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">:&nbsp;&nbsp;</td>  <td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">'.$sur->address.'</td>';
+                    $textHTML .= '</tr>';
+                    $textHTML .= '<tr>';
+                    $textHTML .= '<td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">jenis_kelamin</td> <td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">:&nbsp;&nbsp;</td>  <td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">'.$sur->gender.'</td>';
+                    $textHTML .= '</tr>';
+                    $textHTML .= '<tr>';
+                    $textHTML .= '<td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">umur</td> <td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">:&nbsp;&nbsp;</td>  <td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">'.$sur->age.'</td>';
+                    $textHTML .= '</tr>';
+                    $textHTML .= '<tr>';
+                    $textHTML .= '<td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">pekerjaan</td> <td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">:&nbsp;&nbsp;</td>  <td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">'.$sur->work.'</td>';
+                    $textHTML .= '</tr>';
+                    $textHTML .= '<tr>';
+                    $textHTML .= '<td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">pendidikan</td> <td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">:&nbsp;&nbsp;</td>  <td style="
+    padding: 0 !important;
+    margin: 0 !important;
+">'.$sur->education.'</td>';
+                    $textHTML .= '</tr>';
+
+                    $textHTML .= '</table>';
+
+                    return $textHTML;
+                })
+                ->addColumn('aksi', function ($layanan) {
+                    $btn = '<a class="button-accept badge badge-primary nav-link text-white" style="cursor: pointer !important;">setujui</a>&nbsp;&nbsp;';
+                    $btn .= '<a class="button-reject badge badge-secondary nav-link text-white" style="cursor: pointer !important;">tolak</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['biodata', 'aksi'])
+
                 ->make(true);
 });
 
@@ -216,7 +423,12 @@ Route::get('/get/rekapitulasi-triwulan/{quarter}', function ($quarter) {
             break;
     }
 
-    $rekap = \App\Models\RekapTahunan::whereBetween('created_at', [$startDate, $endDate])->get();
+    // return $startDate->toDateTimeString() . '     -    ' . $endDate->toDateTimeString();
+
+    $rekap = \App\Models\RekapTriwulan::where([
+        'tahun' => date('Y'),
+        'triwulan' => $quarter
+    ])->get();
 
     return Datatables::of($rekap)
                 ->addIndexColumn()

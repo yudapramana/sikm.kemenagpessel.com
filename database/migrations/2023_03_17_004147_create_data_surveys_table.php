@@ -55,6 +55,7 @@ class CreateDataSurveysTable extends Migration
             $table->text('improvement');
             $table->text('feedback')->nullable();
 
+            $table->enum('answer_0', [1, 2, 3, 4])->nullable();
             $table->enum('answer_1', [1, 2, 3, 4])->nullable();
             $table->enum('answer_2', [1, 2, 3, 4])->nullable();
             $table->enum('answer_3', [1, 2, 3, 4])->nullable();
@@ -71,6 +72,12 @@ class CreateDataSurveysTable extends Migration
             $table->enum('answer_14', [1, 2, 3, 4])->nullable();
             $table->enum('answer_15', [1, 2, 3, 4])->nullable();
             $table->float('average', 5, 3)->default(0);
+
+            // $table->enum('status', [
+            //     'submitted',
+            //     'approved',
+            //     'rejected',
+            // ])->default('submitted');
         });
     }
 

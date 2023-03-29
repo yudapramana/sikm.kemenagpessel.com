@@ -26,10 +26,10 @@
                             <h4 class="card-title m-0">Rekapitulasi Tahun <strong> {{ year }}</strong></h4>
                         </div>
 
-                        <div class="card-body">
+                        <div class="card-body" style="overflow-x:auto;">
 
-                                <DataTable :columns="columns" :data="data" class="display table table-hover table-bordered" width="100%"
-                                    :options="{ order: false, sort: false, paging: false }" >
+                                <DataTable :columns="columns" :data="data" class="table table-hover table-bordered" width="100%"
+                                    :options="{ order: false, sort: false, paging: false, search: false }" >
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -41,6 +41,9 @@
                                             <th width="10%">Aksi</th>
                                         </tr>
                                     </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
                                 </DataTable>
 
                         </div>
