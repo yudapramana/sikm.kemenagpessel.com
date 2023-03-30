@@ -188,8 +188,33 @@ export default {
                         .then((response) => {
                             console.log(response.data);
                             // this.data = response.data.data;
-                            this.$Progress.finish();
                             this.loadData();
+
+
+                            let timerInterval
+                            Swal.fire({
+                                title: 'Loading!!!!',
+                                html: 'I will close in <b></b> milliseconds.',
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                    const b = Swal.getHtmlContainer().querySelector('b')
+                                    timerInterval = setInterval(() => {
+                                        b.textContent = Swal.getTimerLeft()
+                                    }, 100)
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval)
+                                }
+                            }).then((result) => {
+                                /* Read more about handling dismissals below */
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    console.log('I was closed by the timer')
+                                    this.$Progress.finish();
+                                }
+                            });
+
                         });
                 }
             });
@@ -210,8 +235,31 @@ export default {
                         .then((response) => {
                             console.log(response.data);
                             // this.data = response.data.data;
-                            this.$Progress.finish();
                             this.loadData();
+
+                            let timerInterval
+                            Swal.fire({
+                                title: 'Loading!!!!',
+                                html: 'I will close in <b></b> milliseconds.',
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                    const b = Swal.getHtmlContainer().querySelector('b')
+                                    timerInterval = setInterval(() => {
+                                        b.textContent = Swal.getTimerLeft()
+                                    }, 100)
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval)
+                                }
+                            }).then((result) => {
+                                /* Read more about handling dismissals below */
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    console.log('I was closed by the timer')
+                                    this.$Progress.finish();
+                                }
+                            });
                         });
                 }
 
@@ -300,4 +348,5 @@ export default {
 
 .font-smaller {
     vertical-align: middle !important;
-}</style>
+}
+</style>

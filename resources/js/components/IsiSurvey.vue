@@ -2,16 +2,20 @@
     <div class="content-header">
         <div class="container">
             <div class="row mb-2 justify-content-md-center">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Survey<strong> Kepuasan Pelayanan</strong></h1>
+                <div class="col-sm-12">
+                    <h1 class="m-0">
+                        Survey<strong> Kepuasan Pelayanan&nbsp;</strong>
+                        <span class="m-0 text-muted" style="font-size:smaller !important;">KemenagPessel</span>
+
+                    </h1>
                 </div>
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Kepuasan Pelayanan</a></li>
                         <li class="breadcrumb-item"><a href="#">Survey</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -33,7 +37,8 @@
                     <header>
                         <h1 class="title is-6">Survey Indeks Kepuasan Masyarakat</h1>
 
-                        <h1 style="font-size:large !important; margin: 0 !important; color: dimgray;">.: Data Diri Responden :.</h1>
+                        <h1 style="font-size:large !important; margin: 0 !important; color: dimgray;">.: Data Diri Responden
+                            :.</h1>
                     </header>
 
                     <form id="biodataForm" @submit.prevent="editModal ? updateData() : saveData()">
@@ -274,7 +279,7 @@
                                 {{ (userResponses[questionIndex] == null) ? 'Skip' : 'Next' }}
                             </a> -->
 
-                            <a v-if="userResponses[questionIndex]!=null" class="button is-active" v-on:click="next();">
+                            <a v-if="userResponses[questionIndex] != null" class="button is-active" v-on:click="next();">
                                 {{ 'Next' }}
                             </a>
                             <!--                             
@@ -312,7 +317,8 @@
                     <header>
                         <h1 class="title is-6">Survey Indeks Kepuasan Masyarakat</h1>
 
-                        <h1 style="font-size:large !important; margin: 0 !important; color: dimgray;">.: Feedback Responden :.</h1>
+                        <h1 style="font-size:large !important; margin: 0 !important; color: dimgray;">.: Feedback Responden
+                            :.</h1>
                     </header>
 
                     <form id="feedbackForm" @submit.prevent="editModal ? updateData() : saveData()">
@@ -326,7 +332,8 @@
                                     <div class="col-sm-9">
                                         <select name="improvement" id="improvement" class="form-control"
                                             v-model="form.improvement">
-                                            <option selected="selected" value="Tidak ada yang perlu diperbaiki">Tidak ada yang perlu diperbaiki
+                                            <option selected="selected" value="Tidak ada yang perlu diperbaiki">Tidak ada
+                                                yang perlu diperbaiki
                                             </option>
                                             <option value="Kebijakan Pelayanan">Kebijakan Pelayanan</option>
                                             <option value="Profesionalisme SDM">Profesionalisme SDM</option>
@@ -639,11 +646,11 @@ export default {
                 this.questionIndex++;
         },
         nextBiodata: function () {
-            
+
 
             let validForm = false;
-            if(this.form.id_layanan != null && this.form.name != null && this.form.no_hp != null && this.form.address != null && 
-            this.form.gender != null && this.form.age != null && this.form.education != null && this.form.work != null ){
+            if (this.form.id_layanan != null && this.form.name != null && this.form.no_hp != null && this.form.address != null &&
+                this.form.gender != null && this.form.age != null && this.form.education != null && this.form.work != null) {
                 validForm = true;
             }
             console.log('validForm');
@@ -653,12 +660,12 @@ export default {
                 this.questionIndex++;
             } else {
                 Swal.fire(
-                        "Failed",
-                        'Silahkan Lengkapi Biodata terlebih dahulu',
-                        "warning"
-                    );
+                    "Failed",
+                    'Silahkan Lengkapi Biodata terlebih dahulu',
+                    "warning"
+                );
             }
-                
+
         },
 
         prev: function () {
@@ -913,12 +920,12 @@ body {
 .questionBox .questionContainer .optionContainer .option.is-selected {
     border-color: rgba(0, 0, 0, 0.25);
     /* background-color: white; */
-    background-color:greenyellow;
+    background-color: greenyellow;
 }
 
 .questionBox .questionContainer .optionContainer .option:hover {
     /* background-color: rgba(0, 0, 0, 0.1); */
-    background-color:green;
+    background-color: green;
 }
 
 .questionBox .questionContainer .optionContainer .option:active {
@@ -1030,9 +1037,11 @@ body {
 .select2-selection__rendered {
     line-height: 31px !important;
 }
+
 .select2-container .select2-selection--single {
     height: 35px !important;
 }
+
 .select2-selection__arrow {
     height: 34px !important;
 }
@@ -1041,5 +1050,4 @@ button:disabled,
 button[disabled] {
     background-color: grey !important;
     background: gray !important;
-}
-</style>
+}</style>
