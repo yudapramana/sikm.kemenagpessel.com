@@ -3,7 +3,8 @@
         <div class="container-fluid">
             <div class="row mb-2 justify-content-md-center">
                 <div class="col-sm-6">
-                    <h1 class="m-0"> Daftar <strong> Jawaban Survey</strong> <span class="text-muted">{{ status }}</span></h1>
+                    <h1 class="m-0"> Daftar <strong> Jawaban Survey</strong> <span class="text-muted">{{ status }}</span>
+                    </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -23,7 +24,8 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title m-0">Rekapitulasi Respon | <span class="text-muted">status {{ status }}</span> </h4>
+                            <h4 class="card-title m-0">Rekapitulasi Respon | <span class="text-muted">status {{ status
+                            }}</span> </h4>
                         </div>
 
                         <div class="card-body" style="overflow-x:auto;">
@@ -185,11 +187,11 @@ export default {
                         .get('/api/survey/approved/' + id)
                         .then((response) => {
                             console.log(response.data);
-                            this.data = response.data.data;
+                            // this.data = response.data.data;
                             this.$Progress.finish();
+                            this.loadData();
                         });
                 }
-                this.loadData();
             });
         },
         reject(id) {
@@ -207,11 +209,12 @@ export default {
                         .get('/api/survey/rejected/' + id)
                         .then((response) => {
                             console.log(response.data);
-                            this.data = response.data.data;
+                            // this.data = response.data.data;
                             this.$Progress.finish();
+                            this.loadData();
                         });
                 }
-                this.loadData();
+
             });
         },
         logOut() {
@@ -220,7 +223,7 @@ export default {
         },
         loadData() {
             axios
-                .get('/api/get/surveys/'  + this.$route.query.status)
+                .get('/api/get/surveys/' + this.$route.query.status)
                 .then((response) => {
                     console.log('response getUsers');
                     console.log(response.data);

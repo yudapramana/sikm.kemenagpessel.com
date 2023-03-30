@@ -59,11 +59,11 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
         if (result.value) {
           axios.get('/api/survey/approved/' + id).then(function (response) {
             console.log(response.data);
-            _this.data = response.data.data;
+            // this.data = response.data.data;
             _this.$Progress.finish();
+            _this.loadData();
           });
         }
-        _this.loadData();
       });
     },
     reject: function reject(id) {
@@ -80,11 +80,11 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
         if (result.value) {
           axios.get('/api/survey/rejected/' + id).then(function (response) {
             console.log(response.data);
-            _this2.data = response.data.data;
+            // this.data = response.data.data;
             _this2.$Progress.finish();
+            _this2.loadData();
           });
         }
-        _this2.loadData();
       });
     },
     logOut: function logOut() {
