@@ -169,120 +169,122 @@ Route::post('/store/survey', function (Request $request) {
 
 Route::get('/survey/{status}/{id_survey}', function ($status, $id_survey) {
     $survey = \App\Models\Survey::find($id_survey);
-    $survey->status = $status;
-    $survey->save();
+    
+    if ($survey->status == 'submitted') {
+        switch ($status) {
+            case 'approved':
 
-    switch ($status) {
-        case 'approved':
+                $rekapTahunan = \App\Models\RekapTahunan::firstOrCreate([
+                    'tahun' => date('Y'),
+                    'id_layanan' => $survey->id_layanan,
+                ]);
 
-            $rekapTahunan = \App\Models\RekapTahunan::firstOrCreate([
-                'tahun' => date('Y'),
-                'id_layanan' => $survey->id_layanan,
-            ]);
+                $rJumlahResponden = $rekapTahunan->jumlah_responden;
+                $rTotalAvgIndividu = $rekapTahunan->total_average_individu;
 
-            $rJumlahResponden = $rekapTahunan->jumlah_responden;
-            $rTotalAvgIndividu = $rekapTahunan->total_average_individu;
-
-            $nJumlahResponden = $rJumlahResponden+1;
-            $nTotalAvgIndividu = $rTotalAvgIndividu + $survey->average;
-            $index_pelayanan = round($nTotalAvgIndividu / $nJumlahResponden, 3);
-
-
-            $rekapTahunan->jumlah_responden = $nJumlahResponden;
-            $rekapTahunan->total_average_individu = $nTotalAvgIndividu;
-            $rekapTahunan->index_pelayanan = $index_pelayanan;
-
-            $mutuPelayanan = null;
-
-            switch ($index_pelayanan) {
-                case $index_pelayanan > 3.26:
-                    $mutuPelayanan = 'A (Sangat Baik)';
-                    break;
-
-                case $index_pelayanan > 2.51 && $index_pelayanan <= 3.25:
-                    $mutuPelayanan = 'B (Baik)';
-                    break;
-
-                case $index_pelayanan > 1.76 && $index_pelayanan <= 2.5:
-                    $mutuPelayanan = 'C (Kurang Baik)';
-                    break;
-
-                case $index_pelayanan <= 1.75:
-                    $mutuPelayanan = 'D (Buruk)';
-                    break;
-
-                default:
-                    # code...
-                    break;
-            }
-
-            $rekapTahunan->mutu_pelayanan = $mutuPelayanan;
-            $rekapTahunan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
-
-            $rekapTahunan->save();
+                $nJumlahResponden = $rJumlahResponden+1;
+                $nTotalAvgIndividu = $rTotalAvgIndividu + $survey->average;
+                $index_pelayanan = round($nTotalAvgIndividu / $nJumlahResponden, 3);
 
 
-            // Rekap Triwulan
-            $created_at = Carbon::createFromFormat('Y-m-d H:i:s', $survey->created_at);
-            $quarter = $created_at->quarter;
+                $rekapTahunan->jumlah_responden = $nJumlahResponden;
+                $rekapTahunan->total_average_individu = $nTotalAvgIndividu;
+                $rekapTahunan->index_pelayanan = $index_pelayanan;
 
-            $rekapTriwulan = \App\Models\RekapTriwulan::firstOrCreate([
-                'tahun' => date('Y'),
-                'triwulan' => $quarter,
-                'id_layanan' => $survey->id_layanan,
-            ]);
+                $mutuPelayanan = null;
 
-            $rJumlahResponden = $rekapTriwulan->jumlah_responden;
-            $rTotalAvgIndividu = $rekapTriwulan->total_average_individu;
+                switch ($index_pelayanan) {
+                    case $index_pelayanan > 3.26:
+                        $mutuPelayanan = 'A (Sangat Baik)';
+                        break;
 
-            $nJumlahResponden = $rJumlahResponden+1;
-            $nTotalAvgIndividu = $rTotalAvgIndividu + $survey->average;
-            $index_pelayanan = round($nTotalAvgIndividu / $nJumlahResponden, 3);
+                    case $index_pelayanan > 2.51 && $index_pelayanan <= 3.25:
+                        $mutuPelayanan = 'B (Baik)';
+                        break;
+
+                    case $index_pelayanan > 1.76 && $index_pelayanan <= 2.5:
+                        $mutuPelayanan = 'C (Kurang Baik)';
+                        break;
+
+                    case $index_pelayanan <= 1.75:
+                        $mutuPelayanan = 'D (Buruk)';
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
+
+                $rekapTahunan->mutu_pelayanan = $mutuPelayanan;
+                $rekapTahunan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
+
+                $rekapTahunan->save();
 
 
-            $rekapTriwulan->jumlah_responden = $nJumlahResponden;
-            $rekapTriwulan->total_average_individu = $nTotalAvgIndividu;
-            $rekapTriwulan->index_pelayanan = $index_pelayanan;
+                // Rekap Triwulan
+                $created_at = Carbon::createFromFormat('Y-m-d H:i:s', $survey->created_at);
+                $quarter = $created_at->quarter;
 
-            $mutuPelayanan = null;
+                $rekapTriwulan = \App\Models\RekapTriwulan::firstOrCreate([
+                    'tahun' => date('Y'),
+                    'triwulan' => $quarter,
+                    'id_layanan' => $survey->id_layanan,
+                ]);
 
-            switch ($index_pelayanan) {
-                case $index_pelayanan > 3.26:
-                    $mutuPelayanan = 'A (Sangat Baik)';
-                    break;
+                $rJumlahResponden = $rekapTriwulan->jumlah_responden;
+                $rTotalAvgIndividu = $rekapTriwulan->total_average_individu;
 
-                case $index_pelayanan > 2.51 && $index_pelayanan <= 3.25:
-                    $mutuPelayanan = 'B (Baik)';
-                    break;
+                $nJumlahResponden = $rJumlahResponden+1;
+                $nTotalAvgIndividu = $rTotalAvgIndividu + $survey->average;
+                $index_pelayanan = round($nTotalAvgIndividu / $nJumlahResponden, 3);
 
-                case $index_pelayanan > 1.76 && $index_pelayanan <= 2.5:
-                    $mutuPelayanan = 'C (Kurang Baik)';
-                    break;
 
-                case $index_pelayanan <= 1.75:
-                    $mutuPelayanan = 'D (Buruk)';
-                    break;
+                $rekapTriwulan->jumlah_responden = $nJumlahResponden;
+                $rekapTriwulan->total_average_individu = $nTotalAvgIndividu;
+                $rekapTriwulan->index_pelayanan = $index_pelayanan;
 
-                default:
-                    # code...
-                    break;
-            }
+                $mutuPelayanan = null;
 
-            $rekapTriwulan->mutu_pelayanan = $mutuPelayanan;
-            $rekapTriwulan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
-            $rekapTriwulan->save();
+                switch ($index_pelayanan) {
+                    case $index_pelayanan > 3.26:
+                        $mutuPelayanan = 'A (Sangat Baik)';
+                        break;
 
-            break;
+                    case $index_pelayanan > 2.51 && $index_pelayanan <= 3.25:
+                        $mutuPelayanan = 'B (Baik)';
+                        break;
 
-        case 'rejected':
+                    case $index_pelayanan > 1.76 && $index_pelayanan <= 2.5:
+                        $mutuPelayanan = 'C (Kurang Baik)';
+                        break;
 
-            break;
+                    case $index_pelayanan <= 1.75:
+                        $mutuPelayanan = 'D (Buruk)';
+                        break;
 
-        default:
-            # code...
-            break;
+                    default:
+                        # code...
+                        break;
+                }
+
+                $rekapTriwulan->mutu_pelayanan = $mutuPelayanan;
+                $rekapTriwulan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
+                $rekapTriwulan->save();
+
+                break;
+
+            case 'rejected':
+
+                break;
+
+            default:
+                # code...
+                break;
+        }
     }
 
+    $survey->status = $status;
+    $survey->save();
     return $survey;
 });
 
