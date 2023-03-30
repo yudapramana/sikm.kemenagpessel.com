@@ -183,40 +183,20 @@ export default {
                 confirmButtonText: "ACC",
             }).then((result) => {
                 if (result.value) {
-                    let timerInterval
-                            Swal.fire({
-                                title: 'Loading!!!!',
-                                html: 'I will close in <b></b> milliseconds.',
-                                timer: 2000,
-                                timerProgressBar: true,
-                                didOpen: () => {
-                                    Swal.showLoading()
-                                    const b = Swal.getHtmlContainer().querySelector('b')
-                                    timerInterval = setInterval(() => {
-                                        b.textContent = Swal.getTimerLeft()
-                                    }, 100)
-                                },
-                                willClose: () => {
-                                    clearInterval(timerInterval)
-                                }
-                            }).then((result) => {
-                                /* Read more about handling dismissals below */
-                                if (result.dismiss === Swal.DismissReason.timer) {
-                                    console.log('I was closed by the timer')
+                    Swal.fire({
+                        title: 'Loading, Harap menunggu!',
+                        didOpen: () => {
+                            Swal.showLoading()
+                            const b = Swal.getHtmlContainer().querySelector('b')
+                        },
+                    });
 
-                                }
-                            });
-                            
                     axios
                         .get('/api/survey/approved/' + id)
                         .then((response) => {
                             console.log(response.data);
                             // this.data = response.data.data;
                             this.loadData();
-
-
-                            
-
                         });
                 }
             });
@@ -232,27 +212,13 @@ export default {
                 confirmButtonText: "TOLAK",
             }).then((result) => {
                 if (result.value) {
-                    let timerInterval
+
                     Swal.fire({
-                        title: 'Loading!!!!',
-                        html: 'I will close in <b></b> milliseconds.',
-                        timer: 2000,
-                        timerProgressBar: true,
+                        title: 'Loading, Harap menunggu!',
                         didOpen: () => {
                             Swal.showLoading()
                             const b = Swal.getHtmlContainer().querySelector('b')
-                            timerInterval = setInterval(() => {
-                                b.textContent = Swal.getTimerLeft()
-                            }, 100)
                         },
-                        willClose: () => {
-                            clearInterval(timerInterval)
-                        }
-                    }).then((result) => {
-                        /* Read more about handling dismissals below */
-                        if (result.dismiss === Swal.DismissReason.timer) {
-                            console.log('I was closed by the timer')
-                        }
                     });
 
                     axios
@@ -261,8 +227,6 @@ export default {
                             console.log(response.data);
                             // this.data = response.data.data;
                             this.loadData();
-
-
                         });
                 }
 
@@ -280,6 +244,7 @@ export default {
                     console.log(response.data);
                     this.data = response.data.data;
                     this.$Progress.finish();
+                    Swal.close()
                 });
         },
         clickHandlerAccept(event, index) {

@@ -57,26 +57,11 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
         confirmButtonText: "ACC"
       }).then(function (result) {
         if (result.value) {
-          var timerInterval;
           sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
-            title: 'Loading!!!!',
-            html: 'I will close in <b></b> milliseconds.',
-            timer: 2000,
-            timerProgressBar: true,
+            title: 'Loading, Harap menunggu!',
             didOpen: function didOpen() {
               sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().showLoading();
               var b = sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().getHtmlContainer().querySelector('b');
-              timerInterval = setInterval(function () {
-                b.textContent = sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().getTimerLeft();
-              }, 100);
-            },
-            willClose: function willClose() {
-              clearInterval(timerInterval);
-            }
-          }).then(function (result) {
-            /* Read more about handling dismissals below */
-            if (result.dismiss === (sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().DismissReason.timer)) {
-              console.log('I was closed by the timer');
             }
           });
           axios.get('/api/survey/approved/' + id).then(function (response) {
@@ -99,26 +84,11 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
         confirmButtonText: "TOLAK"
       }).then(function (result) {
         if (result.value) {
-          var timerInterval;
           sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
-            title: 'Loading!!!!',
-            html: 'I will close in <b></b> milliseconds.',
-            timer: 2000,
-            timerProgressBar: true,
+            title: 'Loading, Harap menunggu!',
             didOpen: function didOpen() {
               sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().showLoading();
               var b = sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().getHtmlContainer().querySelector('b');
-              timerInterval = setInterval(function () {
-                b.textContent = sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().getTimerLeft();
-              }, 100);
-            },
-            willClose: function willClose() {
-              clearInterval(timerInterval);
-            }
-          }).then(function (result) {
-            /* Read more about handling dismissals below */
-            if (result.dismiss === (sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().DismissReason.timer)) {
-              console.log('I was closed by the timer');
             }
           });
           axios.get('/api/survey/rejected/' + id).then(function (response) {
@@ -140,6 +110,7 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
         console.log(response.data);
         _this3.data = response.data.data;
         _this3.$Progress.finish();
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().close();
       });
     },
     clickHandlerAccept: function clickHandlerAccept(event, index) {
