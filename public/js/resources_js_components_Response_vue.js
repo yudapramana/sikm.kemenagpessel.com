@@ -59,6 +59,7 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
         if (result.value) {
           sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
             title: 'Loading, Harap menunggu!',
+            allowOutsideClick: false,
             didOpen: function didOpen() {
               sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().showLoading();
               var b = sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().getHtmlContainer().querySelector('b');
@@ -86,6 +87,7 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
         if (result.value) {
           sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
             title: 'Loading, Harap menunggu!',
+            allowOutsideClick: false,
             didOpen: function didOpen() {
               sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().showLoading();
               var b = sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().getHtmlContainer().querySelector('b');

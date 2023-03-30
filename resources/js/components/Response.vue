@@ -185,6 +185,7 @@ export default {
                 if (result.value) {
                     Swal.fire({
                         title: 'Loading, Harap menunggu!',
+                        allowOutsideClick: false,
                         didOpen: () => {
                             Swal.showLoading()
                             const b = Swal.getHtmlContainer().querySelector('b')
@@ -215,6 +216,7 @@ export default {
 
                     Swal.fire({
                         title: 'Loading, Harap menunggu!',
+                        allowOutsideClick: false,
                         didOpen: () => {
                             Swal.showLoading()
                             const b = Swal.getHtmlContainer().querySelector('b')
