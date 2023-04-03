@@ -103,6 +103,7 @@ export default {
             this.$router.push('/login');
         },
         loadData() {
+            this.$Progress.start();
             axios
                 .get('/api/get/rekapitulasi-triwulan/' + this.$route.query.quarter)
                 .then((response) => {

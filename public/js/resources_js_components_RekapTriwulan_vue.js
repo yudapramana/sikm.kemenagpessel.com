@@ -79,6 +79,7 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
     },
     loadData: function loadData() {
       var _this = this;
+      this.$Progress.start();
       axios.get('/api/get/rekapitulasi-triwulan/' + this.$route.query.quarter).then(function (response) {
         console.log('response getRekapTahunan');
         console.log(response.data);
