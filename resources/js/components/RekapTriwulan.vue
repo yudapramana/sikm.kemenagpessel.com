@@ -2,10 +2,10 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2 justify-content-md-center">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <h1 class="m-0"> Rekapitulasi Triwulan <strong> {{ triwulan }}</strong></h1>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Survey IKM</a></li>
                         <li class="breadcrumb-item"><a href="#">Rekapitulasi Triwulan</a></li>
@@ -20,15 +20,16 @@
         <div class="container-fluid">
             <div class="row justify-content-md-center">
 
-                <div class="col-lg-12">
+                <div class="col-lg-8">
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title m-0">Rekapitulasi Triwulan <strong> {{ triwulan }}</strong></h4>
                         </div>
 
                         <div class="card-body" style="overflow-x:auto;">
-                            <DataTable :columns="columns" :data="data" class="display table table-hover table-bordered"
-                                width="100%" :options="{ order: false, sort: false, paging:false }">
+                            <DataTable :columns="columns" :data="data" class="table table-hover table-bordered" width="100%"
+                                :options="{ order: false, sort: false, paging: false, searching: false }"
+                                style="font-size:smaller !important;">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -86,13 +87,13 @@ export default {
             disabled: false,
             editModal: false,
             columns: [
-                { data: 'DT_RowIndex', className: "text-center" },
-                { data: 'layanan.name' },
-                { data: 'index_pelayanan', className: "text-center" },
-                { data: 'konversi', className: "text-center" },
-                { data: 'mutu_pelayanan', className: "text-center" },
-                { data: 'jumlah_responden', className: "text-center" },
-                { data: 'aksi', className: "text-center" },
+                { data: 'DT_RowIndex', className: "text-center fontsmaller smallfont" },
+                { data: 'layanan.name', className: "fontsmaller smallfont" },
+                { data: 'index_pelayanan', className: "text-center fontsmaller smallfont" },
+                { data: 'konversi', className: "text-center fontsmaller smallfont" },
+                { data: 'mutu_pelayanan', className: "text-center fontsmaller smallfont" },
+                { data: 'jumlah_responden', className: "text-center fontsmaller smallfont" },
+                { data: 'aksi', className: "text-center fontsmaller smallfont" },
             ]
         };
     },
@@ -156,5 +157,13 @@ export default {
 
 .main-header {
     --bs-navbar-padding-x: 1rem !important;
+}
+
+.fontsmaller {
+    font-size: x-small !important;
+}
+
+.smallfont {
+    font-size: x-small !important;
 }
 </style>

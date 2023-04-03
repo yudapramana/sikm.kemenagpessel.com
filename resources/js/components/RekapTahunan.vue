@@ -2,10 +2,10 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2 justify-content-md-center">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <h1 class="m-0"> Rekapitulasi Tahun <strong> {{ year }}</strong></h1>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Survey IKM</a></li>
                         <li class="breadcrumb-item"><a href="#">Rekapitulasi</a></li>
@@ -20,7 +20,7 @@
         <div class="container-fluid">
             <div class="row justify-content-md-center">
 
-                <div class="col-lg-12">
+                <div class="col-lg-8">
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title m-0">Rekapitulasi Tahun <strong> {{ year }}</strong></h4>
@@ -29,16 +29,16 @@
                         <div class="card-body" style="overflow-x:auto;">
 
                                 <DataTable :columns="columns" :data="data" class="table table-hover table-bordered" width="100%"
-                                    :options="{ order: false, sort: false, paging: false, search: false }" >
+                                    :options="{ order: false, sort: false, paging: false, searching: false }" style="font-size:smaller !important;" >
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th  width="35%">Nama Layanan</th>
-                                            <th class="text-center">Nilai Index Pelayanan</th>
+                                            <th  width="35%" class="fontsmaller">Nama Layanan</th>
+                                            <th class="text-center fontsmaller">Nilai Index Pelayanan</th>
                                             <th>Konversi</th>
                                             <th>Mutu Pelayanan</th>
                                             <th>Jumlah Responden</th>
-                                            <th width="10%">Aksi</th>
+                                            <th width="15%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -90,13 +90,13 @@ export default {
             disabled: false,
             editModal: false,
             columns: [
-                { data: 'DT_RowIndex', className: "text-center" },
-                { data: 'layanan.name' },
-                { data: 'index_pelayanan', className: "text-center" },
-                { data: 'konversi', className: "text-center" },
-                { data: 'mutu_pelayanan', className: "text-center" },
-                { data: 'jumlah_responden', className: "text-center" },
-                { data: 'aksi', className: "text-center" },
+                { data: 'DT_RowIndex', className: "text-center fontsmaller smallfont" },
+                { data: 'layanan.name', className: "fontsmaller smallfont"},
+                { data: 'index_pelayanan', className: "text-center fontsmaller smallfont" },
+                { data: 'konversi', className: "text-center fontsmaller smallfont" },
+                { data: 'mutu_pelayanan', className: "text-center fontsmaller smallfont" },
+                { data: 'jumlah_responden', className: "text-center fontsmaller smallfont" },
+                { data: 'aksi', className: "text-center fontsmaller smallfont" },
             ]
         };
     },
@@ -148,5 +148,13 @@ export default {
 
 .main-header {
     --bs-navbar-padding-x: 1rem !important;
+}
+
+.fontsmaller {
+    font-size: x-small !important;
+}
+
+.smallfont {
+    font-size: x-small !important;
 }
 </style>

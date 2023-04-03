@@ -49,24 +49,25 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
       editModal: false,
       columns: [{
         data: 'DT_RowIndex',
-        className: "text-center"
+        className: "text-center fontsmaller smallfont"
       }, {
-        data: 'layanan.name'
+        data: 'layanan.name',
+        className: "fontsmaller smallfont"
       }, {
         data: 'index_pelayanan',
-        className: "text-center"
+        className: "text-center fontsmaller smallfont"
       }, {
         data: 'konversi',
-        className: "text-center"
+        className: "text-center fontsmaller smallfont"
       }, {
         data: 'mutu_pelayanan',
-        className: "text-center"
+        className: "text-center fontsmaller smallfont"
       }, {
         data: 'jumlah_responden',
-        className: "text-center"
+        className: "text-center fontsmaller smallfont"
       }, {
         data: 'aksi',
-        className: "text-center"
+        className: "text-center fontsmaller smallfont"
       }]
     };
   },
@@ -123,13 +124,13 @@ var _hoisted_3 = {
   "class": "row mb-2 justify-content-md-center"
 };
 var _hoisted_4 = {
-  "class": "col-sm-6"
+  "class": "col-sm-4"
 };
 var _hoisted_5 = {
   "class": "m-0"
 };
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Rekapitulasi Tahun ");
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"col-sm-6\" data-v-04bdf676><ol class=\"breadcrumb float-sm-right\" data-v-04bdf676><li class=\"breadcrumb-item\" data-v-04bdf676><a href=\"#\" data-v-04bdf676>Survey IKM</a></li><li class=\"breadcrumb-item\" data-v-04bdf676><a href=\"#\" data-v-04bdf676>Rekapitulasi</a></li><li class=\"breadcrumb-item active\" data-v-04bdf676>Index</li></ol></div>", 1);
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"col-sm-4\" data-v-04bdf676><ol class=\"breadcrumb float-sm-right\" data-v-04bdf676><li class=\"breadcrumb-item\" data-v-04bdf676><a href=\"#\" data-v-04bdf676>Survey IKM</a></li><li class=\"breadcrumb-item\" data-v-04bdf676><a href=\"#\" data-v-04bdf676>Rekapitulasi</a></li><li class=\"breadcrumb-item active\" data-v-04bdf676>Index</li></ol></div>", 1);
 var _hoisted_8 = {
   "class": "content"
 };
@@ -140,7 +141,7 @@ var _hoisted_10 = {
   "class": "row justify-content-md-center"
 };
 var _hoisted_11 = {
-  "class": "col-lg-12"
+  "class": "col-lg-8"
 };
 var _hoisted_12 = {
   "class": "card"
@@ -160,11 +161,12 @@ var _hoisted_16 = {
 };
 var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "No"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    width: "35%"
+    width: "35%",
+    "class": "fontsmaller"
   }, "Nama Layanan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "text-center"
+    "class": "text-center fontsmaller"
   }, "Nilai Index Pelayanan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Konversi"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Mutu Pelayanan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Jumlah Responden"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    width: "10%"
+    width: "15%"
   }, "Aksi")])], -1 /* HOISTED */);
 });
 var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
@@ -182,7 +184,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       order: false,
       sort: false,
       paging: false,
-      search: false
+      searching: false
+    },
+    style: {
+      "font-size": "smaller !important"
     }
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -336,7 +341,7 @@ ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_u
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_bootstrap_dist_css_bootstrap_css__WEBPACK_IMPORTED_MODULE_2__["default"]);
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_datatables_net_bs5_css_dataTables_bootstrap5_css__WEBPACK_IMPORTED_MODULE_3__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-04bdf676] {\n    margin-left: 0 !important;\n}\n.main-footer[data-v-04bdf676] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-04bdf676] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-04bdf676] {\n    --bs-navbar-padding-x: 1rem !important;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-04bdf676] {\n    margin-left: 0 !important;\n}\n.main-footer[data-v-04bdf676] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-04bdf676] {\n    margin-left: 0 !important;\n}\n.main-header[data-v-04bdf676] {\n    --bs-navbar-padding-x: 1rem !important;\n}\n.fontsmaller[data-v-04bdf676] {\n    font-size: x-small !important;\n}\n.smallfont[data-v-04bdf676] {\n    font-size: x-small !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

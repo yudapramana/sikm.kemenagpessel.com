@@ -35,7 +35,7 @@
                 <div class="questionContainer" v-if="questionIndex == -1" v-bind:key="questionIndex">
 
                     <header>
-                        <h1 class="title is-6">Survey Indeks Kepuasan Masyarakat</h1>
+                        <h1 style="font-size:x-large !important; margin: 0 !important;">Survey Indeks Kepuasan Masyarakat</h1>
 
                         <h1 style="font-size:large !important; margin: 0 !important; color: dimgray;">.: Data Diri Responden
                             :.</h1>
@@ -60,8 +60,10 @@
 
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-3 col-form-label">Nama Pelayanan</label>
+
                                     <div class="col-sm-9">
-                                        <Select2 v-model="form.id_layanan" :options="myOptionsLayanan"
+                                        <i v-show="loadingPelayanan" class="fa fa-spinner fa-spin"></i>
+                                        <Select2 v-show="!loadingPelayanan" v-model="form.id_layanan" :options="myOptionsLayanan"
                                             :settings="{ theme: 'default', width: '100%', placeholder: 'Pilih Layanan' }"
                                             required></Select2>
                                     </div>
@@ -550,6 +552,7 @@ export default {
     data() {
         return {
             loading: false,
+            loadingPelayanan: false,
             disabled: false,
             quiz: quiz,
             questionIndex: -1,
@@ -613,12 +616,13 @@ export default {
                 });
         },
         loadLayanan: function (id_unit_pengolah) {
-
+            this.loadingPelayanan = true;
             axios
                 .get('/api/get/layanan/' + id_unit_pengolah)
                 .then((response) => {
                     console.log(response);
                     this.myOptionsLayanan = response.data;
+                    this.loadingPelayanan = false;
                 });
         },
         loadQuestion: function () {
