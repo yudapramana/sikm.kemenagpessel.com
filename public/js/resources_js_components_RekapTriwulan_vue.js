@@ -103,6 +103,7 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
     handler: function handler(quarter) {
       console.log('quarter');
       console.log(quarter);
+      this.$Progress.start();
       this.loadData();
     },
     deep: true,

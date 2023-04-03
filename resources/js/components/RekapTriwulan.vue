@@ -130,6 +130,7 @@ export default {
             handler: function (quarter) {
                 console.log('quarter');
                 console.log(quarter);
+                this.$Progress.start();
                 this.loadData();
             },
             deep: true,
