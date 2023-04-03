@@ -37,10 +37,10 @@ class DatabaseSeeder extends Seeder
         $sql = file_get_contents($path);
         DB::unprepared($sql);
 
-        Schema::drop('data_surveys');
-        $path = public_path('sql/data_surveys.sql');
-        $sql = file_get_contents($path);
-        DB::unprepared($sql);
+        // Schema::drop('data_surveys');
+        // $path = public_path('sql/data_surveys.sql');
+        // $sql = file_get_contents($path);
+        // DB::unprepared($sql);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
