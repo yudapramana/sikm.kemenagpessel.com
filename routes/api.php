@@ -82,9 +82,13 @@ Route::get('/get/unit/', function () {
 
 
 Route::post('/store/survey', function (Request $request) {
-    $data = $request->input();
+    $data = $request->input();  
+
+    $submitted_at = Carbon::now();
+    $submitted_at = $submitted_at->toDateTimeString();
 
     $survey = \App\Models\Survey::create([
+        'submitted_at' => $submitted_at,
         'id_layanan' => $data['id_layanan'],
         'name' => $data['name'],
         'no_hp' => $data['no_hp'],
@@ -222,7 +226,7 @@ Route::get('/survey/{status}/{id_survey}', function ($status, $id_survey) {
 
 
                 // Rekap Triwulan
-                $created_at = Carbon::createFromFormat('Y-m-d H:i:s', $survey->created_at);
+                $created_at = Carbon::createFromFormat('Y-m-d H:i:s', $survey->submitted_at);
                 $quarter = $created_at->quarter;
 
                 $rekapTriwulan = \App\Models\RekapTriwulan::firstOrCreate([

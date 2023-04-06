@@ -17,6 +17,7 @@ class CreateDataSurveysTable extends Migration
             $table->id('id_survey');
             $table->timestamps();
 
+            $table->dateTime('submitted_at');
             $table->unsignedInteger('id_layanan');
             $table->string('name');
             $table->string('no_hp');
@@ -36,6 +37,7 @@ class CreateDataSurveysTable extends Migration
                 ])->default('21 s/d 30 Tahun');
 
             $table->enum('education', [
+                'SD',
                 'SMP atau Sederajat',
                 'SMA atau Sederajat',
                 'Strata 1 (S1)',

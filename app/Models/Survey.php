@@ -23,7 +23,7 @@ class Survey extends Model
     public function getDateStringAttribute() {
         // $date = substr($this->attributes['created_at'], 0, 10) . substr($this->attributes['created_at'], 10, 8);
         // return $date;
-       $date =  Carbon::createFromDate($this->attributes['created_at']);
+       $date =  Carbon::createFromDate($this->attributes['submitted_at']);
        $datestring = $date->toDateTimeString();
        return $datestring;
     }
