@@ -20,7 +20,7 @@
         <div class="container-fluid">
             <div class="row justify-content-md-center">
 
-                <div class="col-lg-8">
+                <div class="col-lg">
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title m-0">Rekapitulasi Tahun <strong> {{ year }}</strong></h4>
