@@ -21,8 +21,7 @@
     </div>
 
     <div class="content">
-        <div class="container">
-
+        <div class="container mb-3">
 
             <!--questionBox-->
             <div class="questionBox">
@@ -37,7 +36,7 @@
                     <header>
                         <h1 style="font-size:x-large !important; margin: 0 !important;">Survey Indeks Kepuasan Masyarakat</h1>
 
-                        <h1 style="font-size:large !important; margin: 0 !important; color: dimgray;">.: Data Diri Responden
+                        <h1 style="font-size:large !important; margin: 0 !important; color: dimgray;">.: Biodata Responden
                             :.</h1>
                     </header>
 
@@ -426,6 +425,23 @@
             <!--/questionBox-->
 
         </div>
+
+        <div class="qr-code" style="justify-content: center; text-align: center;">
+                <div class="box">
+                    Atau
+                </div>
+                <div class="box">
+                    Anda dapat mengisi survey dengan scan QR CODE dibawah ini:
+                </div>
+
+                <div class="image-box">
+                    <center>
+                    <img src="http://res.cloudinary.com/kemenagpessel/image/upload/v1685517991/arsip_masuk/gn3bzggmztxmtndmrobc.png" alt="AdminLTE Logo">
+                    </center>
+                </div>
+
+                
+            </div>
     </div>
 </template>
   
