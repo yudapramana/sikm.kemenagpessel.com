@@ -588,7 +588,7 @@ var _hoisted_80 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_81 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("  Isi Ulang Survey");
 var _hoisted_82 = [_hoisted_80, _hoisted_81];
 var _hoisted_83 = {
-  "class": "qr-code",
+  "class": "qr-code mb-3",
   style: {
     "justify-content": "center",
     "text-align": "center"
@@ -601,17 +601,22 @@ var _hoisted_84 = /*#__PURE__*/_withScopeId(function () {
 });
 var _hoisted_85 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "box"
-  }, " Anda dapat mengisi survey dengan scan QR CODE dibawah ini: ", -1 /* HOISTED */);
+    "class": "box mb-3"
+  }, " Anda dapat mengisi survey dengan Perangkat HP Anda dengan scan QR CODE dibawah ini: ", -1 /* HOISTED */);
 });
 var _hoisted_86 = {
-  "class": "image-box"
+  "class": "image-box mb-3"
 };
 var _hoisted_87 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: "http://res.cloudinary.com/kemenagpessel/image/upload/v1685517991/arsip_masuk/gn3bzggmztxmtndmrobc.png",
     alt: "AdminLTE Logo"
   }, null, -1 /* HOISTED */);
+});
+var _hoisted_88 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "box"
+  }, " Aplikasi QRCODE dapat di download di PlayStore dengan mencari \"QRCODE\" di Smartphone Anda ", -1 /* HOISTED */);
 });
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -842,7 +847,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_87];
     }),
     _: 1 /* STABLE */
-  })])])])], 64 /* STABLE_FRAGMENT */);
+  })]), _hoisted_88])])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),

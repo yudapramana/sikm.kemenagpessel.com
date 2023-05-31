@@ -426,20 +426,23 @@
 
         </div>
 
-        <div class="qr-code" style="justify-content: center; text-align: center;">
+        <div class="qr-code mb-3" style="justify-content: center; text-align: center;">
                 <div class="box">
                     Atau
                 </div>
-                <div class="box">
-                    Anda dapat mengisi survey dengan scan QR CODE dibawah ini:
+                <div class="box mb-3">
+                    Anda dapat mengisi survey dengan Perangkat HP Anda dengan scan QR CODE dibawah ini:
                 </div>
 
-                <div class="image-box">
+                <div class="image-box mb-3">
                     <center>
                     <img src="http://res.cloudinary.com/kemenagpessel/image/upload/v1685517991/arsip_masuk/gn3bzggmztxmtndmrobc.png" alt="AdminLTE Logo">
                     </center>
                 </div>
 
+                <div class="box">
+                    Aplikasi QRCODE dapat di download di PlayStore dengan mencari "QRCODE" di Smartphone Anda
+                </div>
                 
             </div>
     </div>
