@@ -447,3 +447,117 @@ Route::get('/get/rekapitulasi-triwulan/{quarter}', function ($quarter) {
                 ->rawColumns(['aksi'])
                 ->make(true);
 });
+
+
+Route::get('/calc-recap-year/{year}', function($year) {
+    $allsurveys = \App\Models\Survey::whereYear('submitted_at', $year)->where('status', 'approved')->get();
+    $grouped = $allsurveys->groupBy('id_layanan');
+
+    $rekapTahunan = \App\Models\RekapTahunan::where('tahun', $year)->delete();
+
+    // Untuk Tahunan
+    foreach ($grouped as $id_layanan => $surveys) {
+        $totalResponden = $surveys->count();
+        $sumAvgs = $surveys->sum('average');
+        $index_pelayanan = round($sumAvgs / $totalResponden);
+
+        $rekapTahunan = \App\Models\RekapTahunan::firstOrCreate([
+            'tahun' => $year,
+            'id_layanan' => $id_layanan,
+            'jumlah_responden' => $totalResponden,
+            'total_average_individu' => $sumAvgs,
+            'index_pelayanan' => $index_pelayanan
+        ]);
+
+        $mutuPelayanan = null;
+        switch ($index_pelayanan) {
+            case $index_pelayanan > 3.26:
+                $mutuPelayanan = 'A (Sangat Baik)';
+                break;
+
+            case $index_pelayanan > 2.51 && $index_pelayanan <= 3.25:
+                $mutuPelayanan = 'B (Baik)';
+                break;
+
+            case $index_pelayanan > 1.76 && $index_pelayanan <= 2.5:
+                $mutuPelayanan = 'C (Kurang Baik)';
+                break;
+
+            case $index_pelayanan <= 1.75:
+                $mutuPelayanan = 'D (Buruk)';
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+        $rekapTahunan->mutu_pelayanan = $mutuPelayanan;
+        $rekapTahunan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
+        $rekapTahunan->save();
+        
+    }
+});
+
+
+Route::get('/calc-recap-quarter/{year}', function($year) {
+    $allsurveys = \App\Models\Survey::whereYear('submitted_at', $year)->where('status', 'approved')->get();
+
+    $rekapTriwulan = \App\Models\RekapTriwulan::where('tahun', $year)->delete();
+
+    // Untuk Triwulan
+    foreach ($allsurveys as $survey) {
+        // Rekap Triwulan
+        $created_at = Carbon::createFromFormat('Y-m-d H:i:s', $survey->submitted_at);
+        $quarter = $created_at->quarter;
+
+        $rekapTriwulan = \App\Models\RekapTriwulan::firstOrCreate([
+            'tahun' => date('Y'),
+            'triwulan' => $quarter,
+            'id_layanan' => $survey->id_layanan,
+        ]);
+
+        $rJumlahResponden = $rekapTriwulan->jumlah_responden;
+        $rTotalAvgIndividu = $rekapTriwulan->total_average_individu;
+
+        $nJumlahResponden = $rJumlahResponden+1;
+        $nTotalAvgIndividu = $rTotalAvgIndividu + $survey->average;
+        $index_pelayanan = round($nTotalAvgIndividu / $nJumlahResponden, 3);
+
+
+        $rekapTriwulan->jumlah_responden = $nJumlahResponden;
+        $rekapTriwulan->total_average_individu = $nTotalAvgIndividu;
+        $rekapTriwulan->index_pelayanan = $index_pelayanan;
+
+        $mutuPelayanan = null;
+
+        switch ($index_pelayanan) {
+            case $index_pelayanan > 3.26:
+                $mutuPelayanan = 'A (Sangat Baik)';
+                break;
+
+            case $index_pelayanan > 2.51 && $index_pelayanan <= 3.25:
+                $mutuPelayanan = 'B (Baik)';
+                break;
+
+            case $index_pelayanan > 1.76 && $index_pelayanan <= 2.5:
+                $mutuPelayanan = 'C (Kurang Baik)';
+                break;
+
+            case $index_pelayanan <= 1.75:
+                $mutuPelayanan = 'D (Buruk)';
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+        $rekapTriwulan->mutu_pelayanan = $mutuPelayanan;
+        $rekapTriwulan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
+        $rekapTriwulan->save();
+
+    }
+
+    return 'calculation done';
+});
