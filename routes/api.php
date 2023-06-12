@@ -559,5 +559,138 @@ Route::get('/calc-recap-quarter/{year}', function($year) {
 
     }
 
+
+    // Count Rekap Triwulan as Unit
+    $rekapTriwulan = \App\Models\RekapTriwulan::where('tahun', $year)->get();
+
+    $grouped = $rekapTriwulan->groupBy('triwulan_id_unit');
+
+    foreach ($grouped as $triwulan_id_unit => $rekapan) {
+        $exp = explode('_', $triwulan_id_unit);
+        $triwulan = $exp[0];
+        $id_unit = $exp[1];
+
+        $jumlahResponden = 0;
+        $sumAverageInd = 0;
+        foreach ($rekapan as $rekap) {
+            $jumlahResponden += $rekap->jumlah_responden;
+            $sumAverageInd += $rekap->total_average_individu;
+        }
+
+        $index_pelayanan = round($sumAverageInd / $jumlahResponden, 3);
+
+        $unitRekapTriwulan = \App\Models\UnitRekapTriwulan::firstOrCreate([
+            'tahun' => $year,
+            'triwulan' => $quarter,
+            'id_unit_pengolah' => $id_unit,
+        ]);
+
+        $unitRekapTriwulan->jumlah_responden = $jumlahResponden;
+        $unitRekapTriwulan->total_average_individu = $sumAverageInd;
+        $unitRekapTriwulan->index_pelayanan = $index_pelayanan;
+
+        $mutuPelayanan = null;
+
+        switch ($index_pelayanan) {
+            case $index_pelayanan > 3.26:
+                $mutuPelayanan = 'A (Sangat Baik)';
+                break;
+
+            case $index_pelayanan > 2.51 && $index_pelayanan <= 3.25:
+                $mutuPelayanan = 'B (Baik)';
+                break;
+
+            case $index_pelayanan > 1.76 && $index_pelayanan <= 2.5:
+                $mutuPelayanan = 'C (Kurang Baik)';
+                break;
+
+            case $index_pelayanan <= 1.75:
+                $mutuPelayanan = 'D (Buruk)';
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+        $unitRekapTriwulan->mutu_pelayanan = $mutuPelayanan;
+        $unitRekapTriwulan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
+        $unitRekapTriwulan->save();
+
+    }
+
+
+    // Count Rekap Tahunan as Unit
+    $rekapTahunan = \App\Models\RekapTahunan::where('tahun', $year)->get();
+
+    $grouped = $rekapTahunan->groupBy('id_unit_pengolah');
+
+
+    foreach ($grouped as $id_unit_pengolah => $rekapan) {
+
+        $jumlahResponden = 0;
+        $sumAverageInd = 0;
+        foreach ($rekapan as $rekap) {
+            $jumlahResponden += $rekap->jumlah_responden;
+            $sumAverageInd += $rekap->total_average_individu;
+        }
+
+        $index_pelayanan = round($sumAverageInd / $jumlahResponden, 3);
+
+        $unitRekapTahunan = \App\Models\UnitRekapTahunan::firstOrCreate([
+            'tahun' => $year,
+            'id_unit_pengolah' => $id_unit_pengolah,
+        ]);
+
+        $unitRekapTahunan->jumlah_responden = $jumlahResponden;
+        $unitRekapTahunan->total_average_individu = $sumAverageInd;
+        $unitRekapTahunan->index_pelayanan = $index_pelayanan;
+
+        $mutuPelayanan = null;
+
+        switch ($index_pelayanan) {
+            case $index_pelayanan > 3.26:
+                $mutuPelayanan = 'A (Sangat Baik)';
+                break;
+
+            case $index_pelayanan > 2.51 && $index_pelayanan <= 3.25:
+                $mutuPelayanan = 'B (Baik)';
+                break;
+
+            case $index_pelayanan > 1.76 && $index_pelayanan <= 2.5:
+                $mutuPelayanan = 'C (Kurang Baik)';
+                break;
+
+            case $index_pelayanan <= 1.75:
+                $mutuPelayanan = 'D (Buruk)';
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+        $unitRekapTahunan->mutu_pelayanan = $mutuPelayanan;
+        $unitRekapTahunan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
+        $unitRekapTahunan->save();
+
+    }
+
     return 'calculation done';
+});
+
+Route::get('/unit-rekap-triwulan/{quarter}', function($quarter) {
+   
+    $rekaps = \App\Models\UnitRekapTriwulan::where('triwulan', $quarter)
+                ->get();
+
+    return $rekaps;
+});
+
+Route::get('/unit-rekap-tahunan/{year}', function($year) {
+   
+    $rekaps = \App\Models\UnitRekapTahunan::where('tahun', $year)
+                ->get();
+
+    return $rekaps;
 });

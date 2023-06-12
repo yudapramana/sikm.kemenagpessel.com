@@ -28,7 +28,7 @@
 
                         <div class="card-body" style="overflow-x:auto;">
                             <DataTable :columns="columns" :data="data" class="table table-hover table-bordered" width="100%"
-                                :options="{ order: false, sort: false, paging: false, searching: false }"
+                                :options="{ order: false, sort: false, paging: true, searching: false }"
                                 style="font-size:smaller !important;">
                                 <thead>
                                     <tr>
@@ -47,7 +47,49 @@
                     </div>
                 </div>
 
+            </div>
 
+            <div class="row">
+                <div class="col-lg">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title m-0">Rekapitulasi per <strong>Seksi</strong></h4>
+                        </div>
+                    </div>
+
+                    <!-- <div class="row">
+
+                        <div class="card col-md-3" v-for="item in dataunit" :key="item.id_unit_rekap_triwulan">
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">{{ item.unit.name }}</h4>
+                            </div>
+                        </div>
+
+                    </div> -->
+
+
+                    <div class="mb-3 text-center row">
+                        <div class="col-md-3" v-for="item in dataunit"
+                                :key="item.id_unit_rekap_triwulan">
+                            <div class="card mb-4 shadow-sm" >
+                                <div class="card-header" style="height: 80px !important;">
+                                    <h4 class="my-0 font-weight-normal">{{ item.unit.name }}</h4>
+                                </div>
+                                <div class="card-body">
+                                    <!-- <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1> -->
+                                    <h1>{{ item.konversi }}</h1>
+                                    <h3>{{ item.mutu_pelayanan }}</h3>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+                </div>
             </div>
 
         </div>
@@ -82,6 +124,7 @@ export default {
     data() {
         return {
             data: [],
+            dataunit: [],
             triwulan: 1,
             loading: false,
             disabled: false,
@@ -110,7 +153,18 @@ export default {
                     console.log('response getRekapTahunan');
                     console.log(response.data);
                     this.data = response.data.data;
+                    // this.$Progress.finish();
+                });
+
+            axios
+                .get('/api/unit-rekap-triwulan/' + this.$route.query.quarter)
+                .then((response) => {
+
+                    console.log('response rekapUnitTriwulan');
+                    console.log(response.data);
+                    this.dataunit = response.data;
                     this.$Progress.finish();
+
                 });
         }
     },
@@ -167,5 +221,23 @@ export default {
 
 .smallfont {
     font-size: x-small !important;
+}
+
+.paginate-button {
+    padding: 0 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0 !important;
+}
+</style>
+
+<style>
+.paginate-button {
+    padding: 0 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0 !important;
 }
 </style>

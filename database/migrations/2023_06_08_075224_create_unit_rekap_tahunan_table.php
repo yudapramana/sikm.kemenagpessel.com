@@ -14,8 +14,22 @@ class CreateUnitRekapTahunanTable extends Migration
     public function up()
     {
         Schema::create('unit_rekap_tahunan', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_unit_rekap_tahunan');
             $table->timestamps();
+
+            $table->integer('tahun');
+            $table->unsignedInteger('id_unit_pengolah');
+            $table->float('konversi', 5, 2)->default(0);
+            $table->enum('mutu_pelayanan', [
+                'A (Sangat Baik)', 
+                'B (Baik)', 
+                'C (Kurang Baik)', 
+                'D (Buruk)'
+                ])->default('A (Sangat Baik)');
+
+            $table->float('total_average_individu', 8, 3)->default(0);
+            $table->integer('jumlah_responden')->default(0);
+            $table->float('index_pelayanan', 5, 3)->default(0);
         });
     }
 

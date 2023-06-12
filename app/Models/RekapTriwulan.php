@@ -17,8 +17,19 @@ class RekapTriwulan extends Model
 
     protected $with = ['layanan'];
 
+    protected $appends = ['triwulan_id_unit'];
+
     public function layanan() {
         return $this->belongsTo(DaftarLayanan::class, 'id_layanan');
+    }
+
+    public function getIdUnitAttribute(){
+        return $this->layanan->id_unit_pengolah;
+    }
+
+    public function getTriwulanIdUnitAttribute()
+    {
+        return $this->attributes['triwulan'] . '_'.  $this->layanan->id_unit_pengolah;
     }
    
 }

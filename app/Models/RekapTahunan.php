@@ -17,8 +17,16 @@ class RekapTahunan extends Model
 
     protected $with = ['layanan'];
 
+    protected $appends = ['id_unit_pengolah'];
+
+
     public function layanan() {
         return $this->belongsTo(DaftarLayanan::class, 'id_layanan');
+    }
+
+    public function getIdUnitPengolahAttribute()
+    {
+        return $this->layanan->id_unit_pengolah;
     }
    
 }
