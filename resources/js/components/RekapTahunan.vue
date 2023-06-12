@@ -57,7 +57,7 @@
                 <div class="col-lg">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title m-0">Rekapitulasi per <strong>Seksi</strong></h4>
+                            <h4 class="card-title m-0">Rekapitulasi per <strong>Seksi Unit</strong></h4>
                         </div>
                     </div>
 
