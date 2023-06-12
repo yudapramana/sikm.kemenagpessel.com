@@ -562,6 +562,7 @@ Route::get('/calc-recap-quarter/{year}', function($year) {
 
     // Count Rekap Triwulan as Unit
     $rekapTriwulan = \App\Models\RekapTriwulan::where('tahun', $year)->get();
+    $oldRekapTriwulan = \App\Models\UnitRekapTriwulan::where('tahun', $year)->delete();
 
     $grouped = $rekapTriwulan->groupBy('triwulan_id_unit');
 
@@ -581,7 +582,7 @@ Route::get('/calc-recap-quarter/{year}', function($year) {
 
         $unitRekapTriwulan = \App\Models\UnitRekapTriwulan::firstOrCreate([
             'tahun' => $year,
-            'triwulan' => $quarter,
+            'triwulan' => $triwulan,
             'id_unit_pengolah' => $id_unit,
         ]);
 
