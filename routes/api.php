@@ -448,6 +448,23 @@ Route::get('/get/rekapitulasi-triwulan/{quarter}', function ($quarter) {
                 ->make(true);
 });
 
+Route::get('/ressurcalc/{year}', function($year){
+    $surveys = \App\Models\Survey::whereYear('created_at', $year)->get();
+
+    foreach ($surveys as $key => $survey) {
+        $survey->status = 'submitted';
+        $survey->save();
+    }
+
+    $rekapTahunan = \App\Models\RekapTahunan::where('tahun', $year)->delete();
+    $rekapTriwulan = \App\Models\RekapTriwulan::where('tahun', $year)->delete();
+    $unitTriwulan = \App\Models\UnitRekapTriwulan::where('tahun', $year)->delete();
+    $unitTahunan = \App\Models\UnitRekapTahunan::where('tahun', $year)->delete();
+
+
+    return 'survey rekap resetted';
+    
+});
 
 Route::get('/calc-recap-year/{year}', function($year) {
     $allsurveys = \App\Models\Survey::whereYear('submitted_at', $year)->where('status', 'approved')->get();
@@ -497,6 +514,8 @@ Route::get('/calc-recap-year/{year}', function($year) {
         $rekapTahunan->save();
         
     }
+
+    return 'calculation done';
 });
 
 

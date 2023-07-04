@@ -54,6 +54,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title m-0">Rekapitulasi per <strong>Seksi</strong></h4>
+                            <a :href="calcurl + year">Sinkronkan</a>
                         </div>
                     </div>
 
@@ -126,6 +127,8 @@ export default {
             data: [],
             dataunit: [],
             triwulan: 1,
+            calcurl: '/api/calc-recap-quarter/',
+            year: new Date().getFullYear(),
             loading: false,
             disabled: false,
             editModal: false,

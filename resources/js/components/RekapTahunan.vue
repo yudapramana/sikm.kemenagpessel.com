@@ -58,6 +58,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title m-0">Rekapitulasi per <strong>Seksi Unit</strong></h4>
+                            <a :href="calcurl + year">Sinkronkan</a>
                         </div>
                     </div>
 
@@ -129,7 +130,8 @@ export default {
         return {
             data: [],
             dataunit: [],
-            year: 2023,
+            calcurl: '/api/calc-recap-year/',
+            year: this.$route.query.year,
             loading: false,
             disabled: false,
             editModal: false,

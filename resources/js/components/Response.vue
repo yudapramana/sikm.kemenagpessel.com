@@ -36,29 +36,29 @@
                                         <th class="text-center align-middle" rowspan="2">No</th>
                                         <th class="text-center align-middle" rowspan="2" width="20%">Layanan di Survey</th>
                                         <th class="text-center align-middle" rowspan="2" width="15%">Tanggal</th>
-                                        <th class="text-center align-middle" rowspan="2" width="25%">Biodata</th>
-                                        <th class="text-center align-middle" colspan="15">Jawaban</th>
-                                        <th class="text-center align-middle" rowspan="2">avg</th>
-                                        <th class="text-center align-middle" rowspan="2">improvement</th>
-                                        <th class="text-center align-middle" rowspan="2">feedback</th>
+                                        <!-- <th class="text-center align-middle" rowspan="2" width="25%">Biodata</th> -->
+                                        <th class="text-center align-middle one " colspan="15">Jawaban</th>
+                                        <th class="text-center align-middle" rowspan="2">indeks KP</th>
+                                        <th class="text-center align-middle one" rowspan="2">improvement</th>
+                                        <th class="text-center align-middle one" rowspan="2">feedback</th>
                                         <th class="text-center align-middle" rowspan="2" width="10%">aksi</th>
                                     </tr>
                                     <tr>
-                                        <th class="text-center align-middle" style="font-size:smaller!important;">1</th>
-                                        <th class="text-center align-middle" style="font-size:smaller!important;">2</th>
-                                        <th class="text-center align-middle" style="font-size:smaller!important;">3</th>
-                                        <th class="text-center align-middle" style="font-size:smaller!important;">4</th>
-                                        <th class="text-center align-middle" style="font-size:smaller!important;">5</th>
-                                        <th class="text-center align-middle" style="font-size:smaller!important;">6</th>
-                                        <th class="text-center align-middle" style="font-size:smaller!important;">7</th>
-                                        <th class="text-center align-middle" style="font-size:smaller!important;">8</th>
-                                        <th class="text-center align-middle" style="font-size:smaller!important;">9</th>
-                                        <th class="text-center align-middle" style="font-size:smaller!important;">10</th>
-                                        <th class="text-center align-middle" style="font-size:smaller!important;">11</th>
-                                        <th class="text-center align-middle" style="font-size:smaller!important;">12</th>
-                                        <th class="text-center align-middle" style="font-size:smaller!important;">13</th>
-                                        <th class="text-center align-middle" style="font-size:smaller!important;">14</th>
-                                        <th class="text-center align-middle" style="font-size:smaller!important;">15</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">1</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">2</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">3</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">4</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">5</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">6</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">7</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">8</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">9</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">10</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">11</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">12</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">13</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">14</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">15</th>
                                     </tr>
                                 </thead>
                                 <!-- <tbody class="table-sm fontsmall"> -->
@@ -69,41 +69,41 @@
                                         <td class="text-center font-smaller align-center">{{ item.DT_RowIndex }}</td>
                                         <td class="font-smaller align-center">{{ item.layanan.name }}</td>
                                         <td class="text-center font-smaller align-center">{{ item.date_string }}</td>
-                                        <td class="font-smaller align-center">{{ item.name }}</td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_1 }}
+                                        <!-- <td class="font-smaller align-center">{{ item.name }}</td> -->
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_1 }}
                                         </td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_2 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_2 }}
                                         </td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_3 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_3 }}
                                         </td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_4 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_4 }}
                                         </td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_5 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_5 }}
                                         </td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_6 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_6 }}
                                         </td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_7 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_7 }}
                                         </td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_8 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_8 }}
                                         </td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_9 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_9 }}
                                         </td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_10 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_10 }}
                                         </td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_11 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_11 }}
                                         </td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_12 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_12 }}
                                         </td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_13 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_13 }}
                                         </td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_14 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_14 }}
                                         </td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.answer_15 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_15 }}
                                         </td>
                                         <td class="text-center font-smaller fontsmaller align-center">{{ item.average }}
                                         </td>
-                                        <td class="text-center font-smaller  align-center">{{ item.improvement }}</td>
-                                        <td class="text-center font-smaller  align-center">{{ item.feedback }}</td>
+                                        <td class="one text-center font-smaller  align-center">{{ item.improvement }}</td>
+                                        <td class="one text-center font-smaller  align-center">{{ item.feedback }}</td>
                                         <td v-if="status == 'submitted'" class="text-center font-smaller  align-center">
                                             <a class="button-accept badge badge-primary nav-link text-white"
                                                 style="cursor: pointer !important;"
@@ -300,7 +300,7 @@ export default {
 }
 
 .fontsmaller {
-    font-size: x-small !important;
+    font-size:xx-small!important;
 }
 
 .fontsmall {
@@ -318,5 +318,25 @@ export default {
 
 .font-smaller {
     vertical-align: middle !important;
+    font-size:xx-small!important;
 }
+
+
+table {
+    /* display: block !important; */
+    overflow-x: auto !important;
+    /* white-space: nowrap !important; */
+}
+
+table tbody {
+    /* display: table !important; */
+    /* width: 100% !important; */
+}
+
+@media only screen and (max-width: 700px) {
+        .one{
+            display: none;
+        }
+    }
+
 </style>

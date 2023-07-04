@@ -44,7 +44,8 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
     return {
       data: [],
       dataunit: [],
-      year: 2023,
+      calcurl: '/api/calc-recap-year/',
+      year: this.$route.query.year,
       loading: false,
       disabled: false,
       editModal: false,
@@ -185,31 +186,34 @@ var _hoisted_19 = {
 var _hoisted_20 = {
   "class": "col-lg"
 };
-var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "card"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "card-header"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
-    "class": "card-title m-0"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi per "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Seksi")])])], -1 /* HOISTED */);
-});
+var _hoisted_21 = {
+  "class": "card"
+};
 var _hoisted_22 = {
+  "class": "card-header"
+};
+var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+    "class": "card-title m-0"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi per "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Seksi Unit")], -1 /* HOISTED */);
+});
+var _hoisted_24 = ["href"];
+var _hoisted_25 = {
   "class": "mb-3 text-center row"
 };
-var _hoisted_23 = {
+var _hoisted_26 = {
   "class": "card mb-4 shadow-sm"
 };
-var _hoisted_24 = {
+var _hoisted_27 = {
   "class": "card-header",
   style: {
     "height": "80px !important"
   }
 };
-var _hoisted_25 = {
+var _hoisted_28 = {
   "class": "my-0 font-weight-normal"
 };
-var _hoisted_26 = {
+var _hoisted_29 = {
   "class": "card-body"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -233,11 +237,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_17, _hoisted_18];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["columns", "data"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"row\">\r\n\r\n                        <div class=\"card col-md-3\" v-for=\"item in dataunit\" :key=\"item.id_unit_rekap_triwulan\">\r\n                            <div class=\"card-header\">\r\n                                <h4 class=\"my-0 font-weight-normal\">{{ item.unit.name }}</h4>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.dataunit, function (item) {
+  }, 8 /* PROPS */, ["columns", "data"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    href: $data.calcurl + $data.year
+  }, "Sinkronkan", 8 /* PROPS */, _hoisted_24)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"row\">\r\n\r\n                        <div class=\"card col-md-3\" v-for=\"item in dataunit\" :key=\"item.id_unit_rekap_triwulan\">\r\n                            <div class=\"card-header\">\r\n                                <h4 class=\"my-0 font-weight-normal\">{{ item.unit.name }}</h4>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.dataunit, function (item) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       "class": "col-md-3",
       key: item.id_unit_rekap_triwulan
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.unit.name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h1 class=\"card-title pricing-card-title\">$0 <small class=\"text-muted\">/ mo</small></h1> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.konversi), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.mutu_pelayanan), 1 /* TEXT */)])])]);
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.unit.name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h1 class=\"card-title pricing-card-title\">$0 <small class=\"text-muted\">/ mo</small></h1> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.konversi), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.mutu_pelayanan), 1 /* TEXT */)])])]);
   }), 128 /* KEYED_FRAGMENT */))])])])])])], 64 /* STABLE_FRAGMENT */);
 }
 
