@@ -515,7 +515,8 @@ Route::get('/calc-recap-year/{year}', function($year) {
         
     }
 
-    return 'calculation done';
+    return 'Calculation has been done, click <a href="/">here</a> to return to home page';
+
 });
 
 
