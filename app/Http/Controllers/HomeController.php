@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+
 
 class HomeController extends Controller
 {
@@ -11,9 +13,22 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('app');
+        if($request->segment(1) == 'devmode' || $request->segment(1) == 'xdown' || $request->segment(1) == 'xup') {
+            if($request->segment(1) == 'xdown') {
+                Artisan::call('down', ['--secret' => 'devmode', '--render' => 'errors.419']);
+                return 'The system has been down';
+            } elseif($request->segment(1) == 'xup') {
+                Artisan::call('up');
+                return 'The system has been up';
+            } else  {
+                return redirect('/devmode');
+            }
+        } else {
+            return view('app');
+        }
+
     }
 
     /**
