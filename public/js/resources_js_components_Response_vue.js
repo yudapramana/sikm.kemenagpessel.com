@@ -164,7 +164,7 @@ var _hoisted_1 = {
   "class": "content-header"
 };
 var _hoisted_2 = {
-  "class": "container-fluid"
+  "class": "container"
 };
 var _hoisted_3 = {
   "class": "row mb-2 justify-content-md-center"
@@ -188,7 +188,7 @@ var _hoisted_11 = {
   "class": "content"
 };
 var _hoisted_12 = {
-  "class": "container-fluid"
+  "class": "container"
 };
 var _hoisted_13 = {
   "class": "row justify-content-md-center"
@@ -236,17 +236,12 @@ var _hoisted_22 = /*#__PURE__*/_withScopeId(function () {
     width: "15%"
   }, "Tanggal"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <th class=\"text-center align-middle\" rowspan=\"2\" width=\"25%\">Biodata</th> "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "text-center align-middle one",
-    colspan: "15"
-  }, "Jawaban"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "text-center align-middle",
-    rowspan: "2"
-  }, "indeks KP"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    colspan: "2",
+    width: "20%"
+  }, "Indeks Kepuasan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <th class=\"text-center align-middle\" rowspan=\"2\">Rerata</th> "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "text-center align-middle one",
     rowspan: "2"
-  }, "improvement"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "text-center align-middle one",
-    rowspan: "2"
-  }, "feedback"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  }, "Kritik Saran"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <th class=\"text-center align-middle one\" rowspan=\"2\">feedback</th> "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "text-center align-middle",
     rowspan: "2",
     width: "10%"
@@ -255,77 +250,12 @@ var _hoisted_22 = /*#__PURE__*/_withScopeId(function () {
     style: {
       "font-size": "smaller!important"
     }
-  }, "1"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  }, "Kepuasan Masyarakat"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "one text-center align-middle fontsmaller font-smaller",
     style: {
       "font-size": "smaller!important"
     }
-  }, "2"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "one text-center align-middle fontsmaller font-smaller",
-    style: {
-      "font-size": "smaller!important"
-    }
-  }, "3"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "one text-center align-middle fontsmaller font-smaller",
-    style: {
-      "font-size": "smaller!important"
-    }
-  }, "4"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "one text-center align-middle fontsmaller font-smaller",
-    style: {
-      "font-size": "smaller!important"
-    }
-  }, "5"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "one text-center align-middle fontsmaller font-smaller",
-    style: {
-      "font-size": "smaller!important"
-    }
-  }, "6"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "one text-center align-middle fontsmaller font-smaller",
-    style: {
-      "font-size": "smaller!important"
-    }
-  }, "7"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "one text-center align-middle fontsmaller font-smaller",
-    style: {
-      "font-size": "smaller!important"
-    }
-  }, "8"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "one text-center align-middle fontsmaller font-smaller",
-    style: {
-      "font-size": "smaller!important"
-    }
-  }, "9"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "one text-center align-middle fontsmaller font-smaller",
-    style: {
-      "font-size": "smaller!important"
-    }
-  }, "10"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "one text-center align-middle fontsmaller font-smaller",
-    style: {
-      "font-size": "smaller!important"
-    }
-  }, "11"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "one text-center align-middle fontsmaller font-smaller",
-    style: {
-      "font-size": "smaller!important"
-    }
-  }, "12"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "one text-center align-middle fontsmaller font-smaller",
-    style: {
-      "font-size": "smaller!important"
-    }
-  }, "13"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "one text-center align-middle fontsmaller font-smaller",
-    style: {
-      "font-size": "smaller!important"
-    }
-  }, "14"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "one text-center align-middle fontsmaller font-smaller",
-    style: {
-      "font-size": "smaller!important"
-    }
-  }, "15")])], -1 /* HOISTED */);
+  }, "Persepsi Korupsi"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <th class=\"one text-center align-middle fontsmaller font-smaller\" style=\"font-size:smaller!important;\">3</th>\r\n                                        <th class=\"one text-center align-middle fontsmaller font-smaller\" style=\"font-size:smaller!important;\">4</th>\r\n                                        <th class=\"one text-center align-middle fontsmaller font-smaller\" style=\"font-size:smaller!important;\">5</th>\r\n                                        <th class=\"one text-center align-middle fontsmaller font-smaller\" style=\"font-size:smaller!important;\">6</th>\r\n                                        <th class=\"one text-center align-middle fontsmaller font-smaller\" style=\"font-size:smaller!important;\">7</th>\r\n                                        <th class=\"one text-center align-middle fontsmaller font-smaller\" style=\"font-size:smaller!important;\">8</th>\r\n                                        <th class=\"one text-center align-middle fontsmaller font-smaller\" style=\"font-size:smaller!important;\">9</th>\r\n                                        <th class=\"one text-center align-middle fontsmaller font-smaller\" style=\"font-size:smaller!important;\">10</th>\r\n                                        <th class=\"one text-center align-middle fontsmaller font-smaller\" style=\"font-size:smaller!important;\">11</th>\r\n                                        <th class=\"one text-center align-middle fontsmaller font-smaller\" style=\"font-size:smaller!important;\">12</th>\r\n                                        <th class=\"one text-center align-middle fontsmaller font-smaller\" style=\"font-size:smaller!important;\">13</th>\r\n                                        <th class=\"one text-center align-middle fontsmaller font-smaller\" style=\"font-size:smaller!important;\">14</th>\r\n                                        <th class=\"one text-center align-middle fontsmaller font-smaller\" style=\"font-size:smaller!important;\">15</th> ")])], -1 /* HOISTED */);
 });
 var _hoisted_23 = {
   "class": "table-sm fontsmall"
@@ -346,68 +276,26 @@ var _hoisted_28 = {
   "class": "one text-center font-smaller fontsmaller align-center"
 };
 var _hoisted_29 = {
-  "class": "one text-center font-smaller fontsmaller align-center"
+  "class": "one text-center font-smaller align-center"
 };
-var _hoisted_30 = {
-  "class": "one text-center font-smaller fontsmaller align-center"
-};
+var _hoisted_30 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
 var _hoisted_31 = {
-  "class": "one text-center font-smaller fontsmaller align-center"
-};
-var _hoisted_32 = {
-  "class": "one text-center font-smaller fontsmaller align-center"
-};
-var _hoisted_33 = {
-  "class": "one text-center font-smaller fontsmaller align-center"
-};
-var _hoisted_34 = {
-  "class": "one text-center font-smaller fontsmaller align-center"
-};
-var _hoisted_35 = {
-  "class": "one text-center font-smaller fontsmaller align-center"
-};
-var _hoisted_36 = {
-  "class": "one text-center font-smaller fontsmaller align-center"
-};
-var _hoisted_37 = {
-  "class": "one text-center font-smaller fontsmaller align-center"
-};
-var _hoisted_38 = {
-  "class": "one text-center font-smaller fontsmaller align-center"
-};
-var _hoisted_39 = {
-  "class": "one text-center font-smaller fontsmaller align-center"
-};
-var _hoisted_40 = {
-  "class": "one text-center font-smaller fontsmaller align-center"
-};
-var _hoisted_41 = {
-  "class": "one text-center font-smaller fontsmaller align-center"
-};
-var _hoisted_42 = {
-  "class": "text-center font-smaller fontsmaller align-center"
-};
-var _hoisted_43 = {
-  "class": "one text-center font-smaller align-center"
-};
-var _hoisted_44 = {
-  "class": "one text-center font-smaller align-center"
-};
-var _hoisted_45 = {
   key: 0,
   "class": "text-center font-smaller align-center"
 };
-var _hoisted_46 = ["onClick"];
-var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("   ");
-var _hoisted_48 = ["onClick"];
-var _hoisted_49 = {
+var _hoisted_32 = ["onClick"];
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("   ");
+var _hoisted_34 = ["onClick"];
+var _hoisted_35 = {
   key: 1,
   "class": "text-center font-smaller align-center"
 };
-var _hoisted_50 = {
+var _hoisted_36 = {
   key: 0
 };
-var _hoisted_51 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_37 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
     "class": "text-center align-middle",
     style: {
@@ -416,12 +304,12 @@ var _hoisted_51 = /*#__PURE__*/_withScopeId(function () {
     colspan: "23"
   }, " .: Belum ada data :. ", -1 /* HOISTED */);
 });
-var _hoisted_52 = [_hoisted_51];
+var _hoisted_38 = [_hoisted_37];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_5, [_hoisted_6, _hoisted_7, _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.status), 1 /* TEXT */)])]), _hoisted_10])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_19, "status " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.status), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <tbody class=\"table-sm fontsmall\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <tbody class=\"table-sm fontsmall\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", _hoisted_23, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.data, function (item) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       key: item.id_survey
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.DT_RowIndex), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.layanan.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.date_string), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td class=\"font-smaller align-center\">{{ item.name }}</td> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.answer_1), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.answer_2), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_29, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.answer_3), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.answer_4), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.answer_5), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.answer_6), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.answer_7), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.answer_8), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.answer_9), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.answer_10), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.answer_11), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.answer_12), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_39, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.answer_13), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_40, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.answer_14), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.answer_15), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_42, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.average), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_43, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.improvement), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.feedback), 1 /* TEXT */), _ctx.status == 'submitted' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.DT_RowIndex), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.layanan.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.date_string), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td class=\"font-smaller align-center\">{{ item.name }}</td> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.nilai_ikm), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.nilai_ipk), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td class=\"one text-center font-smaller fontsmaller align-center\">{{ item.answer_3 }}\r\n                                        </td>\r\n                                        <td class=\"one text-center font-smaller fontsmaller align-center\">{{ item.answer_4 }}\r\n                                        </td>\r\n                                        <td class=\"one text-center font-smaller fontsmaller align-center\">{{ item.answer_5 }}\r\n                                        </td>\r\n                                        <td class=\"one text-center font-smaller fontsmaller align-center\">{{ item.answer_6 }}\r\n                                        </td>\r\n                                        <td class=\"one text-center font-smaller fontsmaller align-center\">{{ item.answer_7 }}\r\n                                        </td>\r\n                                        <td class=\"one text-center font-smaller fontsmaller align-center\">{{ item.answer_8 }}\r\n                                        </td>\r\n                                        <td class=\"one text-center font-smaller fontsmaller align-center\">{{ item.answer_9 }}\r\n                                        </td>\r\n                                        <td class=\"one text-center font-smaller fontsmaller align-center\">{{ item.answer_10 }}\r\n                                        </td>\r\n                                        <td class=\"one text-center font-smaller fontsmaller align-center\">{{ item.answer_11 }}\r\n                                        </td>\r\n                                        <td class=\"one text-center font-smaller fontsmaller align-center\">{{ item.answer_12 }}\r\n                                        </td>\r\n                                        <td class=\"one text-center font-smaller fontsmaller align-center\">{{ item.answer_13 }}\r\n                                        </td>\r\n                                        <td class=\"one text-center font-smaller fontsmaller align-center\">{{ item.answer_14 }}\r\n                                        </td>\r\n                                        <td class=\"one text-center font-smaller fontsmaller align-center\">{{ item.answer_15 }}\r\n                                        </td> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td class=\"text-center font-smaller fontsmaller align-center\">{{ item.average }}\r\n                                        </td> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.improvement) + " ", 1 /* TEXT */), _hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.feedback), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td class=\"one text-center font-smaller  align-center\">{{ item.feedback }}</td> "), _ctx.status == 'submitted' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
       "class": "button-accept badge badge-primary nav-link text-white",
       style: {
         "cursor": "pointer !important"
@@ -429,7 +317,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: function onClick($event) {
         return $options.approve(item.id_survey);
       }
-    }, "setujui", 8 /* PROPS */, _hoisted_46), _hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    }, "setujui", 8 /* PROPS */, _hoisted_32), _hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
       "class": "button-reject badge badge-secondary nav-link text-white",
       style: {
         "cursor": "pointer !important"
@@ -437,8 +325,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: function onClick($event) {
         return $options.reject(item.id_survey);
       }
-    }, "tolak", 8 /* PROPS */, _hoisted_48)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.status != 'submitted' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", _hoisted_49, " -- no action -- ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
-  }), 128 /* KEYED_FRAGMENT */)), $data.data.length == 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_50, _hoisted_52)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])])])])])], 64 /* STABLE_FRAGMENT */);
+    }, "tolak", 8 /* PROPS */, _hoisted_34)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.status != 'submitted' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", _hoisted_35, " -- no action -- ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
+  }), 128 /* KEYED_FRAGMENT */)), $data.data.length == 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_36, _hoisted_38)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])])])])])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),

@@ -8,6 +8,7 @@ use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\GuestController;
 use App\Models\Question;
+use App\Models\Survey;
 use PHPUnit\Framework\Constraint\Count;
 use DataTables as DataTables;
 use Carbon\Carbon;
@@ -68,6 +69,52 @@ Route::get('/get/layanan/{id_unit}', function ($id_unit) {
     return $data;
 });
 
+
+Route::get('/controlcenter/', function () {
+
+    $base_uri = URL::to('/');
+    $arrayData = [
+        [
+            'named_route' => 'Synchronize Index',
+            'route_uri' => '/api/sync/index',
+            'full_uri' => $base_uri . '/api/sync/index',
+            'button' => '<a target="_blank" href="' . $base_uri . '/api/sync/index' . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+        ],
+        [
+            'named_route' => 'Reset Recapitulation',
+            'route_uri' => '/api/reset-recapitulation/' . date("Y"),
+            'full_uri' => $base_uri . '/api/reset-recapitulation/' . date("Y"),
+            'button' => '<a target="_blank" href="' . $base_uri . '/api/reset-recapitulation/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+        ],
+        [
+            'named_route' => 'Calculate IKM Recap Yearly',
+            'route_uri' => '/api/calc-recap-year/ikm/' . date("Y"),
+            'full_uri' => $base_uri . '/api/calc-recap-year/ikm/' . date("Y"),
+            'button' => '<a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ikm/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+        ],
+        [
+            'named_route' => 'Calculate IPK Recap Yearly',
+            'route_uri' => '/api/calc-recap-year/ipk/' . date("Y"),
+            'full_uri' => $base_uri . '/api/calc-recap-year/ipk/' . date("Y"),
+            'button' => '<a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ipk/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+        ],
+        [
+            'named_route' => 'Calculate IKM Recap Quarterly',
+            'route_uri' => '/api/calc-recap-year/ikm/' . date("Y"),
+            'full_uri' => $base_uri . '/api/calc-recap-year/ikm/' . date("Y"),
+            'button' => '<a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ikm/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+        ],
+        [
+            'named_route' => 'Calculate IPK Recap Quarterly',
+            'route_uri' => '/api/calc-recap-quarter/ipk/' . date("Y"),
+            'full_uri' => $base_uri . '/api/calc-recap-quarter/ipk/' . date("Y"),
+            'button' => '<a target="_blank" href="' . $base_uri . '/api/calc-recap-quarter/ipk/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+        ],
+    ];
+    return view('controlcenter', compact('arrayData'));
+});
+
+
 Route::get('/get/unit/', function () {
     $layanans = \App\Models\UnitPengolah::all();
     $data = [];
@@ -80,9 +127,96 @@ Route::get('/get/unit/', function () {
     return $data;
 });
 
+Route::get('/get/unsur', function (Request $request) {
+
+    $surveys = \App\Models\Survey::get();
+
+    // $unsur_sikm = \App\Models\Question::where('tipe', 'IKM')->get()
+    //     ->map(function ($item, $key) {
+    //         return [
+    //             'key' => $key+1,
+    //             'unsur' => $item->factor
+    //         ];
+    //     })
+    //     ->all();
+
+    // foreach ($unsur_sikm as $key => $item) {
+    //     $summed = $surveys->sum('answer_' . $item['key']);
+    //     $counted = $surveys->count('answer_' . $item['key']);
+    //     $average = number_format($summed / $counted, 3);
+
+    //     $unsur_sikm[$key]['summed'] = $summed;
+    //     $unsur_sikm[$key]['counted'] = $counted;
+    //     $unsur_sikm[$key]['average'] = $average;
+    //     $unsur_sikm[$key]['weighted_average'] = number_format($average * (1 / 9), 2);
+    // }
+
+    // return $unsur_sikm;
+
+
+    $gender = $surveys->sortBy('gender')->groupBy('gender')->map(function ($item) {
+        return $item->count();
+    });
+
+    $age = $surveys->sortBy('age')->groupBy('age')->map(function ($item) {
+        return $item->count();
+    });
+
+    $education = $surveys->sortBy('education')->groupBy('education')->map(function ($item) {
+        return $item->count();
+    });
+
+    $work = $surveys->sortBy('work')->groupBy('work')->map(function ($item) {
+        return $item->count();
+    });
+
+    return [
+        'gender' => $gender,
+        'age' => $age,
+        'education' => $education,
+        'work' => $work,
+    ];
+});
+
+Route::get('/sync/index', function (Request $request) {
+    $surveys = \App\Models\Survey::where('nilai_ikm', 0)->get();
+
+    foreach ($surveys as $key => $survey) {
+        $surveyIKM = [
+            $survey->answer_1,
+            $survey->answer_2,
+            $survey->answer_3,
+            $survey->answer_4,
+            $survey->answer_5,
+            $survey->answer_6,
+            $survey->answer_7,
+            $survey->answer_8,
+            $survey->answer_9
+        ];
+
+        $surveyIPK = [
+            $survey->answer_10,
+            $survey->answer_11,
+            $survey->answer_12,
+            $survey->answer_13,
+            $survey->answer_14,
+            $survey->answer_15
+        ];
+
+        $avgIKM = number_format((array_sum($surveyIKM) / Count($surveyIKM)), 3);
+        $avgIPK = number_format((array_sum($surveyIPK) / Count($surveyIPK)), 3);
+
+        $survey->update([
+            'nilai_ikm' => $avgIKM,
+            'nilai_ipk' => $avgIPK,
+        ]);
+    }
+
+    return 'done';
+});
 
 Route::post('/store/survey', function (Request $request) {
-    $data = $request->input();  
+    $data = $request->input();
 
     $submitted_at = Carbon::now();
     $submitted_at = $submitted_at->toDateTimeString();
@@ -173,7 +307,7 @@ Route::post('/store/survey', function (Request $request) {
 
 Route::get('/survey/{status}/{id_survey}', function ($status, $id_survey) {
     $survey = \App\Models\Survey::find($id_survey);
-    
+
     if ($survey->status == 'submitted') {
         switch ($status) {
             case 'approved':
@@ -186,7 +320,7 @@ Route::get('/survey/{status}/{id_survey}', function ($status, $id_survey) {
                 $rJumlahResponden = $rekapTahunan->jumlah_responden;
                 $rTotalAvgIndividu = $rekapTahunan->total_average_individu;
 
-                $nJumlahResponden = $rJumlahResponden+1;
+                $nJumlahResponden = $rJumlahResponden + 1;
                 $nTotalAvgIndividu = $rTotalAvgIndividu + $survey->average;
                 $index_pelayanan = round($nTotalAvgIndividu / $nJumlahResponden, 3);
 
@@ -238,7 +372,7 @@ Route::get('/survey/{status}/{id_survey}', function ($status, $id_survey) {
                 $rJumlahResponden = $rekapTriwulan->jumlah_responden;
                 $rTotalAvgIndividu = $rekapTriwulan->total_average_individu;
 
-                $nJumlahResponden = $rJumlahResponden+1;
+                $nJumlahResponden = $rJumlahResponden + 1;
                 $nTotalAvgIndividu = $rTotalAvgIndividu + $survey->average;
                 $index_pelayanan = round($nTotalAvgIndividu / $nJumlahResponden, 3);
 
@@ -292,15 +426,58 @@ Route::get('/survey/{status}/{id_survey}', function ($status, $id_survey) {
     return $survey;
 });
 
+
+Route::get('/get/all_surveys', function () {
+    $surveys = \App\Models\Survey::select('id_survey', 'submitted_at', 'id_layanan', 'average', 'improvement', 'feedback')
+        ->where('feedback', '!=', '')
+        ->orderBy('id_layanan')
+        ->get()->map(function ($event) {
+            return [
+                'id_survey' => $event->id_survey,
+                'nama_unit' => $event->nama_unit,
+                'nama_layanan' => $event->nama_layanan,
+                'average' => number_format($event->average, 2),
+                'improvement' => $event->improvement,
+                'feedback' => $event->feedback,
+            ];
+        });
+
+    $groupByUnit = $surveys->groupBy('nama_unit');
+    return $groupByUnit;
+});
+
+Route::get('/get/survey_by_unit/{id_unit}', function ($id_unit) {
+    // return 'caper ang ma';
+    $surveys = \App\Models\Survey::select('id_survey', 'submitted_at', 'id_layanan', 'average', 'improvement', 'feedback')
+        ->whereHas('layanan.unit', function ($query) use ($id_unit) {
+            $query->where('id_unit_pengolah', $id_unit);
+        })
+
+        ->where('feedback', '!=', '')
+        ->orderBy('id_layanan')
+        ->get()
+        ->map(function ($event) {
+            return [
+                'id_survey' => $event->id_survey,
+                'average' => number_format($event->average, 2),
+                'nama_layanan' => $event->nama_layanan,
+                'improvement' => $event->improvement,
+                'feedback' => $event->feedback,
+            ];
+        });
+
+    return $surveys;
+});
+
 Route::get('/get/surveys/{status}', function ($status) {
     $surveys = \App\Models\Survey::where('status', $status)->get();
 
     return Datatables::of($surveys)
-                ->addIndexColumn()
-                ->addColumn('biodata', function ($sur) {
-                    $textHTML = '<table class="insidetable table table-borderless" style="background:transparent;">';
-                    $textHTML .= '<tr>';
-                    $textHTML .= '<td style="
+        ->addIndexColumn()
+        ->addColumn('biodata', function ($sur) {
+            $textHTML = '<table class="insidetable table table-borderless" style="background:transparent;">';
+            $textHTML .= '<tr>';
+            $textHTML .= '<td style="
     padding: 0 !important;
     margin: 0 !important;
 ">nama_lengkap</td> <td style="
@@ -309,10 +486,10 @@ Route::get('/get/surveys/{status}', function ($status) {
 ">:&nbsp;&nbsp;</td>  <td style="
     padding: 0 !important;
     margin: 0 !important;
-">'.$sur->name.'</td>';
-                    $textHTML .= '</tr>';
-                    $textHTML .= '<tr>';
-                    $textHTML .= '<td style="
+">' . $sur->name . '</td>';
+            $textHTML .= '</tr>';
+            $textHTML .= '<tr>';
+            $textHTML .= '<td style="
     padding: 0 !important;
     margin: 0 !important;
 ">alamat</td> <td style="
@@ -321,10 +498,10 @@ Route::get('/get/surveys/{status}', function ($status) {
 ">:&nbsp;&nbsp;</td>  <td style="
     padding: 0 !important;
     margin: 0 !important;
-">'.$sur->address.'</td>';
-                    $textHTML .= '</tr>';
-                    $textHTML .= '<tr>';
-                    $textHTML .= '<td style="
+">' . $sur->address . '</td>';
+            $textHTML .= '</tr>';
+            $textHTML .= '<tr>';
+            $textHTML .= '<td style="
     padding: 0 !important;
     margin: 0 !important;
 ">jenis_kelamin</td> <td style="
@@ -333,10 +510,10 @@ Route::get('/get/surveys/{status}', function ($status) {
 ">:&nbsp;&nbsp;</td>  <td style="
     padding: 0 !important;
     margin: 0 !important;
-">'.$sur->gender.'</td>';
-                    $textHTML .= '</tr>';
-                    $textHTML .= '<tr>';
-                    $textHTML .= '<td style="
+">' . $sur->gender . '</td>';
+            $textHTML .= '</tr>';
+            $textHTML .= '<tr>';
+            $textHTML .= '<td style="
     padding: 0 !important;
     margin: 0 !important;
 ">umur</td> <td style="
@@ -345,10 +522,10 @@ Route::get('/get/surveys/{status}', function ($status) {
 ">:&nbsp;&nbsp;</td>  <td style="
     padding: 0 !important;
     margin: 0 !important;
-">'.$sur->age.'</td>';
-                    $textHTML .= '</tr>';
-                    $textHTML .= '<tr>';
-                    $textHTML .= '<td style="
+">' . $sur->age . '</td>';
+            $textHTML .= '</tr>';
+            $textHTML .= '<tr>';
+            $textHTML .= '<td style="
     padding: 0 !important;
     margin: 0 !important;
 ">pekerjaan</td> <td style="
@@ -357,10 +534,10 @@ Route::get('/get/surveys/{status}', function ($status) {
 ">:&nbsp;&nbsp;</td>  <td style="
     padding: 0 !important;
     margin: 0 !important;
-">'.$sur->work.'</td>';
-                    $textHTML .= '</tr>';
-                    $textHTML .= '<tr>';
-                    $textHTML .= '<td style="
+">' . $sur->work . '</td>';
+            $textHTML .= '</tr>';
+            $textHTML .= '<tr>';
+            $textHTML .= '<td style="
     padding: 0 !important;
     margin: 0 !important;
 ">pendidikan</td> <td style="
@@ -369,37 +546,162 @@ Route::get('/get/surveys/{status}', function ($status) {
 ">:&nbsp;&nbsp;</td>  <td style="
     padding: 0 !important;
     margin: 0 !important;
-">'.$sur->education.'</td>';
-                    $textHTML .= '</tr>';
+">' . $sur->education . '</td>';
+            $textHTML .= '</tr>';
 
-                    $textHTML .= '</table>';
+            $textHTML .= '</table>';
 
-                    return $textHTML;
-                })
-                ->addColumn('aksi', function ($layanan) {
-                    $btn = '<a class="button-accept badge badge-primary nav-link text-white" style="cursor: pointer !important;">setujui</a>&nbsp;&nbsp;';
-                    $btn .= '<a class="button-reject badge badge-secondary nav-link text-white" style="cursor: pointer !important;">tolak</a>';
+            return $textHTML;
+        })
+        ->addColumn('aksi', function ($layanan) {
+            $btn = '<a class="button-accept badge badge-primary nav-link text-white" style="cursor: pointer !important;">setujui</a>&nbsp;&nbsp;';
+            $btn .= '<a class="button-reject badge badge-secondary nav-link text-white" style="cursor: pointer !important;">tolak</a>';
 
-                    return $btn;
-                })
-                ->rawColumns(['biodata', 'aksi'])
+            return $btn;
+        })
+        ->editColumn('nilai_ikm', function ($layanan) {
+            $btn = number_format($layanan->nilai_ikm, 3, '.', ',');
+            return $btn;
+        })
+        ->editColumn('nilai_ipk', function ($layanan) {
+            $btn = number_format($layanan->nilai_ipk, 3, '.', ',');
+            return $btn;
+        })
+        ->rawColumns(['biodata', 'aksi'])
 
-                ->make(true);
+        ->make(true);
 });
 
-Route::get('/get/rekapitulasi/{year}', function ($year) {
-    $rekap = \App\Models\RekapTahunan::where('tahun', $year)->get();
+Route::get('/get/rekapitulasi/{tipe_survey}/{year}', function ($tipe_survey, $year) {
+
+    $surveys = \App\Models\Survey::where('status', 'approved')->get();
+    $total_responden = $surveys->count();
+
+    $unsur_sikm = \App\Models\Question::where('tipe', $tipe_survey)->get()
+        ->map(function ($item, $key) use ($tipe_survey) {
+
+            $adder = $tipe_survey == 'ikm' ? 1 : 10;
+            return [
+                'key' => $key + $adder,
+                'unsur' => $item->factor
+            ];
+        })
+        ->all();
+
+
+    $nilai_sikm = 0;
+    foreach ($unsur_sikm as $key => $item) {
+        $summed = $surveys->sum('answer_' . $item['key']);
+        $counted = $surveys->count('answer_' . $item['key']);
+        $average = number_format($summed / $counted, 3);
+
+        $unsur_sikm[$key]['summed'] = $summed;
+        $unsur_sikm[$key]['counted'] = $counted;
+        $unsur_sikm[$key]['average'] = $average;
+        $divider = $tipe_survey == 'ikm' ? 9 : 6;
+        $weighted_average = number_format($average * (1 / $divider), 3);
+        $unsur_sikm[$key]['weighted_average'] = $weighted_average;
+        $nilai_sikm += $weighted_average;
+    }
+
+    $mutuPelayanan = '';
+    switch ($nilai_sikm) {
+        case $nilai_sikm > 3.26:
+            $mutuPelayanan = 'A (Sangat Baik)';
+            break;
+
+        case $nilai_sikm > 2.51 && $nilai_sikm <= 3.25:
+            $mutuPelayanan = 'B (Baik)';
+            break;
+
+        case $nilai_sikm > 1.76 && $nilai_sikm <= 2.5:
+            $mutuPelayanan = 'C (Kurang Baik)';
+            break;
+
+        case $nilai_sikm <= 1.75:
+            $mutuPelayanan = 'D (Buruk)';
+            break;
+
+        default:
+            # code...
+            break;
+    }
+
+    // asd
+    $genderArr = [
+        'Laki-laki' => 0,
+        'Perempuan' => 0
+    ];
+    $gender = $surveys->countBy('gender')->toArray();
+    $genderMerged = array_merge_recursive_distinct($genderArr, $gender);
+
+    $ageArr = [
+        'Dibawah 20 Tahun' => 0,
+        '21 s/d 30 Tahun' => 0,
+        '31 s/d 40 Tahun' => 0,
+        '41 s/d 50 Tahun' => 0,
+        'Diatas 50 Tahun' => 0
+    ];
+    $age = $surveys->countBy('age')->toArray();
+    $ageMerged = array_merge_recursive_distinct($ageArr, $age);
+
+    $educationArr = [
+        'SD' => 0,
+        'SMP atau Sederajat' => 0,
+        'SMA atau Sederajat' => 0,
+        'Strata 1 (S1)' => 0,
+        'Strata 2 (S2)' => 0,
+        'Strata 3 (S3)' => 0,
+    ];
+    $education = $surveys->countBy('education')->toArray();
+    $educationMerged = array_merge_recursive_distinct($educationArr, $education);
+
+    $workArr = [
+        'PNS / TNI / POLRI' => 0,
+        'Pegawai Swasta' => 0,
+        'Wiraswasta' => 0,
+        'Tenaga Honor / Ahli / Kontrak' => 0,
+        'Pelajar / Mahasiswa' => 0,
+        'Lainnya' => 0
+    ];
+    $work = $surveys->countBy('work')->toArray();
+    $workMerged = array_merge_recursive_distinct($workArr, $work);
+
+
+    $rangkuman_responden =  [
+        'total_responden' => $total_responden,
+        'gender' => $genderMerged,
+        'age' => $ageMerged,
+        'education' => $educationMerged,
+        'work' => $workMerged,
+    ];
+    // asd
+
+    $rekap = \App\Models\RekapTahunan::where([
+        'tahun' => $year,
+        'tipe_survey' => $tipe_survey
+    ])->get();
+
+    $konversi = number_format((($nilai_sikm / 4) * 100), 2);
+
 
     return Datatables::of($rekap)
-                ->addIndexColumn()
-                ->addColumn('aksi', function ($layanan) {
-                    $btn = '<a class="badge badge-primary nav-link text-white">detail</a>&nbsp;&nbsp;';
-                    $btn .= '<a class="badge badge-secondary nav-link text-white">grafik</a>';
+        ->addIndexColumn()
+        ->addColumn('aksi', function ($layanan) {
+            $btn = '<a class="badge badge-primary nav-link text-white">detail</a>&nbsp;&nbsp;';
+            $btn .= '<a class="badge badge-secondary nav-link text-white">grafik</a>';
 
-                    return $btn;
-                })
-                ->rawColumns(['aksi'])
-                ->make(true);
+            return $btn;
+        })
+        ->rawColumns(['aksi'])
+        ->with([
+            'factored_recapitulation' => $unsur_sikm,
+            'nilai_sikm' => number_format($nilai_sikm, 2),
+            'konversi' => $konversi,
+            'mutu_pelayanan' => $mutuPelayanan,
+            'rangkuman_responden' => $rangkuman_responden,
+        ])
+        ->make(true);
 });
 
 Route::get('/get/rekapitulasi-triwulan/{quarter}', function ($quarter) {
@@ -437,24 +739,24 @@ Route::get('/get/rekapitulasi-triwulan/{quarter}', function ($quarter) {
     ])->get();
 
     return Datatables::of($rekap)
-                ->addIndexColumn()
-                ->addColumn('aksi', function ($layanan) {
-                    $btn = '<a class="badge badge-primary nav-link text-white">detail</a>&nbsp;&nbsp;';
-                    $btn .= '<a class="badge badge-secondary nav-link text-white">grafik</a>';
+        ->addIndexColumn()
+        ->addColumn('aksi', function ($layanan) {
+            $btn = '<a class="badge badge-primary nav-link text-white">detail</a>&nbsp;&nbsp;';
+            $btn .= '<a class="badge badge-secondary nav-link text-white">grafik</a>';
 
-                    return $btn;
-                })
-                ->rawColumns(['aksi'])
-                ->make(true);
+            return $btn;
+        })
+        ->rawColumns(['aksi'])
+        ->make(true);
 });
 
-Route::get('/ressurcalc/{year}', function($year){
+Route::get('/reset-recapitulation/{year}', function ($year) {
     $surveys = \App\Models\Survey::whereYear('created_at', $year)->get();
 
-    foreach ($surveys as $key => $survey) {
-        $survey->status = 'submitted';
-        $survey->save();
-    }
+    // foreach ($surveys as $key => $survey) {
+    //     $survey->status = 'submitted';
+    //     $survey->save();
+    // }
 
     $rekapTahunan = \App\Models\RekapTahunan::where('tahun', $year)->delete();
     $rekapTriwulan = \App\Models\RekapTriwulan::where('tahun', $year)->delete();
@@ -463,23 +765,26 @@ Route::get('/ressurcalc/{year}', function($year){
 
 
     return 'survey rekap resetted';
-    
 });
 
-Route::get('/calc-recap-year/{year}', function($year) {
+Route::get('/calc-recap-year/{tipe_survey}/{year}', function ($tipe_survey, $year) {
     $allsurveys = \App\Models\Survey::whereYear('submitted_at', $year)->where('status', 'approved')->get();
     $grouped = $allsurveys->groupBy('id_layanan');
 
-    $rekapTahunan = \App\Models\RekapTahunan::where('tahun', $year)->delete();
+    $rekapTahunan = \App\Models\RekapTahunan::where([
+        'tahun' => $year,
+        'tipe_survey' => $tipe_survey
+    ])->delete();
 
     // Untuk Tahunan
     foreach ($grouped as $id_layanan => $surveys) {
         $totalResponden = $surveys->count();
-        $sumAvgs = $surveys->sum('average');
-        $index_pelayanan = round($sumAvgs / $totalResponden);
+        $sumAvgs = $surveys->sum('nilai_' . $tipe_survey);
+        $index_pelayanan = number_format($sumAvgs / $totalResponden, 2);
 
         $rekapTahunan = \App\Models\RekapTahunan::firstOrCreate([
             'tahun' => $year,
+            'tipe_survey' => $tipe_survey,
             'id_layanan' => $id_layanan,
             'jumlah_responden' => $totalResponden,
             'total_average_individu' => $sumAvgs,
@@ -512,18 +817,19 @@ Route::get('/calc-recap-year/{year}', function($year) {
         $rekapTahunan->mutu_pelayanan = $mutuPelayanan;
         $rekapTahunan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
         $rekapTahunan->save();
-        
     }
 
     return 'Calculation has been done, click <a href="/">here</a> to return to home page';
-
 });
 
 
-Route::get('/calc-recap-quarter/{year}', function($year) {
+Route::get('/calc-recap-quarter/{tipe_survey}/{year}', function ($tipe_survey, $year) {
     $allsurveys = \App\Models\Survey::whereYear('submitted_at', $year)->where('status', 'approved')->get();
 
-    $rekapTriwulan = \App\Models\RekapTriwulan::where('tahun', $year)->delete();
+    $rekapTriwulan = \App\Models\RekapTriwulan::where([
+        'tahun' => $year,
+        'tipe_survey' => $tipe_survey
+    ])->delete();
 
     // Untuk Triwulan
     foreach ($allsurveys as $survey) {
@@ -533,6 +839,7 @@ Route::get('/calc-recap-quarter/{year}', function($year) {
 
         $rekapTriwulan = \App\Models\RekapTriwulan::firstOrCreate([
             'tahun' => date('Y'),
+            'tipe_survey' => $tipe_survey,
             'triwulan' => $quarter,
             'id_layanan' => $survey->id_layanan,
         ]);
@@ -540,7 +847,7 @@ Route::get('/calc-recap-quarter/{year}', function($year) {
         $rJumlahResponden = $rekapTriwulan->jumlah_responden;
         $rTotalAvgIndividu = $rekapTriwulan->total_average_individu;
 
-        $nJumlahResponden = $rJumlahResponden+1;
+        $nJumlahResponden = $rJumlahResponden + 1;
         $nTotalAvgIndividu = $rTotalAvgIndividu + $survey->average;
         $index_pelayanan = round($nTotalAvgIndividu / $nJumlahResponden, 3);
 
@@ -576,13 +883,19 @@ Route::get('/calc-recap-quarter/{year}', function($year) {
         $rekapTriwulan->mutu_pelayanan = $mutuPelayanan;
         $rekapTriwulan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
         $rekapTriwulan->save();
-
     }
 
 
     // Count Rekap Triwulan as Unit
-    $rekapTriwulan = \App\Models\RekapTriwulan::where('tahun', $year)->get();
-    $oldRekapTriwulan = \App\Models\UnitRekapTriwulan::where('tahun', $year)->delete();
+    $rekapTriwulan = \App\Models\RekapTriwulan::where([
+        'tahun' => $year,
+        'tipe_survey' => $tipe_survey
+    ])->get();
+
+    $oldRekapTriwulan = \App\Models\UnitRekapTriwulan::where([
+        'tahun' => $year,
+        'tipe_survey' => $tipe_survey
+    ])->delete();
 
     $grouped = $rekapTriwulan->groupBy('triwulan_id_unit');
 
@@ -602,6 +915,7 @@ Route::get('/calc-recap-quarter/{year}', function($year) {
 
         $unitRekapTriwulan = \App\Models\UnitRekapTriwulan::firstOrCreate([
             'tahun' => $year,
+            'tipe_survey' => $tipe_survey,
             'triwulan' => $triwulan,
             'id_unit_pengolah' => $id_unit,
         ]);
@@ -637,12 +951,14 @@ Route::get('/calc-recap-quarter/{year}', function($year) {
         $unitRekapTriwulan->mutu_pelayanan = $mutuPelayanan;
         $unitRekapTriwulan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
         $unitRekapTriwulan->save();
-
     }
 
 
     // Count Rekap Tahunan as Unit
-    $rekapTahunan = \App\Models\RekapTahunan::where('tahun', $year)->get();
+    $rekapTahunan = \App\Models\RekapTahunan::where([
+        'tahun' => $year,
+        'tipe_survey' => $tipe_survey
+    ])->get();
 
     $grouped = $rekapTahunan->groupBy('id_unit_pengolah');
 
@@ -660,6 +976,7 @@ Route::get('/calc-recap-quarter/{year}', function($year) {
 
         $unitRekapTahunan = \App\Models\UnitRekapTahunan::firstOrCreate([
             'tahun' => $year,
+            'tipe_survey' => $tipe_survey,
             'id_unit_pengolah' => $id_unit_pengolah,
         ]);
 
@@ -694,24 +1011,26 @@ Route::get('/calc-recap-quarter/{year}', function($year) {
         $unitRekapTahunan->mutu_pelayanan = $mutuPelayanan;
         $unitRekapTahunan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
         $unitRekapTahunan->save();
-
     }
 
     return 'calculation done';
 });
 
-Route::get('/unit-rekap-triwulan/{quarter}', function($quarter) {
-   
+Route::get('/unit-rekap-triwulan/{quarter}', function ($quarter) {
+
     $rekaps = \App\Models\UnitRekapTriwulan::where('triwulan', $quarter)
-                ->get();
+        ->get();
 
     return $rekaps;
 });
 
-Route::get('/unit-rekap-tahunan/{year}', function($year) {
-   
-    $rekaps = \App\Models\UnitRekapTahunan::where('tahun', $year)
-                ->get();
+Route::get('/unit-rekap-tahunan/{tipe_survey}/{year}', function ($tipe_survey, $year) {
+
+    $rekaps = \App\Models\UnitRekapTahunan::where([
+        'tahun' => $year,
+        'tipe_survey' => $tipe_survey
+    ])
+        ->get();
 
     return $rekaps;
 });

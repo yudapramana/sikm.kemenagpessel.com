@@ -16,7 +16,7 @@ class Survey extends Model
  
     protected $guarded = [];
 
-    protected $appends = ['date_string'];
+    protected $appends = ['date_string', 'nama_layanan', 'nama_unit'];
 
     protected $with = ['layanan'];
 
@@ -30,6 +30,14 @@ class Survey extends Model
 
     public function layanan() {
         return $this->belongsTo(DaftarLayanan::class, 'id_layanan');
+    }
+
+    public function getNamaLayananAttribute() {
+        return $this->layanan->name;
+    }
+
+    public function getNamaUnitAttribute() {
+        return $this->layanan->unit->name;
     }
     
    

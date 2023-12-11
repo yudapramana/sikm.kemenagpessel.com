@@ -1,6 +1,6 @@
 <template>
     <div class="content-header">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row mb-2 justify-content-md-center">
                 <div class="col-sm-6">
                     <h1 class="m-0"> Daftar <strong> Jawaban Survey</strong> <span class="text-muted">{{ status }}</span>
@@ -18,7 +18,7 @@
     </div>
 
     <div class="content">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row justify-content-md-center">
 
                 <div class="col-lg-12">
@@ -37,16 +37,16 @@
                                         <th class="text-center align-middle" rowspan="2" width="20%">Layanan di Survey</th>
                                         <th class="text-center align-middle" rowspan="2" width="15%">Tanggal</th>
                                         <!-- <th class="text-center align-middle" rowspan="2" width="25%">Biodata</th> -->
-                                        <th class="text-center align-middle one " colspan="15">Jawaban</th>
-                                        <th class="text-center align-middle" rowspan="2">indeks KP</th>
-                                        <th class="text-center align-middle one" rowspan="2">improvement</th>
-                                        <th class="text-center align-middle one" rowspan="2">feedback</th>
+                                        <th class="text-center align-middle one " colspan="2" width="20%">Indeks Kepuasan</th>
+                                        <!-- <th class="text-center align-middle" rowspan="2">Rerata</th> -->
+                                        <th class="text-center align-middle one" rowspan="2">Kritik Saran</th>
+                                        <!-- <th class="text-center align-middle one" rowspan="2">feedback</th> -->
                                         <th class="text-center align-middle" rowspan="2" width="10%">aksi</th>
                                     </tr>
                                     <tr>
-                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">1</th>
-                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">2</th>
-                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">3</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">Kepuasan Masyarakat</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">Persepsi Korupsi</th>
+                                        <!-- <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">3</th>
                                         <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">4</th>
                                         <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">5</th>
                                         <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">6</th>
@@ -58,7 +58,7 @@
                                         <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">12</th>
                                         <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">13</th>
                                         <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">14</th>
-                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">15</th>
+                                        <th class="one text-center align-middle fontsmaller font-smaller" style="font-size:smaller!important;">15</th> -->
                                     </tr>
                                 </thead>
                                 <!-- <tbody class="table-sm fontsmall"> -->
@@ -70,11 +70,11 @@
                                         <td class="font-smaller align-center">{{ item.layanan.name }}</td>
                                         <td class="text-center font-smaller align-center">{{ item.date_string }}</td>
                                         <!-- <td class="font-smaller align-center">{{ item.name }}</td> -->
-                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_1 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.nilai_ikm }}
                                         </td>
-                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_2 }}
+                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.nilai_ipk }}
                                         </td>
-                                        <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_3 }}
+                                        <!-- <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_3 }}
                                         </td>
                                         <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_4 }}
                                         </td>
@@ -99,11 +99,11 @@
                                         <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_14 }}
                                         </td>
                                         <td class="one text-center font-smaller fontsmaller align-center">{{ item.answer_15 }}
-                                        </td>
-                                        <td class="text-center font-smaller fontsmaller align-center">{{ item.average }}
-                                        </td>
-                                        <td class="one text-center font-smaller  align-center">{{ item.improvement }}</td>
-                                        <td class="one text-center font-smaller  align-center">{{ item.feedback }}</td>
+                                        </td> -->
+                                        <!-- <td class="text-center font-smaller fontsmaller align-center">{{ item.average }}
+                                        </td> -->
+                                        <td class="one text-center font-smaller  align-center">{{ item.improvement }} <br> {{ item.feedback }} </td>
+                                        <!-- <td class="one text-center font-smaller  align-center">{{ item.feedback }}</td> -->
                                         <td v-if="status == 'submitted'" class="text-center font-smaller  align-center">
                                             <a class="button-accept badge badge-primary nav-link text-white"
                                                 style="cursor: pointer !important;"

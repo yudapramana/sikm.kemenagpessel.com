@@ -20,6 +20,8 @@ class CreateQuestionsTable extends Migration
             $table->text('text');
             $table->string('param', 15);
             $table->string('factor', 60);
+            $table->enum('tipe', ['IKM', 'IPK'])->default('IKM');
+            $table->enum('status', [1, 0])->default(1);
         });
     }
 

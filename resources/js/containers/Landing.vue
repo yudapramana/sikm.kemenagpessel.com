@@ -38,13 +38,23 @@
 
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                            class="nav-link dropdown-toggle">Rekap Tahunan</a>
+                            class="nav-link dropdown-toggle">Indeks Kepuasan Masyarakat</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow"
                             style="left: 0px; right: inherit;">
-                            <li><router-link to="rekap-tahunan?year=2023" class="dropdown-item">Rekapitulasi Tahun 2023 </router-link></li>
+                            <li><router-link to="rekap-tahunan?tipe_survey=ikm&year=2023" class="dropdown-item">Rekapitulasi</router-link></li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
+                        <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            class="nav-link dropdown-toggle">Indeks Persepsi Korupsi</a>
+                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow"
+                            style="left: 0px; right: inherit;">
+                            <li><router-link to="rekap-tahunan?tipe_survey=ipk&year=2023" class="dropdown-item">Rekapitulasi</router-link></li>
+                        </ul>
+                    </li>
+
+                    <!-- <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             class="nav-link dropdown-toggle">Rekap Triwulan tahun berjalan</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow"
@@ -54,7 +64,7 @@
                             <li><router-link to="rekap-triwulan?quarter=3" class="dropdown-item">Rekapitulasi Triwulan III</router-link></li>
                             <li><router-link to="rekap-triwulan?quarter=4" class="dropdown-item">Rekapitulasi Triwulan IV</router-link></li>
                         </ul>
-                    </li>
+                    </li> -->
 
                     <li class="nav-item">
                         <router-link to="tentang" class="nav-link">Tentang</router-link>

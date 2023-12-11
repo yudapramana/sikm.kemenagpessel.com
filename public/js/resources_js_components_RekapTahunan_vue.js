@@ -19,6 +19,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! datatables.net-vue3 */ "./node_modules/datatables.net-vue3/dist/datatables.net-vue.esm.js");
 /* harmony import */ var datatables_net_bs5__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! datatables.net-bs5 */ "./node_modules/datatables.net-bs5/js/dataTables.bootstrap5.mjs");
 /* harmony import */ var vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vform/src/components/bootstrap5 */ "./node_modules/vform/src/components/bootstrap5/index.js");
+var _name$components$data;
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
@@ -33,7 +34,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_select__WEBPACK_IMPORTED_MODULE_3__["default"]);
 datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_bs5__WEBPACK_IMPORTED_MODULE_4__["default"]);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_name$components$data = {
   name: "Thanks",
   components: {
     'has-error': vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_6__.HasError,
@@ -43,9 +44,19 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
   data: function data() {
     return {
       data: [],
+      factored_recapitulation: [],
+      nilai_sikm: 0,
+      konversi: 0,
+      mutu_pelayanan: '',
+      rangkuman_responden: [],
+      gender: [],
+      age: [],
+      education: [],
+      work: [],
       dataunit: [],
       calcurl: '/api/calc-recap-year/',
       year: this.$route.query.year,
+      tipe_survey: this.$route.query.tipe_survey,
       loading: false,
       disabled: false,
       editModal: false,
@@ -74,19 +85,31 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
     };
   },
   methods: {
+    getProperty: function getProperty(name) {
+      return this[name];
+    },
     logOut: function logOut() {
       this.$store.dispatch('auth/logout');
       this.$router.push('/login');
     },
     loadData: function loadData() {
       var _this = this;
-      axios.get('/api/get/rekapitulasi/' + this.$route.query.year).then(function (response) {
+      axios.get('/api/get/rekapitulasi/' + this.$route.query.tipe_survey + '/' + this.$route.query.year).then(function (response) {
         console.log('response getRekapTahunan');
         console.log(response.data);
         _this.data = response.data.data;
+        _this.factored_recapitulation = response.data.factored_recapitulation;
+        _this.nilai_sikm = response.data.nilai_sikm;
+        _this.konversi = response.data.konversi;
+        _this.mutu_pelayanan = response.data.mutu_pelayanan;
+        _this.rangkuman_responden = response.data.rangkuman_responden;
+        _this.gender = response.data.rangkuman_responden.gender;
+        _this.age = response.data.rangkuman_responden.age;
+        _this.education = response.data.rangkuman_responden.education;
+        _this.work = response.data.rangkuman_responden.work;
         _this.$Progress.finish();
       });
-      axios.get('/api/unit-rekap-tahunan/' + this.$route.query.year).then(function (response) {
+      axios.get('/api/unit-rekap-tahunan/' + this.$route.query.tipe_survey + '/' + this.$route.query.year).then(function (response) {
         console.log('response rekapUnitTriwulan');
         console.log(response.data);
         _this.dataunit = response.data;
@@ -100,10 +123,22 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
   created: function created() {
     this.$Progress.start();
   }
-}, "mounted", function mounted() {
+}, _defineProperty(_name$components$data, "mounted", function mounted() {
   this.loadData();
   // alert(this.$route.query.year);
-}));
+}), _defineProperty(_name$components$data, "watch", {
+  '$route.query.tipe_survey': {
+    handler: function handler(tipe_survey) {
+      console.log('tipe_survey');
+      console.log(tipe_survey);
+      this.tipe_survey = this.$route.query.tipe_survey;
+      this.$Progress.start();
+      this.loadData();
+    },
+    deep: true,
+    immediate: true
+  }
+}), _name$components$data);
 
 /***/ }),
 
@@ -123,128 +158,428 @@ var _withScopeId = function _withScopeId(n) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-04bdf676"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
 };
 var _hoisted_1 = {
-  "class": "content-header"
+  "class": "content pt-5"
 };
 var _hoisted_2 = {
-  "class": "container-fluid"
+  "class": "container"
 };
 var _hoisted_3 = {
-  "class": "row mb-2 justify-content-md-center"
-};
-var _hoisted_4 = {
-  "class": "col-sm-6"
-};
-var _hoisted_5 = {
-  "class": "m-0"
-};
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Rekapitulasi Tahun ");
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"col-sm-6\" data-v-04bdf676><ol class=\"breadcrumb float-sm-right\" data-v-04bdf676><li class=\"breadcrumb-item\" data-v-04bdf676><a href=\"#\" data-v-04bdf676>Survey IKM</a></li><li class=\"breadcrumb-item\" data-v-04bdf676><a href=\"#\" data-v-04bdf676>Rekapitulasi</a></li><li class=\"breadcrumb-item active\" data-v-04bdf676>Index</li></ol></div>", 1);
-var _hoisted_8 = {
-  "class": "content"
-};
-var _hoisted_9 = {
-  "class": "container-fluid"
-};
-var _hoisted_10 = {
   "class": "row justify-content-md-center"
 };
-var _hoisted_11 = {
+var _hoisted_4 = {
   "class": "col-lg"
 };
-var _hoisted_12 = {
+var _hoisted_5 = {
   "class": "card"
 };
-var _hoisted_13 = {
-  "class": "card-header"
+var _hoisted_6 = {
+  "class": "card-body"
 };
-var _hoisted_14 = {
-  "class": "card-title m-0"
+var _hoisted_7 = {
+  "class": "col-12 text-center justify-content-center"
 };
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Tahun ");
-var _hoisted_16 = {
-  "class": "card-body",
+var _hoisted_8 = {
   style: {
-    "overflow-x": "auto"
+    "text-transform": "uppercase",
+    "margin": "0 !important"
   }
 };
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_9 = {
+  key: 0
+};
+var _hoisted_10 = {
+  key: 1
+};
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Rekapitulasi Data Hasil Survey Per Layanan ");
+var _hoisted_13 = {
+  style: {
+    "text-transform": "uppercase"
+  }
+};
+var _hoisted_14 = {
+  "class": "col-12"
+};
+var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "No"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     width: "35%",
     "class": "fontsmaller"
   }, "Nama Layanan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "text-center fontsmaller"
-  }, "Nilai Index Pelayanan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Konversi"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Mutu Pelayanan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Jumlah Responden"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  }, "Index Pelayanan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Konversi"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Mutu Pelayanan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Jumlah Responden"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     width: "15%"
   }, "Aksi")])], -1 /* HOISTED */);
 });
-var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, null, -1 /* HOISTED */);
 });
-var _hoisted_19 = {
-  "class": "row"
+var _hoisted_17 = {
+  "class": "row justify-content-md-center"
 };
-var _hoisted_20 = {
+var _hoisted_18 = {
   "class": "col-lg"
 };
-var _hoisted_21 = {
+var _hoisted_19 = {
   "class": "card"
 };
+var _hoisted_20 = {
+  "class": "card-body"
+};
+var _hoisted_21 = {
+  "class": "col-12 text-center justify-content-center"
+};
 var _hoisted_22 = {
+  style: {
+    "text-transform": "uppercase",
+    "margin": "0 !important"
+  }
+};
+var _hoisted_23 = {
+  key: 0
+};
+var _hoisted_24 = {
+  key: 1
+};
+var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Rekapitulasi Data Hasil Survey Per Unsur ");
+var _hoisted_27 = {
+  style: {
+    "text-transform": "uppercase"
+  }
+};
+var _hoisted_28 = {
+  "class": "col-12"
+};
+var _hoisted_29 = {
+  "class": "table table-hover table-bordered well wells dataTable no-footer",
+  style: {
+    "font-size": "small"
+  }
+};
+var _hoisted_30 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center fontsmaller smallfont"
+  }, "No"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center fontsmaller smallfont"
+  }, "Unsur"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center fontsmaller smallfont"
+  }, "Jumlah Pertanyaan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center fontsmaller smallfont"
+  }, "Total Nilai"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center fontsmaller smallfont"
+  }, "Nilai Rerata Unsur"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center fontsmaller smallfont"
+  }, "Nilai Rerata Tertimbang Unsur")])], -1 /* HOISTED */);
+});
+var _hoisted_31 = {
+  "class": "text-center"
+};
+var _hoisted_32 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+    "class": "text-center"
+  }, "1", -1 /* HOISTED */);
+});
+var _hoisted_33 = {
+  "class": "text-center"
+};
+var _hoisted_34 = {
+  "class": "text-center"
+};
+var _hoisted_35 = {
+  "class": "text-center"
+};
+var _hoisted_36 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+    colspan: "5",
+    "class": "text-right font-weight-bold"
+  }, "Indeks Survey Kepuasan Masyarakat", -1 /* HOISTED */);
+});
+var _hoisted_37 = {
+  "class": "text-center font-weight-bold"
+};
+var _hoisted_38 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+    colspan: "5",
+    "class": "text-right font-weight-bold"
+  }, "Konversi", -1 /* HOISTED */);
+});
+var _hoisted_39 = {
+  "class": "text-center font-weight-bold"
+};
+var _hoisted_40 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+    colspan: "5",
+    "class": "text-right font-weight-bold"
+  }, "Mutu Pelayanan", -1 /* HOISTED */);
+});
+var _hoisted_41 = {
+  "class": "text-center font-weight-bold"
+};
+var _hoisted_42 = {
+  "class": "row justify-content-md-center"
+};
+var _hoisted_43 = {
+  "class": "col-lg"
+};
+var _hoisted_44 = {
+  "class": "card"
+};
+var _hoisted_45 = {
+  "class": "card-body"
+};
+var _hoisted_46 = {
+  "class": "col-12 text-center justify-content-center"
+};
+var _hoisted_47 = {
+  style: {
+    "text-transform": "uppercase",
+    "margin": "0 !important"
+  }
+};
+var _hoisted_48 = {
+  key: 0
+};
+var _hoisted_49 = {
+  key: 1
+};
+var _hoisted_50 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_51 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Rangkuman Hasil per Unsur ");
+var _hoisted_52 = {
+  style: {
+    "text-transform": "uppercase"
+  }
+};
+var _hoisted_53 = {
+  "class": "col-12"
+};
+var _hoisted_54 = {
+  "class": "table table-hover table-bordered well wells dataTable no-footer",
+  style: {
+    "font-size": "small"
+  }
+};
+var _hoisted_55 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    colspan: "4",
+    "class": "text-center text-uppercase abu-abu-gelap",
+    style: {
+      "padding": "5px"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+    style: {
+      "margin": "0"
+    }
+  }, "Jenis Pelayanan yang dinilai")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    colspan: "3",
+    "class": "text-center text-uppercase abu-abu",
+    style: {
+      "padding": "5px"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+    style: {
+      "margin": "0"
+    }
+  }, "Semua Jenis Pelayanan")])], -1 /* HOISTED */);
+});
+var _hoisted_56 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    colspan: "4",
+    "class": "text-center text-uppercase abu-abu-gelap",
+    style: {
+      "padding": "5px"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+    style: {
+      "margin": "0"
+    }
+  }, "Tahun Penilaian")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    colspan: "3",
+    "class": "text-center text-uppercase abu-abu",
+    style: {
+      "padding": "5px"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+    style: {
+      "margin": "0"
+    }
+  }, "2023")])], -1 /* HOISTED */);
+});
+var _hoisted_57 = {
+  rowspan: "9",
+  colspan: "4",
+  "class": "text-center text-uppercase centered",
+  style: {
+    "padding": "5px"
+  }
+};
+var _hoisted_58 = {
+  style: {
+    "margin": "0",
+    "font-size": "137px !important"
+  }
+};
+var _hoisted_59 = {
+  style: {
+    "margin": "0"
+  }
+};
+var _hoisted_60 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    colspan: "3",
+    "class": "text-center text-uppercase abu-abu-gelap",
+    style: {
+      "padding": "5px"
+    }
+  }, " Ringkasan Responden", -1 /* HOISTED */);
+});
+var _hoisted_61 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "marginpadding-minimal centered abu-abu-gelap"
+  }, "Jumlah Responden", -1 /* HOISTED */);
+});
+var _hoisted_62 = {
+  "class": "marginpadding-minimal centered",
+  colspan: "2"
+};
+var _hoisted_63 = {
+  key: 0,
+  "class": "marginpadding-minimal centered abu-abu-gelap",
+  rowspan: "2"
+};
+var _hoisted_64 = {
+  "class": "marginpadding-minimal abu-abu"
+};
+var _hoisted_65 = {
+  "class": "marginpadding-minimal righted"
+};
+var _hoisted_66 = {
+  key: 0,
+  "class": "marginpadding-minimal centered abu-abu-gelap",
+  rowspan: "5"
+};
+var _hoisted_67 = {
+  "class": "marginpadding-minimal abu-abu"
+};
+var _hoisted_68 = {
+  "class": "marginpadding-minimal righted"
+};
+var _hoisted_69 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "centered marginpadding-minimal abu-abu-gelap",
+    rowspan: "2"
+  }, "Pekerjaan", -1 /* HOISTED */);
+});
+var _hoisted_70 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "centered marginpadding-minimal abu-abu-gelap",
+    rowspan: "2"
+  }, "Pendidikan", -1 /* HOISTED */);
+});
+var _hoisted_71 = {
+  "class": "row"
+};
+var _hoisted_72 = {
+  "class": "col-lg"
+};
+var _hoisted_73 = {
+  "class": "card"
+};
+var _hoisted_74 = {
   "class": "card-header"
 };
-var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_75 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
     "class": "card-title m-0"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi per "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Seksi Unit")], -1 /* HOISTED */);
 });
-var _hoisted_24 = ["href"];
-var _hoisted_25 = {
+var _hoisted_76 = ["href"];
+var _hoisted_77 = {
   "class": "mb-3 text-center row"
 };
-var _hoisted_26 = {
+var _hoisted_78 = {
   "class": "card mb-4 shadow-sm"
 };
-var _hoisted_27 = {
+var _hoisted_79 = {
   "class": "card-header",
   style: {
     "height": "80px !important"
   }
 };
-var _hoisted_28 = {
+var _hoisted_80 = {
   "class": "my-0 font-weight-normal"
 };
-var _hoisted_29 = {
+var _hoisted_81 = {
   "class": "card-body"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_DataTable = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DataTable");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */)])]), _hoisted_7])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DataTable, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"content-header\">\r\n        <div class=\"container\">\r\n            <div class=\"row mb-2 justify-content-md-center\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"col-sm-6\">\r\n                    <h1 class=\"m-0\"> Rekapitulasi Tahun <strong> {{ year }}</strong></h1>\r\n                </div>\r\n                <div class=\"col-sm-6\">\r\n                    <ol class=\"breadcrumb float-sm-right\">\r\n                        <li class=\"breadcrumb-item\"><a href=\"#\">Survey IKM</a></li>\r\n                        <li class=\"breadcrumb-item\"><a href=\"#\">Rekapitulasi</a></li>\r\n                        <li class=\"breadcrumb-item active\">Index</li>\r\n                    </ol>\r\n                </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"col-12 text-center justify-content-center\">\r\n                    <h5 style=\"text-transform: uppercase; margin: 0 !important;\">\r\n                        Rekapitulasi Data Survey Kepuasan Masyarakat Per Layanan\r\n                    </h5>\r\n                    <h5 style=\"text-transform: uppercase; margin: 0 !important;\">\r\n                        KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN TAHUN {{ year }}\r\n                    </h5>\r\n                  \r\n                </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </div>\r\n        </div>\r\n    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_8, [$data.tipe_survey === 'ikm' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_9, "Indeks Kepuasan Masyarakat")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.tipe_survey === 'ipk' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_10, "Indeks Persepsi Korupsi")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_11, _hoisted_12]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_13, " KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN TAHUN " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DataTable, {
     columns: $data.columns,
     data: $data.data,
-    "class": "table table-hover table-bordered",
+    "class": "table table-hover table-bordered well wells",
     width: "100%",
     options: {
       order: false,
       sort: false,
-      paging: true,
-      searching: false
+      paging: false,
+      searching: false,
+      info: false
     },
     style: {
-      "font-size": "smaller !important"
+      "font-size": "small !important",
+      "background-color": "#fff"
     }
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_17, _hoisted_18];
+      return [_hoisted_15, _hoisted_16];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["columns", "data"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, 8 /* PROPS */, ["columns", "data"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"card\">\r\n                        <div class=\"card-header\">\r\n                            <h4 class=\"card-title m-0\">Rekapitulasi Tahun <strong> {{ year }}</strong></h4>\r\n                        </div>\r\n\r\n                        <div class=\"card-body\" style=\"overflow-x:auto;\">\r\n\r\n                            <DataTable :columns=\"columns\" :data=\"data\" class=\"table table-hover table-bordered well wells\"\r\n                                width=\"100%\" :options=\"{ order: false, sort: false, paging: false, searching: false }\"\r\n                                style=\"font-size:small !important;\">\r\n                                <thead>\r\n                                    <tr>\r\n                                        <th>No</th>\r\n                                        <th width=\"35%\" class=\"fontsmaller\">Nama Layanan</th>\r\n                                        <th class=\"text-center fontsmaller\">Nilai Index Pelayanan</th>\r\n                                        <th>Konversi</th>\r\n                                        <th>Mutu Pelayanan</th>\r\n                                        <th>Jumlah Responden</th>\r\n                                        <th width=\"15%\">Aksi</th>\r\n                                    </tr>\r\n                                </thead>\r\n                                <tbody>\r\n\r\n                                </tbody>\r\n                            </DataTable>\r\n\r\n                        </div>\r\n                    </div> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_22, [$data.tipe_survey === 'ikm' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_23, "Indeks Kepuasan Masyarakat")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.tipe_survey === 'ipk' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_24, "Indeks Persepsi Korupsi")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_25, _hoisted_26]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_27, " KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN TAHUN " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_29, [_hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.factored_recapitulation, function (recap) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+      key: recap.key
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(recap.key), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(recap.unsur), 1 /* TEXT */), _hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(recap.summed), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(recap.average), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(recap.weighted_average), 1 /* TEXT */)]);
+  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.nilai_sikm), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_39, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.konversi), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_40, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.mutu_pelayanan), 1 /* TEXT */)])])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_47, [$data.tipe_survey === 'ikm' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_48, "Indeks Kepuasan Masyarakat")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.tipe_survey === 'ipk' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_49, "Indeks Persepsi Korupsi")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_50, _hoisted_51]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_52, " KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN TAHUN " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_54, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [_hoisted_55, _hoisted_56, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_57, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_58, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.konversi), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_59, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.mutu_pelayanan), 1 /* TEXT */)]), _hoisted_60]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_61, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_62, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.rangkuman_responden.total_responden) + " orang", 1 /* TEXT */)]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.gender, function (value, name) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+      key: name
+    }, [name === 'Laki-laki' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", _hoisted_63, "Jenis Kelamin")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_64, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_65, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang", 1 /* TEXT */)]);
+  }), 128 /* KEYED_FRAGMENT */)), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.age, function (value, name) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+      key: name
+    }, [name === 'Dibawah 20 Tahun' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", _hoisted_66, " Umur")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_67, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_68, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang", 1 /* TEXT */)]);
+  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_69, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.work, function (value, name) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
+      "class": "centered marginpadding-minimal abu-abu",
+      key: name
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */);
+  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.work, function (value, name) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
+      "class": "centered marginpadding-minimal",
+      key: name
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang ", 1 /* TEXT */);
+  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_70, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.education, function (value, name) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
+      "class": "centered marginpadding-minimal abu-abu",
+      key: name
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */);
+  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.education, function (value, name) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
+      "class": "centered marginpadding-minimal",
+      key: name
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang ", 1 /* TEXT */);
+  }), 128 /* KEYED_FRAGMENT */))])])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_71, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_72, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_73, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_74, [_hoisted_75, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: $data.calcurl + $data.year
-  }, "Sinkronkan", 8 /* PROPS */, _hoisted_24)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"row\">\r\n\r\n                        <div class=\"card col-md-3\" v-for=\"item in dataunit\" :key=\"item.id_unit_rekap_triwulan\">\r\n                            <div class=\"card-header\">\r\n                                <h4 class=\"my-0 font-weight-normal\">{{ item.unit.name }}</h4>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.dataunit, function (item) {
+  }, "Sinkronkan", 8 /* PROPS */, _hoisted_76)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"row\">\r\n\r\n                        <div class=\"card col-md-3\" v-for=\"item in dataunit\" :key=\"item.id_unit_rekap_triwulan\">\r\n                            <div class=\"card-header\">\r\n                                <h4 class=\"my-0 font-weight-normal\">{{ item.unit.name }}</h4>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_77, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.dataunit, function (item) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       "class": "col-md-3",
       key: item.id_unit_rekap_triwulan
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.unit.name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h1 class=\"card-title pricing-card-title\">$0 <small class=\"text-muted\">/ mo</small></h1> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.konversi), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.mutu_pelayanan), 1 /* TEXT */)])])]);
-  }), 128 /* KEYED_FRAGMENT */))])])])])])], 64 /* STABLE_FRAGMENT */);
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_78, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_79, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_80, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.unit.name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_81, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h1 class=\"card-title pricing-card-title\">$0 <small class=\"text-muted\">/ mo</small></h1> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.konversi), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.mutu_pelayanan), 1 /* TEXT */)])])]);
+  }), 128 /* KEYED_FRAGMENT */))])])])])])], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */);
 }
 
 /***/ }),
@@ -391,7 +726,7 @@ ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_u
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_bootstrap_dist_css_bootstrap_css__WEBPACK_IMPORTED_MODULE_2__["default"]);
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_datatables_net_bs5_css_dataTables_bootstrap5_css__WEBPACK_IMPORTED_MODULE_3__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-04bdf676] {\r\n    margin-left: 0 !important;\n}\n.main-footer[data-v-04bdf676] {\r\n    margin-left: 0 !important;\n}\n.main-header[data-v-04bdf676] {\r\n    margin-left: 0 !important;\n}\n.main-header[data-v-04bdf676] {\r\n    --bs-navbar-padding-x: 1rem !important;\n}\n.fontsmaller[data-v-04bdf676] {\r\n    font-size: x-small !important;\n}\n.smallfont[data-v-04bdf676] {\r\n    font-size: x-small !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-04bdf676] {\r\n    margin-left: 0 !important;\n}\n.marginpadding-minimal[data-v-04bdf676] {\r\n    padding: 5px !important;\r\n    margin: 5px !important;\n}\n.marginpadding-minimal th[data-v-04bdf676] {\r\n    padding: 5px !important;\r\n    margin: 5px !important;\n}\n.centered[data-v-04bdf676] {\r\n    text-align: center;\r\n    vertical-align: middle;\n}\n.abu-abu-gelap[data-v-04bdf676] {\r\n    background-color:silver;\n}\n.abu-abu[data-v-04bdf676] {\r\n    background-color:whitesmoke;\n}\n.righted[data-v-04bdf676] {\r\n    text-align: right;\r\n    vertical-align: middle;\n}\n.main-footer[data-v-04bdf676] {\r\n    margin-left: 0 !important;\n}\n.main-header[data-v-04bdf676] {\r\n    margin-left: 0 !important;\n}\n.main-header[data-v-04bdf676] {\r\n    --bs-navbar-padding-x: 1rem !important;\n}\n.fontsmaller[data-v-04bdf676] {\r\n    font-size: x-small !important;\n}\n.smallfont[data-v-04bdf676] {\r\n    font-size: x-small !important;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

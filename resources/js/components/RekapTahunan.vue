@@ -1,8 +1,8 @@
 <template>
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2 justify-content-md-center">
-                <div class="col-sm-6">
+    <!-- <div class="content-header">
+        <div class="container">
+            <div class="row mb-2 justify-content-md-center"> -->
+    <!-- <div class="col-sm-6">
                     <h1 class="m-0"> Rekapitulasi Tahun <strong> {{ year }}</strong></h1>
                 </div>
                 <div class="col-sm-6">
@@ -11,30 +11,53 @@
                         <li class="breadcrumb-item"><a href="#">Rekapitulasi</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
-                </div>
-            </div>
+                </div> -->
+    <!-- <div class="col-12 text-center justify-content-center">
+                    <h5 style="text-transform: uppercase; margin: 0 !important;">
+                        Rekapitulasi Data Survey Kepuasan Masyarakat Per Layanan
+                    </h5>
+                    <h5 style="text-transform: uppercase; margin: 0 !important;">
+                        KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN TAHUN {{ year }}
+                    </h5>
+                  
+                </div> -->
+    <!-- </div>
         </div>
-    </div>
+    </div> -->
 
-    <div class="content">
-        <div class="container-fluid">
+    <div class="content pt-5">
+        <div class="container">
+
             <div class="row justify-content-md-center">
 
                 <div class="col-lg">
+
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title m-0">Rekapitulasi Tahun <strong> {{ year }}</strong></h4>
-                        </div>
 
-                        <div class="card-body" style="overflow-x:auto;">
+                        <div class="card-body">
 
-                                <DataTable :columns="columns" :data="data" class="table table-hover table-bordered" width="100%"
-                                    :options="{ order: false, sort: false, paging: true, searching: false }" style="font-size:smaller !important;" >
+                            <div class="col-12 text-center justify-content-center">
+                                <h4 style="text-transform: uppercase; margin: 0 !important;">
+                                    <span v-if="tipe_survey === 'ikm'">Indeks Kepuasan Masyarakat</span>
+                                    <span v-if="tipe_survey === 'ipk'">Indeks Persepsi Korupsi</span>
+                                     <br> Rekapitulasi Data Hasil Survey Per Layanan
+                                </h4>
+                                <h4 style="text-transform: uppercase;">
+                                    KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN TAHUN {{ year }}
+                                </h4>
+
+                            </div>
+
+                            <div class="col-12">
+                                <DataTable :columns="columns" :data="data"
+                                    class="table table-hover table-bordered well wells" width="100%"
+                                    :options="{ order: false, sort: false, paging: false, searching: false, info: false }"
+                                    style="font-size:small !important; background-color: #fff;">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th  width="35%" class="fontsmaller">Nama Layanan</th>
-                                            <th class="text-center fontsmaller">Nilai Index Pelayanan</th>
+                                            <th width="35%" class="fontsmaller">Nama Layanan</th>
+                                            <th class="text-center fontsmaller">Index Pelayanan</th>
                                             <th>Konversi</th>
                                             <th>Mutu Pelayanan</th>
                                             <th>Jumlah Responden</th>
@@ -42,16 +65,238 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+
                                     </tbody>
                                 </DataTable>
+                            </div>
 
                         </div>
                     </div>
+
+
+
+
+                    <!-- <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title m-0">Rekapitulasi Tahun <strong> {{ year }}</strong></h4>
+                        </div>
+
+                        <div class="card-body" style="overflow-x:auto;">
+
+                            <DataTable :columns="columns" :data="data" class="table table-hover table-bordered well wells"
+                                width="100%" :options="{ order: false, sort: false, paging: false, searching: false }"
+                                style="font-size:small !important;">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th width="35%" class="fontsmaller">Nama Layanan</th>
+                                        <th class="text-center fontsmaller">Nilai Index Pelayanan</th>
+                                        <th>Konversi</th>
+                                        <th>Mutu Pelayanan</th>
+                                        <th>Jumlah Responden</th>
+                                        <th width="15%">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </DataTable>
+
+                        </div>
+                    </div> -->
                 </div>
 
 
             </div>
+
+            <!--  -->
+
+
+            <!--  -->
+
+            <div class="row justify-content-md-center">
+
+                <div class="col-lg">
+
+                    <div class="card">
+
+                        <div class="card-body">
+
+                            <div class="col-12 text-center justify-content-center">
+                                <h4 style="text-transform: uppercase; margin: 0 !important;">
+                                    <span v-if="tipe_survey === 'ikm'">Indeks Kepuasan Masyarakat</span>
+                                    <span v-if="tipe_survey === 'ipk'">Indeks Persepsi Korupsi</span>
+                                     <br> Rekapitulasi Data Hasil Survey Per Unsur
+                                </h4>
+                                <h4 style="text-transform: uppercase;">
+                                    KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN TAHUN {{ year }}
+                                </h4>
+
+                            </div>
+
+                            <div class="col-12">
+
+                                <table class="table table-hover table-bordered well wells dataTable no-footer"
+                                    style="font-size: small;">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center fontsmaller smallfont">No</th>
+                                            <th class="text-center fontsmaller smallfont">Unsur</th>
+                                            <th class="text-center fontsmaller smallfont">Jumlah Pertanyaan</th>
+                                            <th class="text-center fontsmaller smallfont">Total Nilai</th>
+                                            <th class="text-center fontsmaller smallfont">Nilai Rerata Unsur</th>
+                                            <th class="text-center fontsmaller smallfont">Nilai Rerata Tertimbang Unsur</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr v-for="recap in factored_recapitulation" :key="recap.key">
+                                            <td class="text-center">{{ recap.key }}</td>
+                                            <td>{{ recap.unsur }}</td>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">{{ recap.summed }}</td>
+                                            <td class="text-center">{{ recap.average }}</td>
+                                            <td class="text-center">{{ recap.weighted_average }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" class="text-right font-weight-bold">Indeks Survey Kepuasan
+                                                Masyarakat</td>
+                                            <td class="text-center font-weight-bold">{{ nilai_sikm }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" class="text-right font-weight-bold">Konversi</td>
+                                            <td class="text-center font-weight-bold">{{ konversi }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" class="text-right font-weight-bold">Mutu Pelayanan</td>
+                                            <td class="text-center font-weight-bold">{{ mutu_pelayanan }}</td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!--  -->
+            <div class="row justify-content-md-center">
+
+                <div class="col-lg">
+
+                    <div class="card">
+
+                        <div class="card-body">
+
+                            <div class="col-12 text-center justify-content-center">
+                                <h4 style="text-transform: uppercase; margin: 0 !important;">
+                                    <span v-if="tipe_survey === 'ikm'">Indeks Kepuasan Masyarakat</span>
+                                    <span v-if="tipe_survey === 'ipk'">Indeks Persepsi Korupsi</span>
+                                     <br> Rangkuman Hasil per Unsur
+                                </h4>
+                                <h4 style="text-transform: uppercase;">
+                                    KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN TAHUN {{ year }}
+                                </h4>
+
+                            </div>
+
+                            <div class="col-12">
+
+                                <table class="table table-hover table-bordered well wells dataTable no-footer"
+                                    style="font-size: small;">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="4" class="text-center text-uppercase abu-abu-gelap" style="padding:5px;">
+                                                <h4 style="margin:0">Jenis Pelayanan yang dinilai</h4>
+                                            </th>
+                                            <th colspan="3" class="text-center text-uppercase abu-abu" style="padding:5px;">
+                                                <h4 style="margin:0">Semua Jenis Pelayanan</h4>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th colspan="4" class="text-center text-uppercase abu-abu-gelap" style="padding:5px;">
+                                                <h4 style="margin:0">Tahun Penilaian</h4>
+                                            </th>
+                                            <th colspan="3" class="text-center text-uppercase abu-abu" style="padding:5px;">
+                                                <h4 style="margin:0">2023</h4>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th rowspan="9" colspan="4" class="text-center text-uppercase centered"
+                                                style="padding:5px;">
+                                                <h1 style="margin:0; font-size: 137px !important;">{{ konversi }}</h1>
+                                                <h4 style="margin:0">{{ mutu_pelayanan }}</h4>
+                                            </th>
+                                            <th colspan="3" class="text-center text-uppercase abu-abu-gelap" style="padding:5px;">
+                                                Ringkasan Responden</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="marginpadding-minimal centered abu-abu-gelap">Jumlah Responden</th>
+                                            <th class="marginpadding-minimal centered" colspan="2">{{ rangkuman_responden.total_responden }} orang</th>
+                                        </tr>
+
+                                        <tr v-for="(value, name) in gender" :key="name">
+                                            <th class="marginpadding-minimal centered abu-abu-gelap" rowspan="2"
+                                                v-if="name === 'Laki-laki'">Jenis Kelamin</th>
+                                            <th class="marginpadding-minimal abu-abu">{{ name }}</th>
+                                            <th class="marginpadding-minimal righted">{{ value }} orang</th>
+                                        </tr>
+
+
+                                        <tr v-for="(value, name) in age" :key="name">
+                                            <th class="marginpadding-minimal centered abu-abu-gelap" rowspan="5" v-if="name === 'Dibawah 20 Tahun'">
+                                                Umur</th>
+                                            <th class="marginpadding-minimal abu-abu">{{ name }}</th>
+                                            <th class="marginpadding-minimal righted">{{ value }} orang</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="centered marginpadding-minimal abu-abu-gelap" rowspan="2">Pekerjaan</th>
+                                            <th class="centered marginpadding-minimal abu-abu" v-for="(value, name) in work" :key="name">
+                                                {{ name }}
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th class="centered marginpadding-minimal" v-for="(value, name) in work" :key="name">
+                                                {{ value }} orang
+                                            </th>
+                                        </tr>
+
+                                        <tr>
+                                            <th class="centered marginpadding-minimal abu-abu-gelap" rowspan="2">Pendidikan</th>
+                                            <th class="centered marginpadding-minimal abu-abu" v-for="(value, name) in education" :key="name">
+                                                {{ name }}
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th class="centered marginpadding-minimal" v-for="(value, name) in education" :key="name">
+                                                {{ value }} orang
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+
+
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!--  -->
 
             <div class="row">
                 <div class="col-lg">
@@ -74,9 +319,8 @@
 
 
                     <div class="mb-3 text-center row">
-                        <div class="col-md-3" v-for="item in dataunit"
-                                :key="item.id_unit_rekap_triwulan">
-                            <div class="card mb-4 shadow-sm" >
+                        <div class="col-md-3" v-for="item in dataunit" :key="item.id_unit_rekap_triwulan">
+                            <div class="card mb-4 shadow-sm">
                                 <div class="card-header" style="height: 80px !important;">
                                     <h4 class="my-0 font-weight-normal">{{ item.unit.name }}</h4>
                                 </div>
@@ -129,15 +373,25 @@ export default {
     data() {
         return {
             data: [],
+            factored_recapitulation: [],
+            nilai_sikm: 0,
+            konversi: 0,
+            mutu_pelayanan: '',
+            rangkuman_responden: [],
+            gender: [],
+            age: [],
+            education: [],
+            work: [],
             dataunit: [],
             calcurl: '/api/calc-recap-year/',
             year: this.$route.query.year,
+            tipe_survey: this.$route.query.tipe_survey,
             loading: false,
             disabled: false,
             editModal: false,
             columns: [
                 { data: 'DT_RowIndex', className: "text-center fontsmaller smallfont" },
-                { data: 'layanan.name', className: "fontsmaller smallfont"},
+                { data: 'layanan.name', className: "fontsmaller smallfont" },
                 { data: 'index_pelayanan', className: "text-center fontsmaller smallfont" },
                 { data: 'konversi', className: "text-center fontsmaller smallfont" },
                 { data: 'mutu_pelayanan', className: "text-center fontsmaller smallfont" },
@@ -147,22 +401,34 @@ export default {
         };
     },
     methods: {
+        getProperty: function (name) {
+            return this[name];
+        },
         logOut() {
             this.$store.dispatch('auth/logout');
             this.$router.push('/login');
         },
         loadData() {
             axios
-                .get('/api/get/rekapitulasi/' + this.$route.query.year)
+                .get('/api/get/rekapitulasi/' + this.$route.query.tipe_survey + '/' + this.$route.query.year)
                 .then((response) => {
                     console.log('response getRekapTahunan');
                     console.log(response.data);
                     this.data = response.data.data;
+                    this.factored_recapitulation = response.data.factored_recapitulation;
+                    this.nilai_sikm = response.data.nilai_sikm;
+                    this.konversi = response.data.konversi;
+                    this.mutu_pelayanan = response.data.mutu_pelayanan;
+                    this.rangkuman_responden = response.data.rangkuman_responden;
+                    this.gender = response.data.rangkuman_responden.gender;
+                    this.age = response.data.rangkuman_responden.age;
+                    this.education = response.data.rangkuman_responden.education;
+                    this.work = response.data.rangkuman_responden.work;
                     this.$Progress.finish();
                 });
-                
+
             axios
-                .get('/api/unit-rekap-tahunan/' + this.$route.query.year)
+                .get('/api/unit-rekap-tahunan/' + this.$route.query.tipe_survey + '/' +  this.$route.query.year)
                 .then((response) => {
 
                     console.log('response rekapUnitTriwulan');
@@ -183,6 +449,19 @@ export default {
         this.loadData();
         // alert(this.$route.query.year);
     },
+    watch: {
+        '$route.query.tipe_survey': {
+            handler: function (tipe_survey) {
+                console.log('tipe_survey');
+                console.log(tipe_survey);
+                this.tipe_survey = this.$route.query.tipe_survey;
+                this.$Progress.start();
+                this.loadData();
+            },
+            deep: true,
+            immediate: true
+        }
+    }
 };
 </script>
   
@@ -193,6 +472,34 @@ export default {
 
 .content-wrapper {
     margin-left: 0 !important;
+}
+
+.marginpadding-minimal {
+    padding: 5px !important;
+    margin: 5px !important;
+}
+
+.marginpadding-minimal th {
+    padding: 5px !important;
+    margin: 5px !important;
+}
+
+.centered {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.abu-abu-gelap {
+    background-color:silver;
+}
+
+.abu-abu {
+    background-color:whitesmoke;
+}
+
+.righted {
+    text-align: right;
+    vertical-align: middle;
 }
 
 .main-footer {
@@ -214,4 +521,5 @@ export default {
 .smallfont {
     font-size: x-small !important;
 }
+
 </style>
