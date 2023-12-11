@@ -100,9 +100,9 @@ Route::get('/controlcenter/', function () {
         ],
         [
             'named_route' => 'Calculate IKM Recap Quarterly',
-            'route_uri' => '/api/calc-recap-year/ikm/' . date("Y"),
-            'full_uri' => $base_uri . '/api/calc-recap-year/ikm/' . date("Y"),
-            'button' => '<a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ikm/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+            'route_uri' => '/api/calc-recap-quarter/ikm/' . date("Y"),
+            'full_uri' => $base_uri . '/api/calc-recap-quarter/ikm/' . date("Y"),
+            'button' => '<a target="_blank" href="' . $base_uri . '/api/calc-recap-quarter/ikm/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
         ],
         [
             'named_route' => 'Calculate IPK Recap Quarterly',
