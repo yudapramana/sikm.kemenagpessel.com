@@ -110,6 +110,18 @@ Route::get('/controlcenter/', function () {
             'full_uri' => $base_uri . '/api/calc-recap-quarter/ipk/' . date("Y"),
             'button' => '<a target="_blank" href="' . $base_uri . '/api/calc-recap-quarter/ipk/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
         ],
+        [
+            'named_route' => 'Reset All to Submitted',
+            'route_uri' => '/api/reset-to-submitted/' . date("Y"),
+            'full_uri' => $base_uri . '/api/reset-to-submitted/' . date("Y"),
+            'button' => '<a target="_blank" href="' . $base_uri . '/api/reset-to-submitted/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+        ],
+        [
+            'named_route' => 'Push to Approved',
+            'route_uri' => '/pull-to-approved/' . date("Y"),
+            'full_uri' => $base_uri . '/pull-to-approved/' . date("Y"),
+            'button' => '<a target="_blank" href="' . $base_uri . '/pull-to-approved/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+        ],
     ];
     return view('controlcenter', compact('arrayData'));
 });
@@ -748,6 +760,28 @@ Route::get('/get/rekapitulasi-triwulan/{quarter}', function ($quarter) {
         })
         ->rawColumns(['aksi'])
         ->make(true);
+});
+
+Route::get('/reset-to-submitted/{year}', function ($year) {
+    $surveys = \App\Models\Survey::whereYear('created_at', $year)->get();
+
+    foreach ($surveys as $key => $survey) {
+        $survey->status = 'submitted';
+        $survey->save();
+    }
+
+    return 'survey rekap resetted';
+});
+
+Route::get('/pull-to-approved/{year}', function ($year) {
+    $surveys = \App\Models\Survey::whereYear('created_at', $year)->get();
+
+    foreach ($surveys as $key => $survey) {
+        $survey->status = 'approved';
+        $survey->save();
+    }
+
+    return 'survey rekap resetted';
 });
 
 Route::get('/reset-recapitulation/{year}', function ($year) {
