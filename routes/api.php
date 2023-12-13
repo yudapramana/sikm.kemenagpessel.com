@@ -914,6 +914,10 @@ Route::get('/calc-recap-quarter/{tipe_survey}/{year}', function ($tipe_survey, $
                 break;
         }
 
+        if($mutuPelayanan == null) {
+            return $index_pelayanan;
+        }
+
         $rekapTriwulan->mutu_pelayanan = $mutuPelayanan;
         $rekapTriwulan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
         $rekapTriwulan->save();
