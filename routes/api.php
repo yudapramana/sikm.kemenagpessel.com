@@ -821,7 +821,7 @@ Route::get('/calc-recap-year/{tipe_survey}/{year}', function ($tipe_survey, $yea
             'tipe_survey' => $tipe_survey,
             'id_layanan' => $id_layanan,
             'jumlah_responden' => $totalResponden,
-            'total_average_individu' => number_format($sumAvgs, 2),
+            'total_average_individu' => $sumAvgs,
             'index_pelayanan' => $index_pelayanan
         ]);
 
@@ -887,7 +887,7 @@ Route::get('/calc-recap-quarter/{tipe_survey}/{year}', function ($tipe_survey, $
 
 
         $rekapTriwulan->jumlah_responden = $nJumlahResponden;
-        $rekapTriwulan->total_average_individu = number_format($nTotalAvgIndividu, 2);
+        $rekapTriwulan->total_average_individu = $nTotalAvgIndividu;
         $rekapTriwulan->index_pelayanan = $index_pelayanan;
 
         $mutuPelayanan = null;
