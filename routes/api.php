@@ -883,7 +883,7 @@ Route::get('/calc-recap-quarter/{tipe_survey}/{year}', function ($tipe_survey, $
 
         $nJumlahResponden = $rJumlahResponden + 1;
         $nTotalAvgIndividu = $rTotalAvgIndividu + $survey->average;
-        $index_pelayanan = round($nTotalAvgIndividu / $nJumlahResponden, 3);
+        $index_pelayanan = round($nTotalAvgIndividu / $nJumlahResponden, 2);
 
 
         $rekapTriwulan->jumlah_responden = $nJumlahResponden;
@@ -914,9 +914,9 @@ Route::get('/calc-recap-quarter/{tipe_survey}/{year}', function ($tipe_survey, $
                 break;
         }
 
-        if($mutuPelayanan == null) {
-            return $index_pelayanan;
-        }
+        // if($mutuPelayanan == null) {
+        //     return $index_pelayanan;
+        // }
 
         $rekapTriwulan->mutu_pelayanan = $mutuPelayanan;
         $rekapTriwulan->konversi = number_format((($index_pelayanan / 4) * 100), 2);
@@ -949,7 +949,7 @@ Route::get('/calc-recap-quarter/{tipe_survey}/{year}', function ($tipe_survey, $
             $sumAverageInd += $rekap->total_average_individu;
         }
 
-        $index_pelayanan = round($sumAverageInd / $jumlahResponden, 3);
+        $index_pelayanan = round($sumAverageInd / $jumlahResponden, 2);
 
         $unitRekapTriwulan = \App\Models\UnitRekapTriwulan::firstOrCreate([
             'tahun' => $year,
