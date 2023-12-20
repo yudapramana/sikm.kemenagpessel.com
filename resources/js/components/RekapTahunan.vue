@@ -28,86 +28,6 @@
     <div class="content pt-5">
         <div class="container">
 
-            <div class="row justify-content-md-center">
-
-                <div class="col-lg">
-
-                    <div class="card">
-
-                        <div class="card-body">
-
-                            <div class="col-12 text-center justify-content-center">
-                                <h4 style="text-transform: uppercase; margin: 0 !important;">
-                                    <span v-if="tipe_survey === 'ikm'">Indeks Kepuasan Masyarakat</span>
-                                    <span v-if="tipe_survey === 'ipk'">Indeks Persepsi Korupsi</span>
-                                     <br> Rekapitulasi Data Hasil Survey Per Layanan
-                                </h4>
-                                <h4 style="text-transform: uppercase;">
-                                    KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN TAHUN {{ year }}
-                                </h4>
-
-                            </div>
-
-                            <div class="col-12">
-                                <DataTable :columns="columns" :data="data"
-                                    class="table table-hover table-bordered well wells" width="100%"
-                                    :options="{ order: false, sort: false, paging: false, searching: false, info: false }"
-                                    style="font-size:small !important; background-color: #fff;">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th width="35%" class="fontsmaller">Nama Layanan</th>
-                                            <th class="text-center fontsmaller">Index Pelayanan</th>
-                                            <th>Konversi</th>
-                                            <th>Mutu Pelayanan</th>
-                                            <th>Jumlah Responden</th>
-                                            <th width="15%">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </DataTable>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-
-
-                    <!-- <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title m-0">Rekapitulasi Tahun <strong> {{ year }}</strong></h4>
-                        </div>
-
-                        <div class="card-body" style="overflow-x:auto;">
-
-                            <DataTable :columns="columns" :data="data" class="table table-hover table-bordered well wells"
-                                width="100%" :options="{ order: false, sort: false, paging: false, searching: false }"
-                                style="font-size:small !important;">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th width="35%" class="fontsmaller">Nama Layanan</th>
-                                        <th class="text-center fontsmaller">Nilai Index Pelayanan</th>
-                                        <th>Konversi</th>
-                                        <th>Mutu Pelayanan</th>
-                                        <th>Jumlah Responden</th>
-                                        <th width="15%">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </DataTable>
-
-                        </div>
-                    </div> -->
-                </div>
-
-
-            </div>
 
             <!--  -->
 
@@ -125,8 +45,8 @@
                             <div class="col-12 text-center justify-content-center">
                                 <h4 style="text-transform: uppercase; margin: 0 !important;">
                                     <span v-if="tipe_survey === 'ikm'">Indeks Kepuasan Masyarakat</span>
-                                    <span v-if="tipe_survey === 'ipk'">Indeks Persepsi Korupsi</span>
-                                     <br> Rekapitulasi Data Hasil Survey Per Unsur
+                                    <span v-if="tipe_survey === 'ipk'" style="color:maroon;">Indeks Persepsi Korupsi</span>
+                                    <br> Rekapitulasi Data Hasil Survey Per Unsur
                                 </h4>
                                 <h4 style="text-transform: uppercase;">
                                     KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN TAHUN {{ year }}
@@ -197,8 +117,8 @@
                             <div class="col-12 text-center justify-content-center">
                                 <h4 style="text-transform: uppercase; margin: 0 !important;">
                                     <span v-if="tipe_survey === 'ikm'">Indeks Kepuasan Masyarakat</span>
-                                    <span v-if="tipe_survey === 'ipk'">Indeks Persepsi Korupsi</span>
-                                     <br> Rangkuman Hasil per Unsur
+                                    <span v-if="tipe_survey === 'ipk'" style="color: maroon;">Indeks Persepsi Korupsi</span>
+                                    <br> Rangkuman Hasil per Unsur
                                 </h4>
                                 <h4 style="text-transform: uppercase;">
                                     KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN TAHUN {{ year }}
@@ -212,7 +132,8 @@
                                     style="font-size: small;">
                                     <thead>
                                         <tr>
-                                            <th colspan="4" class="text-center text-uppercase abu-abu-gelap" style="padding:5px;">
+                                            <th colspan="4" class="text-center text-uppercase abu-abu-gelap"
+                                                style="padding:5px;">
                                                 <h4 style="margin:0">Jenis Pelayanan yang dinilai</h4>
                                             </th>
                                             <th colspan="3" class="text-center text-uppercase abu-abu" style="padding:5px;">
@@ -221,7 +142,8 @@
 
                                         </tr>
                                         <tr>
-                                            <th colspan="4" class="text-center text-uppercase abu-abu-gelap" style="padding:5px;">
+                                            <th colspan="4" class="text-center text-uppercase abu-abu-gelap"
+                                                style="padding:5px;">
                                                 <h4 style="margin:0">Tahun Penilaian</h4>
                                             </th>
                                             <th colspan="3" class="text-center text-uppercase abu-abu" style="padding:5px;">
@@ -234,12 +156,14 @@
                                                 <h1 style="margin:0; font-size: 137px !important;">{{ konversi }}</h1>
                                                 <h4 style="margin:0">{{ mutu_pelayanan }}</h4>
                                             </th>
-                                            <th colspan="3" class="text-center text-uppercase abu-abu-gelap" style="padding:5px;">
+                                            <th colspan="3" class="text-center text-uppercase abu-abu-gelap"
+                                                style="padding:5px;">
                                                 Ringkasan Responden</th>
                                         </tr>
                                         <tr>
                                             <th class="marginpadding-minimal centered abu-abu-gelap">Jumlah Responden</th>
-                                            <th class="marginpadding-minimal centered" colspan="2">{{ rangkuman_responden.total_responden }} orang</th>
+                                            <th class="marginpadding-minimal centered" colspan="2">{{
+                                                rangkuman_responden.total_responden }} orang</th>
                                         </tr>
 
                                         <tr v-for="(value, name) in gender" :key="name">
@@ -251,33 +175,40 @@
 
 
                                         <tr v-for="(value, name) in age" :key="name">
-                                            <th class="marginpadding-minimal centered abu-abu-gelap" rowspan="5" v-if="name === 'Dibawah 20 Tahun'">
+                                            <th class="marginpadding-minimal centered abu-abu-gelap" rowspan="5"
+                                                v-if="name === 'Dibawah 20 Tahun'">
                                                 Umur</th>
                                             <th class="marginpadding-minimal abu-abu">{{ name }}</th>
                                             <th class="marginpadding-minimal righted">{{ value }} orang</th>
                                         </tr>
                                         <tr>
-                                            <th class="centered marginpadding-minimal abu-abu-gelap" rowspan="2">Pekerjaan</th>
-                                            <th class="centered marginpadding-minimal abu-abu" v-for="(value, name) in work" :key="name">
+                                            <th class="centered marginpadding-minimal abu-abu-gelap" rowspan="2">Pekerjaan
+                                            </th>
+                                            <th class="centered marginpadding-minimal abu-abu" v-for="(value, name) in work"
+                                                :key="name">
                                                 {{ name }}
                                             </th>
 
                                         </tr>
                                         <tr>
-                                            <th class="centered marginpadding-minimal" v-for="(value, name) in work" :key="name">
+                                            <th class="centered marginpadding-minimal" v-for="(value, name) in work"
+                                                :key="name">
                                                 {{ value }} orang
                                             </th>
                                         </tr>
 
                                         <tr>
-                                            <th class="centered marginpadding-minimal abu-abu-gelap" rowspan="2">Pendidikan</th>
-                                            <th class="centered marginpadding-minimal abu-abu" v-for="(value, name) in education" :key="name">
+                                            <th class="centered marginpadding-minimal abu-abu-gelap" rowspan="2">Pendidikan
+                                            </th>
+                                            <th class="centered marginpadding-minimal abu-abu"
+                                                v-for="(value, name) in education" :key="name">
                                                 {{ name }}
                                             </th>
 
                                         </tr>
                                         <tr>
-                                            <th class="centered marginpadding-minimal" v-for="(value, name) in education" :key="name">
+                                            <th class="centered marginpadding-minimal" v-for="(value, name) in education"
+                                                :key="name">
                                                 {{ value }} orang
                                             </th>
                                         </tr>
@@ -298,7 +229,111 @@
             </div>
             <!--  -->
 
-            <div class="row">
+
+            <div class="row justify-content-md-center">
+
+                <div class="col-lg">
+
+                    <div class="card">
+
+                        <div class="card-body">
+
+                            <div class="col-12 text-center justify-content-center">
+                                <h4 style="text-transform: uppercase; margin: 0 !important;">
+                                    <span v-if="tipe_survey === 'ikm'">Indeks Kepuasan Masyarakat</span>
+                                    <span v-if="tipe_survey === 'ipk'" style="color:maroon;">Indeks Persepsi Korupsi</span>
+                                    <br> Rekapitulasi Data Hasil Survey Per Layanan
+                                </h4>
+                                <h4 style="text-transform: uppercase;">
+                                    KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN TAHUN {{ year }}
+                                </h4>
+
+                            </div>
+
+                            <div class="col-12">
+                                <DataTable :columns="columns" :data="data"
+                                    class="table table-hover table-bordered well wells" width="100%"
+                                    :options="{ order: false, sort: false, paging: true, searching: false, info: false }"
+                                    style="font-size:small !important; background-color: #fff;">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th width="35%" class="fontsmaller">Nama Layanan</th>
+                                            <th class="text-center fontsmaller">Index Pelayanan</th>
+                                            <th>Konversi</th>
+                                            <th>Mutu Pelayanan</th>
+                                            <th>Jumlah Responden</th>
+                                            <th width="15%">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </DataTable>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- <div class="card">
+        <div class="card-header">
+            <h4 class="card-title m-0">Rekapitulasi Tahun <strong> {{ year }}</strong></h4>
+        </div>
+
+        <div class="card-body" style="overflow-x:auto;">
+
+            <DataTable :columns="columns" :data="data" class="table table-hover table-bordered well wells"
+                width="100%" :options="{ order: false, sort: false, paging: false, searching: false }"
+                style="font-size:small !important;">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th width="35%" class="fontsmaller">Nama Layanan</th>
+                        <th class="text-center fontsmaller">Nilai Index Pelayanan</th>
+                        <th>Konversi</th>
+                        <th>Mutu Pelayanan</th>
+                        <th>Jumlah Responden</th>
+                        <th width="15%">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </DataTable>
+
+        </div>
+    </div> -->
+                </div>
+
+
+            </div>
+
+            <div class="row justify-content-md-center">
+                <div class="col-lg">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <button type="button" class="btn btn-primary p2 m-2">
+                                <a class="text-white" :href="ct_url" target="_blank"
+                                    rel="noopener noreferrer">Cetak Tabulasi Data</a>
+                            </button>
+                            <button type="button" class="btn btn-secondary p2 m-2">
+                                <a class="text-white" :href="ch_url" target="_blank"
+                                    rel="noopener noreferrer">Cetak Hasil</a>
+                            </button>
+
+                           
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- <div class="row">
                 <div class="col-lg">
                     <div class="card">
                         <div class="card-header">
@@ -307,15 +342,7 @@
                         </div>
                     </div>
 
-                    <!-- <div class="row">
-
-                        <div class="card col-md-3" v-for="item in dataunit" :key="item.id_unit_rekap_triwulan">
-                            <div class="card-header">
-                                <h4 class="my-0 font-weight-normal">{{ item.unit.name }}</h4>
-                            </div>
-                        </div>
-
-                    </div> -->
+                  
 
 
                     <div class="mb-3 text-center row">
@@ -325,7 +352,6 @@
                                     <h4 class="my-0 font-weight-normal">{{ item.unit.name }}</h4>
                                 </div>
                                 <div class="card-body">
-                                    <!-- <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1> -->
                                     <h1>{{ item.konversi }}</h1>
                                     <h3>{{ item.mutu_pelayanan }}</h3>
                                 </div>
@@ -339,7 +365,18 @@
 
 
                 </div>
-            </div>
+            </div> -->
+
+            <!-- <div class="row">
+
+                        <div class="card col-md-3" v-for="item in dataunit" :key="item.id_unit_rekap_triwulan">
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">{{ item.unit.name }}</h4>
+                            </div>
+                        </div>
+
+                    </div> -->
+            <!-- <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1> -->
 
         </div>
     </div>
@@ -373,6 +410,8 @@ export default {
     data() {
         return {
             data: [],
+            ct_url: '/api/cetak_tabulasi/' + this.$route.query.tipe_survey + '/' + this.$route.query.year,
+            ch_url: '/api/cetak_hasil/' + this.$route.query.tipe_survey + '/' + this.$route.query.year,
             factored_recapitulation: [],
             nilai_sikm: 0,
             konversi: 0,
@@ -428,7 +467,7 @@ export default {
                 });
 
             axios
-                .get('/api/unit-rekap-tahunan/' + this.$route.query.tipe_survey + '/' +  this.$route.query.year)
+                .get('/api/unit-rekap-tahunan/' + this.$route.query.tipe_survey + '/' + this.$route.query.year)
                 .then((response) => {
 
                     console.log('response rekapUnitTriwulan');
@@ -455,6 +494,17 @@ export default {
                 console.log('tipe_survey');
                 console.log(tipe_survey);
                 this.tipe_survey = this.$route.query.tipe_survey;
+                this.$Progress.start();
+                this.loadData();
+            },
+            deep: true,
+            immediate: true
+        },
+        '$route.query.year': {
+            handler: function (year) {
+                console.log('year');
+                console.log(year);
+                this.year = this.$route.query.year;
                 this.$Progress.start();
                 this.loadData();
             },
@@ -490,11 +540,11 @@ export default {
 }
 
 .abu-abu-gelap {
-    background-color:silver;
+    background-color: silver;
 }
 
 .abu-abu {
-    background-color:whitesmoke;
+    background-color: whitesmoke;
 }
 
 .righted {
@@ -521,5 +571,4 @@ export default {
 .smallfont {
     font-size: x-small !important;
 }
-
 </style>

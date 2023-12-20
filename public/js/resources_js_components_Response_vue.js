@@ -2094,21 +2094,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var datatables_net__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! datatables.net */ "./node_modules/datatables.net/js/jquery.dataTables.mjs");
-/*! Select for DataTables 1.6.1
- * 2015-2023 SpryMedia Ltd - datatables.net/license/mit
+/*! Select for DataTables 1.7.0
+ * © SpryMedia Ltd - datatables.net/license/mit
  */
 
 
 
 
+// Allow reassignment of the $ variable
+let $ = jquery__WEBPACK_IMPORTED_MODULE_0__;
 
 
 // Version information for debugger
 datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select = {};
 
-datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.version = '1.6.1';
+datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.version = '1.7.0';
 
-datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init = function ( dt ) {
+datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init = function (dt) {
 	var ctx = dt.settings()[0];
 
 	if (ctx._select) {
@@ -2117,58 +2119,55 @@ datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init = function ( 
 
 	var savedSelected = dt.state.loaded();
 
-	var selectAndSave = function(e, settings, data) {
-		if(data === null || data.select === undefined) {
+	var selectAndSave = function (e, settings, data) {
+		if (data === null || data.select === undefined) {
 			return;
 		}
 
 		// Clear any currently selected rows, before restoring state
 		// None will be selected on first initialisation
-		if (dt.rows({selected: true}).any()) {
+		if (dt.rows({ selected: true }).any()) {
 			dt.rows().deselect();
 		}
 		if (data.select.rows !== undefined) {
 			dt.rows(data.select.rows).select();
 		}
 
-		if (dt.columns({selected: true}).any()) {
+		if (dt.columns({ selected: true }).any()) {
 			dt.columns().deselect();
 		}
 		if (data.select.columns !== undefined) {
 			dt.columns(data.select.columns).select();
 		}
 
-		if (dt.cells({selected: true}).any()) {
+		if (dt.cells({ selected: true }).any()) {
 			dt.cells().deselect();
 		}
 		if (data.select.cells !== undefined) {
-			for(var i = 0; i < data.select.cells.length; i++) {
+			for (var i = 0; i < data.select.cells.length; i++) {
 				dt.cell(data.select.cells[i].row, data.select.cells[i].column).select();
 			}
 		}
 
 		dt.state.save();
-	}
-	
-	dt
-		.on('stateSaveParams', function(e, settings, data) {
-			data.select = {};
-			data.select.rows = dt.rows({selected:true}).ids(true).toArray();
-			data.select.columns = dt.columns({selected:true})[0];
-			data.select.cells = dt.cells({selected:true})[0].map(function(coords) {
-				return {row: dt.row(coords.row).id(true), column: coords.column}
-			});
-		})
+	};
+
+	dt.on('stateSaveParams', function (e, settings, data) {
+		data.select = {};
+		data.select.rows = dt.rows({ selected: true }).ids(true).toArray();
+		data.select.columns = dt.columns({ selected: true })[0];
+		data.select.cells = dt.cells({ selected: true })[0].map(function (coords) {
+			return { row: dt.row(coords.row).id(true), column: coords.column };
+		});
+	})
 		.on('stateLoadParams', selectAndSave)
-		.one('init', function() {
+		.one('init', function () {
 			selectAndSave(undefined, undefined, savedSelected);
 		});
 
 	var init = ctx.oInit.select;
 	var defaults = datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].defaults.select;
-	var opts = init === undefined ?
-		defaults :
-		init;
+	var opts = init === undefined ? defaults : init;
 
 	// Set defaults
 	var items = 'row';
@@ -2183,32 +2182,32 @@ datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init = function ( 
 	ctx._select = {};
 
 	// Initialisation customisations
-	if ( opts === true ) {
+	if (opts === true) {
 		style = 'os';
 		setStyle = true;
 	}
-	else if ( typeof opts === 'string' ) {
+	else if (typeof opts === 'string') {
 		style = opts;
 		setStyle = true;
 	}
-	else if ( jquery__WEBPACK_IMPORTED_MODULE_0__.isPlainObject( opts ) ) {
-		if ( opts.blurable !== undefined ) {
+	else if ($.isPlainObject(opts)) {
+		if (opts.blurable !== undefined) {
 			blurable = opts.blurable;
 		}
-		
-		if ( opts.toggleable !== undefined ) {
+
+		if (opts.toggleable !== undefined) {
 			toggleable = opts.toggleable;
 		}
 
-		if ( opts.info !== undefined ) {
+		if (opts.info !== undefined) {
 			info = opts.info;
 		}
 
-		if ( opts.items !== undefined ) {
+		if (opts.items !== undefined) {
 			items = opts.items;
 		}
 
-		if ( opts.style !== undefined ) {
+		if (opts.style !== undefined) {
 			style = opts.style;
 			setStyle = true;
 		}
@@ -2217,40 +2216,43 @@ datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init = function ( 
 			setStyle = true;
 		}
 
-		if ( opts.selector !== undefined ) {
+		if (opts.selector !== undefined) {
 			selector = opts.selector;
 		}
 
-		if ( opts.className !== undefined ) {
+		if (opts.className !== undefined) {
 			className = opts.className;
 		}
 	}
 
-	dt.select.selector( selector );
-	dt.select.items( items );
-	dt.select.style( style );
-	dt.select.blurable( blurable );
-	dt.select.toggleable( toggleable );
-	dt.select.info( info );
+	dt.select.selector(selector);
+	dt.select.items(items);
+	dt.select.style(style);
+	dt.select.blurable(blurable);
+	dt.select.toggleable(toggleable);
+	dt.select.info(info);
 	ctx._select.className = className;
 
-
 	// Sort table based on selected rows. Requires Select Datatables extension
-	jquery__WEBPACK_IMPORTED_MODULE_0__.fn.dataTable.ext.order["select-checkbox"] = function ( settings, col ) {
-		return this.api().column( col, {order: 'index'} ).nodes().map( function ( td ) {
-			if ( settings._select.items === 'row' ) {
-				return jquery__WEBPACK_IMPORTED_MODULE_0__( td ).parent().hasClass( settings._select.className );
-			} else if ( settings._select.items === 'cell' ) {
-				return jquery__WEBPACK_IMPORTED_MODULE_0__( td ).hasClass( settings._select.className );
-			}
-			return false;
-		});
+	$.fn.dataTable.ext.order['select-checkbox'] = function (settings, col) {
+		return this.api()
+			.column(col, { order: 'index' })
+			.nodes()
+			.map(function (td) {
+				if (settings._select.items === 'row') {
+					return $(td).parent().hasClass(settings._select.className);
+				}
+				else if (settings._select.items === 'cell') {
+					return $(td).hasClass(settings._select.className);
+				}
+				return false;
+			});
 	};
 
 	// If the init options haven't enabled select, but there is a selectable
 	// class name, then enable
-	if ( ! setStyle && jquery__WEBPACK_IMPORTED_MODULE_0__( dt.table().node() ).hasClass( 'selectable' ) ) {
-		dt.select.style( 'os' );
+	if (!setStyle && $(dt.table().node()).hasClass('selectable')) {
+		dt.select.style('os');
 	}
 };
 
@@ -2318,7 +2320,6 @@ handler that will select the items using the API methods.
 
  */
 
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Local functions
  */
@@ -2331,84 +2332,87 @@ handler that will select the items using the API methods.
  * in the visible grid rather than by index in sequence. For example, if you
  * click first in cell 1-1 and then shift click in 2-2 - cells 1-2 and 2-1
  * should also be selected (and not 1-3, 1-4. etc)
- * 
+ *
  * @param  {DataTable.Api} dt   DataTable
  * @param  {object}        idx  Cell index to select to
  * @param  {object}        last Cell index to select from
  * @private
  */
-function cellRange( dt, idx, last )
-{
+function cellRange(dt, idx, last) {
 	var indexes;
 	var columnIndexes;
 	var rowIndexes;
-	var selectColumns = function ( start, end ) {
-		if ( start > end ) {
+	var selectColumns = function (start, end) {
+		if (start > end) {
 			var tmp = end;
 			end = start;
 			start = tmp;
 		}
-		
-		var record = false;
-		return dt.columns( ':visible' ).indexes().filter( function (i) {
-			if ( i === start ) {
-				record = true;
-			}
-			
-			if ( i === end ) { // not else if, as start might === end
-				record = false;
-				return true;
-			}
 
-			return record;
-		} );
+		var record = false;
+		return dt
+			.columns(':visible')
+			.indexes()
+			.filter(function (i) {
+				if (i === start) {
+					record = true;
+				}
+
+				if (i === end) {
+					// not else if, as start might === end
+					record = false;
+					return true;
+				}
+
+				return record;
+			});
 	};
 
-	var selectRows = function ( start, end ) {
-		var indexes = dt.rows( { search: 'applied' } ).indexes();
+	var selectRows = function (start, end) {
+		var indexes = dt.rows({ search: 'applied' }).indexes();
 
 		// Which comes first - might need to swap
-		if ( indexes.indexOf( start ) > indexes.indexOf( end ) ) {
+		if (indexes.indexOf(start) > indexes.indexOf(end)) {
 			var tmp = end;
 			end = start;
 			start = tmp;
 		}
 
 		var record = false;
-		return indexes.filter( function (i) {
-			if ( i === start ) {
+		return indexes.filter(function (i) {
+			if (i === start) {
 				record = true;
 			}
-			
-			if ( i === end ) {
+
+			if (i === end) {
 				record = false;
 				return true;
 			}
 
 			return record;
-		} );
+		});
 	};
 
-	if ( ! dt.cells( { selected: true } ).any() && ! last ) {
+	if (!dt.cells({ selected: true }).any() && !last) {
 		// select from the top left cell to this one
-		columnIndexes = selectColumns( 0, idx.column );
-		rowIndexes = selectRows( 0 , idx.row );
+		columnIndexes = selectColumns(0, idx.column);
+		rowIndexes = selectRows(0, idx.row);
 	}
 	else {
 		// Get column indexes between old and new
-		columnIndexes = selectColumns( last.column, idx.column );
-		rowIndexes = selectRows( last.row , idx.row );
+		columnIndexes = selectColumns(last.column, idx.column);
+		rowIndexes = selectRows(last.row, idx.row);
 	}
 
-	indexes = dt.cells( rowIndexes, columnIndexes ).flatten();
+	indexes = dt.cells(rowIndexes, columnIndexes).flatten();
 
-	if ( ! dt.cells( idx, { selected: true } ).any() ) {
+	if (!dt.cells(idx, { selected: true }).any()) {
 		// Select range
-		dt.cells( indexes ).select();
+		dt.cells(indexes).select();
 	}
 	else {
 		// Deselect range
-		dt.cells( indexes ).deselect();
+		dt.cells(indexes).deselect();
 	}
 }
 
@@ -2418,17 +2422,16 @@ function cellRange( dt, idx, last )
  * @param {DataTable.Api} dt DataTable to remove events from
  * @private
  */
-function disableMouseSelection( dt )
-{
+function disableMouseSelection(dt) {
 	var ctx = dt.settings()[0];
 	var selector = ctx._select.selector;
 
-	jquery__WEBPACK_IMPORTED_MODULE_0__( dt.table().container() )
-		.off( 'mousedown.dtSelect', selector )
-		.off( 'mouseup.dtSelect', selector )
-		.off( 'click.dtSelect', selector );
+	$(dt.table().container())
+		.off('mousedown.dtSelect', selector)
+		.off('mouseup.dtSelect', selector)
+		.off('click.dtSelect', selector);
 
-	jquery__WEBPACK_IMPORTED_MODULE_0__('body').off( 'click.dtSelect' + _safeId(dt.table().node()) );
+	$('body').off('click.dtSelect' + _safeId(dt.table().node()));
 }
 
 /**
@@ -2437,47 +2440,49 @@ function disableMouseSelection( dt )
  * @param {DataTable.Api} dt DataTable to remove events from
  * @private
  */
-function enableMouseSelection ( dt )
-{
-	var container = jquery__WEBPACK_IMPORTED_MODULE_0__( dt.table().container() );
+function enableMouseSelection(dt) {
+	var container = $(dt.table().container());
 	var ctx = dt.settings()[0];
 	var selector = ctx._select.selector;
 	var matchSelection;
 
 	container
-		.on( 'mousedown.dtSelect', selector, function(e) {
+		.on('mousedown.dtSelect', selector, function (e) {
 			// Disallow text selection for shift clicking on the table so multi
 			// element selection doesn't look terrible!
-			if ( e.shiftKey || e.metaKey || e.ctrlKey ) {
+			if (e.shiftKey || e.metaKey || e.ctrlKey) {
 				container
-					.css( '-moz-user-select', 'none' )
+					.css('-moz-user-select', 'none')
 					.one('selectstart.dtSelect', selector, function () {
 						return false;
-					} );
+					});
 			}
 
-			if ( window.getSelection ) {
+			if (window.getSelection) {
 				matchSelection = window.getSelection();
 			}
-		} )
-		.on( 'mouseup.dtSelect', selector, function() {
+		})
+		.on('mouseup.dtSelect', selector, function () {
 			// Allow text selection to occur again, Mozilla style (tested in FF
 			// 35.0.1 - still required)
-			container.css( '-moz-user-select', '' );
-		} )
-		.on( 'click.dtSelect', selector, function ( e ) {
+			container.css('-moz-user-select', '');
+		})
+		.on('click.dtSelect', selector, function (e) {
 			var items = dt.select.items();
 			var idx;
 
 			// If text was selected (click and drag), then we shouldn't change
 			// the row's selected state
-			if ( matchSelection ) {
+			if (matchSelection) {
 				var selection = window.getSelection();
 
 				// If the element that contains the selection is not in the table, we can ignore it
 				// This can happen if the developer selects text from the click event
-				if ( ! selection.anchorNode || jquery__WEBPACK_IMPORTED_MODULE_0__(selection.anchorNode).closest('table')[0] === dt.table().node() ) {
-					if ( selection !== matchSelection ) {
+				if (
+					!selection.anchorNode ||
+					$(selection.anchorNode).closest('table')[0] === dt.table().node()
+				) {
+					if (selection !== matchSelection) {
 						return;
 					}
 				}
@@ -2487,71 +2492,71 @@ function enableMouseSelection ( dt )
 			var wrapperClass = dt.settings()[0].oClasses.sWrapper.trim().replace(/ +/g, '.');
 
 			// Ignore clicks inside a sub-table
-			if ( jquery__WEBPACK_IMPORTED_MODULE_0__(e.target).closest('div.'+wrapperClass)[0] != dt.table().container() ) {
+			if ($(e.target).closest('div.' + wrapperClass)[0] != dt.table().container()) {
 				return;
 			}
 
-			var cell = dt.cell( jquery__WEBPACK_IMPORTED_MODULE_0__(e.target).closest('td, th') );
+			var cell = dt.cell($(e.target).closest('td, th'));
 
 			// Check the cell actually belongs to the host DataTable (so child
 			// rows, etc, are ignored)
-			if ( ! cell.any() ) {
+			if (!cell.any()) {
 				return;
 			}
 
-			var event = jquery__WEBPACK_IMPORTED_MODULE_0__.Event('user-select.dt');
-			eventTrigger( dt, event, [ items, cell, e ] );
+			var event = $.Event('user-select.dt');
+			eventTrigger(dt, event, [items, cell, e]);
 
-			if ( event.isDefaultPrevented() ) {
+			if (event.isDefaultPrevented()) {
 				return;
 			}
 
 			var cellIndex = cell.index();
-			if ( items === 'row' ) {
+			if (items === 'row') {
 				idx = cellIndex.row;
-				typeSelect( e, dt, ctx, 'row', idx );
+				typeSelect(e, dt, ctx, 'row', idx);
 			}
-			else if ( items === 'column' ) {
+			else if (items === 'column') {
 				idx = cell.index().column;
-				typeSelect( e, dt, ctx, 'column', idx );
+				typeSelect(e, dt, ctx, 'column', idx);
 			}
-			else if ( items === 'cell' ) {
+			else if (items === 'cell') {
 				idx = cell.index();
-				typeSelect( e, dt, ctx, 'cell', idx );
+				typeSelect(e, dt, ctx, 'cell', idx);
 			}
 
 			ctx._select_lastCell = cellIndex;
-		} );
+		});
 
 	// Blurable
-	jquery__WEBPACK_IMPORTED_MODULE_0__('body').on( 'click.dtSelect' + _safeId(dt.table().node()), function ( e ) {
-		if ( ctx._select.blurable ) {
+	$('body').on('click.dtSelect' + _safeId(dt.table().node()), function (e) {
+		if (ctx._select.blurable) {
 			// If the click was inside the DataTables container, don't blur
-			if ( jquery__WEBPACK_IMPORTED_MODULE_0__(e.target).parents().filter( dt.table().container() ).length ) {
+			if ($(e.target).parents().filter(dt.table().container()).length) {
 				return;
 			}
 
 			// Ignore elements which have been removed from the DOM (i.e. paging
 			// buttons)
-			if ( jquery__WEBPACK_IMPORTED_MODULE_0__(e.target).parents('html').length === 0 ) {
-			 	return;
+			if ($(e.target).parents('html').length === 0) {
+				return;
 			}
 
 			// Don't blur in Editor form
-			if ( jquery__WEBPACK_IMPORTED_MODULE_0__(e.target).parents('div.DTE').length ) {
+			if ($(e.target).parents('div.DTE').length) {
 				return;
 			}
 
-			var event = jquery__WEBPACK_IMPORTED_MODULE_0__.Event('select-blur.dt');
-			eventTrigger( dt, event, [ e.target, e ] );
+			var event = $.Event('select-blur.dt');
+			eventTrigger(dt, event, [e.target, e]);
 
-			if ( event.isDefaultPrevented() ) {
+			if (event.isDefaultPrevented()) {
 				return;
 			}
 
-			clear( ctx, true );
+			clear(ctx, true);
 		}
-	} );
+	});
 }
 
 /**
@@ -2564,70 +2569,72 @@ function enableMouseSelection ( dt )
  *     triggering
  * @private
  */
-function eventTrigger ( api, type, args, any )
-{
-	if ( any && ! api.flatten().length ) {
+function eventTrigger(api, type, args, any) {
+	if (any && !api.flatten().length) {
 		return;
 	}
 
-	if ( typeof type === 'string' ) {
-		type = type +'.dt';
+	if (typeof type === 'string') {
+		type = type + '.dt';
 	}
 
-	args.unshift( api );
+	args.unshift(api);
 
-	jquery__WEBPACK_IMPORTED_MODULE_0__(api.table().node()).trigger( type, args );
+	$(api.table().node()).trigger(type, args);
 }
 
 /**
  * Update the information element of the DataTable showing information about the
  * items selected. This is done by adding tags to the existing text
- * 
+ *
  * @param {DataTable.Api} api DataTable to update
  * @private
  */
-function info ( api )
-{
+function info(api) {
 	var ctx = api.settings()[0];
 
-	if ( ! ctx._select.info || ! ctx.aanFeatures.i ) {
+	if (!ctx._select.info || !ctx.aanFeatures.i) {
 		return;
 	}
 
-	if ( api.select.style() === 'api' ) {
+	if (api.select.style() === 'api') {
 		return;
 	}
 
-	var rows    = api.rows( { selected: true } ).flatten().length;
-	var columns = api.columns( { selected: true } ).flatten().length;
-	var cells   = api.cells( { selected: true } ).flatten().length;
+	var rows = api.rows({ selected: true }).flatten().length;
+	var columns = api.columns({ selected: true }).flatten().length;
+	var cells = api.cells({ selected: true }).flatten().length;
 
-	var add = function ( el, name, num ) {
-		el.append( jquery__WEBPACK_IMPORTED_MODULE_0__('<span class="select-item"/>').append( api.i18n(
-			'select.'+name+'s',
-			{ _: '%d '+name+'s selected', 0: '', 1: '1 '+name+' selected' },
-			num
-		) ) );
+	var add = function (el, name, num) {
+		el.append(
+			$('<span class="select-item"/>').append(
+				api.i18n(
+					'select.' + name + 's',
+					{ _: '%d ' + name + 's selected', 0: '', 1: '1 ' + name + ' selected' },
+					num
+				)
+			)
+		);
 	};
 
 	// Internal knowledge of DataTables to loop over all information elements
-	jquery__WEBPACK_IMPORTED_MODULE_0__.each( ctx.aanFeatures.i, function ( i, el ) {
-		el = jquery__WEBPACK_IMPORTED_MODULE_0__(el);
+	$.each(ctx.aanFeatures.i, function (i, el) {
+		el = $(el);
 
-		var output  = jquery__WEBPACK_IMPORTED_MODULE_0__('<span class="select-info"/>');
-		add( output, 'row', rows );
-		add( output, 'column', columns );
-		add( output, 'cell', cells  );
+		var output = $('<span class="select-info"/>');
+		add(output, 'row', rows);
+		add(output, 'column', columns);
+		add(output, 'cell', cells);
 
 		var exisiting = el.children('span.select-info');
-		if ( exisiting.length ) {
+		if (exisiting.length) {
 			exisiting.remove();
 		}
 
-		if ( output.text() !== '' ) {
-			el.append( output );
+		if (output.text() !== '') {
+			el.append(output);
 		}
-	} );
+	});
 }
 
 /**
@@ -2640,41 +2647,44 @@ function info ( api )
  * @param  {DataTable.settings} ctx Settings object to operate on
  * @private
  */
-function init ( ctx ) {
-	var api = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx );
+function init(ctx) {
+	var api = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx);
 	ctx._select_init = true;
 
 	// Row callback so that classes can be added to rows and cells if the item
 	// was selected before the element was created. This will happen with the
 	// `deferRender` option enabled.
-	// 
+	//
 	// This method of attaching to `aoRowCreatedCallback` is a hack until
 	// DataTables has proper events for row manipulation If you are reviewing
 	// this code to create your own plug-ins, please do not do this!
-	ctx.aoRowCreatedCallback.push( {
-		fn: function ( row, data, index ) {
+	ctx.aoRowCreatedCallback.push({
+		fn: function (row, data, index) {
 			var i, ien;
-			var d = ctx.aoData[ index ];
+			var d = ctx.aoData[index];
 
 			// Row
-			if ( d._select_selected ) {
-				jquery__WEBPACK_IMPORTED_MODULE_0__( row ).addClass( ctx._select.className );
+			if (d._select_selected) {
+				$(row).addClass(ctx._select.className);
 			}
 
 			// Cells and columns - if separated out, we would need to do two
 			// loops, so it makes sense to combine them into a single one
-			for ( i=0, ien=ctx.aoColumns.length ; i<ien ; i++ ) {
-				if ( ctx.aoColumns[i]._select_selected || (d._selected_cells && d._selected_cells[i]) ) {
-					jquery__WEBPACK_IMPORTED_MODULE_0__(d.anCells[i]).addClass( ctx._select.className );
+			for (i = 0, ien = ctx.aoColumns.length; i < ien; i++) {
+				if (
+					ctx.aoColumns[i]._select_selected ||
+					(d._selected_cells && d._selected_cells[i])
+				) {
+					$(d.anCells[i]).addClass(ctx._select.className);
 				}
 			}
 		},
 		sName: 'select-deferRender'
-	} );
+	});
 
 	// On Ajax reload we want to reselect all rows which are currently selected,
 	// if there is an rowId (i.e. a unique value to identify each row with)
-	api.on( 'preXhr.dt.dtSelect', function (e, settings) {
+	api.on('preXhr.dt.dtSelect', function (e, settings) {
 		if (settings !== api.settings()[0]) {
 			// Not triggered by our DataTable!
 			return;
@@ -2682,47 +2692,52 @@ function init ( ctx ) {
 
 		// note that column selection doesn't need to be cached and then
 		// reselected, as they are already selected
-		var rows = api.rows( { selected: true } ).ids( true ).filter( function ( d ) {
-			return d !== undefined;
-		} );
+		var rows = api
+			.rows({ selected: true })
+			.ids(true)
+			.filter(function (d) {
+				return d !== undefined;
+			});
 
-		var cells = api.cells( { selected: true } ).eq(0).map( function ( cellIdx ) {
-			var id = api.row( cellIdx.row ).id( true );
-			return id ?
-				{ row: id, column: cellIdx.column } :
-				undefined;
-		} ).filter( function ( d ) {
-			return d !== undefined;
-		} );
+		var cells = api
+			.cells({ selected: true })
+			.eq(0)
+			.map(function (cellIdx) {
+				var id = api.row(cellIdx.row).id(true);
+				return id ? { row: id, column: cellIdx.column } : undefined;
+			})
+			.filter(function (d) {
+				return d !== undefined;
+			});
 
 		// On the next draw, reselect the currently selected items
-		api.one( 'draw.dt.dtSelect', function () {
-			api.rows( rows ).select();
+		api.one('draw.dt.dtSelect', function () {
+			api.rows(rows).select();
 
 			// `cells` is not a cell index selector, so it needs a loop
-			if ( cells.any() ) {
-				cells.each( function ( id ) {
-					api.cells( id.row, id.column ).select();
-				} );
+			if (cells.any()) {
+				cells.each(function (id) {
+					api.cells(id.row, id.column).select();
+				});
 			}
-		} );
-	} );
+		});
+	});
 
 	// Update the table information element with selected item summary
-	api.on( 'draw.dtSelect.dt select.dtSelect.dt deselect.dtSelect.dt info.dt', function () {
-		info( api );
+	api.on('draw.dtSelect.dt select.dtSelect.dt deselect.dtSelect.dt info.dt', function () {
+		info(api);
 		api.state.save();
-	} );
+	});
 
 	// Clean up and release
-	api.on( 'destroy.dtSelect', function () {
+	api.on('destroy.dtSelect', function () {
 		// Remove class directly rather than calling deselect - which would trigger events
-		jquery__WEBPACK_IMPORTED_MODULE_0__(api.rows({selected: true}).nodes()).removeClass(api.settings()[0]._select.className);
+		$(api.rows({ selected: true }).nodes()).removeClass(api.settings()[0]._select.className);
 
-		disableMouseSelection( api );
-		api.off( '.dtSelect' );
-		jquery__WEBPACK_IMPORTED_MODULE_0__('body').off('.dtSelect' + _safeId(api.table().node()));
-	} );
+		disableMouseSelection(api);
+		api.off('.dtSelect');
+		$('body').off('.dtSelect' + _safeId(api.table().node()));
+	});
 }
 
 /**
@@ -2735,38 +2750,37 @@ function init ( ctx ) {
  * @param  {object}        last Item index to select from
  * @private
  */
-function rowColumnRange( dt, type, idx, last )
-{
+function rowColumnRange(dt, type, idx, last) {
 	// Add a range of rows from the last selected row to this one
-	var indexes = dt[type+'s']( { search: 'applied' } ).indexes();
-	var idx1 = jquery__WEBPACK_IMPORTED_MODULE_0__.inArray( last, indexes );
-	var idx2 = jquery__WEBPACK_IMPORTED_MODULE_0__.inArray( idx, indexes );
+	var indexes = dt[type + 's']({ search: 'applied' }).indexes();
+	var idx1 = $.inArray(last, indexes);
+	var idx2 = $.inArray(idx, indexes);
 
-	if ( ! dt[type+'s']( { selected: true } ).any() && idx1 === -1 ) {
+	if (!dt[type + 's']({ selected: true }).any() && idx1 === -1) {
 		// select from top to here - slightly odd, but both Windows and Mac OS
 		// do this
-		indexes.splice( jquery__WEBPACK_IMPORTED_MODULE_0__.inArray( idx, indexes )+1, indexes.length );
+		indexes.splice($.inArray(idx, indexes) + 1, indexes.length);
 	}
 	else {
 		// reverse so we can shift click 'up' as well as down
-		if ( idx1 > idx2 ) {
+		if (idx1 > idx2) {
 			var tmp = idx2;
 			idx2 = idx1;
 			idx1 = tmp;
 		}
 
-		indexes.splice( idx2+1, indexes.length );
-		indexes.splice( 0, idx1 );
+		indexes.splice(idx2 + 1, indexes.length);
+		indexes.splice(0, idx1);
 	}
 
-	if ( ! dt[type]( idx, { selected: true } ).any() ) {
+	if (!dt[type](idx, { selected: true }).any()) {
 		// Select range
-		dt[type+'s']( indexes ).select();
+		dt[type + 's'](indexes).select();
 	}
 	else {
 		// Deselect range - need to keep the clicked on row selected
-		indexes.splice( jquery__WEBPACK_IMPORTED_MODULE_0__.inArray( idx, indexes ), 1 );
-		dt[type+'s']( indexes ).deselect();
+		indexes.splice($.inArray(idx, indexes), 1);
+		dt[type + 's'](indexes).deselect();
 	}
 }
 
@@ -2778,14 +2792,13 @@ function rowColumnRange( dt, type, idx, last )
  *     of selection style
  * @private
  */
-function clear( ctx, force )
-{
-	if ( force || ctx._select.style === 'single' ) {
-		var api = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx );
-		
-		api.rows( { selected: true } ).deselect();
-		api.columns( { selected: true } ).deselect();
-		api.cells( { selected: true } ).deselect();
+function clear(ctx, force) {
+	if (force || ctx._select.style === 'single') {
+		var api = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx);
+
+		api.rows({ selected: true }).deselect();
+		api.columns({ selected: true }).deselect();
+		api.cells({ selected: true }).deselect();
 	}
 }
 
@@ -2799,71 +2812,73 @@ function clear( ctx, force )
  * @param  {int|object}         idx  Index of the item to select
  * @private
  */
-function typeSelect ( e, dt, ctx, type, idx )
-{
+function typeSelect(e, dt, ctx, type, idx) {
 	var style = dt.select.style();
 	var toggleable = dt.select.toggleable();
-	var isSelected = dt[type]( idx, { selected: true } ).any();
-	
-	if ( isSelected && ! toggleable ) {
+	var isSelected = dt[type](idx, { selected: true }).any();
+
+	if (isSelected && !toggleable) {
 		return;
 	}
 
-	if ( style === 'os' ) {
-		if ( e.ctrlKey || e.metaKey ) {
+	if (style === 'os') {
+		if (e.ctrlKey || e.metaKey) {
 			// Add or remove from the selection
-			dt[type]( idx ).select( ! isSelected );
+			dt[type](idx).select(!isSelected);
 		}
-		else if ( e.shiftKey ) {
-			if ( type === 'cell' ) {
-				cellRange( dt, idx, ctx._select_lastCell || null );
+		else if (e.shiftKey) {
+			if (type === 'cell') {
+				cellRange(dt, idx, ctx._select_lastCell || null);
 			}
 			else {
-				rowColumnRange( dt, type, idx, ctx._select_lastCell ?
-					ctx._select_lastCell[type] :
-					null
+				rowColumnRange(
+					dt,
+					type,
+					idx,
+					ctx._select_lastCell ? ctx._select_lastCell[type] : null
 				);
 			}
 		}
 		else {
 			// No cmd or shift click - deselect if selected, or select
 			// this row only
-			var selected = dt[type+'s']( { selected: true } );
+			var selected = dt[type + 's']({ selected: true });
 
-			if ( isSelected && selected.flatten().length === 1 ) {
-				dt[type]( idx ).deselect();
+			if (isSelected && selected.flatten().length === 1) {
+				dt[type](idx).deselect();
 			}
 			else {
 				selected.deselect();
-				dt[type]( idx ).select();
+				dt[type](idx).select();
 			}
 		}
-	} else if ( style == 'multi+shift' ) {
-		if ( e.shiftKey ) {
-			if ( type === 'cell' ) {
-				cellRange( dt, idx, ctx._select_lastCell || null );
+	}
+	else if (style == 'multi+shift') {
+		if (e.shiftKey) {
+			if (type === 'cell') {
+				cellRange(dt, idx, ctx._select_lastCell || null);
 			}
 			else {
-				rowColumnRange( dt, type, idx, ctx._select_lastCell ?
-					ctx._select_lastCell[type] :
-					null
+				rowColumnRange(
+					dt,
+					type,
+					idx,
+					ctx._select_lastCell ? ctx._select_lastCell[type] : null
 				);
 			}
 		}
 		else {
-			dt[ type ]( idx ).select( ! isSelected );
+			dt[type](idx).select(!isSelected);
 		}
 	}
 	else {
-		dt[ type ]( idx ).select( ! isSelected );
+		dt[type](idx).select(!isSelected);
 	}
 }
 
-function _safeId( node ) {
+function _safeId(node) {
 	return node.id.replace(/[^a-zA-Z0-9\-\_]/g, '-');
 }
-
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables selectors
@@ -2872,56 +2887,62 @@ function _safeId( node ) {
 // row and column are basically identical just assigned to different properties
 // and checking a different array, so we can dynamically create the functions to
 // reduce the code size
-jquery__WEBPACK_IMPORTED_MODULE_0__.each( [
-	{ type: 'row', prop: 'aoData' },
-	{ type: 'column', prop: 'aoColumns' }
-], function ( i, o ) {
-	datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.selector[ o.type ].push( function ( settings, opts, indexes ) {
-		var selected = opts.selected;
-		var data;
-		var out = [];
+$.each(
+	[
+		{ type: 'row', prop: 'aoData' },
+		{ type: 'column', prop: 'aoColumns' }
+	],
+	function (i, o) {
+		datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.selector[o.type].push(function (settings, opts, indexes) {
+			var selected = opts.selected;
+			var data;
+			var out = [];
 
-		if ( selected !== true && selected !== false ) {
-			return indexes;
-		}
-
-		for ( var i=0, ien=indexes.length ; i<ien ; i++ ) {
-			data = settings[ o.prop ][ indexes[i] ];
-
-			if ( (selected === true && data._select_selected === true) ||
-			     (selected === false && ! data._select_selected )
-			) {
-				out.push( indexes[i] );
+			if (selected !== true && selected !== false) {
+				return indexes;
 			}
-		}
 
-		return out;
-	} );
-} );
+			for (var i = 0, ien = indexes.length; i < ien; i++) {
+				data = settings[o.prop][indexes[i]];
 
-datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.selector.cell.push( function ( settings, opts, cells ) {
+				if (
+					(selected === true && data._select_selected === true) ||
+					(selected === false && !data._select_selected)
+				) {
+					out.push(indexes[i]);
+				}
+			}
+
+			return out;
+		});
+	}
+);
+
+datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.selector.cell.push(function (settings, opts, cells) {
 	var selected = opts.selected;
 	var rowData;
 	var out = [];
 
-	if ( selected === undefined ) {
+	if (selected === undefined) {
 		return cells;
 	}
 
-	for ( var i=0, ien=cells.length ; i<ien ; i++ ) {
-		rowData = settings.aoData[ cells[i].row ];
+	for (var i = 0, ien = cells.length; i < ien; i++) {
+		rowData = settings.aoData[cells[i].row];
 
-		if ( (selected === true && rowData._selected_cells && rowData._selected_cells[ cells[i].column ] === true) ||
-		     (selected === false && ( ! rowData._selected_cells || ! rowData._selected_cells[ cells[i].column ] ) )
+		if (
+			(selected === true &&
+				rowData._selected_cells &&
+				rowData._selected_cells[cells[i].column] === true) ||
+			(selected === false &&
+				(!rowData._selected_cells || !rowData._selected_cells[cells[i].column]))
 		) {
-			out.push( cells[i] );
+			out.push(cells[i]);
 		}
 	}
 
 	return out;
-} );
-
-
+});
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
@@ -2934,67 +2955,67 @@ datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.selector.cell.push( f
 var apiRegister = datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api.register;
 var apiRegisterPlural = datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api.registerPlural;
 
-apiRegister( 'select()', function () {
-	return this.iterator( 'table', function ( ctx ) {
-		datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init( new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx ) );
-	} );
-} );
+apiRegister('select()', function () {
+	return this.iterator('table', function (ctx) {
+		datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init(new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx));
+	});
+});
 
-apiRegister( 'select.blurable()', function ( flag ) {
-	if ( flag === undefined ) {
+apiRegister('select.blurable()', function (flag) {
+	if (flag === undefined) {
 		return this.context[0]._select.blurable;
 	}
 
-	return this.iterator( 'table', function ( ctx ) {
+	return this.iterator('table', function (ctx) {
 		ctx._select.blurable = flag;
-	} );
-} );
+	});
+});
 
-apiRegister( 'select.toggleable()', function ( flag ) {
-	if ( flag === undefined ) {
+apiRegister('select.toggleable()', function (flag) {
+	if (flag === undefined) {
 		return this.context[0]._select.toggleable;
 	}
 
-	return this.iterator( 'table', function ( ctx ) {
+	return this.iterator('table', function (ctx) {
 		ctx._select.toggleable = flag;
-	} );
-} );
+	});
+});
 
-apiRegister( 'select.info()', function ( flag ) {
-	if ( flag === undefined ) {
+apiRegister('select.info()', function (flag) {
+	if (flag === undefined) {
 		return this.context[0]._select.info;
 	}
 
-	return this.iterator( 'table', function ( ctx ) {
+	return this.iterator('table', function (ctx) {
 		ctx._select.info = flag;
-	} );
-} );
+	});
+});
 
-apiRegister( 'select.items()', function ( items ) {
-	if ( items === undefined ) {
+apiRegister('select.items()', function (items) {
+	if (items === undefined) {
 		return this.context[0]._select.items;
 	}
 
-	return this.iterator( 'table', function ( ctx ) {
+	return this.iterator('table', function (ctx) {
 		ctx._select.items = items;
 
-		eventTrigger( new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx ), 'selectItems', [ items ] );
-	} );
-} );
+		eventTrigger(new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx), 'selectItems', [items]);
+	});
+});
 
 // Takes effect from the _next_ selection. None disables future selection, but
 // does not clear the current selection. Use the `deselect` methods for that
-apiRegister( 'select.style()', function ( style ) {
-	if ( style === undefined ) {
+apiRegister('select.style()', function (style) {
+	if (style === undefined) {
 		return this.context[0]._select.style;
 	}
 
-	return this.iterator( 'table', function ( ctx ) {
-		if ( ! ctx._select ) {
-			datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init( new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx) );
+	return this.iterator('table', function (ctx) {
+		if (!ctx._select) {
+			datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init(new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx));
 		}
 
-		if ( ! ctx._select_init ) {
+		if (!ctx._select_init) {
 			init(ctx);
 		}
 
@@ -3002,144 +3023,132 @@ apiRegister( 'select.style()', function ( style ) {
 
 		// Add / remove mouse event handlers. They aren't required when only
 		// API selection is available
-		var dt = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx );
-		disableMouseSelection( dt );
-		
-		if ( style !== 'api' ) {
-			enableMouseSelection( dt );
+		var dt = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx);
+		disableMouseSelection(dt);
+
+		if (style !== 'api') {
+			enableMouseSelection(dt);
 		}
 
-		eventTrigger( new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx ), 'selectStyle', [ style ] );
-	} );
-} );
+		eventTrigger(new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx), 'selectStyle', [style]);
+	});
+});
 
-apiRegister( 'select.selector()', function ( selector ) {
-	if ( selector === undefined ) {
+apiRegister('select.selector()', function (selector) {
+	if (selector === undefined) {
 		return this.context[0]._select.selector;
 	}
 
-	return this.iterator( 'table', function ( ctx ) {
-		disableMouseSelection( new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx ) );
+	return this.iterator('table', function (ctx) {
+		disableMouseSelection(new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx));
 
 		ctx._select.selector = selector;
 
-		if ( ctx._select.style !== 'api' ) {
-			enableMouseSelection( new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx ) );
+		if (ctx._select.style !== 'api') {
+			enableMouseSelection(new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx));
 		}
-	} );
-} );
+	});
+});
 
-
-
-apiRegisterPlural( 'rows().select()', 'row().select()', function ( select ) {
+apiRegisterPlural('rows().select()', 'row().select()', function (select) {
 	var api = this;
 
-	if ( select === false ) {
+	if (select === false) {
 		return this.deselect();
 	}
 
-	this.iterator( 'row', function ( ctx, idx ) {
-		clear( ctx );
+	this.iterator('row', function (ctx, idx) {
+		clear(ctx);
 
-		ctx.aoData[ idx ]._select_selected = true;
-		jquery__WEBPACK_IMPORTED_MODULE_0__( ctx.aoData[ idx ].nTr ).addClass( ctx._select.className );
-	} );
+		ctx.aoData[idx]._select_selected = true;
+		$(ctx.aoData[idx].nTr).addClass(ctx._select.className);
+	});
 
-	this.iterator( 'table', function ( ctx, i ) {
-		eventTrigger( api, 'select', [ 'row', api[i] ], true );
-	} );
+	this.iterator('table', function (ctx, i) {
+		eventTrigger(api, 'select', ['row', api[i]], true);
+	});
 
 	return this;
-} );
+});
 
-apiRegister( 'row().selected()', function () {
+apiRegister('row().selected()', function () {
 	var ctx = this.context[0];
 
-	if (
-		ctx &&
-		this.length &&
-		ctx.aoData[this[0]] &&
-		ctx.aoData[this[0]]._select_selected
-	) {
+	if (ctx && this.length && ctx.aoData[this[0]] && ctx.aoData[this[0]]._select_selected) {
 		return true;
 	}
 
 	return false;
-} );
+});
 
-apiRegisterPlural( 'columns().select()', 'column().select()', function ( select ) {
+apiRegisterPlural('columns().select()', 'column().select()', function (select) {
 	var api = this;
 
-	if ( select === false ) {
+	if (select === false) {
 		return this.deselect();
 	}
 
-	this.iterator( 'column', function ( ctx, idx ) {
-		clear( ctx );
+	this.iterator('column', function (ctx, idx) {
+		clear(ctx);
 
-		ctx.aoColumns[ idx ]._select_selected = true;
+		ctx.aoColumns[idx]._select_selected = true;
 
-		var column = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx ).column( idx );
+		var column = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx).column(idx);
 
-		jquery__WEBPACK_IMPORTED_MODULE_0__( column.header() ).addClass( ctx._select.className );
-		jquery__WEBPACK_IMPORTED_MODULE_0__( column.footer() ).addClass( ctx._select.className );
+		$(column.header()).addClass(ctx._select.className);
+		$(column.footer()).addClass(ctx._select.className);
 
-		column.nodes().to$().addClass( ctx._select.className );
-	} );
+		column.nodes().to$().addClass(ctx._select.className);
+	});
 
-	this.iterator( 'table', function ( ctx, i ) {
-		eventTrigger( api, 'select', [ 'column', api[i] ], true );
-	} );
+	this.iterator('table', function (ctx, i) {
+		eventTrigger(api, 'select', ['column', api[i]], true);
+	});
 
 	return this;
-} );
+});
 
-apiRegister( 'column().selected()', function () {
+apiRegister('column().selected()', function () {
 	var ctx = this.context[0];
 
-	if (
-		ctx &&
-		this.length &&
-		ctx.aoColumns[this[0]] &&
-		ctx.aoColumns[this[0]]._select_selected
-	) {
+	if (ctx && this.length && ctx.aoColumns[this[0]] && ctx.aoColumns[this[0]]._select_selected) {
 		return true;
 	}
 
 	return false;
-} );
+});
 
-apiRegisterPlural( 'cells().select()', 'cell().select()', function ( select ) {
+apiRegisterPlural('cells().select()', 'cell().select()', function (select) {
 	var api = this;
 
-	if ( select === false ) {
+	if (select === false) {
 		return this.deselect();
 	}
 
-	this.iterator( 'cell', function ( ctx, rowIdx, colIdx ) {
-		clear( ctx );
+	this.iterator('cell', function (ctx, rowIdx, colIdx) {
+		clear(ctx);
 
-		var data = ctx.aoData[ rowIdx ];
+		var data = ctx.aoData[rowIdx];
 
-		if ( data._selected_cells === undefined ) {
+		if (data._selected_cells === undefined) {
 			data._selected_cells = [];
 		}
 
-		data._selected_cells[ colIdx ] = true;
+		data._selected_cells[colIdx] = true;
 
-		if ( data.anCells ) {
-			jquery__WEBPACK_IMPORTED_MODULE_0__( data.anCells[ colIdx ] ).addClass( ctx._select.className );
+		if (data.anCells) {
+			$(data.anCells[colIdx]).addClass(ctx._select.className);
 		}
-	} );
+	});
 
-	this.iterator( 'table', function ( ctx, i ) {
-		eventTrigger( api, 'select', [ 'cell', api.cells(api[i]).indexes().toArray() ], true );
-	} );
+	this.iterator('table', function (ctx, i) {
+		eventTrigger(api, 'select', ['cell', api.cells(api[i]).indexes().toArray()], true);
+	});
 
 	return this;
-} );
+});
 
-apiRegister( 'cell().selected()', function () {
+apiRegister('cell().selected()', function () {
 	var ctx = this.context[0];
 
 	if (ctx && this.length) {
@@ -3151,110 +3160,109 @@ apiRegister( 'cell().selected()', function () {
 	}
 
 	return false;
-} );
+});
 
-
-apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
+apiRegisterPlural('rows().deselect()', 'row().deselect()', function () {
 	var api = this;
 
-	this.iterator( 'row', function ( ctx, idx ) {
-		ctx.aoData[ idx ]._select_selected = false;
+	this.iterator('row', function (ctx, idx) {
+		ctx.aoData[idx]._select_selected = false;
 		ctx._select_lastCell = null;
-		jquery__WEBPACK_IMPORTED_MODULE_0__( ctx.aoData[ idx ].nTr ).removeClass( ctx._select.className );
-	} );
+		$(ctx.aoData[idx].nTr).removeClass(ctx._select.className);
+	});
 
-	this.iterator( 'table', function ( ctx, i ) {
-		eventTrigger( api, 'deselect', [ 'row', api[i] ], true );
-	} );
+	this.iterator('table', function (ctx, i) {
+		eventTrigger(api, 'deselect', ['row', api[i]], true);
+	});
 
 	return this;
-} );
+});
 
-apiRegisterPlural( 'columns().deselect()', 'column().deselect()', function () {
+apiRegisterPlural('columns().deselect()', 'column().deselect()', function () {
 	var api = this;
 
-	this.iterator( 'column', function ( ctx, idx ) {
-		ctx.aoColumns[ idx ]._select_selected = false;
+	this.iterator('column', function (ctx, idx) {
+		ctx.aoColumns[idx]._select_selected = false;
 
-		var api = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx );
-		var column = api.column( idx );
+		var api = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx);
+		var column = api.column(idx);
 
-		jquery__WEBPACK_IMPORTED_MODULE_0__( column.header() ).removeClass( ctx._select.className );
-		jquery__WEBPACK_IMPORTED_MODULE_0__( column.footer() ).removeClass( ctx._select.className );
+		$(column.header()).removeClass(ctx._select.className);
+		$(column.footer()).removeClass(ctx._select.className);
 
 		// Need to loop over each cell, rather than just using
 		// `column().nodes()` as cells which are individually selected should
 		// not have the `selected` class removed from them
-		api.cells( null, idx ).indexes().each( function (cellIdx) {
-			var data = ctx.aoData[ cellIdx.row ];
-			var cellSelected = data._selected_cells;
+		api.cells(null, idx)
+			.indexes()
+			.each(function (cellIdx) {
+				var data = ctx.aoData[cellIdx.row];
+				var cellSelected = data._selected_cells;
 
-			if ( data.anCells && (! cellSelected || ! cellSelected[ cellIdx.column ]) ) {
-				jquery__WEBPACK_IMPORTED_MODULE_0__( data.anCells[ cellIdx.column  ] ).removeClass( ctx._select.className );
-			}
-		} );
-	} );
+				if (data.anCells && (!cellSelected || !cellSelected[cellIdx.column])) {
+					$(data.anCells[cellIdx.column]).removeClass(ctx._select.className);
+				}
+			});
+	});
 
-	this.iterator( 'table', function ( ctx, i ) {
-		eventTrigger( api, 'deselect', [ 'column', api[i] ], true );
-	} );
+	this.iterator('table', function (ctx, i) {
+		eventTrigger(api, 'deselect', ['column', api[i]], true);
+	});
 
 	return this;
-} );
+});
 
-apiRegisterPlural( 'cells().deselect()', 'cell().deselect()', function () {
+apiRegisterPlural('cells().deselect()', 'cell().deselect()', function () {
 	var api = this;
 
-	this.iterator( 'cell', function ( ctx, rowIdx, colIdx ) {
-		var data = ctx.aoData[ rowIdx ];
+	this.iterator('cell', function (ctx, rowIdx, colIdx) {
+		var data = ctx.aoData[rowIdx];
 
-		if(data._selected_cells !== undefined) {
-			data._selected_cells[ colIdx ] = false;
+		if (data._selected_cells !== undefined) {
+			data._selected_cells[colIdx] = false;
 		}
 
 		// Remove class only if the cells exist, and the cell is not column
 		// selected, in which case the class should remain (since it is selected
 		// in the column)
-		if ( data.anCells && ! ctx.aoColumns[ colIdx ]._select_selected ) {
-			jquery__WEBPACK_IMPORTED_MODULE_0__( data.anCells[ colIdx ] ).removeClass( ctx._select.className );
+		if (data.anCells && !ctx.aoColumns[colIdx]._select_selected) {
+			$(data.anCells[colIdx]).removeClass(ctx._select.className);
 		}
-	} );
+	});
 
-	this.iterator( 'table', function ( ctx, i ) {
-		eventTrigger( api, 'deselect', [ 'cell', api[i] ], true );
-	} );
+	this.iterator('table', function (ctx, i) {
+		eventTrigger(api, 'deselect', ['cell', api[i]], true);
+	});
 
 	return this;
-} );
-
-
+});
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Buttons
  */
-function i18n( label, def ) {
+function i18n(label, def) {
 	return function (dt) {
-		return dt.i18n( 'buttons.'+label, def );
+		return dt.i18n('buttons.' + label, def);
 	};
 }
 
 // Common events with suitable namespaces
-function namespacedEvents ( config ) {
+function namespacedEvents(config) {
 	var unique = config._eventNamespace;
 
-	return 'draw.dt.DT'+unique+' select.dt.DT'+unique+' deselect.dt.DT'+unique;
+	return 'draw.dt.DT' + unique + ' select.dt.DT' + unique + ' deselect.dt.DT' + unique;
 }
 
-function enabled ( dt, config ) {
-	if ( jquery__WEBPACK_IMPORTED_MODULE_0__.inArray( 'rows', config.limitTo ) !== -1 && dt.rows( { selected: true } ).any() ) {
+function enabled(dt, config) {
+	if ($.inArray('rows', config.limitTo) !== -1 && dt.rows({ selected: true }).any()) {
 		return true;
 	}
 
-	if ( jquery__WEBPACK_IMPORTED_MODULE_0__.inArray( 'columns', config.limitTo ) !== -1 && dt.columns( { selected: true } ).any() ) {
+	if ($.inArray('columns', config.limitTo) !== -1 && dt.columns({ selected: true }).any()) {
 		return true;
 	}
 
-	if ( jquery__WEBPACK_IMPORTED_MODULE_0__.inArray( 'cells', config.limitTo ) !== -1 && dt.cells( { selected: true } ).any() ) {
+	if ($.inArray('cells', config.limitTo) !== -1 && dt.cells({ selected: true }).any()) {
 		return true;
 	}
 
@@ -3263,82 +3271,96 @@ function enabled ( dt, config ) {
 
 var _buttonNamespace = 0;
 
-jquery__WEBPACK_IMPORTED_MODULE_0__.extend( datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.buttons, {
+$.extend(datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.buttons, {
 	selected: {
-		text: i18n( 'selected', 'Selected' ),
+		text: i18n('selected', 'Selected'),
 		className: 'buttons-selected',
-		limitTo: [ 'rows', 'columns', 'cells' ],
-		init: function ( dt, node, config ) {
+		limitTo: ['rows', 'columns', 'cells'],
+		init: function (dt, node, config) {
 			var that = this;
-			config._eventNamespace = '.select'+(_buttonNamespace++);
+			config._eventNamespace = '.select' + _buttonNamespace++;
 
 			// .DT namespace listeners are removed by DataTables automatically
 			// on table destroy
-			dt.on( namespacedEvents(config), function () {
-				that.enable( enabled(dt, config) );
-			} );
+			dt.on(namespacedEvents(config), function () {
+				that.enable(enabled(dt, config));
+			});
 
 			this.disable();
 		},
-		destroy: function ( dt, node, config ) {
-			dt.off( config._eventNamespace );
+		destroy: function (dt, node, config) {
+			dt.off(config._eventNamespace);
 		}
 	},
 	selectedSingle: {
-		text: i18n( 'selectedSingle', 'Selected single' ),
+		text: i18n('selectedSingle', 'Selected single'),
 		className: 'buttons-selected-single',
-		init: function ( dt, node, config ) {
+		init: function (dt, node, config) {
 			var that = this;
-			config._eventNamespace = '.select'+(_buttonNamespace++);
+			config._eventNamespace = '.select' + _buttonNamespace++;
 
-			dt.on( namespacedEvents(config), function () {
-				var count = dt.rows( { selected: true } ).flatten().length +
-				            dt.columns( { selected: true } ).flatten().length +
-				            dt.cells( { selected: true } ).flatten().length;
+			dt.on(namespacedEvents(config), function () {
+				var count =
+					dt.rows({ selected: true }).flatten().length +
+					dt.columns({ selected: true }).flatten().length +
+					dt.cells({ selected: true }).flatten().length;
 
-				that.enable( count === 1 );
-			} );
+				that.enable(count === 1);
+			});
 
 			this.disable();
 		},
-		destroy: function ( dt, node, config ) {
-			dt.off( config._eventNamespace );
+		destroy: function (dt, node, config) {
+			dt.off(config._eventNamespace);
 		}
 	},
 	selectAll: {
-		text: i18n( 'selectAll', 'Select all' ),
+		text: i18n('selectAll', 'Select all'),
 		className: 'buttons-select-all',
-		action: function () {
+		action: function (e, dt, node, config) {
 			var items = this.select.items();
-			this[ items+'s' ]().select();
+			var mod = config.selectorModifier;
+			
+			if (mod) {
+				if (typeof mod === 'function') {
+					mod = mod.call(dt, e, dt, node, config);
+				}
+
+				this[items + 's'](mod).select();
+			}
+			else {
+				this[items + 's']().select();
+			}
 		}
+		// selectorModifier can be specified
 	},
 	selectNone: {
-		text: i18n( 'selectNone', 'Deselect all' ),
+		text: i18n('selectNone', 'Deselect all'),
 		className: 'buttons-select-none',
 		action: function () {
-			clear( this.settings()[0], true );
+			clear(this.settings()[0], true);
 		},
-		init: function ( dt, node, config ) {
+		init: function (dt, node, config) {
 			var that = this;
-			config._eventNamespace = '.select'+(_buttonNamespace++);
+			config._eventNamespace = '.select' + _buttonNamespace++;
 
-			dt.on( namespacedEvents(config), function () {
-				var count = dt.rows( { selected: true } ).flatten().length +
-				            dt.columns( { selected: true } ).flatten().length +
-				            dt.cells( { selected: true } ).flatten().length;
+			dt.on(namespacedEvents(config), function () {
+				var count =
+					dt.rows({ selected: true }).flatten().length +
+					dt.columns({ selected: true }).flatten().length +
+					dt.cells({ selected: true }).flatten().length;
 
-				that.enable( count > 0 );
-			} );
+				that.enable(count > 0);
+			});
 
 			this.disable();
 		},
-		destroy: function ( dt, node, config ) {
-			dt.off( config._eventNamespace );
+		destroy: function (dt, node, config) {
+			dt.off(config._eventNamespace);
 		}
 	},
 	showSelected: {
-		text: i18n( 'showSelected', 'Show only selected' ),
+		text: i18n('showSelected', 'Show only selected'),
 		className: 'buttons-show-selected',
 		action: function (e, dt, node, conf) {
 			// Works by having a filtering function which will reduce to the selected
@@ -3364,7 +3386,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0__.extend( datatables_net__WEBPACK_IMPORTED_MOD
 					let row = s.aoData[idx];
 
 					return row._select_selected;
-				}
+				};
 
 				conf._filter = fn;
 				datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.search.push(fn);
@@ -3375,29 +3397,28 @@ jquery__WEBPACK_IMPORTED_MODULE_0__.extend( datatables_net__WEBPACK_IMPORTED_MOD
 			dt.draw();
 		}
 	}
-} );
+});
 
-jquery__WEBPACK_IMPORTED_MODULE_0__.each( [ 'Row', 'Column', 'Cell' ], function ( i, item ) {
+$.each(['Row', 'Column', 'Cell'], function (i, item) {
 	var lc = item.toLowerCase();
 
-	datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.buttons[ 'select'+item+'s' ] = {
-		text: i18n( 'select'+item+'s', 'Select '+lc+'s' ),
-		className: 'buttons-select-'+lc+'s',
+	datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.buttons['select' + item + 's'] = {
+		text: i18n('select' + item + 's', 'Select ' + lc + 's'),
+		className: 'buttons-select-' + lc + 's',
 		action: function () {
-			this.select.items( lc );
+			this.select.items(lc);
 		},
-		init: function ( dt ) {
+		init: function (dt) {
 			var that = this;
 
-			dt.on( 'selectItems.dt.DT', function ( e, ctx, items ) {
-				that.active( items === lc );
-			} );
+			dt.on('selectItems.dt.DT', function (e, ctx, items) {
+				that.active(items === lc);
+			});
 		}
 	};
-} );
+});
 
-
-jquery__WEBPACK_IMPORTED_MODULE_0__.fn.DataTable.select = datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select;
+$.fn.DataTable.select = datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select;
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Initialisation
@@ -3407,13 +3428,13 @@ jquery__WEBPACK_IMPORTED_MODULE_0__.fn.DataTable.select = datatables_net__WEBPAC
 // this required that the table be in the document! If it isn't then something
 // needs to trigger this method unfortunately. The next major release of
 // DataTables will rework the events and address this.
-jquery__WEBPACK_IMPORTED_MODULE_0__(document).on( 'preInit.dt.dtSelect', function (e, ctx) {
-	if ( e.namespace !== 'dt' ) {
+$(document).on('preInit.dt.dtSelect', function (e, ctx) {
+	if (e.namespace !== 'dt') {
 		return;
 	}
 
-	datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init( new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx ) );
-} );
+	datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init(new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx));
+});
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -3432,19 +3453,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-/*! DataTables 1.13.2
+/*! DataTables 1.13.7
  * ©2008-2023 SpryMedia Ltd - datatables.net/license
  */
 
 
 
 // DataTables code uses $ internally, but we want to be able to
-// reassign $ with the `use` method below, so it is a regular var.
-let $ = jquery__WEBPACK_IMPORTED_MODULE_0__;
+// reassign $ with the `use` method, so it is a regular var.
+var $ = jquery__WEBPACK_IMPORTED_MODULE_0__;
 
 
 var DataTable = function ( selector, options )
 {
+	// Check if called with a window or jQuery object for DOM less applications
+	// This is for backwards compatibility
+	if (DataTable.factory(selector, options)) {
+		return DataTable;
+	}
+
 	// When creating with `new`, create a new DataTable, returning the API instance
 	if (this instanceof DataTable) {
 		return $(selector).DataTable(options);
@@ -4549,6 +4576,7 @@ var DataTable = function ( selector, options )
 							type:   sort !== null   ? i+'.@data-'+sort   : undefined,
 							filter: filter !== null ? i+'.@data-'+filter : undefined
 						};
+						col._isArrayHost = true;
 		
 						_fnColumnOptions( oSettings, i );
 					}
@@ -4715,7 +4743,7 @@ var _re_date = /^\d{2,4}[\.\/\-]\d{1,2}[\.\/\-]\d{1,2}([T ]{1}\d{1,2}[:\.]\d{2}(
 // Escape regular expression special characters
 var _re_escape_regex = new RegExp( '(\\' + [ '/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\', '$', '^', '-' ].join('|\\') + ')', 'g' );
 
-// http://en.wikipedia.org/wiki/Foreign_exchange_market
+// https://en.wikipedia.org/wiki/Foreign_exchange_market
 // - \u20BD - Russian ruble.
 // - \u20a9 - South Korean Won
 // - \u20BA - Turkish Lira
@@ -4754,7 +4782,7 @@ var _numToDecimal = function ( num, decimalPoint ) {
 
 
 var _isNumber = function ( d, decimalPoint, formatted ) {
-	let type = typeof d;
+	var type = typeof d;
 	var strType = type === 'string';
 
 	if ( type === 'number' || type === 'bigint') {
@@ -4888,7 +4916,9 @@ var _removeEmpty = function ( a )
 
 
 var _stripHtml = function ( d ) {
-	return d.replace( _re_html, '' );
+	return d
+		.replace( _re_html, '' ) // Complete tags
+		.replace(/<script/i, ''); // Safety for incomplete script tag
 };
 
 
@@ -5262,7 +5292,10 @@ DataTable.util = {
 							continue;
 						}
 	
-						if ( data === null || data[ a[i] ] === undefined ) {
+						if (data === null || data[ a[i] ] === null) {
+							return null;
+						}
+						else if ( data === undefined || data[ a[i] ] === undefined ) {
 							return undefined;
 						}
 
@@ -5709,6 +5742,12 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 			oCol.aDataSort = [ oOptions.iDataSort ];
 		}
 		_fnMap( oCol, oOptions, "aDataSort" );
+
+		// Fall back to the aria-label attribute on the table header if no ariaTitle is
+		// provided.
+		if (! oCol.ariaTitle) {
+			oCol.ariaTitle = th.attr("aria-label");
+		}
 	}
 
 	/* Cache the data get and set functions for speed */
@@ -5737,7 +5776,7 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 
 	// Indicate if DataTables should read DOM data as an object or array
 	// Used in _fnGetRowElements
-	if ( typeof mDataSrc !== 'number' ) {
+	if ( typeof mDataSrc !== 'number' && ! oCol._isArrayHost ) {
 		oSettings._rowReadObject = true;
 	}
 
@@ -7433,11 +7472,16 @@ function _fnAjaxUpdate( settings )
 	settings.iDraw++;
 	_fnProcessingDisplay( settings, true );
 
+	// Keep track of drawHold state to handle scrolling after the Ajax call
+	var drawHold = settings._drawHold;
+
 	_fnBuildAjax(
 		settings,
 		_fnAjaxParameters( settings ),
 		function(json) {
+			settings._drawHold = drawHold;
 			_fnAjaxUpdateDraw( settings, json );
+			settings._drawHold = false;
 		}
 	);
 }
@@ -7667,7 +7711,7 @@ function _fnFeatureHtmlFilter ( settings )
 		/* Update all other filter input elements for the new display */
 		var n = features.f;
 		var val = !this.value ? "" : this.value; // mental IE8 fix :-(
-		if(previousSearch.return && event.key !== "Enter") {
+		if(previousSearch['return'] && event.key !== "Enter") {
 			return;
 		}
 		/* Now do the filter */
@@ -7677,7 +7721,7 @@ function _fnFeatureHtmlFilter ( settings )
 				"bRegex": previousSearch.bRegex,
 				"bSmart": previousSearch.bSmart ,
 				"bCaseInsensitive": previousSearch.bCaseInsensitive,
-				"return": previousSearch.return
+				"return": previousSearch['return']
 			} );
 
 			// Need to redraw, without resorting
@@ -7701,7 +7745,7 @@ function _fnFeatureHtmlFilter ( settings )
 				_fnThrottle( searchFn, searchDelay ) :
 				searchFn
 		)
-		.on( 'mouseup', function(e) {
+		.on( 'mouseup.DT', function(e) {
 			// Edge fix! Edge 17 does not trigger anything other than mouse events when clicking
 			// on the clear icon (Edge bug 17584515). This is safe in other browsers as `searchFn`
 			// checks the value to see if it has changed. In other browsers it won't have.
@@ -7752,7 +7796,7 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
 		oPrevSearch.bRegex = oFilter.bRegex;
 		oPrevSearch.bSmart = oFilter.bSmart;
 		oPrevSearch.bCaseInsensitive = oFilter.bCaseInsensitive;
-		oPrevSearch.return = oFilter.return;
+		oPrevSearch['return'] = oFilter['return'];
 	};
 	var fnRegex = function ( o ) {
 		// Backwards compatibility with the bEscapeRegex option
@@ -7767,7 +7811,7 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
 	if ( _fnDataSource( oSettings ) != 'ssp' )
 	{
 		/* Global filter */
-		_fnFilter( oSettings, oInput.sSearch, iForce, fnRegex(oInput), oInput.bSmart, oInput.bCaseInsensitive, oInput.return );
+		_fnFilter( oSettings, oInput.sSearch, iForce, fnRegex(oInput), oInput.bSmart, oInput.bCaseInsensitive );
 		fnSaveFilter( oInput );
 
 		/* Now do the individual column filter */
@@ -7936,9 +7980,13 @@ function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
 		 * 
 		 * ^(?=.*?\bone\b)(?=.*?\btwo three\b)(?=.*?\bfour\b).*$
 		 */
-		var a = $.map( search.match( /"[^"]+"|[^ ]+/g ) || [''], function ( word ) {
+		var a = $.map( search.match( /["\u201C][^"\u201D]+["\u201D]|[^ ]+/g ) || [''], function ( word ) {
 			if ( word.charAt(0) === '"' ) {
 				var m = word.match( /^"(.*)"$/ );
+				word = m ? m[1] : word;
+			}
+			else if ( word.charAt(0) === '\u201C' ) {
+				var m = word.match( /^\u201C(.*)\u201D$/ );
 				word = m ? m[1] : word;
 			}
 
@@ -8000,7 +8048,7 @@ function _fnFilterData ( settings )
 				// If it looks like there is an HTML entity in the string,
 				// attempt to decode it so sorting works as expected. Note that
 				// we could use a single line of jQuery to do this, but the DOM
-				// method used here is much faster http://jsperf.com/html-decode
+				// method used here is much faster https://jsperf.com/html-decode
 				if ( cellData.indexOf && cellData.indexOf('&') !== -1 ) {
 					__filter_div.innerHTML = cellData;
 					cellData = __filter_div_textContent ?
@@ -8491,7 +8539,8 @@ function _fnFeatureHtmlProcessing ( settings )
 {
 	return $('<div/>', {
 			'id': ! settings.aanFeatures.r ? settings.sTableId+'_processing' : null,
-			'class': settings.oClasses.sProcessing
+			'class': settings.oClasses.sProcessing,
+			'role': 'status'
 		} )
 		.html( settings.oLanguage.sProcessing )
 		.append('<div><div></div><div></div><div></div><div></div></div>')
@@ -9024,11 +9073,13 @@ function _fnCalculateColumnWidths ( oSettings )
 	}
 
 	/* Convert any user input sizes into pixel sizes */
+	var sizes = _fnConvertToWidth(_pluck(columns, 'sWidthOrig'), tableContainer);
+
 	for ( i=0 ; i<visibleColumns.length ; i++ ) {
 		column = columns[ visibleColumns[i] ];
 
 		if ( column.sWidth !== null ) {
-			column.sWidth = _fnConvertToWidth( column.sWidthOrig, tableContainer );
+			column.sWidth = sizes[i];
 
 			userInputs = true;
 		}
@@ -9231,26 +9282,40 @@ var _fnThrottle = DataTable.util.throttle;
 
 
 /**
- * Convert a CSS unit width to pixels (e.g. 2em)
- *  @param {string} width width to be converted
+ * Convert a set of CSS units width to pixels (e.g. 2em)
+ *  @param {string[]} widths widths to be converted
  *  @param {node} parent parent to get the with for (required for relative widths) - optional
- *  @returns {int} width in pixels
+ *  @returns {int[]} widths in pixels
  *  @memberof DataTable#oApi
  */
-function _fnConvertToWidth ( width, parent )
+function _fnConvertToWidth ( widths, parent )
 {
-	if ( ! width ) {
-		return 0;
+	var els = [];
+	var results = [];
+
+	// Add the elements in a single loop so we only need to reflow once
+	for (var i=0 ; i<widths.length ; i++) {
+		if (widths[i]) {
+			els.push(
+				$('<div/>')
+					.css( 'width', _fnStringToCss( widths[i] ) )
+					.appendTo( parent || document.body )
+			)
+		}
+		else {
+			els.push(null);
+		}
 	}
 
-	var n = $('<div/>')
-		.css( 'width', _fnStringToCss( width ) )
-		.appendTo( parent || document.body );
+	// Get the sizes (will reflow once)
+	for (var i=0 ; i<widths.length ; i++) {
+		results.push(els[i] ? els[i][0].offsetWidth : null);
+	}
 
-	var val = n[0].offsetWidth;
-	n.remove();
+	// Tidy
+	$(els).remove();
 
-	return val;
+	return results;
 }
 
 
@@ -9985,7 +10050,7 @@ function _fnLog( settings, level, msg, tn )
 
 	if ( tn ) {
 		msg += '. For more information about this error, please see '+
-		'http://datatables.net/tn/'+tn;
+		'https://datatables.net/tn/'+tn;
 	}
 
 	if ( ! level  ) {
@@ -11916,7 +11981,13 @@ var __details_events = function ( settings )
 				row = data[i];
 
 				if ( row._details ) {
-					row._details.children('td[colspan]').attr('colspan', visible );
+					row._details.each(function () {
+						var el = $(this).children('td');
+
+						if (el.length == 1) {
+							el.attr('colspan', visible);
+						}
+					});
 				}
 			}
 		} );
@@ -12740,6 +12811,52 @@ _api_register( 'state.save()', function () {
 
 
 /**
+ * Set the jQuery or window object to be used by DataTables
+ *
+ * @param {*} module Library / container object
+ * @param {string} [type] Library or container type `lib`, `win` or `datetime`.
+ *   If not provided, automatic detection is attempted.
+ */
+DataTable.use = function (module, type) {
+	if (type === 'lib' || module.fn) {
+		$ = module;
+	}
+	else if (type == 'win' || module.document) {
+		window = module;
+		document = module.document;
+	}
+	else if (type === 'datetime' || module.type === 'DateTime') {
+		DataTable.DateTime = module;
+	}
+}
+
+/**
+ * CommonJS factory function pass through. This will check if the arguments
+ * given are a window object or a jQuery object. If so they are set
+ * accordingly.
+ * @param {*} root Window
+ * @param {*} jq jQUery
+ * @returns {boolean} Indicator
+ */
+DataTable.factory = function (root, jq) {
+	var is = false;
+
+	// Test if the first parameter is a window object
+	if (root && root.document) {
+		window = root;
+		document = root.document;
+	}
+
+	// Test if the second parameter is a jQuery object
+	if (jq && jq.fn && jq.fn.jquery) {
+		$ = jq;
+		is = true;
+	}
+
+	return is;
+}
+
+/**
  * Provide a common method for plug-ins to check the version of DataTables being
  * used, in order to ensure compatibility.
  *
@@ -13070,17 +13187,19 @@ _api_register( 'i18n()', function ( token, def, plural ) {
 			resolved._;
 	}
 
-	return resolved.replace( '%d', plural ); // nb: plural might be undefined,
+	return typeof resolved === 'string'
+		? resolved.replace( '%d', plural ) // nb: plural might be undefined,
+		: resolved;
 } );
 /**
  * Version string for plug-ins to check compatibility. Allowed format is
  * `a.b.c-d` where: a:int, b:int, c:int, d:string(dev|beta|alpha). `d` is used
- * only for non-release builds. See http://semver.org/ for more information.
+ * only for non-release builds. See https://semver.org/ for more information.
  *  @member
  *  @type string
  *  @default Version number
  */
-DataTable.version = "1.13.2";
+DataTable.version = "1.13.7";
 
 /**
  * Private data store, containing all of the settings objects that are
@@ -13656,7 +13775,7 @@ DataTable.defaults = {
 	 * --------
 	 *
 	 * As an object, the parameters in the object are passed to
-	 * [jQuery.ajax](http://api.jquery.com/jQuery.ajax/) allowing fine control
+	 * [jQuery.ajax](https://api.jquery.com/jQuery.ajax/) allowing fine control
 	 * of the Ajax request. DataTables has a number of default parameters which
 	 * you can override using this option. Please refer to the jQuery
 	 * documentation for a full description of the options available, although
@@ -15364,7 +15483,7 @@ DataTable.defaults = {
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "language": {
-		 *          "url": "http://www.sprymedia.co.uk/dataTables/lang.txt"
+		 *          "url": "https://www.sprymedia.co.uk/dataTables/lang.txt"
 		 *        }
 		 *      } );
 		 *    } );
@@ -18145,7 +18264,7 @@ $.extend( true, DataTable.ext.renderer, {
 			var btnDisplay, btnClass;
 
 			var attach = function( container, buttons ) {
-				var i, ien, node, button, tabIndex;
+				var i, ien, node, button;
 				var disabledClass = classes.sPageButtonDisabled;
 				var clickHandler = function ( e ) {
 					_fnPageChange( settings, e.data.action, true );
@@ -18160,9 +18279,10 @@ $.extend( true, DataTable.ext.renderer, {
 						attach( inner, button );
 					}
 					else {
+						var disabled = false;
+
 						btnDisplay = null;
 						btnClass = button;
-						tabIndex = settings.iTabIndex;
 
 						switch ( button ) {
 							case 'ellipsis':
@@ -18173,8 +18293,7 @@ $.extend( true, DataTable.ext.renderer, {
 								btnDisplay = lang.sFirst;
 
 								if ( page === 0 ) {
-									tabIndex = -1;
-									btnClass += ' ' + disabledClass;
+									disabled = true;
 								}
 								break;
 
@@ -18182,8 +18301,7 @@ $.extend( true, DataTable.ext.renderer, {
 								btnDisplay = lang.sPrevious;
 
 								if ( page === 0 ) {
-									tabIndex = -1;
-									btnClass += ' ' + disabledClass;
+									disabled = true;
 								}
 								break;
 
@@ -18191,8 +18309,7 @@ $.extend( true, DataTable.ext.renderer, {
 								btnDisplay = lang.sNext;
 
 								if ( pages === 0 || page === pages-1 ) {
-									tabIndex = -1;
-									btnClass += ' ' + disabledClass;
+									disabled = true;
 								}
 								break;
 
@@ -18200,8 +18317,7 @@ $.extend( true, DataTable.ext.renderer, {
 								btnDisplay = lang.sLast;
 
 								if ( pages === 0 || page === pages-1 ) {
-									tabIndex = -1;
-									btnClass += ' ' + disabledClass;
+									disabled = true;
 								}
 								break;
 
@@ -18214,18 +18330,20 @@ $.extend( true, DataTable.ext.renderer, {
 
 						if ( btnDisplay !== null ) {
 							var tag = settings.oInit.pagingTag || 'a';
-							var disabled = btnClass.indexOf(disabledClass) !== -1;
-		
+
+							if (disabled) {
+								btnClass += ' ' + disabledClass;
+							}
 
 							node = $('<'+tag+'>', {
 									'class': classes.sPageButton+' '+btnClass,
 									'aria-controls': settings.sTableId,
 									'aria-disabled': disabled ? 'true' : null,
 									'aria-label': aria[ button ],
-									'aria-role': 'link',
+									'role': 'link',
 									'aria-current': btnClass === classes.sPageButtonActive ? 'page' : null,
 									'data-dt-idx': button,
-									'tabindex': tabIndex,
+									'tabindex': disabled ? -1 : settings.iTabIndex,
 									'id': idx === 0 && typeof button === 'string' ?
 										settings.sTableId +'_'+ button :
 										null
@@ -18356,7 +18474,7 @@ var __numericReplace = function ( d, decimalPlace, re1, re2 ) {
 		return -Infinity;
 	}
 	
-	let type = typeof d;
+	var type = typeof d;
 
 	if (type === 'number' || type === 'bigint') {
 		return d;
@@ -18442,7 +18560,7 @@ $.extend( _ext.type.order, {
 	// string
 	"string-pre": function ( a ) {
 		// This is a little complex, but faster than always calling toString,
-		// http://jsperf.com/tostring-v-check
+		// https://jsperf.com/tostring-v-check
 		return _empty(a) ?
 			'' :
 			typeof a === 'string' ?
@@ -18730,7 +18848,7 @@ function __mlHelper (localeString) {
 var __thousands = ',';
 var __decimal = '.';
 
-if (Intl) {
+if (window.Intl !== undefined) {
 	try {
 		var num = new Intl.NumberFormat().formatToParts(100000.1);
 	
@@ -19008,15 +19126,6 @@ $.fn.DataTable = function ( opts ) {
 $.each( DataTable, function ( prop, val ) {
 	$.fn.DataTable[ prop ] = val;
 } );
-
-DataTable.use = function (module, type) {
-	if (type === 'lib' || module.fn) {
-		$ = module;
-	}
-	else if (type == 'win' || module.document) {
-		window = module;
-	}
-}
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DataTable);
 

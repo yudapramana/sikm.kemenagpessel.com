@@ -44,6 +44,17 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
   data: function data() {
     return {
       data: [],
+      factored_recapitulation: [],
+      ct_url: '/api/cetak_tabulasi/' + this.$route.query.tipe_survey + '/' + this.$route.query.year + '/' + this.$route.query.quarter,
+      ch_url: '/api/cetak_hasil/' + this.$route.query.tipe_survey + '/' + this.$route.query.year + '/' + this.$route.query.quarter,
+      nilai_sikm: 0,
+      konversi: 0,
+      mutu_pelayanan: '',
+      rangkuman_responden: [],
+      gender: [],
+      age: [],
+      education: [],
+      work: [],
       dataunit: [],
       triwulan: 1,
       calcurl: '/api/calc-recap-quarter/',
@@ -83,10 +94,19 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
     loadData: function loadData() {
       var _this = this;
       this.$Progress.start();
-      axios.get('/api/get/rekapitulasi-triwulan/' + this.$route.query.quarter).then(function (response) {
+      axios.get('/api/get/rekapitulasi-triwulan/' + this.$route.query.tipe_survey + '/' + this.$route.query.year + '/' + this.$route.query.quarter).then(function (response) {
         console.log('response getRekapTahunan');
         console.log(response.data);
         _this.data = response.data.data;
+        _this.factored_recapitulation = response.data.factored_recapitulation;
+        _this.nilai_sikm = response.data.nilai_sikm;
+        _this.konversi = response.data.konversi;
+        _this.mutu_pelayanan = response.data.mutu_pelayanan;
+        _this.rangkuman_responden = response.data.rangkuman_responden;
+        _this.gender = response.data.rangkuman_responden.gender;
+        _this.age = response.data.rangkuman_responden.age;
+        _this.education = response.data.rangkuman_responden.education;
+        _this.work = response.data.rangkuman_responden.work;
         // this.$Progress.finish();
       });
 
@@ -107,12 +127,39 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
 }, _defineProperty(_name$components$data, "mounted", function mounted() {
   this.loadData();
   this.triwulan = this.$route.query.quarter;
+  this.quarter = this.$route.query.quarter;
+  this.tipe_survey = this.$route.query.tipe_survey;
+  this.year = this.$route.query.year;
+
   // alert(this.$route.query.year);
 }), _defineProperty(_name$components$data, "watch", {
   '$route.query.quarter': {
     handler: function handler(quarter) {
       console.log('quarter');
       console.log(quarter);
+      this.quarter = this.$route.query.quarter;
+      this.$Progress.start();
+      this.loadData();
+    },
+    deep: true,
+    immediate: true
+  },
+  '$route.query.year': {
+    handler: function handler(year) {
+      console.log('year');
+      console.log(year);
+      this.year = this.$route.query.year;
+      this.$Progress.start();
+      this.loadData();
+    },
+    deep: true,
+    immediate: true
+  },
+  '$route.query.tipe_survey': {
+    handler: function handler(tipe_survey) {
+      console.log('tipe_survey');
+      console.log(tipe_survey);
+      this.tipe_survey = this.$route.query.tipe_survey;
       this.$Progress.start();
       this.loadData();
     },
@@ -139,51 +186,332 @@ var _withScopeId = function _withScopeId(n) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-7e769988"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
 };
 var _hoisted_1 = {
-  "class": "content-header"
+  "class": "content pt-5"
 };
 var _hoisted_2 = {
-  "class": "container-fluid"
+  "class": "container"
 };
 var _hoisted_3 = {
-  "class": "row mb-2 justify-content-md-center"
-};
-var _hoisted_4 = {
-  "class": "col-sm-6"
-};
-var _hoisted_5 = {
-  "class": "m-0"
-};
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Rekapitulasi Triwulan ");
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"col-sm-6\" data-v-7e769988><ol class=\"breadcrumb float-sm-right\" data-v-7e769988><li class=\"breadcrumb-item\" data-v-7e769988><a href=\"#\" data-v-7e769988>Survey IKM</a></li><li class=\"breadcrumb-item\" data-v-7e769988><a href=\"#\" data-v-7e769988>Rekapitulasi Triwulan</a></li><li class=\"breadcrumb-item active\" data-v-7e769988>Index</li></ol></div>", 1);
-var _hoisted_8 = {
-  "class": "content"
-};
-var _hoisted_9 = {
-  "class": "container-fluid"
-};
-var _hoisted_10 = {
   "class": "row justify-content-md-center"
 };
-var _hoisted_11 = {
+var _hoisted_4 = {
   "class": "col-lg"
 };
-var _hoisted_12 = {
+var _hoisted_5 = {
   "class": "card"
 };
-var _hoisted_13 = {
-  "class": "card-header"
+var _hoisted_6 = {
+  "class": "card-body"
 };
-var _hoisted_14 = {
-  "class": "card-title m-0"
+var _hoisted_7 = {
+  "class": "col-12 text-center justify-content-center"
 };
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan ");
+var _hoisted_8 = {
+  style: {
+    "text-transform": "uppercase",
+    "margin": "0 !important"
+  }
+};
+var _hoisted_9 = {
+  key: 0
+};
+var _hoisted_10 = {
+  key: 1
+};
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
+var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+    style: {
+      "text-transform": "uppercase"
+    }
+  }, " KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN ", -1 /* HOISTED */);
+});
+var _hoisted_15 = {
+  "class": "col-12"
+};
 var _hoisted_16 = {
+  "class": "table table-hover table-bordered well wells dataTable no-footer",
+  style: {
+    "font-size": "small"
+  }
+};
+var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center fontsmaller smallfont"
+  }, "No"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center fontsmaller smallfont"
+  }, "Unsur"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center fontsmaller smallfont"
+  }, "Jumlah Pertanyaan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center fontsmaller smallfont"
+  }, "Total Nilai"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center fontsmaller smallfont"
+  }, "Nilai Rerata Unsur"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "text-center fontsmaller smallfont"
+  }, "Nilai Rerata Tertimbang Unsur")])], -1 /* HOISTED */);
+});
+var _hoisted_18 = {
+  "class": "text-center"
+};
+var _hoisted_19 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+    "class": "text-center"
+  }, "1", -1 /* HOISTED */);
+});
+var _hoisted_20 = {
+  "class": "text-center"
+};
+var _hoisted_21 = {
+  "class": "text-center"
+};
+var _hoisted_22 = {
+  "class": "text-center"
+};
+var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+    colspan: "5",
+    "class": "text-right font-weight-bold"
+  }, "Indeks Survey Kepuasan Masyarakat", -1 /* HOISTED */);
+});
+var _hoisted_24 = {
+  "class": "text-center font-weight-bold"
+};
+var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+    colspan: "5",
+    "class": "text-right font-weight-bold"
+  }, "Konversi", -1 /* HOISTED */);
+});
+var _hoisted_26 = {
+  "class": "text-center font-weight-bold"
+};
+var _hoisted_27 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+    colspan: "5",
+    "class": "text-right font-weight-bold"
+  }, "Mutu Pelayanan", -1 /* HOISTED */);
+});
+var _hoisted_28 = {
+  "class": "text-center font-weight-bold"
+};
+var _hoisted_29 = {
+  "class": "row justify-content-md-center"
+};
+var _hoisted_30 = {
+  "class": "col-lg"
+};
+var _hoisted_31 = {
+  "class": "card"
+};
+var _hoisted_32 = {
+  "class": "card-body"
+};
+var _hoisted_33 = {
+  "class": "col-12 text-center justify-content-center"
+};
+var _hoisted_34 = {
+  style: {
+    "text-transform": "uppercase",
+    "margin": "0 !important"
+  }
+};
+var _hoisted_35 = {
+  key: 0
+};
+var _hoisted_36 = {
+  key: 1
+};
+var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
+var _hoisted_38 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_39 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_40 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+    style: {
+      "text-transform": "uppercase"
+    }
+  }, " KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN ", -1 /* HOISTED */);
+});
+var _hoisted_41 = {
+  "class": "col-12"
+};
+var _hoisted_42 = {
+  "class": "table table-hover table-bordered well wells dataTable no-footer",
+  style: {
+    "font-size": "small"
+  }
+};
+var _hoisted_43 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    colspan: "4",
+    "class": "text-center text-uppercase abu-abu-gelap",
+    style: {
+      "padding": "5px"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+    style: {
+      "margin": "0"
+    }
+  }, "Jenis Pelayanan yang dinilai")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    colspan: "3",
+    "class": "text-center text-uppercase abu-abu",
+    style: {
+      "padding": "5px"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+    style: {
+      "margin": "0"
+    }
+  }, "Semua Jenis Pelayanan")])], -1 /* HOISTED */);
+});
+var _hoisted_44 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    colspan: "4",
+    "class": "text-center text-uppercase abu-abu-gelap",
+    style: {
+      "padding": "5px"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+    style: {
+      "margin": "0"
+    }
+  }, "Tahun Penilaian")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    colspan: "3",
+    "class": "text-center text-uppercase abu-abu",
+    style: {
+      "padding": "5px"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+    style: {
+      "margin": "0"
+    }
+  }, "2023")])], -1 /* HOISTED */);
+});
+var _hoisted_45 = {
+  rowspan: "9",
+  colspan: "4",
+  "class": "text-center text-uppercase centered",
+  style: {
+    "padding": "5px"
+  }
+};
+var _hoisted_46 = {
+  style: {
+    "margin": "0",
+    "font-size": "137px !important"
+  }
+};
+var _hoisted_47 = {
+  style: {
+    "margin": "0"
+  }
+};
+var _hoisted_48 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    colspan: "3",
+    "class": "text-center text-uppercase abu-abu-gelap",
+    style: {
+      "padding": "5px"
+    }
+  }, " Ringkasan Responden", -1 /* HOISTED */);
+});
+var _hoisted_49 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "marginpadding-minimal centered abu-abu-gelap"
+  }, "Jumlah Responden", -1 /* HOISTED */);
+});
+var _hoisted_50 = {
+  "class": "marginpadding-minimal centered",
+  colspan: "2"
+};
+var _hoisted_51 = {
+  key: 0,
+  "class": "marginpadding-minimal centered abu-abu-gelap",
+  rowspan: "2"
+};
+var _hoisted_52 = {
+  "class": "marginpadding-minimal abu-abu"
+};
+var _hoisted_53 = {
+  "class": "marginpadding-minimal righted"
+};
+var _hoisted_54 = {
+  key: 0,
+  "class": "marginpadding-minimal centered abu-abu-gelap",
+  rowspan: "5"
+};
+var _hoisted_55 = {
+  "class": "marginpadding-minimal abu-abu"
+};
+var _hoisted_56 = {
+  "class": "marginpadding-minimal righted"
+};
+var _hoisted_57 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "centered marginpadding-minimal abu-abu-gelap",
+    rowspan: "2"
+  }, "Pekerjaan ", -1 /* HOISTED */);
+});
+var _hoisted_58 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "centered marginpadding-minimal abu-abu-gelap",
+    rowspan: "2"
+  }, "Pendidikan ", -1 /* HOISTED */);
+});
+var _hoisted_59 = {
+  "class": "row justify-content-md-center"
+};
+var _hoisted_60 = {
+  "class": "col-lg"
+};
+var _hoisted_61 = {
+  "class": "card"
+};
+var _hoisted_62 = {
   "class": "card-body",
   style: {
     "overflow-x": "auto"
   }
 };
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_63 = {
+  "class": "col-12 text-center justify-content-center"
+};
+var _hoisted_64 = {
+  style: {
+    "text-transform": "uppercase",
+    "margin": "0 !important"
+  }
+};
+var _hoisted_65 = {
+  key: 0
+};
+var _hoisted_66 = {
+  key: 1
+};
+var _hoisted_67 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
+var _hoisted_68 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_69 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_70 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+    style: {
+      "text-transform": "uppercase"
+    }
+  }, " KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN ", -1 /* HOISTED */);
+});
+var _hoisted_71 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "No"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     width: "35%"
   }, "Nama Layanan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
@@ -192,45 +520,63 @@ var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
     width: "10%"
   }, "Aksi")])], -1 /* HOISTED */);
 });
-var _hoisted_18 = {
-  "class": "row"
+var _hoisted_72 = {
+  "class": "row justify-content-md-center"
 };
-var _hoisted_19 = {
+var _hoisted_73 = {
   "class": "col-lg"
 };
-var _hoisted_20 = {
+var _hoisted_74 = {
   "class": "card"
 };
-var _hoisted_21 = {
-  "class": "card-header"
-};
-var _hoisted_22 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
-    "class": "card-title m-0"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi per "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Seksi")], -1 /* HOISTED */);
-});
-var _hoisted_23 = ["href"];
-var _hoisted_24 = {
-  "class": "mb-3 text-center row"
-};
-var _hoisted_25 = {
-  "class": "card mb-4 shadow-sm"
-};
-var _hoisted_26 = {
-  "class": "card-header",
-  style: {
-    "height": "80px !important"
-  }
-};
-var _hoisted_27 = {
-  "class": "my-0 font-weight-normal"
-};
-var _hoisted_28 = {
+var _hoisted_75 = {
   "class": "card-body"
 };
+var _hoisted_76 = {
+  type: "button",
+  "class": "btn btn-primary p2 m-2"
+};
+var _hoisted_77 = ["href"];
+var _hoisted_78 = {
+  type: "button",
+  "class": "btn btn-secondary p2 m-2"
+};
+var _hoisted_79 = ["href"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_DataTable = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DataTable");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.triwulan), 1 /* TEXT */)])]), _hoisted_7])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.triwulan), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DataTable, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"content-header\">\r\n        <div class=\"container-fluid\">\r\n            <div class=\"row mb-2 justify-content-md-center\">\r\n                <div class=\"col-sm-6\">\r\n                    <h1 class=\"m-0\"> Rekapitulasi Triwulan <strong> {{ triwulan }}</strong></h1>\r\n                </div>\r\n                <div class=\"col-sm-6\">\r\n                    <ol class=\"breadcrumb float-sm-right\">\r\n                        <li class=\"breadcrumb-item\"><a href=\"#\">Survey IKM</a></li>\r\n                        <li class=\"breadcrumb-item\"><a href=\"#\">Rekapitulasi Triwulan</a></li>\r\n                        <li class=\"breadcrumb-item active\">Index</li>\r\n                    </ol>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_8, [_ctx.tipe_survey === 'ikm' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_9, "Indeks Kepuasan Masyarakat")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.tipe_survey === 'ipk' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_10, "Indeks Persepsi Korupsi")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_11, _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Rekapitulasi per Unsur Triwulan " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.quarter) + " Tahun " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */), _hoisted_13]), _hoisted_14]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.factored_recapitulation, function (recap) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+      key: recap.key
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(recap.key), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(recap.unsur), 1 /* TEXT */), _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(recap.summed), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(recap.average), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(recap.weighted_average), 1 /* TEXT */)]);
+  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.nilai_sikm), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.konversi), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.mutu_pelayanan), 1 /* TEXT */)])])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_34, [_ctx.tipe_survey === 'ikm' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_35, "Indeks Kepuasan Masyarakat")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.tipe_survey === 'ipk' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_36, "Indeks Persepsi Korupsi")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_37, _hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Rangkuman Survey Triwulan " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.quarter) + " Tahun " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */), _hoisted_39]), _hoisted_40]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [_hoisted_43, _hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.konversi), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.mutu_pelayanan), 1 /* TEXT */)]), _hoisted_48]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_49, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.rangkuman_responden.total_responden) + " orang", 1 /* TEXT */)]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.gender, function (value, name) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+      key: name
+    }, [name === 'Laki-laki' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", _hoisted_51, "Jenis Kelamin")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_52, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_53, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang", 1 /* TEXT */)]);
+  }), 128 /* KEYED_FRAGMENT */)), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.age, function (value, name) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+      key: name
+    }, [name === 'Dibawah 20 Tahun' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", _hoisted_54, " Umur")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_55, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_56, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang", 1 /* TEXT */)]);
+  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_57, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.work, function (value, name) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
+      "class": "centered marginpadding-minimal abu-abu",
+      key: name
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */);
+  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.work, function (value, name) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
+      "class": "centered marginpadding-minimal",
+      key: name
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang ", 1 /* TEXT */);
+  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_58, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.education, function (value, name) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
+      "class": "centered marginpadding-minimal abu-abu",
+      key: name
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */);
+  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.education, function (value, name) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
+      "class": "centered marginpadding-minimal",
+      key: name
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang ", 1 /* TEXT */);
+  }), 128 /* KEYED_FRAGMENT */))])])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_59, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_60, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_61, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"card-header\">\r\n            <h4 class=\"card-title m-0\">Rekapitulasi Triwulan <strong> {{ triwulan }}</strong></h4>\r\n        </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_62, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_63, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_64, [_ctx.tipe_survey === 'ikm' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_65, "Indeks Kepuasan Masyarakat")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.tipe_survey === 'ipk' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_66, "Indeks Persepsi Korupsi")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_67, _hoisted_68, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Rekapitulasi per Layanan Triwulan " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.quarter) + " Tahun " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */), _hoisted_69]), _hoisted_70]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DataTable, {
     columns: $data.columns,
     data: $data.data,
     "class": "table table-hover table-bordered",
@@ -239,24 +585,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       order: false,
       sort: false,
       paging: true,
-      searching: false
+      searching: false,
+      info: false
     },
     style: {
       "font-size": "smaller !important"
     }
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_17];
+      return [_hoisted_71];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["columns", "data"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    href: $data.calcurl + $data.year
-  }, "Sinkronkan", 8 /* PROPS */, _hoisted_23)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"row\">\r\n\r\n                        <div class=\"card col-md-3\" v-for=\"item in dataunit\" :key=\"item.id_unit_rekap_triwulan\">\r\n                            <div class=\"card-header\">\r\n                                <h4 class=\"my-0 font-weight-normal\">{{ item.unit.name }}</h4>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.dataunit, function (item) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-      "class": "col-md-3",
-      key: item.id_unit_rekap_triwulan
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.unit.name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h1 class=\"card-title pricing-card-title\">$0 <small class=\"text-muted\">/ mo</small></h1> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.konversi), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.mutu_pelayanan), 1 /* TEXT */)])])]);
-  }), 128 /* KEYED_FRAGMENT */))])])])])])], 64 /* STABLE_FRAGMENT */);
+  }, 8 /* PROPS */, ["columns", "data"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_72, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_73, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_74, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_75, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_76, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    "class": "text-white",
+    href: $data.ct_url,
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, "Cetak Tabulasi Data", 8 /* PROPS */, _hoisted_77)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_78, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    "class": "text-white",
+    href: $data.ch_url,
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, "Cetak Hasil", 8 /* PROPS */, _hoisted_79)])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"row\">\r\n                <div class=\"col-lg\">\r\n                    <div class=\"card\">\r\n                        <div class=\"card-header\">\r\n                            <h4 class=\"card-title m-0\">Rekapitulasi per <strong>Seksi</strong></h4>\r\n                            <a :href=\"calcurl + year\">Sinkronkan</a>\r\n                        </div>\r\n                    </div>\r\n\r\n\r\n                    <div class=\"mb-3 text-center row\">\r\n                        <div class=\"col-md-3\" v-for=\"item in dataunit\" :key=\"item.id_unit_rekap_triwulan\">\r\n                            <div class=\"card mb-4 shadow-sm\">\r\n                                <div class=\"card-header\" style=\"height: 80px !important;\">\r\n                                    <h4 class=\"my-0 font-weight-normal\">{{ item.unit.name }}</h4>\r\n                                </div>\r\n                                <div class=\"card-body\">\r\n                                    <h1>{{ item.konversi }}</h1>\r\n                                    <h3>{{ item.mutu_pelayanan }}</h3>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n\r\n                    </div>\r\n\r\n\r\n\r\n\r\n                </div>\r\n            </div> ")])])], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */);
 }
 
 /***/ }),
@@ -403,7 +753,7 @@ ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_u
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_bootstrap_dist_css_bootstrap_css__WEBPACK_IMPORTED_MODULE_2__["default"]);
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_datatables_net_bs5_css_dataTables_bootstrap5_css__WEBPACK_IMPORTED_MODULE_3__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-7e769988] {\r\n    margin-left: 0 !important;\n}\n.main-footer[data-v-7e769988] {\r\n    margin-left: 0 !important;\n}\n.main-header[data-v-7e769988] {\r\n    margin-left: 0 !important;\n}\n.main-header[data-v-7e769988] {\r\n    --bs-navbar-padding-x: 1rem !important;\n}\n.fontsmaller[data-v-7e769988] {\r\n    font-size: x-small !important;\n}\n.smallfont[data-v-7e769988] {\r\n    font-size: x-small !important;\n}\n.paginate-button[data-v-7e769988] {\r\n    padding: 0 !important;\n}\n.dataTables_wrapper .dataTables_paginate .paginate_button[data-v-7e769988] {\r\n    padding: 0 !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-7e769988] {\r\n    margin-left: 0 !important;\n}\n.marginpadding-minimal[data-v-7e769988] {\r\n    padding: 5px !important;\r\n    margin: 5px !important;\n}\n.marginpadding-minimal th[data-v-7e769988] {\r\n    padding: 5px !important;\r\n    margin: 5px !important;\n}\n.centered[data-v-7e769988] {\r\n    text-align: center;\r\n    vertical-align: middle;\n}\n.abu-abu-gelap[data-v-7e769988] {\r\n    background-color: silver;\n}\n.abu-abu[data-v-7e769988] {\r\n    background-color: whitesmoke;\n}\n.righted[data-v-7e769988] {\r\n    text-align: right;\r\n    vertical-align: middle;\n}\n.main-footer[data-v-7e769988] {\r\n    margin-left: 0 !important;\n}\n.main-header[data-v-7e769988] {\r\n    margin-left: 0 !important;\n}\n.main-header[data-v-7e769988] {\r\n    --bs-navbar-padding-x: 1rem !important;\n}\n.fontsmaller[data-v-7e769988] {\r\n    font-size: x-small !important;\n}\n.smallfont[data-v-7e769988] {\r\n    font-size: x-small !important;\n}\n.paginate-button[data-v-7e769988] {\r\n    padding: 0 !important;\n}\n.dataTables_wrapper .dataTables_paginate .paginate_button[data-v-7e769988] {\r\n    padding: 0 !important;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2090,21 +2440,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var datatables_net__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! datatables.net */ "./node_modules/datatables.net/js/jquery.dataTables.mjs");
-/*! Select for DataTables 1.6.1
- * 2015-2023 SpryMedia Ltd - datatables.net/license/mit
+/*! Select for DataTables 1.7.0
+ * © SpryMedia Ltd - datatables.net/license/mit
  */
 
 
 
 
+// Allow reassignment of the $ variable
+let $ = jquery__WEBPACK_IMPORTED_MODULE_0__;
 
 
 // Version information for debugger
 datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select = {};
 
-datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.version = '1.6.1';
+datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.version = '1.7.0';
 
-datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init = function ( dt ) {
+datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init = function (dt) {
 	var ctx = dt.settings()[0];
 
 	if (ctx._select) {
@@ -2113,58 +2465,55 @@ datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init = function ( 
 
 	var savedSelected = dt.state.loaded();
 
-	var selectAndSave = function(e, settings, data) {
-		if(data === null || data.select === undefined) {
+	var selectAndSave = function (e, settings, data) {
+		if (data === null || data.select === undefined) {
 			return;
 		}
 
 		// Clear any currently selected rows, before restoring state
 		// None will be selected on first initialisation
-		if (dt.rows({selected: true}).any()) {
+		if (dt.rows({ selected: true }).any()) {
 			dt.rows().deselect();
 		}
 		if (data.select.rows !== undefined) {
 			dt.rows(data.select.rows).select();
 		}
 
-		if (dt.columns({selected: true}).any()) {
+		if (dt.columns({ selected: true }).any()) {
 			dt.columns().deselect();
 		}
 		if (data.select.columns !== undefined) {
 			dt.columns(data.select.columns).select();
 		}
 
-		if (dt.cells({selected: true}).any()) {
+		if (dt.cells({ selected: true }).any()) {
 			dt.cells().deselect();
 		}
 		if (data.select.cells !== undefined) {
-			for(var i = 0; i < data.select.cells.length; i++) {
+			for (var i = 0; i < data.select.cells.length; i++) {
 				dt.cell(data.select.cells[i].row, data.select.cells[i].column).select();
 			}
 		}
 
 		dt.state.save();
-	}
-	
-	dt
-		.on('stateSaveParams', function(e, settings, data) {
-			data.select = {};
-			data.select.rows = dt.rows({selected:true}).ids(true).toArray();
-			data.select.columns = dt.columns({selected:true})[0];
-			data.select.cells = dt.cells({selected:true})[0].map(function(coords) {
-				return {row: dt.row(coords.row).id(true), column: coords.column}
-			});
-		})
+	};
+
+	dt.on('stateSaveParams', function (e, settings, data) {
+		data.select = {};
+		data.select.rows = dt.rows({ selected: true }).ids(true).toArray();
+		data.select.columns = dt.columns({ selected: true })[0];
+		data.select.cells = dt.cells({ selected: true })[0].map(function (coords) {
+			return { row: dt.row(coords.row).id(true), column: coords.column };
+		});
+	})
 		.on('stateLoadParams', selectAndSave)
-		.one('init', function() {
+		.one('init', function () {
 			selectAndSave(undefined, undefined, savedSelected);
 		});
 
 	var init = ctx.oInit.select;
 	var defaults = datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].defaults.select;
-	var opts = init === undefined ?
-		defaults :
-		init;
+	var opts = init === undefined ? defaults : init;
 
 	// Set defaults
 	var items = 'row';
@@ -2179,32 +2528,32 @@ datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init = function ( 
 	ctx._select = {};
 
 	// Initialisation customisations
-	if ( opts === true ) {
+	if (opts === true) {
 		style = 'os';
 		setStyle = true;
 	}
-	else if ( typeof opts === 'string' ) {
+	else if (typeof opts === 'string') {
 		style = opts;
 		setStyle = true;
 	}
-	else if ( jquery__WEBPACK_IMPORTED_MODULE_0__.isPlainObject( opts ) ) {
-		if ( opts.blurable !== undefined ) {
+	else if ($.isPlainObject(opts)) {
+		if (opts.blurable !== undefined) {
 			blurable = opts.blurable;
 		}
-		
-		if ( opts.toggleable !== undefined ) {
+
+		if (opts.toggleable !== undefined) {
 			toggleable = opts.toggleable;
 		}
 
-		if ( opts.info !== undefined ) {
+		if (opts.info !== undefined) {
 			info = opts.info;
 		}
 
-		if ( opts.items !== undefined ) {
+		if (opts.items !== undefined) {
 			items = opts.items;
 		}
 
-		if ( opts.style !== undefined ) {
+		if (opts.style !== undefined) {
 			style = opts.style;
 			setStyle = true;
 		}
@@ -2213,40 +2562,43 @@ datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init = function ( 
 			setStyle = true;
 		}
 
-		if ( opts.selector !== undefined ) {
+		if (opts.selector !== undefined) {
 			selector = opts.selector;
 		}
 
-		if ( opts.className !== undefined ) {
+		if (opts.className !== undefined) {
 			className = opts.className;
 		}
 	}
 
-	dt.select.selector( selector );
-	dt.select.items( items );
-	dt.select.style( style );
-	dt.select.blurable( blurable );
-	dt.select.toggleable( toggleable );
-	dt.select.info( info );
+	dt.select.selector(selector);
+	dt.select.items(items);
+	dt.select.style(style);
+	dt.select.blurable(blurable);
+	dt.select.toggleable(toggleable);
+	dt.select.info(info);
 	ctx._select.className = className;
 
-
 	// Sort table based on selected rows. Requires Select Datatables extension
-	jquery__WEBPACK_IMPORTED_MODULE_0__.fn.dataTable.ext.order["select-checkbox"] = function ( settings, col ) {
-		return this.api().column( col, {order: 'index'} ).nodes().map( function ( td ) {
-			if ( settings._select.items === 'row' ) {
-				return jquery__WEBPACK_IMPORTED_MODULE_0__( td ).parent().hasClass( settings._select.className );
-			} else if ( settings._select.items === 'cell' ) {
-				return jquery__WEBPACK_IMPORTED_MODULE_0__( td ).hasClass( settings._select.className );
-			}
-			return false;
-		});
+	$.fn.dataTable.ext.order['select-checkbox'] = function (settings, col) {
+		return this.api()
+			.column(col, { order: 'index' })
+			.nodes()
+			.map(function (td) {
+				if (settings._select.items === 'row') {
+					return $(td).parent().hasClass(settings._select.className);
+				}
+				else if (settings._select.items === 'cell') {
+					return $(td).hasClass(settings._select.className);
+				}
+				return false;
+			});
 	};
 
 	// If the init options haven't enabled select, but there is a selectable
 	// class name, then enable
-	if ( ! setStyle && jquery__WEBPACK_IMPORTED_MODULE_0__( dt.table().node() ).hasClass( 'selectable' ) ) {
-		dt.select.style( 'os' );
+	if (!setStyle && $(dt.table().node()).hasClass('selectable')) {
+		dt.select.style('os');
 	}
 };
 
@@ -2314,7 +2666,6 @@ handler that will select the items using the API methods.
 
  */
 
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Local functions
  */
@@ -2327,84 +2678,87 @@ handler that will select the items using the API methods.
  * in the visible grid rather than by index in sequence. For example, if you
  * click first in cell 1-1 and then shift click in 2-2 - cells 1-2 and 2-1
  * should also be selected (and not 1-3, 1-4. etc)
- * 
+ *
  * @param  {DataTable.Api} dt   DataTable
  * @param  {object}        idx  Cell index to select to
  * @param  {object}        last Cell index to select from
  * @private
  */
-function cellRange( dt, idx, last )
-{
+function cellRange(dt, idx, last) {
 	var indexes;
 	var columnIndexes;
 	var rowIndexes;
-	var selectColumns = function ( start, end ) {
-		if ( start > end ) {
+	var selectColumns = function (start, end) {
+		if (start > end) {
 			var tmp = end;
 			end = start;
 			start = tmp;
 		}
-		
-		var record = false;
-		return dt.columns( ':visible' ).indexes().filter( function (i) {
-			if ( i === start ) {
-				record = true;
-			}
-			
-			if ( i === end ) { // not else if, as start might === end
-				record = false;
-				return true;
-			}
 
-			return record;
-		} );
+		var record = false;
+		return dt
+			.columns(':visible')
+			.indexes()
+			.filter(function (i) {
+				if (i === start) {
+					record = true;
+				}
+
+				if (i === end) {
+					// not else if, as start might === end
+					record = false;
+					return true;
+				}
+
+				return record;
+			});
 	};
 
-	var selectRows = function ( start, end ) {
-		var indexes = dt.rows( { search: 'applied' } ).indexes();
+	var selectRows = function (start, end) {
+		var indexes = dt.rows({ search: 'applied' }).indexes();
 
 		// Which comes first - might need to swap
-		if ( indexes.indexOf( start ) > indexes.indexOf( end ) ) {
+		if (indexes.indexOf(start) > indexes.indexOf(end)) {
 			var tmp = end;
 			end = start;
 			start = tmp;
 		}
 
 		var record = false;
-		return indexes.filter( function (i) {
-			if ( i === start ) {
+		return indexes.filter(function (i) {
+			if (i === start) {
 				record = true;
 			}
-			
-			if ( i === end ) {
+
+			if (i === end) {
 				record = false;
 				return true;
 			}
 
 			return record;
-		} );
+		});
 	};
 
-	if ( ! dt.cells( { selected: true } ).any() && ! last ) {
+	if (!dt.cells({ selected: true }).any() && !last) {
 		// select from the top left cell to this one
-		columnIndexes = selectColumns( 0, idx.column );
-		rowIndexes = selectRows( 0 , idx.row );
+		columnIndexes = selectColumns(0, idx.column);
+		rowIndexes = selectRows(0, idx.row);
 	}
 	else {
 		// Get column indexes between old and new
-		columnIndexes = selectColumns( last.column, idx.column );
-		rowIndexes = selectRows( last.row , idx.row );
+		columnIndexes = selectColumns(last.column, idx.column);
+		rowIndexes = selectRows(last.row, idx.row);
 	}
 
-	indexes = dt.cells( rowIndexes, columnIndexes ).flatten();
+	indexes = dt.cells(rowIndexes, columnIndexes).flatten();
 
-	if ( ! dt.cells( idx, { selected: true } ).any() ) {
+	if (!dt.cells(idx, { selected: true }).any()) {
 		// Select range
-		dt.cells( indexes ).select();
+		dt.cells(indexes).select();
 	}
 	else {
 		// Deselect range
-		dt.cells( indexes ).deselect();
+		dt.cells(indexes).deselect();
 	}
 }
 
@@ -2414,17 +2768,16 @@ function cellRange( dt, idx, last )
  * @param {DataTable.Api} dt DataTable to remove events from
  * @private
  */
-function disableMouseSelection( dt )
-{
+function disableMouseSelection(dt) {
 	var ctx = dt.settings()[0];
 	var selector = ctx._select.selector;
 
-	jquery__WEBPACK_IMPORTED_MODULE_0__( dt.table().container() )
-		.off( 'mousedown.dtSelect', selector )
-		.off( 'mouseup.dtSelect', selector )
-		.off( 'click.dtSelect', selector );
+	$(dt.table().container())
+		.off('mousedown.dtSelect', selector)
+		.off('mouseup.dtSelect', selector)
+		.off('click.dtSelect', selector);
 
-	jquery__WEBPACK_IMPORTED_MODULE_0__('body').off( 'click.dtSelect' + _safeId(dt.table().node()) );
+	$('body').off('click.dtSelect' + _safeId(dt.table().node()));
 }
 
 /**
@@ -2433,47 +2786,49 @@ function disableMouseSelection( dt )
  * @param {DataTable.Api} dt DataTable to remove events from
  * @private
  */
-function enableMouseSelection ( dt )
-{
-	var container = jquery__WEBPACK_IMPORTED_MODULE_0__( dt.table().container() );
+function enableMouseSelection(dt) {
+	var container = $(dt.table().container());
 	var ctx = dt.settings()[0];
 	var selector = ctx._select.selector;
 	var matchSelection;
 
 	container
-		.on( 'mousedown.dtSelect', selector, function(e) {
+		.on('mousedown.dtSelect', selector, function (e) {
 			// Disallow text selection for shift clicking on the table so multi
 			// element selection doesn't look terrible!
-			if ( e.shiftKey || e.metaKey || e.ctrlKey ) {
+			if (e.shiftKey || e.metaKey || e.ctrlKey) {
 				container
-					.css( '-moz-user-select', 'none' )
+					.css('-moz-user-select', 'none')
 					.one('selectstart.dtSelect', selector, function () {
 						return false;
-					} );
+					});
 			}
 
-			if ( window.getSelection ) {
+			if (window.getSelection) {
 				matchSelection = window.getSelection();
 			}
-		} )
-		.on( 'mouseup.dtSelect', selector, function() {
+		})
+		.on('mouseup.dtSelect', selector, function () {
 			// Allow text selection to occur again, Mozilla style (tested in FF
 			// 35.0.1 - still required)
-			container.css( '-moz-user-select', '' );
-		} )
-		.on( 'click.dtSelect', selector, function ( e ) {
+			container.css('-moz-user-select', '');
+		})
+		.on('click.dtSelect', selector, function (e) {
 			var items = dt.select.items();
 			var idx;
 
 			// If text was selected (click and drag), then we shouldn't change
 			// the row's selected state
-			if ( matchSelection ) {
+			if (matchSelection) {
 				var selection = window.getSelection();
 
 				// If the element that contains the selection is not in the table, we can ignore it
 				// This can happen if the developer selects text from the click event
-				if ( ! selection.anchorNode || jquery__WEBPACK_IMPORTED_MODULE_0__(selection.anchorNode).closest('table')[0] === dt.table().node() ) {
-					if ( selection !== matchSelection ) {
+				if (
+					!selection.anchorNode ||
+					$(selection.anchorNode).closest('table')[0] === dt.table().node()
+				) {
+					if (selection !== matchSelection) {
 						return;
 					}
 				}
@@ -2483,71 +2838,71 @@ function enableMouseSelection ( dt )
 			var wrapperClass = dt.settings()[0].oClasses.sWrapper.trim().replace(/ +/g, '.');
 
 			// Ignore clicks inside a sub-table
-			if ( jquery__WEBPACK_IMPORTED_MODULE_0__(e.target).closest('div.'+wrapperClass)[0] != dt.table().container() ) {
+			if ($(e.target).closest('div.' + wrapperClass)[0] != dt.table().container()) {
 				return;
 			}
 
-			var cell = dt.cell( jquery__WEBPACK_IMPORTED_MODULE_0__(e.target).closest('td, th') );
+			var cell = dt.cell($(e.target).closest('td, th'));
 
 			// Check the cell actually belongs to the host DataTable (so child
 			// rows, etc, are ignored)
-			if ( ! cell.any() ) {
+			if (!cell.any()) {
 				return;
 			}
 
-			var event = jquery__WEBPACK_IMPORTED_MODULE_0__.Event('user-select.dt');
-			eventTrigger( dt, event, [ items, cell, e ] );
+			var event = $.Event('user-select.dt');
+			eventTrigger(dt, event, [items, cell, e]);
 
-			if ( event.isDefaultPrevented() ) {
+			if (event.isDefaultPrevented()) {
 				return;
 			}
 
 			var cellIndex = cell.index();
-			if ( items === 'row' ) {
+			if (items === 'row') {
 				idx = cellIndex.row;
-				typeSelect( e, dt, ctx, 'row', idx );
+				typeSelect(e, dt, ctx, 'row', idx);
 			}
-			else if ( items === 'column' ) {
+			else if (items === 'column') {
 				idx = cell.index().column;
-				typeSelect( e, dt, ctx, 'column', idx );
+				typeSelect(e, dt, ctx, 'column', idx);
 			}
-			else if ( items === 'cell' ) {
+			else if (items === 'cell') {
 				idx = cell.index();
-				typeSelect( e, dt, ctx, 'cell', idx );
+				typeSelect(e, dt, ctx, 'cell', idx);
 			}
 
 			ctx._select_lastCell = cellIndex;
-		} );
+		});
 
 	// Blurable
-	jquery__WEBPACK_IMPORTED_MODULE_0__('body').on( 'click.dtSelect' + _safeId(dt.table().node()), function ( e ) {
-		if ( ctx._select.blurable ) {
+	$('body').on('click.dtSelect' + _safeId(dt.table().node()), function (e) {
+		if (ctx._select.blurable) {
 			// If the click was inside the DataTables container, don't blur
-			if ( jquery__WEBPACK_IMPORTED_MODULE_0__(e.target).parents().filter( dt.table().container() ).length ) {
+			if ($(e.target).parents().filter(dt.table().container()).length) {
 				return;
 			}
 
 			// Ignore elements which have been removed from the DOM (i.e. paging
 			// buttons)
-			if ( jquery__WEBPACK_IMPORTED_MODULE_0__(e.target).parents('html').length === 0 ) {
-			 	return;
+			if ($(e.target).parents('html').length === 0) {
+				return;
 			}
 
 			// Don't blur in Editor form
-			if ( jquery__WEBPACK_IMPORTED_MODULE_0__(e.target).parents('div.DTE').length ) {
+			if ($(e.target).parents('div.DTE').length) {
 				return;
 			}
 
-			var event = jquery__WEBPACK_IMPORTED_MODULE_0__.Event('select-blur.dt');
-			eventTrigger( dt, event, [ e.target, e ] );
+			var event = $.Event('select-blur.dt');
+			eventTrigger(dt, event, [e.target, e]);
 
-			if ( event.isDefaultPrevented() ) {
+			if (event.isDefaultPrevented()) {
 				return;
 			}
 
-			clear( ctx, true );
+			clear(ctx, true);
 		}
-	} );
+	});
 }
 
 /**
@@ -2560,70 +2915,72 @@ function enableMouseSelection ( dt )
  *     triggering
  * @private
  */
-function eventTrigger ( api, type, args, any )
-{
-	if ( any && ! api.flatten().length ) {
+function eventTrigger(api, type, args, any) {
+	if (any && !api.flatten().length) {
 		return;
 	}
 
-	if ( typeof type === 'string' ) {
-		type = type +'.dt';
+	if (typeof type === 'string') {
+		type = type + '.dt';
 	}
 
-	args.unshift( api );
+	args.unshift(api);
 
-	jquery__WEBPACK_IMPORTED_MODULE_0__(api.table().node()).trigger( type, args );
+	$(api.table().node()).trigger(type, args);
 }
 
 /**
  * Update the information element of the DataTable showing information about the
  * items selected. This is done by adding tags to the existing text
- * 
+ *
  * @param {DataTable.Api} api DataTable to update
  * @private
  */
-function info ( api )
-{
+function info(api) {
 	var ctx = api.settings()[0];
 
-	if ( ! ctx._select.info || ! ctx.aanFeatures.i ) {
+	if (!ctx._select.info || !ctx.aanFeatures.i) {
 		return;
 	}
 
-	if ( api.select.style() === 'api' ) {
+	if (api.select.style() === 'api') {
 		return;
 	}
 
-	var rows    = api.rows( { selected: true } ).flatten().length;
-	var columns = api.columns( { selected: true } ).flatten().length;
-	var cells   = api.cells( { selected: true } ).flatten().length;
+	var rows = api.rows({ selected: true }).flatten().length;
+	var columns = api.columns({ selected: true }).flatten().length;
+	var cells = api.cells({ selected: true }).flatten().length;
 
-	var add = function ( el, name, num ) {
-		el.append( jquery__WEBPACK_IMPORTED_MODULE_0__('<span class="select-item"/>').append( api.i18n(
-			'select.'+name+'s',
-			{ _: '%d '+name+'s selected', 0: '', 1: '1 '+name+' selected' },
-			num
-		) ) );
+	var add = function (el, name, num) {
+		el.append(
+			$('<span class="select-item"/>').append(
+				api.i18n(
+					'select.' + name + 's',
+					{ _: '%d ' + name + 's selected', 0: '', 1: '1 ' + name + ' selected' },
+					num
+				)
+			)
+		);
 	};
 
 	// Internal knowledge of DataTables to loop over all information elements
-	jquery__WEBPACK_IMPORTED_MODULE_0__.each( ctx.aanFeatures.i, function ( i, el ) {
-		el = jquery__WEBPACK_IMPORTED_MODULE_0__(el);
+	$.each(ctx.aanFeatures.i, function (i, el) {
+		el = $(el);
 
-		var output  = jquery__WEBPACK_IMPORTED_MODULE_0__('<span class="select-info"/>');
-		add( output, 'row', rows );
-		add( output, 'column', columns );
-		add( output, 'cell', cells  );
+		var output = $('<span class="select-info"/>');
+		add(output, 'row', rows);
+		add(output, 'column', columns);
+		add(output, 'cell', cells);
 
 		var exisiting = el.children('span.select-info');
-		if ( exisiting.length ) {
+		if (exisiting.length) {
 			exisiting.remove();
 		}
 
-		if ( output.text() !== '' ) {
-			el.append( output );
+		if (output.text() !== '') {
+			el.append(output);
 		}
-	} );
+	});
 }
 
 /**
@@ -2636,41 +2993,44 @@ function info ( api )
  * @param  {DataTable.settings} ctx Settings object to operate on
  * @private
  */
-function init ( ctx ) {
-	var api = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx );
+function init(ctx) {
+	var api = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx);
 	ctx._select_init = true;
 
 	// Row callback so that classes can be added to rows and cells if the item
 	// was selected before the element was created. This will happen with the
 	// `deferRender` option enabled.
-	// 
+	//
 	// This method of attaching to `aoRowCreatedCallback` is a hack until
 	// DataTables has proper events for row manipulation If you are reviewing
 	// this code to create your own plug-ins, please do not do this!
-	ctx.aoRowCreatedCallback.push( {
-		fn: function ( row, data, index ) {
+	ctx.aoRowCreatedCallback.push({
+		fn: function (row, data, index) {
 			var i, ien;
-			var d = ctx.aoData[ index ];
+			var d = ctx.aoData[index];
 
 			// Row
-			if ( d._select_selected ) {
-				jquery__WEBPACK_IMPORTED_MODULE_0__( row ).addClass( ctx._select.className );
+			if (d._select_selected) {
+				$(row).addClass(ctx._select.className);
 			}
 
 			// Cells and columns - if separated out, we would need to do two
 			// loops, so it makes sense to combine them into a single one
-			for ( i=0, ien=ctx.aoColumns.length ; i<ien ; i++ ) {
-				if ( ctx.aoColumns[i]._select_selected || (d._selected_cells && d._selected_cells[i]) ) {
-					jquery__WEBPACK_IMPORTED_MODULE_0__(d.anCells[i]).addClass( ctx._select.className );
+			for (i = 0, ien = ctx.aoColumns.length; i < ien; i++) {
+				if (
+					ctx.aoColumns[i]._select_selected ||
+					(d._selected_cells && d._selected_cells[i])
+				) {
+					$(d.anCells[i]).addClass(ctx._select.className);
 				}
 			}
 		},
 		sName: 'select-deferRender'
-	} );
+	});
 
 	// On Ajax reload we want to reselect all rows which are currently selected,
 	// if there is an rowId (i.e. a unique value to identify each row with)
-	api.on( 'preXhr.dt.dtSelect', function (e, settings) {
+	api.on('preXhr.dt.dtSelect', function (e, settings) {
 		if (settings !== api.settings()[0]) {
 			// Not triggered by our DataTable!
 			return;
@@ -2678,47 +3038,52 @@ function init ( ctx ) {
 
 		// note that column selection doesn't need to be cached and then
 		// reselected, as they are already selected
-		var rows = api.rows( { selected: true } ).ids( true ).filter( function ( d ) {
-			return d !== undefined;
-		} );
+		var rows = api
+			.rows({ selected: true })
+			.ids(true)
+			.filter(function (d) {
+				return d !== undefined;
+			});
 
-		var cells = api.cells( { selected: true } ).eq(0).map( function ( cellIdx ) {
-			var id = api.row( cellIdx.row ).id( true );
-			return id ?
-				{ row: id, column: cellIdx.column } :
-				undefined;
-		} ).filter( function ( d ) {
-			return d !== undefined;
-		} );
+		var cells = api
+			.cells({ selected: true })
+			.eq(0)
+			.map(function (cellIdx) {
+				var id = api.row(cellIdx.row).id(true);
+				return id ? { row: id, column: cellIdx.column } : undefined;
+			})
+			.filter(function (d) {
+				return d !== undefined;
+			});
 
 		// On the next draw, reselect the currently selected items
-		api.one( 'draw.dt.dtSelect', function () {
-			api.rows( rows ).select();
+		api.one('draw.dt.dtSelect', function () {
+			api.rows(rows).select();
 
 			// `cells` is not a cell index selector, so it needs a loop
-			if ( cells.any() ) {
-				cells.each( function ( id ) {
-					api.cells( id.row, id.column ).select();
-				} );
+			if (cells.any()) {
+				cells.each(function (id) {
+					api.cells(id.row, id.column).select();
+				});
 			}
-		} );
-	} );
+		});
+	});
 
 	// Update the table information element with selected item summary
-	api.on( 'draw.dtSelect.dt select.dtSelect.dt deselect.dtSelect.dt info.dt', function () {
-		info( api );
+	api.on('draw.dtSelect.dt select.dtSelect.dt deselect.dtSelect.dt info.dt', function () {
+		info(api);
 		api.state.save();
-	} );
+	});
 
 	// Clean up and release
-	api.on( 'destroy.dtSelect', function () {
+	api.on('destroy.dtSelect', function () {
 		// Remove class directly rather than calling deselect - which would trigger events
-		jquery__WEBPACK_IMPORTED_MODULE_0__(api.rows({selected: true}).nodes()).removeClass(api.settings()[0]._select.className);
+		$(api.rows({ selected: true }).nodes()).removeClass(api.settings()[0]._select.className);
 
-		disableMouseSelection( api );
-		api.off( '.dtSelect' );
-		jquery__WEBPACK_IMPORTED_MODULE_0__('body').off('.dtSelect' + _safeId(api.table().node()));
-	} );
+		disableMouseSelection(api);
+		api.off('.dtSelect');
+		$('body').off('.dtSelect' + _safeId(api.table().node()));
+	});
 }
 
 /**
@@ -2731,38 +3096,37 @@ function init ( ctx ) {
  * @param  {object}        last Item index to select from
  * @private
  */
-function rowColumnRange( dt, type, idx, last )
-{
+function rowColumnRange(dt, type, idx, last) {
 	// Add a range of rows from the last selected row to this one
-	var indexes = dt[type+'s']( { search: 'applied' } ).indexes();
-	var idx1 = jquery__WEBPACK_IMPORTED_MODULE_0__.inArray( last, indexes );
-	var idx2 = jquery__WEBPACK_IMPORTED_MODULE_0__.inArray( idx, indexes );
+	var indexes = dt[type + 's']({ search: 'applied' }).indexes();
+	var idx1 = $.inArray(last, indexes);
+	var idx2 = $.inArray(idx, indexes);
 
-	if ( ! dt[type+'s']( { selected: true } ).any() && idx1 === -1 ) {
+	if (!dt[type + 's']({ selected: true }).any() && idx1 === -1) {
 		// select from top to here - slightly odd, but both Windows and Mac OS
 		// do this
-		indexes.splice( jquery__WEBPACK_IMPORTED_MODULE_0__.inArray( idx, indexes )+1, indexes.length );
+		indexes.splice($.inArray(idx, indexes) + 1, indexes.length);
 	}
 	else {
 		// reverse so we can shift click 'up' as well as down
-		if ( idx1 > idx2 ) {
+		if (idx1 > idx2) {
 			var tmp = idx2;
 			idx2 = idx1;
 			idx1 = tmp;
 		}
 
-		indexes.splice( idx2+1, indexes.length );
-		indexes.splice( 0, idx1 );
+		indexes.splice(idx2 + 1, indexes.length);
+		indexes.splice(0, idx1);
 	}
 
-	if ( ! dt[type]( idx, { selected: true } ).any() ) {
+	if (!dt[type](idx, { selected: true }).any()) {
 		// Select range
-		dt[type+'s']( indexes ).select();
+		dt[type + 's'](indexes).select();
 	}
 	else {
 		// Deselect range - need to keep the clicked on row selected
-		indexes.splice( jquery__WEBPACK_IMPORTED_MODULE_0__.inArray( idx, indexes ), 1 );
-		dt[type+'s']( indexes ).deselect();
+		indexes.splice($.inArray(idx, indexes), 1);
+		dt[type + 's'](indexes).deselect();
 	}
 }
 
@@ -2774,14 +3138,13 @@ function rowColumnRange( dt, type, idx, last )
  *     of selection style
  * @private
  */
-function clear( ctx, force )
-{
-	if ( force || ctx._select.style === 'single' ) {
-		var api = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx );
-		
-		api.rows( { selected: true } ).deselect();
-		api.columns( { selected: true } ).deselect();
-		api.cells( { selected: true } ).deselect();
+function clear(ctx, force) {
+	if (force || ctx._select.style === 'single') {
+		var api = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx);
+
+		api.rows({ selected: true }).deselect();
+		api.columns({ selected: true }).deselect();
+		api.cells({ selected: true }).deselect();
 	}
 }
 
@@ -2795,71 +3158,73 @@ function clear( ctx, force )
  * @param  {int|object}         idx  Index of the item to select
  * @private
  */
-function typeSelect ( e, dt, ctx, type, idx )
-{
+function typeSelect(e, dt, ctx, type, idx) {
 	var style = dt.select.style();
 	var toggleable = dt.select.toggleable();
-	var isSelected = dt[type]( idx, { selected: true } ).any();
-	
-	if ( isSelected && ! toggleable ) {
+	var isSelected = dt[type](idx, { selected: true }).any();
+
+	if (isSelected && !toggleable) {
 		return;
 	}
 
-	if ( style === 'os' ) {
-		if ( e.ctrlKey || e.metaKey ) {
+	if (style === 'os') {
+		if (e.ctrlKey || e.metaKey) {
 			// Add or remove from the selection
-			dt[type]( idx ).select( ! isSelected );
+			dt[type](idx).select(!isSelected);
 		}
-		else if ( e.shiftKey ) {
-			if ( type === 'cell' ) {
-				cellRange( dt, idx, ctx._select_lastCell || null );
+		else if (e.shiftKey) {
+			if (type === 'cell') {
+				cellRange(dt, idx, ctx._select_lastCell || null);
 			}
 			else {
-				rowColumnRange( dt, type, idx, ctx._select_lastCell ?
-					ctx._select_lastCell[type] :
-					null
+				rowColumnRange(
+					dt,
+					type,
+					idx,
+					ctx._select_lastCell ? ctx._select_lastCell[type] : null
 				);
 			}
 		}
 		else {
 			// No cmd or shift click - deselect if selected, or select
 			// this row only
-			var selected = dt[type+'s']( { selected: true } );
+			var selected = dt[type + 's']({ selected: true });
 
-			if ( isSelected && selected.flatten().length === 1 ) {
-				dt[type]( idx ).deselect();
+			if (isSelected && selected.flatten().length === 1) {
+				dt[type](idx).deselect();
 			}
 			else {
 				selected.deselect();
-				dt[type]( idx ).select();
+				dt[type](idx).select();
 			}
 		}
-	} else if ( style == 'multi+shift' ) {
-		if ( e.shiftKey ) {
-			if ( type === 'cell' ) {
-				cellRange( dt, idx, ctx._select_lastCell || null );
+	}
+	else if (style == 'multi+shift') {
+		if (e.shiftKey) {
+			if (type === 'cell') {
+				cellRange(dt, idx, ctx._select_lastCell || null);
 			}
 			else {
-				rowColumnRange( dt, type, idx, ctx._select_lastCell ?
-					ctx._select_lastCell[type] :
-					null
+				rowColumnRange(
+					dt,
+					type,
+					idx,
+					ctx._select_lastCell ? ctx._select_lastCell[type] : null
 				);
 			}
 		}
 		else {
-			dt[ type ]( idx ).select( ! isSelected );
+			dt[type](idx).select(!isSelected);
 		}
 	}
 	else {
-		dt[ type ]( idx ).select( ! isSelected );
+		dt[type](idx).select(!isSelected);
 	}
 }
 
-function _safeId( node ) {
+function _safeId(node) {
 	return node.id.replace(/[^a-zA-Z0-9\-\_]/g, '-');
 }
-
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables selectors
@@ -2868,56 +3233,62 @@ function _safeId( node ) {
 // row and column are basically identical just assigned to different properties
 // and checking a different array, so we can dynamically create the functions to
 // reduce the code size
-jquery__WEBPACK_IMPORTED_MODULE_0__.each( [
-	{ type: 'row', prop: 'aoData' },
-	{ type: 'column', prop: 'aoColumns' }
-], function ( i, o ) {
-	datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.selector[ o.type ].push( function ( settings, opts, indexes ) {
-		var selected = opts.selected;
-		var data;
-		var out = [];
+$.each(
+	[
+		{ type: 'row', prop: 'aoData' },
+		{ type: 'column', prop: 'aoColumns' }
+	],
+	function (i, o) {
+		datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.selector[o.type].push(function (settings, opts, indexes) {
+			var selected = opts.selected;
+			var data;
+			var out = [];
 
-		if ( selected !== true && selected !== false ) {
-			return indexes;
-		}
-
-		for ( var i=0, ien=indexes.length ; i<ien ; i++ ) {
-			data = settings[ o.prop ][ indexes[i] ];
-
-			if ( (selected === true && data._select_selected === true) ||
-			     (selected === false && ! data._select_selected )
-			) {
-				out.push( indexes[i] );
+			if (selected !== true && selected !== false) {
+				return indexes;
 			}
-		}
 
-		return out;
-	} );
-} );
+			for (var i = 0, ien = indexes.length; i < ien; i++) {
+				data = settings[o.prop][indexes[i]];
 
-datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.selector.cell.push( function ( settings, opts, cells ) {
+				if (
+					(selected === true && data._select_selected === true) ||
+					(selected === false && !data._select_selected)
+				) {
+					out.push(indexes[i]);
+				}
+			}
+
+			return out;
+		});
+	}
+);
+
+datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.selector.cell.push(function (settings, opts, cells) {
 	var selected = opts.selected;
 	var rowData;
 	var out = [];
 
-	if ( selected === undefined ) {
+	if (selected === undefined) {
 		return cells;
 	}
 
-	for ( var i=0, ien=cells.length ; i<ien ; i++ ) {
-		rowData = settings.aoData[ cells[i].row ];
+	for (var i = 0, ien = cells.length; i < ien; i++) {
+		rowData = settings.aoData[cells[i].row];
 
-		if ( (selected === true && rowData._selected_cells && rowData._selected_cells[ cells[i].column ] === true) ||
-		     (selected === false && ( ! rowData._selected_cells || ! rowData._selected_cells[ cells[i].column ] ) )
+		if (
+			(selected === true &&
+				rowData._selected_cells &&
+				rowData._selected_cells[cells[i].column] === true) ||
+			(selected === false &&
+				(!rowData._selected_cells || !rowData._selected_cells[cells[i].column]))
 		) {
-			out.push( cells[i] );
+			out.push(cells[i]);
 		}
 	}
 
 	return out;
-} );
-
-
+});
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
@@ -2930,67 +3301,67 @@ datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.selector.cell.push( f
 var apiRegister = datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api.register;
 var apiRegisterPlural = datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api.registerPlural;
 
-apiRegister( 'select()', function () {
-	return this.iterator( 'table', function ( ctx ) {
-		datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init( new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx ) );
-	} );
-} );
+apiRegister('select()', function () {
+	return this.iterator('table', function (ctx) {
+		datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init(new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx));
+	});
+});
 
-apiRegister( 'select.blurable()', function ( flag ) {
-	if ( flag === undefined ) {
+apiRegister('select.blurable()', function (flag) {
+	if (flag === undefined) {
 		return this.context[0]._select.blurable;
 	}
 
-	return this.iterator( 'table', function ( ctx ) {
+	return this.iterator('table', function (ctx) {
 		ctx._select.blurable = flag;
-	} );
-} );
+	});
+});
 
-apiRegister( 'select.toggleable()', function ( flag ) {
-	if ( flag === undefined ) {
+apiRegister('select.toggleable()', function (flag) {
+	if (flag === undefined) {
 		return this.context[0]._select.toggleable;
 	}
 
-	return this.iterator( 'table', function ( ctx ) {
+	return this.iterator('table', function (ctx) {
 		ctx._select.toggleable = flag;
-	} );
-} );
+	});
+});
 
-apiRegister( 'select.info()', function ( flag ) {
-	if ( flag === undefined ) {
+apiRegister('select.info()', function (flag) {
+	if (flag === undefined) {
 		return this.context[0]._select.info;
 	}
 
-	return this.iterator( 'table', function ( ctx ) {
+	return this.iterator('table', function (ctx) {
 		ctx._select.info = flag;
-	} );
-} );
+	});
+});
 
-apiRegister( 'select.items()', function ( items ) {
-	if ( items === undefined ) {
+apiRegister('select.items()', function (items) {
+	if (items === undefined) {
 		return this.context[0]._select.items;
 	}
 
-	return this.iterator( 'table', function ( ctx ) {
+	return this.iterator('table', function (ctx) {
 		ctx._select.items = items;
 
-		eventTrigger( new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx ), 'selectItems', [ items ] );
-	} );
-} );
+		eventTrigger(new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx), 'selectItems', [items]);
+	});
+});
 
 // Takes effect from the _next_ selection. None disables future selection, but
 // does not clear the current selection. Use the `deselect` methods for that
-apiRegister( 'select.style()', function ( style ) {
-	if ( style === undefined ) {
+apiRegister('select.style()', function (style) {
+	if (style === undefined) {
 		return this.context[0]._select.style;
 	}
 
-	return this.iterator( 'table', function ( ctx ) {
-		if ( ! ctx._select ) {
-			datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init( new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx) );
+	return this.iterator('table', function (ctx) {
+		if (!ctx._select) {
+			datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init(new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx));
 		}
 
-		if ( ! ctx._select_init ) {
+		if (!ctx._select_init) {
 			init(ctx);
 		}
 
@@ -2998,144 +3369,132 @@ apiRegister( 'select.style()', function ( style ) {
 
 		// Add / remove mouse event handlers. They aren't required when only
 		// API selection is available
-		var dt = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx );
-		disableMouseSelection( dt );
-		
-		if ( style !== 'api' ) {
-			enableMouseSelection( dt );
+		var dt = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx);
+		disableMouseSelection(dt);
+
+		if (style !== 'api') {
+			enableMouseSelection(dt);
 		}
 
-		eventTrigger( new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx ), 'selectStyle', [ style ] );
-	} );
-} );
+		eventTrigger(new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx), 'selectStyle', [style]);
+	});
+});
 
-apiRegister( 'select.selector()', function ( selector ) {
-	if ( selector === undefined ) {
+apiRegister('select.selector()', function (selector) {
+	if (selector === undefined) {
 		return this.context[0]._select.selector;
 	}
 
-	return this.iterator( 'table', function ( ctx ) {
-		disableMouseSelection( new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx ) );
+	return this.iterator('table', function (ctx) {
+		disableMouseSelection(new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx));
 
 		ctx._select.selector = selector;
 
-		if ( ctx._select.style !== 'api' ) {
-			enableMouseSelection( new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx ) );
+		if (ctx._select.style !== 'api') {
+			enableMouseSelection(new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx));
 		}
-	} );
-} );
+	});
+});
 
-
-
-apiRegisterPlural( 'rows().select()', 'row().select()', function ( select ) {
+apiRegisterPlural('rows().select()', 'row().select()', function (select) {
 	var api = this;
 
-	if ( select === false ) {
+	if (select === false) {
 		return this.deselect();
 	}
 
-	this.iterator( 'row', function ( ctx, idx ) {
-		clear( ctx );
+	this.iterator('row', function (ctx, idx) {
+		clear(ctx);
 
-		ctx.aoData[ idx ]._select_selected = true;
-		jquery__WEBPACK_IMPORTED_MODULE_0__( ctx.aoData[ idx ].nTr ).addClass( ctx._select.className );
-	} );
+		ctx.aoData[idx]._select_selected = true;
+		$(ctx.aoData[idx].nTr).addClass(ctx._select.className);
+	});
 
-	this.iterator( 'table', function ( ctx, i ) {
-		eventTrigger( api, 'select', [ 'row', api[i] ], true );
-	} );
+	this.iterator('table', function (ctx, i) {
+		eventTrigger(api, 'select', ['row', api[i]], true);
+	});
 
 	return this;
-} );
+});
 
-apiRegister( 'row().selected()', function () {
+apiRegister('row().selected()', function () {
 	var ctx = this.context[0];
 
-	if (
-		ctx &&
-		this.length &&
-		ctx.aoData[this[0]] &&
-		ctx.aoData[this[0]]._select_selected
-	) {
+	if (ctx && this.length && ctx.aoData[this[0]] && ctx.aoData[this[0]]._select_selected) {
 		return true;
 	}
 
 	return false;
-} );
+});
 
-apiRegisterPlural( 'columns().select()', 'column().select()', function ( select ) {
+apiRegisterPlural('columns().select()', 'column().select()', function (select) {
 	var api = this;
 
-	if ( select === false ) {
+	if (select === false) {
 		return this.deselect();
 	}
 
-	this.iterator( 'column', function ( ctx, idx ) {
-		clear( ctx );
+	this.iterator('column', function (ctx, idx) {
+		clear(ctx);
 
-		ctx.aoColumns[ idx ]._select_selected = true;
+		ctx.aoColumns[idx]._select_selected = true;
 
-		var column = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx ).column( idx );
+		var column = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx).column(idx);
 
-		jquery__WEBPACK_IMPORTED_MODULE_0__( column.header() ).addClass( ctx._select.className );
-		jquery__WEBPACK_IMPORTED_MODULE_0__( column.footer() ).addClass( ctx._select.className );
+		$(column.header()).addClass(ctx._select.className);
+		$(column.footer()).addClass(ctx._select.className);
 
-		column.nodes().to$().addClass( ctx._select.className );
-	} );
+		column.nodes().to$().addClass(ctx._select.className);
+	});
 
-	this.iterator( 'table', function ( ctx, i ) {
-		eventTrigger( api, 'select', [ 'column', api[i] ], true );
-	} );
+	this.iterator('table', function (ctx, i) {
+		eventTrigger(api, 'select', ['column', api[i]], true);
+	});
 
 	return this;
-} );
+});
 
-apiRegister( 'column().selected()', function () {
+apiRegister('column().selected()', function () {
 	var ctx = this.context[0];
 
-	if (
-		ctx &&
-		this.length &&
-		ctx.aoColumns[this[0]] &&
-		ctx.aoColumns[this[0]]._select_selected
-	) {
+	if (ctx && this.length && ctx.aoColumns[this[0]] && ctx.aoColumns[this[0]]._select_selected) {
 		return true;
 	}
 
 	return false;
-} );
+});
 
-apiRegisterPlural( 'cells().select()', 'cell().select()', function ( select ) {
+apiRegisterPlural('cells().select()', 'cell().select()', function (select) {
 	var api = this;
 
-	if ( select === false ) {
+	if (select === false) {
 		return this.deselect();
 	}
 
-	this.iterator( 'cell', function ( ctx, rowIdx, colIdx ) {
-		clear( ctx );
+	this.iterator('cell', function (ctx, rowIdx, colIdx) {
+		clear(ctx);
 
-		var data = ctx.aoData[ rowIdx ];
+		var data = ctx.aoData[rowIdx];
 
-		if ( data._selected_cells === undefined ) {
+		if (data._selected_cells === undefined) {
 			data._selected_cells = [];
 		}
 
-		data._selected_cells[ colIdx ] = true;
+		data._selected_cells[colIdx] = true;
 
-		if ( data.anCells ) {
-			jquery__WEBPACK_IMPORTED_MODULE_0__( data.anCells[ colIdx ] ).addClass( ctx._select.className );
+		if (data.anCells) {
+			$(data.anCells[colIdx]).addClass(ctx._select.className);
 		}
-	} );
+	});
 
-	this.iterator( 'table', function ( ctx, i ) {
-		eventTrigger( api, 'select', [ 'cell', api.cells(api[i]).indexes().toArray() ], true );
-	} );
+	this.iterator('table', function (ctx, i) {
+		eventTrigger(api, 'select', ['cell', api.cells(api[i]).indexes().toArray()], true);
+	});
 
 	return this;
-} );
+});
 
-apiRegister( 'cell().selected()', function () {
+apiRegister('cell().selected()', function () {
 	var ctx = this.context[0];
 
 	if (ctx && this.length) {
@@ -3147,110 +3506,109 @@ apiRegister( 'cell().selected()', function () {
 	}
 
 	return false;
-} );
+});
 
-
-apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
+apiRegisterPlural('rows().deselect()', 'row().deselect()', function () {
 	var api = this;
 
-	this.iterator( 'row', function ( ctx, idx ) {
-		ctx.aoData[ idx ]._select_selected = false;
+	this.iterator('row', function (ctx, idx) {
+		ctx.aoData[idx]._select_selected = false;
 		ctx._select_lastCell = null;
-		jquery__WEBPACK_IMPORTED_MODULE_0__( ctx.aoData[ idx ].nTr ).removeClass( ctx._select.className );
-	} );
+		$(ctx.aoData[idx].nTr).removeClass(ctx._select.className);
+	});
 
-	this.iterator( 'table', function ( ctx, i ) {
-		eventTrigger( api, 'deselect', [ 'row', api[i] ], true );
-	} );
+	this.iterator('table', function (ctx, i) {
+		eventTrigger(api, 'deselect', ['row', api[i]], true);
+	});
 
 	return this;
-} );
+});
 
-apiRegisterPlural( 'columns().deselect()', 'column().deselect()', function () {
+apiRegisterPlural('columns().deselect()', 'column().deselect()', function () {
 	var api = this;
 
-	this.iterator( 'column', function ( ctx, idx ) {
-		ctx.aoColumns[ idx ]._select_selected = false;
+	this.iterator('column', function (ctx, idx) {
+		ctx.aoColumns[idx]._select_selected = false;
 
-		var api = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx );
-		var column = api.column( idx );
+		var api = new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx);
+		var column = api.column(idx);
 
-		jquery__WEBPACK_IMPORTED_MODULE_0__( column.header() ).removeClass( ctx._select.className );
-		jquery__WEBPACK_IMPORTED_MODULE_0__( column.footer() ).removeClass( ctx._select.className );
+		$(column.header()).removeClass(ctx._select.className);
+		$(column.footer()).removeClass(ctx._select.className);
 
 		// Need to loop over each cell, rather than just using
 		// `column().nodes()` as cells which are individually selected should
 		// not have the `selected` class removed from them
-		api.cells( null, idx ).indexes().each( function (cellIdx) {
-			var data = ctx.aoData[ cellIdx.row ];
-			var cellSelected = data._selected_cells;
+		api.cells(null, idx)
+			.indexes()
+			.each(function (cellIdx) {
+				var data = ctx.aoData[cellIdx.row];
+				var cellSelected = data._selected_cells;
 
-			if ( data.anCells && (! cellSelected || ! cellSelected[ cellIdx.column ]) ) {
-				jquery__WEBPACK_IMPORTED_MODULE_0__( data.anCells[ cellIdx.column  ] ).removeClass( ctx._select.className );
-			}
-		} );
-	} );
+				if (data.anCells && (!cellSelected || !cellSelected[cellIdx.column])) {
+					$(data.anCells[cellIdx.column]).removeClass(ctx._select.className);
+				}
+			});
+	});
 
-	this.iterator( 'table', function ( ctx, i ) {
-		eventTrigger( api, 'deselect', [ 'column', api[i] ], true );
-	} );
+	this.iterator('table', function (ctx, i) {
+		eventTrigger(api, 'deselect', ['column', api[i]], true);
+	});
 
 	return this;
-} );
+});
 
-apiRegisterPlural( 'cells().deselect()', 'cell().deselect()', function () {
+apiRegisterPlural('cells().deselect()', 'cell().deselect()', function () {
 	var api = this;
 
-	this.iterator( 'cell', function ( ctx, rowIdx, colIdx ) {
-		var data = ctx.aoData[ rowIdx ];
+	this.iterator('cell', function (ctx, rowIdx, colIdx) {
+		var data = ctx.aoData[rowIdx];
 
-		if(data._selected_cells !== undefined) {
-			data._selected_cells[ colIdx ] = false;
+		if (data._selected_cells !== undefined) {
+			data._selected_cells[colIdx] = false;
 		}
 
 		// Remove class only if the cells exist, and the cell is not column
 		// selected, in which case the class should remain (since it is selected
 		// in the column)
-		if ( data.anCells && ! ctx.aoColumns[ colIdx ]._select_selected ) {
-			jquery__WEBPACK_IMPORTED_MODULE_0__( data.anCells[ colIdx ] ).removeClass( ctx._select.className );
+		if (data.anCells && !ctx.aoColumns[colIdx]._select_selected) {
+			$(data.anCells[colIdx]).removeClass(ctx._select.className);
 		}
-	} );
+	});
 
-	this.iterator( 'table', function ( ctx, i ) {
-		eventTrigger( api, 'deselect', [ 'cell', api[i] ], true );
-	} );
+	this.iterator('table', function (ctx, i) {
+		eventTrigger(api, 'deselect', ['cell', api[i]], true);
+	});
 
 	return this;
-} );
-
-
+});
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Buttons
  */
-function i18n( label, def ) {
+function i18n(label, def) {
 	return function (dt) {
-		return dt.i18n( 'buttons.'+label, def );
+		return dt.i18n('buttons.' + label, def);
 	};
 }
 
 // Common events with suitable namespaces
-function namespacedEvents ( config ) {
+function namespacedEvents(config) {
 	var unique = config._eventNamespace;
 
-	return 'draw.dt.DT'+unique+' select.dt.DT'+unique+' deselect.dt.DT'+unique;
+	return 'draw.dt.DT' + unique + ' select.dt.DT' + unique + ' deselect.dt.DT' + unique;
 }
 
-function enabled ( dt, config ) {
-	if ( jquery__WEBPACK_IMPORTED_MODULE_0__.inArray( 'rows', config.limitTo ) !== -1 && dt.rows( { selected: true } ).any() ) {
+function enabled(dt, config) {
+	if ($.inArray('rows', config.limitTo) !== -1 && dt.rows({ selected: true }).any()) {
 		return true;
 	}
 
-	if ( jquery__WEBPACK_IMPORTED_MODULE_0__.inArray( 'columns', config.limitTo ) !== -1 && dt.columns( { selected: true } ).any() ) {
+	if ($.inArray('columns', config.limitTo) !== -1 && dt.columns({ selected: true }).any()) {
 		return true;
 	}
 
-	if ( jquery__WEBPACK_IMPORTED_MODULE_0__.inArray( 'cells', config.limitTo ) !== -1 && dt.cells( { selected: true } ).any() ) {
+	if ($.inArray('cells', config.limitTo) !== -1 && dt.cells({ selected: true }).any()) {
 		return true;
 	}
 
@@ -3259,82 +3617,96 @@ function enabled ( dt, config ) {
 
 var _buttonNamespace = 0;
 
-jquery__WEBPACK_IMPORTED_MODULE_0__.extend( datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.buttons, {
+$.extend(datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.buttons, {
 	selected: {
-		text: i18n( 'selected', 'Selected' ),
+		text: i18n('selected', 'Selected'),
 		className: 'buttons-selected',
-		limitTo: [ 'rows', 'columns', 'cells' ],
-		init: function ( dt, node, config ) {
+		limitTo: ['rows', 'columns', 'cells'],
+		init: function (dt, node, config) {
 			var that = this;
-			config._eventNamespace = '.select'+(_buttonNamespace++);
+			config._eventNamespace = '.select' + _buttonNamespace++;
 
 			// .DT namespace listeners are removed by DataTables automatically
 			// on table destroy
-			dt.on( namespacedEvents(config), function () {
-				that.enable( enabled(dt, config) );
-			} );
+			dt.on(namespacedEvents(config), function () {
+				that.enable(enabled(dt, config));
+			});
 
 			this.disable();
 		},
-		destroy: function ( dt, node, config ) {
-			dt.off( config._eventNamespace );
+		destroy: function (dt, node, config) {
+			dt.off(config._eventNamespace);
 		}
 	},
 	selectedSingle: {
-		text: i18n( 'selectedSingle', 'Selected single' ),
+		text: i18n('selectedSingle', 'Selected single'),
 		className: 'buttons-selected-single',
-		init: function ( dt, node, config ) {
+		init: function (dt, node, config) {
 			var that = this;
-			config._eventNamespace = '.select'+(_buttonNamespace++);
+			config._eventNamespace = '.select' + _buttonNamespace++;
 
-			dt.on( namespacedEvents(config), function () {
-				var count = dt.rows( { selected: true } ).flatten().length +
-				            dt.columns( { selected: true } ).flatten().length +
-				            dt.cells( { selected: true } ).flatten().length;
+			dt.on(namespacedEvents(config), function () {
+				var count =
+					dt.rows({ selected: true }).flatten().length +
+					dt.columns({ selected: true }).flatten().length +
+					dt.cells({ selected: true }).flatten().length;
 
-				that.enable( count === 1 );
-			} );
+				that.enable(count === 1);
+			});
 
 			this.disable();
 		},
-		destroy: function ( dt, node, config ) {
-			dt.off( config._eventNamespace );
+		destroy: function (dt, node, config) {
+			dt.off(config._eventNamespace);
 		}
 	},
 	selectAll: {
-		text: i18n( 'selectAll', 'Select all' ),
+		text: i18n('selectAll', 'Select all'),
 		className: 'buttons-select-all',
-		action: function () {
+		action: function (e, dt, node, config) {
 			var items = this.select.items();
-			this[ items+'s' ]().select();
+			var mod = config.selectorModifier;
+			
+			if (mod) {
+				if (typeof mod === 'function') {
+					mod = mod.call(dt, e, dt, node, config);
+				}
+
+				this[items + 's'](mod).select();
+			}
+			else {
+				this[items + 's']().select();
+			}
 		}
+		// selectorModifier can be specified
 	},
 	selectNone: {
-		text: i18n( 'selectNone', 'Deselect all' ),
+		text: i18n('selectNone', 'Deselect all'),
 		className: 'buttons-select-none',
 		action: function () {
-			clear( this.settings()[0], true );
+			clear(this.settings()[0], true);
 		},
-		init: function ( dt, node, config ) {
+		init: function (dt, node, config) {
 			var that = this;
-			config._eventNamespace = '.select'+(_buttonNamespace++);
+			config._eventNamespace = '.select' + _buttonNamespace++;
 
-			dt.on( namespacedEvents(config), function () {
-				var count = dt.rows( { selected: true } ).flatten().length +
-				            dt.columns( { selected: true } ).flatten().length +
-				            dt.cells( { selected: true } ).flatten().length;
+			dt.on(namespacedEvents(config), function () {
+				var count =
+					dt.rows({ selected: true }).flatten().length +
+					dt.columns({ selected: true }).flatten().length +
+					dt.cells({ selected: true }).flatten().length;
 
-				that.enable( count > 0 );
-			} );
+				that.enable(count > 0);
+			});
 
 			this.disable();
 		},
-		destroy: function ( dt, node, config ) {
-			dt.off( config._eventNamespace );
+		destroy: function (dt, node, config) {
+			dt.off(config._eventNamespace);
 		}
 	},
 	showSelected: {
-		text: i18n( 'showSelected', 'Show only selected' ),
+		text: i18n('showSelected', 'Show only selected'),
 		className: 'buttons-show-selected',
 		action: function (e, dt, node, conf) {
 			// Works by having a filtering function which will reduce to the selected
@@ -3360,7 +3732,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0__.extend( datatables_net__WEBPACK_IMPORTED_MOD
 					let row = s.aoData[idx];
 
 					return row._select_selected;
-				}
+				};
 
 				conf._filter = fn;
 				datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.search.push(fn);
@@ -3371,29 +3743,28 @@ jquery__WEBPACK_IMPORTED_MODULE_0__.extend( datatables_net__WEBPACK_IMPORTED_MOD
 			dt.draw();
 		}
 	}
-} );
+});
 
-jquery__WEBPACK_IMPORTED_MODULE_0__.each( [ 'Row', 'Column', 'Cell' ], function ( i, item ) {
+$.each(['Row', 'Column', 'Cell'], function (i, item) {
 	var lc = item.toLowerCase();
 
-	datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.buttons[ 'select'+item+'s' ] = {
-		text: i18n( 'select'+item+'s', 'Select '+lc+'s' ),
-		className: 'buttons-select-'+lc+'s',
+	datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].ext.buttons['select' + item + 's'] = {
+		text: i18n('select' + item + 's', 'Select ' + lc + 's'),
+		className: 'buttons-select-' + lc + 's',
 		action: function () {
-			this.select.items( lc );
+			this.select.items(lc);
 		},
-		init: function ( dt ) {
+		init: function (dt) {
 			var that = this;
 
-			dt.on( 'selectItems.dt.DT', function ( e, ctx, items ) {
-				that.active( items === lc );
-			} );
+			dt.on('selectItems.dt.DT', function (e, ctx, items) {
+				that.active(items === lc);
+			});
 		}
 	};
-} );
+});
 
-
-jquery__WEBPACK_IMPORTED_MODULE_0__.fn.DataTable.select = datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select;
+$.fn.DataTable.select = datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select;
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Initialisation
@@ -3403,13 +3774,13 @@ jquery__WEBPACK_IMPORTED_MODULE_0__.fn.DataTable.select = datatables_net__WEBPAC
 // this required that the table be in the document! If it isn't then something
 // needs to trigger this method unfortunately. The next major release of
 // DataTables will rework the events and address this.
-jquery__WEBPACK_IMPORTED_MODULE_0__(document).on( 'preInit.dt.dtSelect', function (e, ctx) {
-	if ( e.namespace !== 'dt' ) {
+$(document).on('preInit.dt.dtSelect', function (e, ctx) {
+	if (e.namespace !== 'dt') {
 		return;
 	}
 
-	datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init( new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api( ctx ) );
-} );
+	datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].select.init(new datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"].Api(ctx));
+});
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (datatables_net__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -3428,19 +3799,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-/*! DataTables 1.13.2
+/*! DataTables 1.13.7
  * ©2008-2023 SpryMedia Ltd - datatables.net/license
  */
 
 
 
 // DataTables code uses $ internally, but we want to be able to
-// reassign $ with the `use` method below, so it is a regular var.
-let $ = jquery__WEBPACK_IMPORTED_MODULE_0__;
+// reassign $ with the `use` method, so it is a regular var.
+var $ = jquery__WEBPACK_IMPORTED_MODULE_0__;
 
 
 var DataTable = function ( selector, options )
 {
+	// Check if called with a window or jQuery object for DOM less applications
+	// This is for backwards compatibility
+	if (DataTable.factory(selector, options)) {
+		return DataTable;
+	}
+
 	// When creating with `new`, create a new DataTable, returning the API instance
 	if (this instanceof DataTable) {
 		return $(selector).DataTable(options);
@@ -4545,6 +4922,7 @@ var DataTable = function ( selector, options )
 							type:   sort !== null   ? i+'.@data-'+sort   : undefined,
 							filter: filter !== null ? i+'.@data-'+filter : undefined
 						};
+						col._isArrayHost = true;
 		
 						_fnColumnOptions( oSettings, i );
 					}
@@ -4711,7 +5089,7 @@ var _re_date = /^\d{2,4}[\.\/\-]\d{1,2}[\.\/\-]\d{1,2}([T ]{1}\d{1,2}[:\.]\d{2}(
 // Escape regular expression special characters
 var _re_escape_regex = new RegExp( '(\\' + [ '/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\', '$', '^', '-' ].join('|\\') + ')', 'g' );
 
-// http://en.wikipedia.org/wiki/Foreign_exchange_market
+// https://en.wikipedia.org/wiki/Foreign_exchange_market
 // - \u20BD - Russian ruble.
 // - \u20a9 - South Korean Won
 // - \u20BA - Turkish Lira
@@ -4750,7 +5128,7 @@ var _numToDecimal = function ( num, decimalPoint ) {
 
 
 var _isNumber = function ( d, decimalPoint, formatted ) {
-	let type = typeof d;
+	var type = typeof d;
 	var strType = type === 'string';
 
 	if ( type === 'number' || type === 'bigint') {
@@ -4884,7 +5262,9 @@ var _removeEmpty = function ( a )
 
 
 var _stripHtml = function ( d ) {
-	return d.replace( _re_html, '' );
+	return d
+		.replace( _re_html, '' ) // Complete tags
+		.replace(/<script/i, ''); // Safety for incomplete script tag
 };
 
 
@@ -5258,7 +5638,10 @@ DataTable.util = {
 							continue;
 						}
 	
-						if ( data === null || data[ a[i] ] === undefined ) {
+						if (data === null || data[ a[i] ] === null) {
+							return null;
+						}
+						else if ( data === undefined || data[ a[i] ] === undefined ) {
 							return undefined;
 						}
 
@@ -5705,6 +6088,12 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 			oCol.aDataSort = [ oOptions.iDataSort ];
 		}
 		_fnMap( oCol, oOptions, "aDataSort" );
+
+		// Fall back to the aria-label attribute on the table header if no ariaTitle is
+		// provided.
+		if (! oCol.ariaTitle) {
+			oCol.ariaTitle = th.attr("aria-label");
+		}
 	}
 
 	/* Cache the data get and set functions for speed */
@@ -5733,7 +6122,7 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 
 	// Indicate if DataTables should read DOM data as an object or array
 	// Used in _fnGetRowElements
-	if ( typeof mDataSrc !== 'number' ) {
+	if ( typeof mDataSrc !== 'number' && ! oCol._isArrayHost ) {
 		oSettings._rowReadObject = true;
 	}
 
@@ -7429,11 +7818,16 @@ function _fnAjaxUpdate( settings )
 	settings.iDraw++;
 	_fnProcessingDisplay( settings, true );
 
+	// Keep track of drawHold state to handle scrolling after the Ajax call
+	var drawHold = settings._drawHold;
+
 	_fnBuildAjax(
 		settings,
 		_fnAjaxParameters( settings ),
 		function(json) {
+			settings._drawHold = drawHold;
 			_fnAjaxUpdateDraw( settings, json );
+			settings._drawHold = false;
 		}
 	);
 }
@@ -7663,7 +8057,7 @@ function _fnFeatureHtmlFilter ( settings )
 		/* Update all other filter input elements for the new display */
 		var n = features.f;
 		var val = !this.value ? "" : this.value; // mental IE8 fix :-(
-		if(previousSearch.return && event.key !== "Enter") {
+		if(previousSearch['return'] && event.key !== "Enter") {
 			return;
 		}
 		/* Now do the filter */
@@ -7673,7 +8067,7 @@ function _fnFeatureHtmlFilter ( settings )
 				"bRegex": previousSearch.bRegex,
 				"bSmart": previousSearch.bSmart ,
 				"bCaseInsensitive": previousSearch.bCaseInsensitive,
-				"return": previousSearch.return
+				"return": previousSearch['return']
 			} );
 
 			// Need to redraw, without resorting
@@ -7697,7 +8091,7 @@ function _fnFeatureHtmlFilter ( settings )
 				_fnThrottle( searchFn, searchDelay ) :
 				searchFn
 		)
-		.on( 'mouseup', function(e) {
+		.on( 'mouseup.DT', function(e) {
 			// Edge fix! Edge 17 does not trigger anything other than mouse events when clicking
 			// on the clear icon (Edge bug 17584515). This is safe in other browsers as `searchFn`
 			// checks the value to see if it has changed. In other browsers it won't have.
@@ -7748,7 +8142,7 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
 		oPrevSearch.bRegex = oFilter.bRegex;
 		oPrevSearch.bSmart = oFilter.bSmart;
 		oPrevSearch.bCaseInsensitive = oFilter.bCaseInsensitive;
-		oPrevSearch.return = oFilter.return;
+		oPrevSearch['return'] = oFilter['return'];
 	};
 	var fnRegex = function ( o ) {
 		// Backwards compatibility with the bEscapeRegex option
@@ -7763,7 +8157,7 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
 	if ( _fnDataSource( oSettings ) != 'ssp' )
 	{
 		/* Global filter */
-		_fnFilter( oSettings, oInput.sSearch, iForce, fnRegex(oInput), oInput.bSmart, oInput.bCaseInsensitive, oInput.return );
+		_fnFilter( oSettings, oInput.sSearch, iForce, fnRegex(oInput), oInput.bSmart, oInput.bCaseInsensitive );
 		fnSaveFilter( oInput );
 
 		/* Now do the individual column filter */
@@ -7932,9 +8326,13 @@ function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
 		 * 
 		 * ^(?=.*?\bone\b)(?=.*?\btwo three\b)(?=.*?\bfour\b).*$
 		 */
-		var a = $.map( search.match( /"[^"]+"|[^ ]+/g ) || [''], function ( word ) {
+		var a = $.map( search.match( /["\u201C][^"\u201D]+["\u201D]|[^ ]+/g ) || [''], function ( word ) {
 			if ( word.charAt(0) === '"' ) {
 				var m = word.match( /^"(.*)"$/ );
+				word = m ? m[1] : word;
+			}
+			else if ( word.charAt(0) === '\u201C' ) {
+				var m = word.match( /^\u201C(.*)\u201D$/ );
 				word = m ? m[1] : word;
 			}
 
@@ -7996,7 +8394,7 @@ function _fnFilterData ( settings )
 				// If it looks like there is an HTML entity in the string,
 				// attempt to decode it so sorting works as expected. Note that
 				// we could use a single line of jQuery to do this, but the DOM
-				// method used here is much faster http://jsperf.com/html-decode
+				// method used here is much faster https://jsperf.com/html-decode
 				if ( cellData.indexOf && cellData.indexOf('&') !== -1 ) {
 					__filter_div.innerHTML = cellData;
 					cellData = __filter_div_textContent ?
@@ -8487,7 +8885,8 @@ function _fnFeatureHtmlProcessing ( settings )
 {
 	return $('<div/>', {
 			'id': ! settings.aanFeatures.r ? settings.sTableId+'_processing' : null,
-			'class': settings.oClasses.sProcessing
+			'class': settings.oClasses.sProcessing,
+			'role': 'status'
 		} )
 		.html( settings.oLanguage.sProcessing )
 		.append('<div><div></div><div></div><div></div><div></div></div>')
@@ -9020,11 +9419,13 @@ function _fnCalculateColumnWidths ( oSettings )
 	}
 
 	/* Convert any user input sizes into pixel sizes */
+	var sizes = _fnConvertToWidth(_pluck(columns, 'sWidthOrig'), tableContainer);
+
 	for ( i=0 ; i<visibleColumns.length ; i++ ) {
 		column = columns[ visibleColumns[i] ];
 
 		if ( column.sWidth !== null ) {
-			column.sWidth = _fnConvertToWidth( column.sWidthOrig, tableContainer );
+			column.sWidth = sizes[i];
 
 			userInputs = true;
 		}
@@ -9227,26 +9628,40 @@ var _fnThrottle = DataTable.util.throttle;
 
 
 /**
- * Convert a CSS unit width to pixels (e.g. 2em)
- *  @param {string} width width to be converted
+ * Convert a set of CSS units width to pixels (e.g. 2em)
+ *  @param {string[]} widths widths to be converted
  *  @param {node} parent parent to get the with for (required for relative widths) - optional
- *  @returns {int} width in pixels
+ *  @returns {int[]} widths in pixels
  *  @memberof DataTable#oApi
  */
-function _fnConvertToWidth ( width, parent )
+function _fnConvertToWidth ( widths, parent )
 {
-	if ( ! width ) {
-		return 0;
+	var els = [];
+	var results = [];
+
+	// Add the elements in a single loop so we only need to reflow once
+	for (var i=0 ; i<widths.length ; i++) {
+		if (widths[i]) {
+			els.push(
+				$('<div/>')
+					.css( 'width', _fnStringToCss( widths[i] ) )
+					.appendTo( parent || document.body )
+			)
+		}
+		else {
+			els.push(null);
+		}
 	}
 
-	var n = $('<div/>')
-		.css( 'width', _fnStringToCss( width ) )
-		.appendTo( parent || document.body );
+	// Get the sizes (will reflow once)
+	for (var i=0 ; i<widths.length ; i++) {
+		results.push(els[i] ? els[i][0].offsetWidth : null);
+	}
 
-	var val = n[0].offsetWidth;
-	n.remove();
+	// Tidy
+	$(els).remove();
 
-	return val;
+	return results;
 }
 
 
@@ -9981,7 +10396,7 @@ function _fnLog( settings, level, msg, tn )
 
 	if ( tn ) {
 		msg += '. For more information about this error, please see '+
-		'http://datatables.net/tn/'+tn;
+		'https://datatables.net/tn/'+tn;
 	}
 
 	if ( ! level  ) {
@@ -11912,7 +12327,13 @@ var __details_events = function ( settings )
 				row = data[i];
 
 				if ( row._details ) {
-					row._details.children('td[colspan]').attr('colspan', visible );
+					row._details.each(function () {
+						var el = $(this).children('td');
+
+						if (el.length == 1) {
+							el.attr('colspan', visible);
+						}
+					});
 				}
 			}
 		} );
@@ -12736,6 +13157,52 @@ _api_register( 'state.save()', function () {
 
 
 /**
+ * Set the jQuery or window object to be used by DataTables
+ *
+ * @param {*} module Library / container object
+ * @param {string} [type] Library or container type `lib`, `win` or `datetime`.
+ *   If not provided, automatic detection is attempted.
+ */
+DataTable.use = function (module, type) {
+	if (type === 'lib' || module.fn) {
+		$ = module;
+	}
+	else if (type == 'win' || module.document) {
+		window = module;
+		document = module.document;
+	}
+	else if (type === 'datetime' || module.type === 'DateTime') {
+		DataTable.DateTime = module;
+	}
+}
+
+/**
+ * CommonJS factory function pass through. This will check if the arguments
+ * given are a window object or a jQuery object. If so they are set
+ * accordingly.
+ * @param {*} root Window
+ * @param {*} jq jQUery
+ * @returns {boolean} Indicator
+ */
+DataTable.factory = function (root, jq) {
+	var is = false;
+
+	// Test if the first parameter is a window object
+	if (root && root.document) {
+		window = root;
+		document = root.document;
+	}
+
+	// Test if the second parameter is a jQuery object
+	if (jq && jq.fn && jq.fn.jquery) {
+		$ = jq;
+		is = true;
+	}
+
+	return is;
+}
+
+/**
  * Provide a common method for plug-ins to check the version of DataTables being
  * used, in order to ensure compatibility.
  *
@@ -13066,17 +13533,19 @@ _api_register( 'i18n()', function ( token, def, plural ) {
 			resolved._;
 	}
 
-	return resolved.replace( '%d', plural ); // nb: plural might be undefined,
+	return typeof resolved === 'string'
+		? resolved.replace( '%d', plural ) // nb: plural might be undefined,
+		: resolved;
 } );
 /**
  * Version string for plug-ins to check compatibility. Allowed format is
  * `a.b.c-d` where: a:int, b:int, c:int, d:string(dev|beta|alpha). `d` is used
- * only for non-release builds. See http://semver.org/ for more information.
+ * only for non-release builds. See https://semver.org/ for more information.
  *  @member
  *  @type string
  *  @default Version number
  */
-DataTable.version = "1.13.2";
+DataTable.version = "1.13.7";
 
 /**
  * Private data store, containing all of the settings objects that are
@@ -13652,7 +14121,7 @@ DataTable.defaults = {
 	 * --------
 	 *
 	 * As an object, the parameters in the object are passed to
-	 * [jQuery.ajax](http://api.jquery.com/jQuery.ajax/) allowing fine control
+	 * [jQuery.ajax](https://api.jquery.com/jQuery.ajax/) allowing fine control
 	 * of the Ajax request. DataTables has a number of default parameters which
 	 * you can override using this option. Please refer to the jQuery
 	 * documentation for a full description of the options available, although
@@ -15360,7 +15829,7 @@ DataTable.defaults = {
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "language": {
-		 *          "url": "http://www.sprymedia.co.uk/dataTables/lang.txt"
+		 *          "url": "https://www.sprymedia.co.uk/dataTables/lang.txt"
 		 *        }
 		 *      } );
 		 *    } );
@@ -18141,7 +18610,7 @@ $.extend( true, DataTable.ext.renderer, {
 			var btnDisplay, btnClass;
 
 			var attach = function( container, buttons ) {
-				var i, ien, node, button, tabIndex;
+				var i, ien, node, button;
 				var disabledClass = classes.sPageButtonDisabled;
 				var clickHandler = function ( e ) {
 					_fnPageChange( settings, e.data.action, true );
@@ -18156,9 +18625,10 @@ $.extend( true, DataTable.ext.renderer, {
 						attach( inner, button );
 					}
 					else {
+						var disabled = false;
+
 						btnDisplay = null;
 						btnClass = button;
-						tabIndex = settings.iTabIndex;
 
 						switch ( button ) {
 							case 'ellipsis':
@@ -18169,8 +18639,7 @@ $.extend( true, DataTable.ext.renderer, {
 								btnDisplay = lang.sFirst;
 
 								if ( page === 0 ) {
-									tabIndex = -1;
-									btnClass += ' ' + disabledClass;
+									disabled = true;
 								}
 								break;
 
@@ -18178,8 +18647,7 @@ $.extend( true, DataTable.ext.renderer, {
 								btnDisplay = lang.sPrevious;
 
 								if ( page === 0 ) {
-									tabIndex = -1;
-									btnClass += ' ' + disabledClass;
+									disabled = true;
 								}
 								break;
 
@@ -18187,8 +18655,7 @@ $.extend( true, DataTable.ext.renderer, {
 								btnDisplay = lang.sNext;
 
 								if ( pages === 0 || page === pages-1 ) {
-									tabIndex = -1;
-									btnClass += ' ' + disabledClass;
+									disabled = true;
 								}
 								break;
 
@@ -18196,8 +18663,7 @@ $.extend( true, DataTable.ext.renderer, {
 								btnDisplay = lang.sLast;
 
 								if ( pages === 0 || page === pages-1 ) {
-									tabIndex = -1;
-									btnClass += ' ' + disabledClass;
+									disabled = true;
 								}
 								break;
 
@@ -18210,18 +18676,20 @@ $.extend( true, DataTable.ext.renderer, {
 
 						if ( btnDisplay !== null ) {
 							var tag = settings.oInit.pagingTag || 'a';
-							var disabled = btnClass.indexOf(disabledClass) !== -1;
-		
+
+							if (disabled) {
+								btnClass += ' ' + disabledClass;
+							}
 
 							node = $('<'+tag+'>', {
 									'class': classes.sPageButton+' '+btnClass,
 									'aria-controls': settings.sTableId,
 									'aria-disabled': disabled ? 'true' : null,
 									'aria-label': aria[ button ],
-									'aria-role': 'link',
+									'role': 'link',
 									'aria-current': btnClass === classes.sPageButtonActive ? 'page' : null,
 									'data-dt-idx': button,
-									'tabindex': tabIndex,
+									'tabindex': disabled ? -1 : settings.iTabIndex,
 									'id': idx === 0 && typeof button === 'string' ?
 										settings.sTableId +'_'+ button :
 										null
@@ -18352,7 +18820,7 @@ var __numericReplace = function ( d, decimalPlace, re1, re2 ) {
 		return -Infinity;
 	}
 	
-	let type = typeof d;
+	var type = typeof d;
 
 	if (type === 'number' || type === 'bigint') {
 		return d;
@@ -18438,7 +18906,7 @@ $.extend( _ext.type.order, {
 	// string
 	"string-pre": function ( a ) {
 		// This is a little complex, but faster than always calling toString,
-		// http://jsperf.com/tostring-v-check
+		// https://jsperf.com/tostring-v-check
 		return _empty(a) ?
 			'' :
 			typeof a === 'string' ?
@@ -18726,7 +19194,7 @@ function __mlHelper (localeString) {
 var __thousands = ',';
 var __decimal = '.';
 
-if (Intl) {
+if (window.Intl !== undefined) {
 	try {
 		var num = new Intl.NumberFormat().formatToParts(100000.1);
 	
@@ -19004,15 +19472,6 @@ $.fn.DataTable = function ( opts ) {
 $.each( DataTable, function ( prop, val ) {
 	$.fn.DataTable[ prop ] = val;
 } );
-
-DataTable.use = function (module, type) {
-	if (type === 'lib' || module.fn) {
-		$ = module;
-	}
-	else if (type == 'win' || module.document) {
-		window = module;
-	}
-}
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DataTable);
 

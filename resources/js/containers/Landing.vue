@@ -3,8 +3,8 @@
         <div class="container-fluid">
             <a href="/landing" class="navbar-brand">
                 <img src="http://res.cloudinary.com/kemenagpessel/image/upload/v1678080743/arsip_masuk/o2w50c0hdc98alyizelk.jpg"
-                    alt="AdminLTE Logo" class="brand-image" style="opacity: .8">
-                <span class="brand-text font-weight-light">SIKM KemenagPessel</span>
+                    alt="AdminLTE Logo" class="brand-image" style="opacity: .8; display: inline-block;">
+                <span class="brand-text font-weight-light">SIKM KMGPESSEL</span>
             </a>
             <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,30 +29,143 @@
                             class="nav-link dropdown-toggle">Respon Survey</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow"
                             style="left: 0px; right: inherit;">
-                            <li><router-link to="response?status=submitted" class="dropdown-item">Submitted </router-link></li>
-                            <li><router-link to="response?status=rejected" class="dropdown-item">Rejected </router-link></li>
-                            <li><router-link to="response?status=approved" class="dropdown-item">Approved </router-link></li>
+                            <li><router-link to="response?status=submitted" class="dropdown-item">Submitted </router-link>
+                            </li>
+                            <li><router-link to="response?status=rejected" class="dropdown-item">Rejected </router-link>
+                            </li>
+                            <li><router-link to="response?status=approved" class="dropdown-item">Approved </router-link>
+                            </li>
                         </ul>
                     </li>
 
 
                     <li class="nav-item dropdown">
+                        <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            class="nav-link dropdown-toggle">Kepuasan Masyarakat</a>
+                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow"
+                            style="left: 0px; right: inherit;">
+                            <!-- <li><a href="#" class="dropdown-item">Some action </a></li>
+                            <li><a href="#" class="dropdown-item">Some other action</a></li>
+                            <li class="dropdown-divider"></li> -->
+
+                            <li class="dropdown-submenu dropdown-hover">
+                                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" class="dropdown-item dropdown-toggle">per Tahun</a>
+                                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                                    <!-- <li>
+                                        <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
+                                    </li> -->
+                                    <router-link tabindex="-1" to="rekap-tahunan?tipe_survey=ikm&year=2023"
+                                        class="dropdown-item">Tahun
+                                        2023</router-link>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-submenu dropdown-hover">
+                                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" class="dropdown-item dropdown-toggle">per Triwulan</a>
+                                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+
+                                    <li class="dropdown-submenu">
+                                        <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false"
+                                            class="dropdown-item dropdown-toggle">Tahun 2023</a>
+                                        <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
+
+                                            <router-link tabindex="-1" to="rekap-triwulan?tipe_survey=ikm&year=2023&quarter=1"
+                                                class="dropdown-item">Rekapitulasi Triwulan I</router-link>
+                                            <router-link tabindex="-1" to="rekap-triwulan?tipe_survey=ikm&year=2023&quarter=2"
+                                                class="dropdown-item">Rekapitulasi Triwulan II</router-link>
+                                            <router-link tabindex="-1" to="rekap-triwulan?tipe_survey=ikm&year=2023&quarter=3"
+                                                class="dropdown-item">Rekapitulasi Triwulan III</router-link>
+                                            <router-link tabindex="-1" to="rekap-triwulan?tipe_survey=ikm&year=2023&quarter=4"
+                                                class="dropdown-item">Rekapitulasi Triwulan IV</router-link>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+
+
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            class="nav-link dropdown-toggle">Persepsi Korupsi</a>
+                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow"
+                            style="left: 0px; right: inherit;">
+                            <!-- <li><a href="#" class="dropdown-item">Some action </a></li>
+                            <li><a href="#" class="dropdown-item">Some other action</a></li>
+                            <li class="dropdown-divider"></li> -->
+
+                            <li class="dropdown-submenu dropdown-hover">
+                                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" class="dropdown-item dropdown-toggle">per Tahun</a>
+                                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                                    <!-- <li>
+                                        <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
+                                    </li> -->
+                                    <router-link tabindex="-1" to="rekap-tahunan?tipe_survey=ipk&year=2023"
+                                        class="dropdown-item">Tahun
+                                        2023</router-link>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-submenu dropdown-hover">
+                                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" class="dropdown-item dropdown-toggle">per Triwulan</a>
+                                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+
+                                    <li class="dropdown-submenu">
+                                        <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false"
+                                            class="dropdown-item dropdown-toggle">Tahun 2023</a>
+                                        <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
+
+                                            <router-link tabindex="-1" to="rekap-triwulan?tipe_survey=ipk&year=2023&quarter=1"
+                                                class="dropdown-item">Rekapitulasi Triwulan I</router-link>
+                                            <router-link tabindex="-1" to="rekap-triwulan?tipe_survey=ipk&year=2023&quarter=2"
+                                                class="dropdown-item">Rekapitulasi Triwulan II</router-link>
+                                            <router-link tabindex="-1" to="rekap-triwulan?tipe_survey=ipk&year=2023&quarter=3"
+                                                class="dropdown-item">Rekapitulasi Triwulan III</router-link>
+                                            <router-link tabindex="-1" to="rekap-triwulan?tipe_survey=ipk&year=2023&quarter=4"
+                                                class="dropdown-item">Rekapitulasi Triwulan IV</router-link>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+
+
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <!-- <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             class="nav-link dropdown-toggle">Indeks Kepuasan Masyarakat</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow"
                             style="left: 0px; right: inherit;">
-                            <li><router-link to="rekap-tahunan?tipe_survey=ikm&year=2023" class="dropdown-item">Rekapitulasi</router-link></li>
+                            <li><router-link to="rekap-tahunan?tipe_survey=ikm&year=2023"
+                                    class="dropdown-item">Rekapitulasi</router-link></li>
                         </ul>
-                    </li>
+                    </li> -->
 
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                            class="nav-link dropdown-toggle">Indeks Persepsi Korupsi</a>
+                            class="nav-link dropdown-toggle">Persepsi Korupsi</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow"
                             style="left: 0px; right: inherit;">
-                            <li><router-link to="rekap-tahunan?tipe_survey=ipk&year=2023" class="dropdown-item">Rekapitulasi</router-link></li>
+                            <li><router-link to="rekap-tahunan?tipe_survey=ipk&year=2023"
+                                    class="dropdown-item">Rekapitulasi</router-link></li>
                         </ul>
-                    </li>
+                    </li> -->
+
+
+
+
 
                     <!-- <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"

@@ -586,7 +586,10 @@ Route::get('/get/surveys/{status}', function ($status) {
 
 Route::get('/get/rekapitulasi/{tipe_survey}/{year}', function ($tipe_survey, $year) {
 
-    $surveys = \App\Models\Survey::where('status', 'approved')->get();
+    $surveys = \App\Models\Survey::where('status', 'approved')
+        ->whereYear('submitted_at', $year)
+        ->get();
+
     $total_responden = $surveys->count();
 
     $unsur_sikm = \App\Models\Question::where('tipe', $tipe_survey)->get()
@@ -716,7 +719,7 @@ Route::get('/get/rekapitulasi/{tipe_survey}/{year}', function ($tipe_survey, $ye
         ->make(true);
 });
 
-Route::get('/get/rekapitulasi-triwulan/{quarter}', function ($quarter) {
+Route::get('/get/rekapitulasi-triwulan/{tipe_survey}/{year}/{quarter}', function ($tipe_survey, $year, $quarter) {
     $startDate = null;
     $endDate = null;
 
@@ -743,6 +746,135 @@ Route::get('/get/rekapitulasi-triwulan/{quarter}', function ($quarter) {
             break;
     }
 
+
+
+    // Modified
+    $surveys = \App\Models\Survey::where('status', 'approved')
+        ->whereBetween('submitted_at', [$startDate->format('Y-m-d') . " 00:00:00", $endDate->format('Y-m-d') . " 23:59:59"])
+        ->get();
+
+    // return $startDate->format('Y-m-d') . " 00:00:00" . '    -   ' . $endDate->format('Y-m-d') . " 23:59:59";
+
+
+    $total_responden = 0;
+    $genderMerged = 0;
+    $ageMerged = 0;
+    $educationMerged = 0;
+    $workMerged = 0;
+
+    $unsur_sikm = 0;
+    $nilai_sikm = 0;
+    $konversi = 0;
+    $mutuPelayanan = 0;
+    $rangkuman_responden = 0;
+
+    if (count($surveys)) {
+        $total_responden = $surveys->count();
+
+        $unsur_sikm = \App\Models\Question::where('tipe', $tipe_survey)->get()
+            ->map(function ($item, $key) use ($tipe_survey) {
+
+                $adder = $tipe_survey == 'ikm' ? 1 : 10;
+                return [
+                    'key' => $key + $adder,
+                    'unsur' => $item->factor
+                ];
+            })
+            ->all();
+
+        $nilai_sikm = 0;
+        foreach ($unsur_sikm as $key => $item) {
+            $summed = $surveys->sum('answer_' . $item['key']);
+            $counted = $surveys->count('answer_' . $item['key']);
+            $average = number_format($summed / $counted, 3);
+
+            $unsur_sikm[$key]['summed'] = $summed;
+            $unsur_sikm[$key]['counted'] = $counted;
+            $unsur_sikm[$key]['average'] = $average;
+            $divider = $tipe_survey == 'ikm' ? 9 : 6;
+            $weighted_average = number_format($average * (1 / $divider), 3);
+            $unsur_sikm[$key]['weighted_average'] = $weighted_average;
+            $nilai_sikm += $weighted_average;
+        }
+
+        $mutuPelayanan = '';
+        switch ($nilai_sikm) {
+            case $nilai_sikm > 3.26:
+                $mutuPelayanan = 'A (Sangat Baik)';
+                break;
+
+            case $nilai_sikm > 2.51 && $nilai_sikm <= 3.25:
+                $mutuPelayanan = 'B (Baik)';
+                break;
+
+            case $nilai_sikm > 1.76 && $nilai_sikm <= 2.5:
+                $mutuPelayanan = 'C (Kurang Baik)';
+                break;
+
+            case $nilai_sikm <= 1.75:
+                $mutuPelayanan = 'D (Buruk)';
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+        // asd
+        $genderArr = [
+            'Laki-laki' => 0,
+            'Perempuan' => 0
+        ];
+        $gender = $surveys->countBy('gender')->toArray();
+        $genderMerged = array_merge_recursive_distinct($genderArr, $gender);
+
+        $ageArr = [
+            'Dibawah 20 Tahun' => 0,
+            '21 s/d 30 Tahun' => 0,
+            '31 s/d 40 Tahun' => 0,
+            '41 s/d 50 Tahun' => 0,
+            'Diatas 50 Tahun' => 0
+        ];
+        $age = $surveys->countBy('age')->toArray();
+        $ageMerged = array_merge_recursive_distinct($ageArr, $age);
+
+        $educationArr = [
+            'SD' => 0,
+            'SMP atau Sederajat' => 0,
+            'SMA atau Sederajat' => 0,
+            'Strata 1 (S1)' => 0,
+            'Strata 2 (S2)' => 0,
+            'Strata 3 (S3)' => 0,
+        ];
+        $education = $surveys->countBy('education')->toArray();
+        $educationMerged = array_merge_recursive_distinct($educationArr, $education);
+
+        $workArr = [
+            'PNS / TNI / POLRI' => 0,
+            'Pegawai Swasta' => 0,
+            'Wiraswasta' => 0,
+            'Tenaga Honor / Ahli / Kontrak' => 0,
+            'Pelajar / Mahasiswa' => 0,
+            'Lainnya' => 0
+        ];
+        $work = $surveys->countBy('work')->toArray();
+        $workMerged = array_merge_recursive_distinct($workArr, $work);
+
+
+        $rangkuman_responden =  [
+            'total_responden' => $total_responden,
+            'gender' => $genderMerged,
+            'age' => $ageMerged,
+            'education' => $educationMerged,
+            'work' => $workMerged,
+        ];
+
+        $konversi = number_format((($nilai_sikm / 4) * 100), 2);
+    }
+
+
+    // End of Modified
+
     // return $startDate->toDateTimeString() . '     -    ' . $endDate->toDateTimeString();
 
     $rekap = \App\Models\RekapTriwulan::where([
@@ -759,11 +891,18 @@ Route::get('/get/rekapitulasi-triwulan/{quarter}', function ($quarter) {
             return $btn;
         })
         ->rawColumns(['aksi'])
+        ->with([
+            'factored_recapitulation' => $unsur_sikm,
+            'nilai_sikm' => number_format($nilai_sikm, 2),
+            'konversi' => $konversi,
+            'mutu_pelayanan' => $mutuPelayanan,
+            'rangkuman_responden' => $rangkuman_responden,
+        ])
         ->make(true);
 });
 
 Route::get('/reset-to-submitted/{year}', function ($year) {
-    $surveys = \App\Models\Survey::whereYear('created_at', $year)->get();
+    $surveys = \App\Models\Survey::whereYear('submitted_at', $year)->get();
 
     foreach ($surveys as $key => $survey) {
         $survey->status = 'submitted';
@@ -774,7 +913,7 @@ Route::get('/reset-to-submitted/{year}', function ($year) {
 });
 
 Route::get('/pull-to-approved/{year}', function ($year) {
-    $surveys = \App\Models\Survey::whereYear('created_at', $year)->get();
+    $surveys = \App\Models\Survey::whereYear('submitted_at', $year)->get();
 
     foreach ($surveys as $key => $survey) {
         $survey->status = 'approved';
@@ -785,7 +924,7 @@ Route::get('/pull-to-approved/{year}', function ($year) {
 });
 
 Route::get('/reset-recapitulation/{year}', function ($year) {
-    $surveys = \App\Models\Survey::whereYear('created_at', $year)->get();
+    $surveys = \App\Models\Survey::whereYear('submitted_at', $year)->get();
 
     // foreach ($surveys as $key => $survey) {
     //     $survey->status = 'submitted';
@@ -1071,4 +1210,191 @@ Route::get('/unit-rekap-tahunan/{tipe_survey}/{year}', function ($tipe_survey, $
         ->get();
 
     return $rekaps;
+});
+
+Route::get('/cetak_tabulasi/{tipe_survey}/{year}/{quarter}', function ($tipe_survey, $year, $quarter =  null) {
+
+    $rekaps = \App\Models\UnitRekapTahunan::where([
+        'tahun' => $year,
+        'tipe_survey' => $tipe_survey
+    ])
+        ->get();
+
+    return $rekaps;
+});
+
+Route::get('/cetak_hasil/{tipe_survey}/{year}/{quarter?}', function ($tipe_survey, $year, $quarter =  null) {
+
+    $total_responden = 0;
+    $genderMerged = 0;
+    $ageMerged = 0;
+    $educationMerged = 0;
+    $workMerged = 0;
+
+    $unsur_sikm = 0;
+    $nilai_sikm = 0;
+    $konversi = 0;
+    $mutuPelayanan = 0;
+    $rangkuman_responden = 0;
+
+    if ($quarter) {
+        $startDate = null;
+        $endDate = null;
+
+        switch ($quarter) {
+            case '1':
+                $startDate = Carbon::now()->month(1)->startOfQuarter();
+                $endDate = Carbon::now()->month(1)->endOfQuarter();
+                break;
+            case '2':
+                $startDate = Carbon::now()->month(4)->startOfQuarter();
+                $endDate = Carbon::now()->month(4)->endOfQuarter();
+                break;
+            case '3':
+                $startDate = Carbon::now()->month(7)->startOfQuarter();
+                $endDate = Carbon::now()->month(7)->endOfQuarter();
+                break;
+            case '4':
+                $startDate = Carbon::now()->month(10)->startOfQuarter();
+                $endDate = Carbon::now()->month(10)->endOfQuarter();
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+        // Modified
+        $surveys = \App\Models\Survey::where('status', 'approved')
+            ->whereBetween('submitted_at', [$startDate->format('Y-m-d') . " 00:00:00", $endDate->format('Y-m-d') . " 23:59:59"])
+            ->get();
+    } else {
+        $surveys = \App\Models\Survey::where('status', 'approved')
+            ->whereYear('submitted_at', $year)
+            ->get();
+    }
+
+    // Calculated
+
+    $total_responden = $surveys->count();
+
+    $unsur_sikm = \App\Models\Question::where('tipe', $tipe_survey)->get()
+        ->map(function ($item, $key) use ($tipe_survey) {
+
+            $adder = $tipe_survey == 'ikm' ? 1 : 10;
+            return [
+                'key' => $key + $adder,
+                'unsur' => $item->factor
+            ];
+        })
+        ->all();
+
+
+    $nilai_sikm = 0;
+    foreach ($unsur_sikm as $key => $item) {
+        $summed = $surveys->sum('answer_' . $item['key']);
+        $counted = $surveys->count('answer_' . $item['key']);
+        $average = number_format($summed / $counted, 3);
+
+        $unsur_sikm[$key]['summed'] = $summed;
+        $unsur_sikm[$key]['counted'] = $counted;
+        $unsur_sikm[$key]['average'] = $average;
+        $divider = $tipe_survey == 'ikm' ? 9 : 6;
+        $weighted_average = number_format($average * (1 / $divider), 3);
+        $unsur_sikm[$key]['weighted_average'] = $weighted_average;
+        $nilai_sikm += $weighted_average;
+    }
+
+    $mutuPelayanan = '';
+    switch ($nilai_sikm) {
+        case $nilai_sikm > 3.26:
+            $mutuPelayanan = 'A (Sangat Baik)';
+            break;
+
+        case $nilai_sikm > 2.51 && $nilai_sikm <= 3.25:
+            $mutuPelayanan = 'B (Baik)';
+            break;
+
+        case $nilai_sikm > 1.76 && $nilai_sikm <= 2.5:
+            $mutuPelayanan = 'C (Kurang Baik)';
+            break;
+
+        case $nilai_sikm <= 1.75:
+            $mutuPelayanan = 'D (Buruk)';
+            break;
+
+        default:
+            # code...
+            break;
+    }
+
+    // asd
+    $genderArr = [
+        'Laki-laki' => 0,
+        'Perempuan' => 0
+    ];
+    $gender = $surveys->countBy('gender')->toArray();
+    $genderMerged = array_merge_recursive_distinct($genderArr, $gender);
+
+    $ageArr = [
+        'Dibawah 20 Tahun' => 0,
+        '21 s/d 30 Tahun' => 0,
+        '31 s/d 40 Tahun' => 0,
+        '41 s/d 50 Tahun' => 0,
+        'Diatas 50 Tahun' => 0
+    ];
+    $age = $surveys->countBy('age')->toArray();
+    $ageMerged = array_merge_recursive_distinct($ageArr, $age);
+
+    $educationArr = [
+        'SD' => 0,
+        'SMP atau Sederajat' => 0,
+        'SMA atau Sederajat' => 0,
+        'Strata 1 (S1)' => 0,
+        'Strata 2 (S2)' => 0,
+        'Strata 3 (S3)' => 0,
+    ];
+    $education = $surveys->countBy('education')->toArray();
+    $educationMerged = array_merge_recursive_distinct($educationArr, $education);
+
+    $workArr = [
+        'PNS / TNI / POLRI' => 0,
+        'Pegawai Swasta' => 0,
+        'Wiraswasta' => 0,
+        'Tenaga Honor / Ahli / Kontrak' => 0,
+        'Pelajar / Mahasiswa' => 0,
+        'Lainnya' => 0
+    ];
+    $work = $surveys->countBy('work')->toArray();
+    $workMerged = array_merge_recursive_distinct($workArr, $work);
+
+
+    $rangkuman_responden =  [
+        'total_responden' => $total_responden,
+        'gender' => $genderMerged,
+        'age' => $ageMerged,
+        'education' => $educationMerged,
+        'work' => $workMerged,
+    ];
+
+    $konversi = number_format((($nilai_sikm / 4) * 100), 2);
+
+    // End of Calculated
+
+    $response = [
+        'factored_recapitulation' => $unsur_sikm,
+        'nilai_sikm' => number_format($nilai_sikm, 2),
+        'konversi' => $konversi,
+        'mutu_pelayanan' => $mutuPelayanan,
+        'rangkuman_responden' => $rangkuman_responden,
+        'year' => $year,
+        'tipe_survey' => $tipe_survey,
+        'quarter' => $quarter
+    ];
+
+    // return $response;
+
+    return view('cetak_hasil', $response);
+    // return $response;
+
 });
