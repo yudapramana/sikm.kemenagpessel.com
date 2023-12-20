@@ -136,7 +136,7 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}" type="text/css">
 </head>
 
-<body>
+<body onload="window.print()">
     <div class="book">
         <div class="page">
             <div class="subpage">
