@@ -317,11 +317,11 @@
                     <div class="card">
                         <div class="card-body">
                             <button type="button" class="btn btn-primary p2 m-2">
-                                <a class="text-white" :href="ct_url" target="_blank"
+                                <a class="text-white" :href="'/api/cetak_tabulasi/'+ tipe_survey + '/' + year" target="_blank"
                                     rel="noopener noreferrer">Cetak Tabulasi Data</a>
                             </button>
                             <button type="button" class="btn btn-secondary p2 m-2">
-                                <a class="text-white" :href="ch_url" target="_blank"
+                                <a class="text-white" :href="'/api/cetak_hasil/'+ tipe_survey + '/' + year" target="_blank"
                                     rel="noopener noreferrer">Cetak Hasil</a>
                             </button>
 

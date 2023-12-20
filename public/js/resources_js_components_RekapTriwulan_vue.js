@@ -45,8 +45,8 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
     return {
       data: [],
       factored_recapitulation: [],
-      ct_url: '/api/cetak_tabulasi/' + this.$route.query.tipe_survey + '/' + this.$route.query.year + '/' + this.$route.query.quarter,
-      ch_url: '/api/cetak_hasil/' + this.$route.query.tipe_survey + '/' + this.$route.query.year + '/' + this.$route.query.quarter,
+      ct_url: '/api/cetak_tabulasi/' + this.tipe_survey + '/' + this.year + '/' + this.quarter,
+      ch_url: '/api/cetak_hasil/' + this.tipe_survey + '/' + this.year + '/' + this.quarter,
       nilai_sikm: 0,
       konversi: 0,
       mutu_pelayanan: '',
@@ -138,6 +138,7 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
       console.log('quarter');
       console.log(quarter);
       this.quarter = this.$route.query.quarter;
+      this.triwulan = this.$route.query.quarter;
       this.$Progress.start();
       this.loadData();
     },
@@ -598,12 +599,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["columns", "data"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_72, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_73, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_74, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_75, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_76, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "text-white",
-    href: $data.ct_url,
+    href: '/api/cetak_tabulasi/' + _ctx.tipe_survey + '/' + $data.year + '/' + $data.triwulan,
     target: "_blank",
     rel: "noopener noreferrer"
   }, "Cetak Tabulasi Data", 8 /* PROPS */, _hoisted_77)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_78, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "text-white",
-    href: $data.ch_url,
+    href: '/api/cetak_hasil/' + _ctx.tipe_survey + '/' + $data.year + '/' + $data.triwulan,
     target: "_blank",
     rel: "noopener noreferrer"
   }, "Cetak Hasil", 8 /* PROPS */, _hoisted_79)])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"row\">\r\n                <div class=\"col-lg\">\r\n                    <div class=\"card\">\r\n                        <div class=\"card-header\">\r\n                            <h4 class=\"card-title m-0\">Rekapitulasi per <strong>Seksi</strong></h4>\r\n                            <a :href=\"calcurl + year\">Sinkronkan</a>\r\n                        </div>\r\n                    </div>\r\n\r\n\r\n                    <div class=\"mb-3 text-center row\">\r\n                        <div class=\"col-md-3\" v-for=\"item in dataunit\" :key=\"item.id_unit_rekap_triwulan\">\r\n                            <div class=\"card mb-4 shadow-sm\">\r\n                                <div class=\"card-header\" style=\"height: 80px !important;\">\r\n                                    <h4 class=\"my-0 font-weight-normal\">{{ item.unit.name }}</h4>\r\n                                </div>\r\n                                <div class=\"card-body\">\r\n                                    <h1>{{ item.konversi }}</h1>\r\n                                    <h3>{{ item.mutu_pelayanan }}</h3>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n\r\n                    </div>\r\n\r\n\r\n\r\n\r\n                </div>\r\n            </div> ")])])], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */);

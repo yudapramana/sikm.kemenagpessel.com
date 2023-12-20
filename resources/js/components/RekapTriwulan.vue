@@ -270,11 +270,11 @@
                     <div class="card">
                         <div class="card-body">
                             <button type="button" class="btn btn-primary p2 m-2">
-                                <a class="text-white" :href="ct_url" target="_blank"
+                                <a class="text-white" :href="'/api/cetak_tabulasi/'+ tipe_survey + '/' + year + '/' +  triwulan" target="_blank"
                                     rel="noopener noreferrer">Cetak Tabulasi Data</a>
                             </button>
                             <button type="button" class="btn btn-secondary p2 m-2">
-                                <a class="text-white" :href="ch_url" target="_blank"
+                                <a class="text-white" :href="'/api/cetak_hasil/'+ tipe_survey + '/' + year + '/' +  triwulan" target="_blank"
                                     rel="noopener noreferrer">Cetak Hasil</a>
                             </button>
 
@@ -350,8 +350,8 @@ export default {
         return {
             data: [],
             factored_recapitulation: [],
-            ct_url: '/api/cetak_tabulasi/' + this.$route.query.tipe_survey + '/' + this.$route.query.year + '/' + this.$route.query.quarter,
-            ch_url: '/api/cetak_hasil/' + this.$route.query.tipe_survey + '/' + this.$route.query.year + '/' + this.$route.query.quarter,
+            ct_url: '/api/cetak_tabulasi/' + this.tipe_survey + '/' + this.year + '/' + this.quarter,
+            ch_url: '/api/cetak_hasil/' + this.tipe_survey + '/' + this.year + '/' + this.quarter,
             nilai_sikm: 0,
             konversi: 0,
             mutu_pelayanan: '',
@@ -436,6 +436,7 @@ export default {
                 console.log('quarter');
                 console.log(quarter);
                 this.quarter = this.$route.query.quarter;
+                this.triwulan = this.$route.query.quarter;
                 this.$Progress.start();
                 this.loadData();
             },
