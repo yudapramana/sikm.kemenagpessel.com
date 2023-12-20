@@ -1212,15 +1212,88 @@ Route::get('/unit-rekap-tahunan/{tipe_survey}/{year}', function ($tipe_survey, $
     return $rekaps;
 });
 
-Route::get('/cetak_tabulasi/{tipe_survey}/{year}/{quarter}', function ($tipe_survey, $year, $quarter =  null) {
+Route::get('/cetak_tabulasi/{tipe_survey}/{year}/{quarter?}', function ($tipe_survey, $year, $quarter =  null) {
 
-    $rekaps = \App\Models\UnitRekapTahunan::where([
-        'tahun' => $year,
-        'tipe_survey' => $tipe_survey
-    ])
-        ->get();
+    if ($quarter) {
+        $startDate = null;
+        $endDate = null;
 
-    return $rekaps;
+        switch ($quarter) {
+            case '1':
+                $startDate = Carbon::now()->month(1)->startOfQuarter();
+                $endDate = Carbon::now()->month(1)->endOfQuarter();
+                break;
+            case '2':
+                $startDate = Carbon::now()->month(4)->startOfQuarter();
+                $endDate = Carbon::now()->month(4)->endOfQuarter();
+                break;
+            case '3':
+                $startDate = Carbon::now()->month(7)->startOfQuarter();
+                $endDate = Carbon::now()->month(7)->endOfQuarter();
+                break;
+            case '4':
+                $startDate = Carbon::now()->month(10)->startOfQuarter();
+                $endDate = Carbon::now()->month(10)->endOfQuarter();
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+        // Modified
+        $surveys = \App\Models\Survey::where('status', 'approved')
+            ->whereBetween('submitted_at', [$startDate->format('Y-m-d') . " 00:00:00", $endDate->format('Y-m-d') . " 23:59:59"])
+            ->get();
+    } else {
+        $surveys = \App\Models\Survey::where('status', 'approved')
+            ->whereYear('submitted_at', $year)
+            ->get();
+    }
+
+
+    // Get Unsur SIKM
+    $unsur_sikm = \App\Models\Question::where('tipe', $tipe_survey)->get()
+        ->map(function ($item, $key) use ($tipe_survey) {
+
+            $adder = $tipe_survey == 'ikm' ? 1 : 10;
+            return [
+                'key' => $key + $adder,
+                'unsur' => $item->factor
+            ];
+        })
+        ->all();
+
+    $summedTotal = 0;
+    $summedAvg = 0;
+    $summedWeighted = 0;
+    foreach ($unsur_sikm as $key => $item) {
+        $summed = $surveys->sum('answer_' . $item['key']);
+        $counted = $surveys->count('answer_' . $item['key']);
+        $average = number_format($summed / $counted, 3);
+
+        $unsur_sikm[$key]['summed'] = $summed;
+        $summedTotal += $summed;
+        $unsur_sikm[$key]['counted'] = $counted;
+        $unsur_sikm[$key]['average'] = $average;
+        $summedAvg += $average;
+        $weighted = number_format((($average / 4) * 100), 2);
+        $unsur_sikm[$key]['weighted'] = $weighted;
+        $summedWeighted += $weighted;
+    }
+
+    
+
+    $data = [
+        'surveys' => $surveys,
+        'unsur_sikm' => $unsur_sikm,
+        'summed_total' => $summedTotal,
+        'summed_avg' => number_format($summedAvg / 9, 5),
+        'summed_weighted' => number_format($summedWeighted / 9, 5),
+    ];
+
+    return view('cetak_tabulasi', $data);
+
 });
 
 Route::get('/cetak_hasil/{tipe_survey}/{year}/{quarter?}', function ($tipe_survey, $year, $quarter =  null) {
@@ -1398,3 +1471,6 @@ Route::get('/cetak_hasil/{tipe_survey}/{year}/{quarter?}', function ($tipe_surve
     // return $response;
 
 });
+
+
+
