@@ -1021,13 +1021,17 @@ Route::get('/calc-recap-quarter/{tipe_survey}/{year}', function ($tipe_survey, $
         $rTotalAvgIndividu = $rekapTriwulan->total_average_individu;
 
         $nJumlahResponden = $rJumlahResponden + 1;
-        $nTotalAvgIndividu = $rTotalAvgIndividu + $survey->average;
+
+        $average = $tipe_survey == 'ikm' ? $survey->nilai_ikm : $survey->nilai_ipk;
+
+        $nTotalAvgIndividu = $rTotalAvgIndividu + $average;
         $index_pelayanan = round($nTotalAvgIndividu / $nJumlahResponden, 2);
 
 
         $rekapTriwulan->jumlah_responden = $nJumlahResponden;
         $rekapTriwulan->total_average_individu = $nTotalAvgIndividu;
         $rekapTriwulan->index_pelayanan = $index_pelayanan;
+        $rekapTriwulan->tipe_survey = $tipe_survey;
 
         $mutuPelayanan = null;
 
