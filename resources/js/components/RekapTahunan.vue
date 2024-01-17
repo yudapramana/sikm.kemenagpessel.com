@@ -333,7 +333,7 @@
             </div>
 
 
-            <!-- <div class="row">
+            <div class="row">
                 <div class="col-lg">
                     <div class="card">
                         <div class="card-header">
@@ -349,7 +349,7 @@
                         <div class="col-md-3" v-for="item in dataunit" :key="item.id_unit_rekap_triwulan">
                             <div class="card mb-4 shadow-sm">
                                 <div class="card-header" style="height: 80px !important;">
-                                    <h4 class="my-0 font-weight-normal">{{ item.unit.name }}</h4>
+                                    <h4 class="my-0 font-weight-normal" style="font-size: smaller !important;">{{ item.unit.name }}</h4>
                                 </div>
                                 <div class="card-body">
                                     <h1>{{ item.konversi }}</h1>
@@ -365,7 +365,7 @@
 
 
                 </div>
-            </div> -->
+            </div>
 
             <!-- <div class="row">
 
