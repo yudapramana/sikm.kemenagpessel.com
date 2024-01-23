@@ -84,43 +84,64 @@ Route::get('/controlcenter/', function () {
             'named_route' => 'Reset Recapitulation',
             'route_uri' => '/api/reset-recapitulation/' . date("Y"),
             'full_uri' => $base_uri . '/api/reset-recapitulation/' . date("Y"),
-            'button' => '<a target="_blank" href="' . $base_uri . '/api/reset-recapitulation/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+            'button' => '
+            <a target="_blank" href="' . $base_uri . '/api/reset-recapitulation/2023" class="center text-center btn btn-sm btn-primary">2023</a>&nbsp
+            <a target="_blank" href="' . $base_uri . '/api/reset-recapitulation/2024" class="center text-center btn btn-sm btn-primary">2024</a>
+            '
         ],
         [
             'named_route' => 'Calculate IKM Recap Yearly',
             'route_uri' => '/api/calc-recap-year/ikm/' . date("Y"),
             'full_uri' => $base_uri . '/api/calc-recap-year/ikm/' . date("Y"),
-            'button' => '<a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ikm/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+            'button' => '
+            <a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ikm/2023" class="center text-center btn btn-sm btn-primary">2023</a>
+            <a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ikm/2024" class="center text-center btn btn-sm btn-primary">2024</a>
+            '
         ],
         [
             'named_route' => 'Calculate IPK Recap Yearly',
             'route_uri' => '/api/calc-recap-year/ipk/' . date("Y"),
             'full_uri' => $base_uri . '/api/calc-recap-year/ipk/' . date("Y"),
-            'button' => '<a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ipk/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+            'button' => '
+            <a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ipk/2023" class="center text-center btn btn-sm btn-primary">2023</a>
+            <a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ipk/2024" class="center text-center btn btn-sm btn-primary">2024</a>
+            '
         ],
         [
             'named_route' => 'Calculate IKM Recap Quarterly',
             'route_uri' => '/api/calc-recap-quarter/ikm/' . date("Y"),
             'full_uri' => $base_uri . '/api/calc-recap-quarter/ikm/' . date("Y"),
-            'button' => '<a target="_blank" href="' . $base_uri . '/api/calc-recap-quarter/ikm/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+            'button' => '
+            <a target="_blank" href="' . $base_uri . '/api/calc-recap-quarter/ikm/2023" class="center text-center btn btn-sm btn-primary">2023</a>
+            <a target="_blank" href="' . $base_uri . '/api/calc-recap-quarter/ikm/2024" class="center text-center btn btn-sm btn-primary">2024</a>
+            '
         ],
         [
             'named_route' => 'Calculate IPK Recap Quarterly',
             'route_uri' => '/api/calc-recap-quarter/ipk/' . date("Y"),
             'full_uri' => $base_uri . '/api/calc-recap-quarter/ipk/' . date("Y"),
-            'button' => '<a target="_blank" href="' . $base_uri . '/api/calc-recap-quarter/ipk/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+            'button' => '
+            <a target="_blank" href="' . $base_uri . '/api/calc-recap-quarter/ipk/2023" class="center text-center btn btn-sm btn-primary">2023</a>
+            <a target="_blank" href="' . $base_uri . '/api/calc-recap-quarter/ipk/2024" class="center text-center btn btn-sm btn-primary">2024</a>
+            '
         ],
         [
             'named_route' => 'Reset All to Submitted',
             'route_uri' => '/api/reset-to-submitted/' . date("Y"),
             'full_uri' => $base_uri . '/api/reset-to-submitted/' . date("Y"),
-            'button' => '<a target="_blank" href="' . $base_uri . '/api/reset-to-submitted/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+            'button' => '
+            <a target="_blank" href="' . $base_uri . '/api/reset-to-submitted/2023" class="center text-center btn btn-sm btn-primary">2023</a>
+            <a target="_blank" href="' . $base_uri . '/api/reset-to-submitted/2024" class="center text-center btn btn-sm btn-primary">2024</a>
+            '
         ],
         [
             'named_route' => 'Push to Approved',
             'route_uri' => '/pull-to-approved/' . date("Y"),
             'full_uri' => $base_uri . '/pull-to-approved/' . date("Y"),
-            'button' => '<a target="_blank" href="' . $base_uri . '/pull-to-approved/' . date("Y") . '" class="center text-center btn btn-sm btn-primary">Go</a>'
+            'button' => '
+            <a target="_blank" href="' . $base_uri . '/pull-to-approved/2023" class="center text-center btn btn-sm btn-primary">2023</a>
+            <a target="_blank" href="' . $base_uri . '/pull-to-approved/2024" class="center text-center btn btn-sm btn-primary">2024</a>
+            '
         ],
     ];
     return view('controlcenter', compact('arrayData'));
