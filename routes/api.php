@@ -934,12 +934,14 @@ Route::get('/reset-to-submitted/{year}', function ($year) {
 });
 
 Route::get('/pull-to-approved/{year}', function ($year) {
-    $surveys = \App\Models\Survey::whereYear('submitted_at', $year)->get();
+    // $surveys = \App\Models\Survey::whereYear('submitted_at', $year)->get();
+    $surveys = \App\Models\Survey::whereYear('submitted_at', $year)->update(['status' => 'approved']);
 
-    foreach ($surveys as $key => $survey) {
-        $survey->status = 'approved';
-        $survey->save();
-    }
+
+    // foreach ($surveys as $key => $survey) {
+    //     $survey->status = 'approved';
+    //     $survey->save();
+    // }
 
     return 'survey rekap resetted';
 });
