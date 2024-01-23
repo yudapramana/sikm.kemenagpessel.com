@@ -136,11 +136,11 @@ Route::get('/controlcenter/', function () {
         ],
         [
             'named_route' => 'Push to Approved',
-            'route_uri' => '/pull-to-approved/' . date("Y"),
+            'route_uri' => '/api/pull-to-approved/' . date("Y"),
             'full_uri' => $base_uri . '/pull-to-approved/' . date("Y"),
             'button' => '
-            <a target="_blank" href="' . $base_uri . '/pull-to-approved/2023" class="center text-center btn btn-sm btn-primary">2023</a>
-            <a target="_blank" href="' . $base_uri . '/pull-to-approved/2024" class="center text-center btn btn-sm btn-primary">2024</a>
+            <a target="_blank" href="' . $base_uri . '/api/pull-to-approved/2023" class="center text-center btn btn-sm btn-primary">2023</a>
+            <a target="_blank" href="' . $base_uri . '/api/pull-to-approved/2024" class="center text-center btn btn-sm btn-primary">2024</a>
             '
         ],
     ];
