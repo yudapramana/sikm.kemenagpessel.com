@@ -16,7 +16,7 @@ class DaftarLayanan extends Model
  
     protected $guarded = [];
 
-    protected $appends = ['idx_layanan'];
+    // protected $appends = ['idx_layanan'];
 
     public function unit() {
         return $this->belongsTo(UnitPengolah::class, 'id_unit_pengolah');
@@ -36,9 +36,9 @@ class DaftarLayanan extends Model
         ->withTimestamps();
     }
 
-    public function getIdxLayananAttribute()
-    {
-        return Hashids::encode( (int) $this->id_layanan);
-    }
+    // public function getIdxLayananAttribute()
+    // {
+    //     return (int) Hashids::encode( $this->id_layanan);
+    // }
    
 }
