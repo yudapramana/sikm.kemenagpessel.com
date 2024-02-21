@@ -38,7 +38,7 @@ class DaftarLayanan extends Model
 
     public function getIdxLayananAttribute()
     {
-        return Hashids::encode($this->id_layanan);
+        return Hashids::encode( (int) $this->id_layanan);
     }
    
 }
