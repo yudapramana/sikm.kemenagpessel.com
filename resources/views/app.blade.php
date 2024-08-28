@@ -17,7 +17,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         gtag('js', new Date());
 
         gtag('config', 'G-JRQC3TRN25');
-
     </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,7 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
 
     <script src="{{ asset('js/app.js') }}"></script>
-    {{--
+
     <script defer>
         document.addEventListener('load', function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
@@ -59,8 +58,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         !window.EQUALLY_AI_API_KEY && (window.EQUALLY_AI_API_KEY = "Pd3zEXpVDjkEOuUWmk7R", intervalId = setInterval(function() {
             window.EquallyAi && (clearInterval(intervalId), window.EquallyAi = new EquallyAi)
         }, 500));
-
-    </script> --}}
+    </script>
 
 </body>
 
