@@ -1064,7 +1064,7 @@ Route::get('/calc-recap-quarter/{tipe_survey}/{year}', function ($tipe_survey, $
         $mutuPelayanan = null;
 
         switch ($index_pelayanan) {
-            case $index_pelayanan > 3.26:
+            case $index_pelayanan > 3.25:
                 $mutuPelayanan = 'A (Sangat Baik)';
                 break;
 
