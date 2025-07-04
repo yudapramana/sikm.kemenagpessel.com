@@ -308,7 +308,7 @@ Route::post('/store/survey', function (Request $request) {
     // $mutuPelayanan = null;
 
     // switch ($index_pelayanan) {
-    //     case $index_pelayanan > 3.26:
+    //     case $index_pelayanan >= 3.26:
     //         $mutuPelayanan = 'A (Sangat Baik)';
     //         break;
 
@@ -365,7 +365,7 @@ Route::get('/survey/{status}/{id_survey}', function ($status, $id_survey) {
                 $mutuPelayanan = null;
 
                 switch ($index_pelayanan) {
-                    case $index_pelayanan > 3.26:
+                    case $index_pelayanan >= 3.26:
                         $mutuPelayanan = 'A (Sangat Baik)';
                         break;
 
@@ -417,7 +417,7 @@ Route::get('/survey/{status}/{id_survey}', function ($status, $id_survey) {
                 $mutuPelayanan = null;
 
                 switch ($index_pelayanan) {
-                    case $index_pelayanan > 3.26:
+                    case $index_pelayanan >= 3.26:
                         $mutuPelayanan = 'A (Sangat Baik)';
                         break;
 
@@ -642,7 +642,7 @@ Route::get('/get/rekapitulasi/{tipe_survey}/{year}', function ($tipe_survey, $ye
 
     $mutuPelayanan = '';
     switch ($nilai_sikm) {
-        case $nilai_sikm > 3.26:
+        case $nilai_sikm >= 3.26:
             $mutuPelayanan = 'A (Sangat Baik)';
             break;
 
@@ -820,7 +820,7 @@ Route::get('/get/rekapitulasi-triwulan/{tipe_survey}/{year}/{quarter}', function
 
         $mutuPelayanan = '';
         switch ($nilai_sikm) {
-            case $nilai_sikm > 3.26:
+            case $nilai_sikm >= 3.26:
                 $mutuPelayanan = 'A (Sangat Baik)';
                 break;
 
@@ -994,7 +994,7 @@ Route::get('/calc-recap-year/{tipe_survey}/{year}', function ($tipe_survey, $yea
 
         $mutuPelayanan = null;
         switch ($index_pelayanan) {
-            case $index_pelayanan > 3.26:
+            case $index_pelayanan >= 3.26:
                 $mutuPelayanan = 'A (Sangat Baik)';
                 break;
 
@@ -1064,7 +1064,7 @@ Route::get('/calc-recap-quarter/{tipe_survey}/{year}', function ($tipe_survey, $
         $mutuPelayanan = null;
 
         switch ($index_pelayanan) {
-            case $index_pelayanan > 3.25:
+            case $index_pelayanan >= 3.26:
                 $mutuPelayanan = 'A (Sangat Baik)';
                 break;
 
@@ -1136,7 +1136,7 @@ Route::get('/calc-recap-quarter/{tipe_survey}/{year}', function ($tipe_survey, $
         $mutuPelayanan = null;
 
         switch ($index_pelayanan) {
-            case $index_pelayanan > 3.26:
+            case $index_pelayanan >= 3.26:
                 $mutuPelayanan = 'A (Sangat Baik)';
                 break;
 
@@ -1196,7 +1196,7 @@ Route::get('/calc-recap-quarter/{tipe_survey}/{year}', function ($tipe_survey, $
         $mutuPelayanan = null;
 
         switch ($index_pelayanan) {
-            case $index_pelayanan > 3.26:
+            case $index_pelayanan >= 3.26:
                 $mutuPelayanan = 'A (Sangat Baik)';
                 break;
 
@@ -1412,7 +1412,7 @@ Route::get('/cetak_hasil/{tipe_survey}/{year}/{quarter?}', function ($tipe_surve
 
     $mutuPelayanan = '';
     switch ($nilai_sikm) {
-        case $nilai_sikm > 3.26:
+        case $nilai_sikm >= 3.26:
             $mutuPelayanan = 'A (Sangat Baik)';
             break;
 
