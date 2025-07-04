@@ -305,7 +305,7 @@ Route::post('/store/survey', function (Request $request) {
     // $rekapTahunan->total_average_individu = $nTotalAvgIndividu;
     // $rekapTahunan->index_pelayanan = $index_pelayanan;
 
-    // $mutuPelayanan = null;
+    // $mutuPelayanan = 'A (Sangat Baik)';
 
     // switch ($index_pelayanan) {
     //     case $index_pelayanan >= 3.26:
@@ -362,7 +362,7 @@ Route::get('/survey/{status}/{id_survey}', function ($status, $id_survey) {
                 $rekapTahunan->total_average_individu = $nTotalAvgIndividu;
                 $rekapTahunan->index_pelayanan = $index_pelayanan;
 
-                $mutuPelayanan = null;
+                $mutuPelayanan = 'A (Sangat Baik)';
 
                 switch ($index_pelayanan) {
                     case $index_pelayanan >= 3.26:
@@ -414,7 +414,7 @@ Route::get('/survey/{status}/{id_survey}', function ($status, $id_survey) {
                 $rekapTriwulan->total_average_individu = $nTotalAvgIndividu;
                 $rekapTriwulan->index_pelayanan = $index_pelayanan;
 
-                $mutuPelayanan = null;
+                $mutuPelayanan = 'A (Sangat Baik)';
 
                 switch ($index_pelayanan) {
                     case $index_pelayanan >= 3.26:
@@ -992,7 +992,7 @@ Route::get('/calc-recap-year/{tipe_survey}/{year}', function ($tipe_survey, $yea
             'index_pelayanan' => $index_pelayanan
         ]);
 
-        $mutuPelayanan = null;
+        $mutuPelayanan = 'A (Sangat Baik)';
         switch ($index_pelayanan) {
             case $index_pelayanan >= 3.26:
                 $mutuPelayanan = 'A (Sangat Baik)';
@@ -1061,10 +1061,10 @@ Route::get('/calc-recap-quarter/{tipe_survey}/{year}', function ($tipe_survey, $
         $rekapTriwulan->index_pelayanan = $index_pelayanan;
         $rekapTriwulan->tipe_survey = $tipe_survey;
 
-        $mutuPelayanan = null;
+        $mutuPelayanan = 'A (Sangat Baik)';
 
         switch ($index_pelayanan) {
-            case $index_pelayanan >= 3.26:
+            case $index_pelayanan > 3.25:
                 $mutuPelayanan = 'A (Sangat Baik)';
                 break;
 
@@ -1133,10 +1133,10 @@ Route::get('/calc-recap-quarter/{tipe_survey}/{year}', function ($tipe_survey, $
         $unitRekapTriwulan->total_average_individu = $sumAverageInd;
         $unitRekapTriwulan->index_pelayanan = $index_pelayanan;
 
-        $mutuPelayanan = null;
+        $mutuPelayanan = 'A (Sangat Baik)';
 
         switch ($index_pelayanan) {
-            case $index_pelayanan >= 3.26:
+            case $index_pelayanan > 3.25:
                 $mutuPelayanan = 'A (Sangat Baik)';
                 break;
 
@@ -1193,7 +1193,7 @@ Route::get('/calc-recap-quarter/{tipe_survey}/{year}', function ($tipe_survey, $
         $unitRekapTahunan->total_average_individu = $sumAverageInd;
         $unitRekapTahunan->index_pelayanan = $index_pelayanan;
 
-        $mutuPelayanan = null;
+        $mutuPelayanan = 'A (Sangat Baik)';
 
         switch ($index_pelayanan) {
             case $index_pelayanan >= 3.26:
