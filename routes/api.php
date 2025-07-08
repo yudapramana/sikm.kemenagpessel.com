@@ -293,6 +293,34 @@ Route::post('/store/survey', function (Request $request) {
     $survey->fresh();
 
 
+    $surveyIKM = [
+            $survey->answer_1,
+            $survey->answer_2,
+            $survey->answer_3,
+            $survey->answer_4,
+            $survey->answer_5,
+            $survey->answer_6,
+            $survey->answer_7,
+            $survey->answer_8,
+            $survey->answer_9
+        ];
+
+    $surveyIPK = [
+        $survey->answer_10,
+        $survey->answer_11,
+        $survey->answer_12,
+        $survey->answer_13,
+        $survey->answer_14,
+        $survey->answer_15
+    ];
+
+    $avgIKM = number_format((array_sum($surveyIKM) / Count($surveyIKM)), 3);
+    $avgIPK = number_format((array_sum($surveyIPK) / Count($surveyIPK)), 3);
+
+    $survey->update([
+        'nilai_ikm' => $avgIKM,
+        'nilai_ipk' => $avgIPK,
+    ]);
 
     // Rekap Tahunan
     // $rekapTahunan = \App\Models\RekapTahunan::firstOrCreate([
