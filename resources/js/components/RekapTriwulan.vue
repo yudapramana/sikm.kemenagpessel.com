@@ -430,9 +430,12 @@
                                                     <td class="border border-gray-300 px-2 py-1 text-center">
                                                         {{
                                                             (
-                                                                items.reduce((sum, i) => sum + parseFloat(i.index_pelayanan
-                                                                    || 0), 0) / items.length
-                                                            ).toFixed(2)
+                                                                items.reduce((sum, i) => sum + (parseFloat(i.index_pelayanan ||
+                                                                    0) *
+                                                        parseFloat(i.jumlah_responden || 0)), 0) /
+                                                        items.reduce((sum, i) => sum + parseFloat(i.jumlah_responden ||
+                                                        0), 0)
+                                                        ).toFixed(2)
                                                         }}
                                                     </td>
                                                     <td class="border border-gray-300 px-2 py-1 text-center">
@@ -441,9 +444,9 @@
                                                                 items.reduce((sum, i) => sum + (parseFloat(i.konversi || 0) *
                                                                     parseFloat(i.jumlah_responden
                                                                         || 0)), 0) /
-                                                        items.reduce((sum, i) => sum + parseFloat(i.jumlah_responden ||
-                                                        0), 0)
-                                                        ).toFixed(2)
+                                                                items.reduce((sum, i) => sum + parseFloat(i.jumlah_responden ||
+                                                                    0), 0)
+                                                            ).toFixed(2)
                                                         }}
                                                     </td>
                                                     <td class="border border-gray-300 px-2 py-1 text-center">
