@@ -1434,7 +1434,7 @@ Route::get('/unit-rekap-tahunan/{tipe_survey}/{year}', function ($tipe_survey, $
 Route::get('/cetak_tabulasi/{tipe_survey}/{year}/{quarter?}', function ($tipe_survey, $year, $quarter =  null) {
 
 
-    $unitName = $_GET['unit_name'];
+    $unitName = isset($_GET['unit_name']) ? $_GET['unit_name'] : null;
 
     if ($quarter) {
         $startDate = null;
@@ -1555,7 +1555,7 @@ Route::get('/cetak_hasil/{tipe_survey}/{year}/{quarter?}', function ($tipe_surve
     $konversi = 0;
     $mutuPelayanan = 0;
     $rangkuman_responden = 0;
-    $unitName = $_GET['unit_name'];
+    $unitName = isset($_GET['unit_name']) ? $_GET['unit_name'] : null;
 
     if ($quarter) {
         $startDate = null;
