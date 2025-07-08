@@ -438,9 +438,12 @@
                                                     <td class="border border-gray-300 px-2 py-1 text-center">
                                                         {{
                                                             (
-                                                                items.reduce((sum, i) => sum + parseFloat(i.konversi || 0),
-                                                                    0) / items.length
-                                                            ).toFixed(2)
+                                                                items.reduce((sum, i) => sum + (parseFloat(i.konversi || 0) *
+                                                                    parseFloat(i.jumlah_responden
+                                                                        || 0)), 0) /
+                                                        items.reduce((sum, i) => sum + parseFloat(i.jumlah_responden ||
+                                                        0), 0)
+                                                        ).toFixed(2)
                                                         }}
                                                     </td>
                                                     <td class="border border-gray-300 px-2 py-1 text-center">
@@ -452,9 +455,7 @@
                                                         }}
                                                     </td>
 
-                                                    <!-- <td class="border border-gray-300 text-center">
-                                                        <a class="badge badge-primary text-white">detail</a>
-                                                    </td> -->
+
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -470,12 +471,12 @@
 
                                             <button type="button" class="btn btn-primary p2 m-2 btn-sm">
                                                 <a class="text-white"
-                                                    :href="'/api/cetak_tabulasi/' + tipe_survey + '/' + year + '/' + triwulan  + '?unit_name=' + unitName"
+                                                    :href="'/api/cetak_tabulasi/' + tipe_survey + '/' + year + '/' + triwulan + '?unit_name=' + unitName"
                                                     target="_blank" rel="noopener noreferrer">Cetak Tabulasi Data</a>
                                             </button>
                                             <button type="button" class="btn btn-secondary p2 m-2 btn-sm">
                                                 <a class="text-white"
-                                                    :href="'/api/cetak_hasil/' + tipe_survey + '/' + year + '/' + triwulan  + '?unit_name=' + unitName"
+                                                    :href="'/api/cetak_hasil/' + tipe_survey + '/' + year + '/' + triwulan + '?unit_name=' + unitName"
                                                     target="_blank" rel="noopener noreferrer">Cetak Hasil</a>
                                             </button>
                                         </div>
