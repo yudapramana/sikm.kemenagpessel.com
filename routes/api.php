@@ -87,6 +87,7 @@ Route::get('/controlcenter/', function () {
             'button' => '
             <a target="_blank" href="' . $base_uri . '/api/reset-recapitulation/2023" class="center text-center btn btn-sm btn-primary">2023</a>&nbsp
             <a target="_blank" href="' . $base_uri . '/api/reset-recapitulation/2024" class="center text-center btn btn-sm btn-primary">2024</a>
+            <a target="_blank" href="' . $base_uri . '/api/reset-recapitulation/2025" class="center text-center btn btn-sm btn-primary">2025</a>
             '
         ],
         [
@@ -96,6 +97,7 @@ Route::get('/controlcenter/', function () {
             'button' => '
             <a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ikm/2023" class="center text-center btn btn-sm btn-primary">2023</a>
             <a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ikm/2024" class="center text-center btn btn-sm btn-primary">2024</a>
+            <a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ikm/2025" class="center text-center btn btn-sm btn-primary">2025</a>
             '
         ],
         [
@@ -105,6 +107,7 @@ Route::get('/controlcenter/', function () {
             'button' => '
             <a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ipk/2023" class="center text-center btn btn-sm btn-primary">2023</a>
             <a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ipk/2024" class="center text-center btn btn-sm btn-primary">2024</a>
+            <a target="_blank" href="' . $base_uri . '/api/calc-recap-year/ipk/2025" class="center text-center btn btn-sm btn-primary">2025</a>
             '
         ],
         [
@@ -114,6 +117,7 @@ Route::get('/controlcenter/', function () {
             'button' => '
             <a target="_blank" href="' . $base_uri . '/api/calc-recap-quarter/ikm/2023" class="center text-center btn btn-sm btn-primary">2023</a>
             <a target="_blank" href="' . $base_uri . '/api/calc-recap-quarter/ikm/2024" class="center text-center btn btn-sm btn-primary">2024</a>
+            <a target="_blank" href="' . $base_uri . '/api/calc-recap-quarter/ikm/2025" class="center text-center btn btn-sm btn-primary">2025</a>
             '
         ],
         [
@@ -123,6 +127,7 @@ Route::get('/controlcenter/', function () {
             'button' => '
             <a target="_blank" href="' . $base_uri . '/api/calc-recap-quarter/ipk/2023" class="center text-center btn btn-sm btn-primary">2023</a>
             <a target="_blank" href="' . $base_uri . '/api/calc-recap-quarter/ipk/2024" class="center text-center btn btn-sm btn-primary">2024</a>
+            <a target="_blank" href="' . $base_uri . '/api/calc-recap-quarter/ipk/2025" class="center text-center btn btn-sm btn-primary">2025</a>
             '
         ],
         [
@@ -132,6 +137,7 @@ Route::get('/controlcenter/', function () {
             'button' => '
             <a target="_blank" href="' . $base_uri . '/api/reset-to-submitted/2023" class="center text-center btn btn-sm btn-primary">2023</a>
             <a target="_blank" href="' . $base_uri . '/api/reset-to-submitted/2024" class="center text-center btn btn-sm btn-primary">2024</a>
+            <a target="_blank" href="' . $base_uri . '/api/reset-to-submitted/2025" class="center text-center btn btn-sm btn-primary">2025</a>
             '
         ],
         [
@@ -141,6 +147,7 @@ Route::get('/controlcenter/', function () {
             'button' => '
             <a target="_blank" href="' . $base_uri . '/api/pull-to-approved/2023" class="center text-center btn btn-sm btn-primary">2023</a>
             <a target="_blank" href="' . $base_uri . '/api/pull-to-approved/2024" class="center text-center btn btn-sm btn-primary">2024</a>
+            <a target="_blank" href="' . $base_uri . '/api/pull-to-approved/2025" class="center text-center btn btn-sm btn-primary">2025</a>
             '
         ],
     ];
@@ -740,6 +747,178 @@ Route::get('/get/rekapitulasi/{tipe_survey}/{year}', function ($tipe_survey, $ye
         ->make(true);
 });
 
+// Rekapitulasi Triwulan Per Unit
+Route::get('/get/rekapitulasi-triwulan-per-unit/{tipe_survey}/{year}/{quarter}', function ($tipe_survey, $year, $quarter) {
+
+
+    $unitName = $_GET['unit_name'];
+    $startDate = null;
+    $endDate = null;
+
+    switch ($quarter) {
+        case '1':
+            $startDate = Carbon::now()->month(1)->startOfQuarter();
+            $endDate = Carbon::now()->month(1)->endOfQuarter();
+            break;
+        case '2':
+            $startDate = Carbon::now()->month(4)->startOfQuarter();
+            $endDate = Carbon::now()->month(4)->endOfQuarter();
+            break;
+        case '3':
+            $startDate = Carbon::now()->month(7)->startOfQuarter();
+            $endDate = Carbon::now()->month(7)->endOfQuarter();
+            break;
+        case '4':
+            $startDate = Carbon::now()->month(10)->startOfQuarter();
+            $endDate = Carbon::now()->month(10)->endOfQuarter();
+            break;
+
+        default:
+            # code...
+            break;
+    }
+
+
+
+    // Modified
+    $surveys = \App\Models\Survey::where('status', 'approved')
+        ->whereBetween('submitted_at', [$startDate->format('Y-m-d') . " 00:00:00", $endDate->format('Y-m-d') . " 23:59:59"])
+        ->whereHas('layanan.unit', function ($query) use ($unitName) {
+            $query->where('name', $unitName);
+        })
+        ->with('layanan.unit')
+        ->get();
+
+    $total_responden = 0;
+    $genderMerged = 0;
+    $ageMerged = 0;
+    $educationMerged = 0;
+    $workMerged = 0;
+
+    $unsur_sikm = 0;
+    $nilai_sikm = 0;
+    $konversi = 0;
+    $mutuPelayanan = 0;
+    $rangkuman_responden = 0;
+
+    if (count($surveys)) {
+        $total_responden = $surveys->count();
+
+        $unsur_sikm = \App\Models\Question::where('tipe', $tipe_survey)->get()
+            ->map(function ($item, $key) use ($tipe_survey) {
+
+                $adder = $tipe_survey == 'ikm' ? 1 : 10;
+                return [
+                    'key' => $key + $adder,
+                    'unsur' => $item->factor
+                ];
+            })
+            ->all();
+
+        $nilai_sikm = 0;
+        foreach ($unsur_sikm as $key => $item) {
+            $summed = $surveys->sum('answer_' . $item['key']);
+            $counted = $surveys->count('answer_' . $item['key']);
+            $average = number_format($summed / $counted, 3);
+
+            $unsur_sikm[$key]['summed'] = $summed;
+            $unsur_sikm[$key]['counted'] = $counted;
+            $unsur_sikm[$key]['average'] = $average;
+            $divider = $tipe_survey == 'ikm' ? 9 : 6;
+            $weighted_average = number_format($average * (1 / $divider), 3);
+            $unsur_sikm[$key]['weighted_average'] = $weighted_average;
+            $nilai_sikm += $weighted_average;
+        }
+
+        $mutuPelayanan = '';
+        switch ($nilai_sikm) {
+            case $nilai_sikm >= 3.26:
+                $mutuPelayanan = 'A (Sangat Baik)';
+                break;
+
+            case $nilai_sikm > 2.51 && $nilai_sikm <= 3.25:
+                $mutuPelayanan = 'B (Baik)';
+                break;
+
+            case $nilai_sikm > 1.76 && $nilai_sikm <= 2.5:
+                $mutuPelayanan = 'C (Kurang Baik)';
+                break;
+
+            case $nilai_sikm <= 1.75:
+                $mutuPelayanan = 'D (Buruk)';
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+        // asd
+        $genderArr = [
+            'Laki-laki' => 0,
+            'Perempuan' => 0
+        ];
+        $gender = $surveys->countBy('gender')->toArray();
+        $genderMerged = array_merge_recursive_distinct($genderArr, $gender);
+
+        $ageArr = [
+            'Dibawah 20 Tahun' => 0,
+            '21 s/d 30 Tahun' => 0,
+            '31 s/d 40 Tahun' => 0,
+            '41 s/d 50 Tahun' => 0,
+            'Diatas 50 Tahun' => 0
+        ];
+        $age = $surveys->countBy('age')->toArray();
+        $ageMerged = array_merge_recursive_distinct($ageArr, $age);
+
+        $educationArr = [
+            'SD' => 0,
+            'SMP atau Sederajat' => 0,
+            'SMA atau Sederajat' => 0,
+            'Strata 1 (S1)' => 0,
+            'Strata 2 (S2)' => 0,
+            'Strata 3 (S3)' => 0,
+        ];
+        $education = $surveys->countBy('education')->toArray();
+        $educationMerged = array_merge_recursive_distinct($educationArr, $education);
+
+        $workArr = [
+            'PNS / TNI / POLRI' => 0,
+            'Pegawai Swasta' => 0,
+            'Wiraswasta' => 0,
+            'Tenaga Honor / Ahli / Kontrak' => 0,
+            'Pelajar / Mahasiswa' => 0,
+            'Lainnya' => 0
+        ];
+        $work = $surveys->countBy('work')->toArray();
+        $workMerged = array_merge_recursive_distinct($workArr, $work);
+
+
+        $rangkuman_responden =  [
+            'total_responden' => $total_responden,
+            'gender' => $genderMerged,
+            'age' => $ageMerged,
+            'education' => $educationMerged,
+            'work' => $workMerged,
+        ];
+
+        $konversi = number_format((($nilai_sikm / 4) * 100), 2);
+    }
+
+    $recapitulation = [
+        'factored_recapitulation' => $unsur_sikm,
+        'nilai_sikm' => number_format($nilai_sikm, 2),
+        'konversi' => $konversi,
+        'mutu_pelayanan' => $mutuPelayanan,
+        'rangkuman_responden' => $rangkuman_responden,
+        'unit_name' => $unitName
+    ];
+
+    return response()->json($recapitulation);
+
+});
+// End of Rekapitulasi Triwulan Per Unit
+
 Route::get('/get/rekapitulasi-triwulan/{tipe_survey}/{year}/{quarter}', function ($tipe_survey, $year, $quarter) {
     $startDate = null;
     $endDate = null;
@@ -901,7 +1080,15 @@ Route::get('/get/rekapitulasi-triwulan/{tipe_survey}/{year}/{quarter}', function
     $rekap = \App\Models\RekapTriwulan::where([
         'tahun' => date('Y'),
         'triwulan' => $quarter
-    ])->get();
+    ])->with('layanan.unit')->get();
+
+
+    // Group by unit name
+    // $grouped = $rekap->groupBy(function ($item) {
+    //     return $item->layanan->unit->name ?? 'Unit Tidak Diketahui';
+    // });
+
+    // return response()->json($grouped);
 
     return Datatables::of($rekap)
         ->addIndexColumn()
@@ -1246,6 +1433,9 @@ Route::get('/unit-rekap-tahunan/{tipe_survey}/{year}', function ($tipe_survey, $
 
 Route::get('/cetak_tabulasi/{tipe_survey}/{year}/{quarter?}', function ($tipe_survey, $year, $quarter =  null) {
 
+
+    $unitName = $_GET['unit_name'];
+
     if ($quarter) {
         $startDate = null;
         $endDate = null;
@@ -1273,14 +1463,38 @@ Route::get('/cetak_tabulasi/{tipe_survey}/{year}/{quarter?}', function ($tipe_su
                 break;
         }
 
-        // Modified
-        $surveys = \App\Models\Survey::where('status', 'approved')
+        if($unitName) {
+            $surveys = \App\Models\Survey::where('status', 'approved')
             ->whereBetween('submitted_at', [$startDate->format('Y-m-d') . " 00:00:00", $endDate->format('Y-m-d') . " 23:59:59"])
+            ->whereHas('layanan.unit', function ($query) use ($unitName) {
+                $query->where('name', $unitName);
+            })
             ->get();
+
+        } else {
+            $surveys = \App\Models\Survey::where('status', 'approved')
+                ->whereBetween('submitted_at', [$startDate->format('Y-m-d') . " 00:00:00", $endDate->format('Y-m-d') . " 23:59:59"])
+                ->get();
+        }
+
+        
     } else {
+
+        if($unitName) {
+            $surveys = \App\Models\Survey::where('status', 'approved')
+            ->whereYear('submitted_at', $year)
+            ->whereHas('layanan.unit', function ($query) use ($unitName) {
+                $query->where('name', $unitName);
+            })
+            ->get();
+
+        } else {
+
         $surveys = \App\Models\Survey::where('status', 'approved')
             ->whereYear('submitted_at', $year)
             ->get();
+        }
+
     }
 
 
@@ -1341,6 +1555,7 @@ Route::get('/cetak_hasil/{tipe_survey}/{year}/{quarter?}', function ($tipe_surve
     $konversi = 0;
     $mutuPelayanan = 0;
     $rangkuman_responden = 0;
+    $unitName = $_GET['unit_name'];
 
     if ($quarter) {
         $startDate = null;
@@ -1370,13 +1585,36 @@ Route::get('/cetak_hasil/{tipe_survey}/{year}/{quarter?}', function ($tipe_surve
         }
 
         // Modified
-        $surveys = \App\Models\Survey::where('status', 'approved')
+        
+
+        if($unitName) {
+            $surveys = \App\Models\Survey::where('status', 'approved')
             ->whereBetween('submitted_at', [$startDate->format('Y-m-d') . " 00:00:00", $endDate->format('Y-m-d') . " 23:59:59"])
+            ->whereHas('layanan.unit', function ($query) use ($unitName) {
+                $query->where('name', $unitName);
+            })
             ->get();
+
+        } else {
+            $surveys = \App\Models\Survey::where('status', 'approved')
+                ->whereBetween('submitted_at', [$startDate->format('Y-m-d') . " 00:00:00", $endDate->format('Y-m-d') . " 23:59:59"])
+                ->get();
+        }
     } else {
+       if($unitName) {
+            $surveys = \App\Models\Survey::where('status', 'approved')
+            ->whereYear('submitted_at', $year)
+            ->whereHas('layanan.unit', function ($query) use ($unitName) {
+                $query->where('name', $unitName);
+            })
+            ->get();
+
+        } else {
+
         $surveys = \App\Models\Survey::where('status', 'approved')
             ->whereYear('submitted_at', $year)
             ->get();
+        }
     }
 
     // Calculated
@@ -1494,7 +1732,8 @@ Route::get('/cetak_hasil/{tipe_survey}/{year}/{quarter?}', function ($tipe_surve
         'rangkuman_responden' => $rangkuman_responden,
         'year' => $year,
         'tipe_survey' => $tipe_survey,
-        'quarter' => $quarter
+        'quarter' => $quarter,
+        'unit_name' => $unitName
     ];
 
     // return $response;

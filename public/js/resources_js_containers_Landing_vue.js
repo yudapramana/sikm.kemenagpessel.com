@@ -150,10 +150,12 @@ var _hoisted_22 = {
   "class": "dropdown-menu border-0 shadow"
 };
 var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Tahun 2023");
-var _hoisted_24 = {
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Tahun 2024");
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Tahun 2025");
+var _hoisted_26 = {
   "class": "dropdown-submenu dropdown-hover"
 };
-var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_27 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     id: "dropdownSubMenu2",
     href: "#",
@@ -164,14 +166,14 @@ var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
     "class": "dropdown-item dropdown-toggle"
   }, "per Triwulan", -1 /* HOISTED */);
 });
-var _hoisted_26 = {
+var _hoisted_28 = {
   "aria-labelledby": "dropdownSubMenu2",
   "class": "dropdown-menu border-0 shadow"
 };
-var _hoisted_27 = {
+var _hoisted_29 = {
   "class": "dropdown-submenu"
 };
-var _hoisted_28 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_30 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     id: "dropdownSubMenu3",
     href: "#",
@@ -182,18 +184,62 @@ var _hoisted_28 = /*#__PURE__*/_withScopeId(function () {
     "class": "dropdown-item dropdown-toggle"
   }, "Tahun 2023", -1 /* HOISTED */);
 });
-var _hoisted_29 = {
+var _hoisted_31 = {
   "aria-labelledby": "dropdownSubMenu3",
   "class": "dropdown-menu border-0 shadow"
 };
-var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan I");
-var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan II");
-var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan III");
-var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan IV");
-var _hoisted_34 = {
+var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan I");
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan II");
+var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan III");
+var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan IV");
+var _hoisted_36 = {
+  "class": "dropdown-submenu"
+};
+var _hoisted_37 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    id: "dropdownSubMenu3",
+    href: "#",
+    role: "button",
+    "data-toggle": "dropdown",
+    "aria-haspopup": "true",
+    "aria-expanded": "false",
+    "class": "dropdown-item dropdown-toggle"
+  }, "Tahun 2024", -1 /* HOISTED */);
+});
+var _hoisted_38 = {
+  "aria-labelledby": "dropdownSubMenu3",
+  "class": "dropdown-menu border-0 shadow"
+};
+var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan I");
+var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan II");
+var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan III");
+var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan IV");
+var _hoisted_43 = {
+  "class": "dropdown-submenu"
+};
+var _hoisted_44 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    id: "dropdownSubMenu3",
+    href: "#",
+    role: "button",
+    "data-toggle": "dropdown",
+    "aria-haspopup": "true",
+    "aria-expanded": "false",
+    "class": "dropdown-item dropdown-toggle"
+  }, "Tahun 2025", -1 /* HOISTED */);
+});
+var _hoisted_45 = {
+  "aria-labelledby": "dropdownSubMenu3",
+  "class": "dropdown-menu border-0 shadow"
+};
+var _hoisted_46 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan I");
+var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan II");
+var _hoisted_48 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan III");
+var _hoisted_49 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan IV");
+var _hoisted_50 = {
   "class": "nav-item dropdown"
 };
-var _hoisted_35 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_51 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     id: "dropdownSubMenu1",
     href: "#",
@@ -203,7 +249,7 @@ var _hoisted_35 = /*#__PURE__*/_withScopeId(function () {
     "class": "nav-link dropdown-toggle"
   }, "Persepsi Korupsi", -1 /* HOISTED */);
 });
-var _hoisted_36 = {
+var _hoisted_52 = {
   "aria-labelledby": "dropdownSubMenu1",
   "class": "dropdown-menu border-0 shadow",
   style: {
@@ -211,10 +257,10 @@ var _hoisted_36 = {
     "right": "inherit"
   }
 };
-var _hoisted_37 = {
+var _hoisted_53 = {
   "class": "dropdown-submenu dropdown-hover"
 };
-var _hoisted_38 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_54 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     id: "dropdownSubMenu2",
     href: "#",
@@ -225,15 +271,15 @@ var _hoisted_38 = /*#__PURE__*/_withScopeId(function () {
     "class": "dropdown-item dropdown-toggle"
   }, "per Tahun", -1 /* HOISTED */);
 });
-var _hoisted_39 = {
+var _hoisted_55 = {
   "aria-labelledby": "dropdownSubMenu2",
   "class": "dropdown-menu border-0 shadow"
 };
-var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Tahun 2023");
-var _hoisted_41 = {
+var _hoisted_56 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Tahun 2023");
+var _hoisted_57 = {
   "class": "dropdown-submenu dropdown-hover"
 };
-var _hoisted_42 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_58 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     id: "dropdownSubMenu2",
     href: "#",
@@ -244,14 +290,14 @@ var _hoisted_42 = /*#__PURE__*/_withScopeId(function () {
     "class": "dropdown-item dropdown-toggle"
   }, "per Triwulan", -1 /* HOISTED */);
 });
-var _hoisted_43 = {
+var _hoisted_59 = {
   "aria-labelledby": "dropdownSubMenu2",
   "class": "dropdown-menu border-0 shadow"
 };
-var _hoisted_44 = {
+var _hoisted_60 = {
   "class": "dropdown-submenu"
 };
-var _hoisted_45 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_61 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     id: "dropdownSubMenu3",
     href: "#",
@@ -262,44 +308,44 @@ var _hoisted_45 = /*#__PURE__*/_withScopeId(function () {
     "class": "dropdown-item dropdown-toggle"
   }, "Tahun 2023", -1 /* HOISTED */);
 });
-var _hoisted_46 = {
+var _hoisted_62 = {
   "aria-labelledby": "dropdownSubMenu3",
   "class": "dropdown-menu border-0 shadow"
 };
-var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan I");
-var _hoisted_48 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan II");
-var _hoisted_49 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan III");
-var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan IV");
-var _hoisted_51 = {
+var _hoisted_63 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan I");
+var _hoisted_64 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan II");
+var _hoisted_65 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan III");
+var _hoisted_66 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi Triwulan IV");
+var _hoisted_67 = {
   "class": "nav-item"
 };
-var _hoisted_52 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Tentang");
-var _hoisted_53 = {
+var _hoisted_68 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Tentang");
+var _hoisted_69 = {
   "class": "nav-item"
 };
-var _hoisted_54 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Kontak");
-var _hoisted_55 = {
+var _hoisted_70 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Kontak");
+var _hoisted_71 = {
   key: 1,
   "class": "nav-item"
 };
-var _hoisted_56 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Login");
-var _hoisted_57 = {
+var _hoisted_72 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Login");
+var _hoisted_73 = {
   key: 2,
   "class": "nav-item"
 };
-var _hoisted_58 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_74 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Logout", -1 /* HOISTED */);
 });
-var _hoisted_59 = [_hoisted_58];
-var _hoisted_60 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_75 = [_hoisted_74];
+var _hoisted_76 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", {
     "class": "order-1 order-md-3 navbar-nav navbar-no-expand ml-auto"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"navbar-nav\">\r\n\r\n                    <li class=\"nav-item\">\r\n                        <router-link to=\"landing\" class=\"nav-link\">Beranda</router-link>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <router-link to=\"isi-survey\" class=\"nav-link\">Isi Survey</router-link>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <router-link to=\"daftar-tamu\" class=\"nav-link\">Daftar Tamu</router-link>\r\n                    </li>\r\n                    <li class=\"nav-item dropdown\">\r\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\r\n                            class=\"nav-link dropdown-toggle\">Rekap Tahunan</a>\r\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\r\n                            style=\"left: 0px; right: inherit;\">\r\n                            <li><a href=\"#\" class=\"dropdown-item\">Rekapitulasi Tahun 2023 </a></li>\r\n                        </ul>\r\n                    </li>\r\n                    <li class=\"nav-item dropdown\">\r\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\r\n                            class=\"nav-link dropdown-toggle\">Rekap Triwulan</a>\r\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\r\n                            style=\"left: 0px; right: inherit;\">\r\n                            <li><a href=\"#\" class=\"dropdown-item\">Triwulan I</a></li>\r\n                            <li><a href=\"#\" class=\"dropdown-item\">Triwulan II</a></li>\r\n                            <li><a href=\"#\" class=\"dropdown-item\">Triwulan III</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"nav-item\">\r\n                        <router-link to=\"tentang\" class=\"nav-link\">Tentang</router-link>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <router-link to=\"kontak\" class=\"nav-link\">Kontak</router-link>\r\n                    </li>\r\n\r\n                    <li v-if=\"!currentUser\" class=\"nav-item\">\r\n                        <router-link to=\"login\" class=\"nav-link\">Login</router-link>\r\n                    </li>\r\n\r\n                    <li v-if=\"currentUser\" class=\"nav-item\">\r\n                        <a @click.prevent=\"logOut\" class=\"nav-link\">\r\n                            <p>Logout</p>\r\n                        </a>\r\n                    </li>\r\n                </ul> ")], -1 /* HOISTED */);
 });
-var _hoisted_61 = {
+var _hoisted_77 = {
   "class": "content-wrapper"
 };
-var _hoisted_62 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_78 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("footer", {
     "class": "main-footer"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -362,27 +408,27 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_23];
     }),
     _: 1 /* STABLE */
-  })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_24, [_hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_27, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    tabindex: "-1",
+    to: "rekap-tahunan?tipe_survey=ikm&year=2024",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_24];
+    }),
+    _: 1 /* STABLE */
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    tabindex: "-1",
+    to: "rekap-tahunan?tipe_survey=ikm&year=2025",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_25];
+    }),
+    _: 1 /* STABLE */
+  })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_26, [_hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_29, [_hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     tabindex: "-1",
     to: "rekap-triwulan?tipe_survey=ikm&year=2023&quarter=1",
-    "class": "dropdown-item"
-  }, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_30];
-    }),
-    _: 1 /* STABLE */
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    tabindex: "-1",
-    to: "rekap-triwulan?tipe_survey=ikm&year=2023&quarter=2",
-    "class": "dropdown-item"
-  }, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_31];
-    }),
-    _: 1 /* STABLE */
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    tabindex: "-1",
-    to: "rekap-triwulan?tipe_survey=ikm&year=2023&quarter=3",
     "class": "dropdown-item"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -391,25 +437,79 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     tabindex: "-1",
-    to: "rekap-triwulan?tipe_survey=ikm&year=2023&quarter=4",
+    to: "rekap-triwulan?tipe_survey=ikm&year=2023&quarter=2",
     "class": "dropdown-item"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_33];
     }),
     _: 1 /* STABLE */
-  })])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_34, [_hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li><a href=\"#\" class=\"dropdown-item\">Some action </a></li>\r\n                            <li><a href=\"#\" class=\"dropdown-item\">Some other action</a></li>\r\n                            <li class=\"dropdown-divider\"></li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_37, [_hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li>\r\n                                        <a tabindex=\"-1\" href=\"#\" class=\"dropdown-item\">level 2</a>\r\n                                    </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     tabindex: "-1",
-    to: "rekap-tahunan?tipe_survey=ipk&year=2023",
+    to: "rekap-triwulan?tipe_survey=ikm&year=2023&quarter=3",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_34];
+    }),
+    _: 1 /* STABLE */
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    tabindex: "-1",
+    to: "rekap-triwulan?tipe_survey=ikm&year=2023&quarter=4",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_35];
+    }),
+    _: 1 /* STABLE */
+  })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_36, [_hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    tabindex: "-1",
+    to: "rekap-triwulan?tipe_survey=ikm&year=2024&quarter=1",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_39];
+    }),
+    _: 1 /* STABLE */
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    tabindex: "-1",
+    to: "rekap-triwulan?tipe_survey=ikm&year=2024&quarter=2",
     "class": "dropdown-item"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_40];
     }),
     _: 1 /* STABLE */
-  })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_41, [_hoisted_42, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_44, [_hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     tabindex: "-1",
-    to: "rekap-triwulan?tipe_survey=ipk&year=2023&quarter=1",
+    to: "rekap-triwulan?tipe_survey=ikm&year=2024&quarter=3",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_41];
+    }),
+    _: 1 /* STABLE */
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    tabindex: "-1",
+    to: "rekap-triwulan?tipe_survey=ikm&year=2024&quarter=4",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_42];
+    }),
+    _: 1 /* STABLE */
+  })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_43, [_hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    tabindex: "-1",
+    to: "rekap-triwulan?tipe_survey=ikm&year=2025&quarter=1",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_46];
+    }),
+    _: 1 /* STABLE */
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    tabindex: "-1",
+    to: "rekap-triwulan?tipe_survey=ikm&year=2025&quarter=2",
     "class": "dropdown-item"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -418,7 +518,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     tabindex: "-1",
-    to: "rekap-triwulan?tipe_survey=ipk&year=2023&quarter=2",
+    to: "rekap-triwulan?tipe_survey=ikm&year=2025&quarter=3",
     "class": "dropdown-item"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -427,11 +527,47 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     tabindex: "-1",
-    to: "rekap-triwulan?tipe_survey=ipk&year=2023&quarter=3",
+    to: "rekap-triwulan?tipe_survey=ikm&year=2025&quarter=4",
     "class": "dropdown-item"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_49];
+    }),
+    _: 1 /* STABLE */
+  })])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_50, [_hoisted_51, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li><a href=\"#\" class=\"dropdown-item\">Some action </a></li>\r\n                            <li><a href=\"#\" class=\"dropdown-item\">Some other action</a></li>\r\n                            <li class=\"dropdown-divider\"></li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_53, [_hoisted_54, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li>\r\n                                        <a tabindex=\"-1\" href=\"#\" class=\"dropdown-item\">level 2</a>\r\n                                    </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    tabindex: "-1",
+    to: "rekap-tahunan?tipe_survey=ipk&year=2023",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_56];
+    }),
+    _: 1 /* STABLE */
+  })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_57, [_hoisted_58, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_59, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_60, [_hoisted_61, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_62, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    tabindex: "-1",
+    to: "rekap-triwulan?tipe_survey=ipk&year=2023&quarter=1",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_63];
+    }),
+    _: 1 /* STABLE */
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    tabindex: "-1",
+    to: "rekap-triwulan?tipe_survey=ipk&year=2023&quarter=2",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_64];
+    }),
+    _: 1 /* STABLE */
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    tabindex: "-1",
+    to: "rekap-triwulan?tipe_survey=ipk&year=2023&quarter=3",
+    "class": "dropdown-item"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_65];
     }),
     _: 1 /* STABLE */
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
@@ -440,39 +576,39 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "dropdown-item"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_50];
+      return [_hoisted_66];
     }),
     _: 1 /* STABLE */
-  })])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item dropdown\">\r\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\r\n                            class=\"nav-link dropdown-toggle\">Indeks Kepuasan Masyarakat</a>\r\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\r\n                            style=\"left: 0px; right: inherit;\">\r\n                            <li><router-link to=\"rekap-tahunan?tipe_survey=ikm&year=2023\"\r\n                                    class=\"dropdown-item\">Rekapitulasi</router-link></li>\r\n                        </ul>\r\n                    </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item dropdown\">\r\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\r\n                            class=\"nav-link dropdown-toggle\">Persepsi Korupsi</a>\r\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\r\n                            style=\"left: 0px; right: inherit;\">\r\n                            <li><router-link to=\"rekap-tahunan?tipe_survey=ipk&year=2023\"\r\n                                    class=\"dropdown-item\">Rekapitulasi</router-link></li>\r\n                        </ul>\r\n                    </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item dropdown\">\r\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\r\n                            class=\"nav-link dropdown-toggle\">Rekap Triwulan tahun berjalan</a>\r\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\r\n                            style=\"left: 0px; right: inherit;\">\r\n                            <li><router-link to=\"rekap-triwulan?quarter=1\" class=\"dropdown-item\">Rekapitulasi Triwulan I</router-link></li>\r\n                            <li><router-link to=\"rekap-triwulan?quarter=2\" class=\"dropdown-item\">Rekapitulasi Triwulan II</router-link></li>\r\n                            <li><router-link to=\"rekap-triwulan?quarter=3\" class=\"dropdown-item\">Rekapitulasi Triwulan III</router-link></li>\r\n                            <li><router-link to=\"rekap-triwulan?quarter=4\" class=\"dropdown-item\">Rekapitulasi Triwulan IV</router-link></li>\r\n                        </ul>\r\n                    </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_51, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  })])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item dropdown\">\r\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\r\n                            class=\"nav-link dropdown-toggle\">Indeks Kepuasan Masyarakat</a>\r\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\r\n                            style=\"left: 0px; right: inherit;\">\r\n                            <li><router-link to=\"rekap-tahunan?tipe_survey=ikm&year=2023\"\r\n                                    class=\"dropdown-item\">Rekapitulasi</router-link></li>\r\n                        </ul>\r\n                    </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item dropdown\">\r\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\r\n                            class=\"nav-link dropdown-toggle\">Persepsi Korupsi</a>\r\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\r\n                            style=\"left: 0px; right: inherit;\">\r\n                            <li><router-link to=\"rekap-tahunan?tipe_survey=ipk&year=2023\"\r\n                                    class=\"dropdown-item\">Rekapitulasi</router-link></li>\r\n                        </ul>\r\n                    </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item dropdown\">\r\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\r\n                            class=\"nav-link dropdown-toggle\">Rekap Triwulan tahun berjalan</a>\r\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\r\n                            style=\"left: 0px; right: inherit;\">\r\n                            <li><router-link to=\"rekap-triwulan?quarter=1\" class=\"dropdown-item\">Rekapitulasi Triwulan I</router-link></li>\r\n                            <li><router-link to=\"rekap-triwulan?quarter=2\" class=\"dropdown-item\">Rekapitulasi Triwulan II</router-link></li>\r\n                            <li><router-link to=\"rekap-triwulan?quarter=3\" class=\"dropdown-item\">Rekapitulasi Triwulan III</router-link></li>\r\n                            <li><router-link to=\"rekap-triwulan?quarter=4\" class=\"dropdown-item\">Rekapitulasi Triwulan IV</router-link></li>\r\n                        </ul>\r\n                    </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_67, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: "tentang",
     "class": "nav-link"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_52];
+      return [_hoisted_68];
     }),
     _: 1 /* STABLE */
-  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_69, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: "kontak",
     "class": "nav-link"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_54];
+      return [_hoisted_70];
     }),
     _: 1 /* STABLE */
-  })]), !$options.currentUser ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  })]), !$options.currentUser ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_71, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: "login",
     "class": "nav-link"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_56];
+      return [_hoisted_72];
     }),
     _: 1 /* STABLE */
-  })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $options.currentUser ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_57, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $options.currentUser ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_73, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.logOut && $options.logOut.apply($options, arguments);
     }, ["prevent"])),
     "class": "nav-link"
-  }, _hoisted_59)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"navbar-nav\">\r\n\r\n                    <li class=\"nav-item\">\r\n                        <router-link to=\"landing\" class=\"nav-link\">Beranda</router-link>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <router-link to=\"isi-survey\" class=\"nav-link\">Isi Survey</router-link>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <router-link to=\"daftar-tamu\" class=\"nav-link\">Daftar Tamu</router-link>\r\n                    </li>\r\n                    <li class=\"nav-item dropdown\">\r\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\r\n                            class=\"nav-link dropdown-toggle\">Rekap Tahunan</a>\r\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\r\n                            style=\"left: 0px; right: inherit;\">\r\n                            <li><a href=\"#\" class=\"dropdown-item\">Rekapitulasi Tahun 2023 </a></li>\r\n                        </ul>\r\n                    </li>\r\n                    <li class=\"nav-item dropdown\">\r\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\r\n                            class=\"nav-link dropdown-toggle\">Rekap Triwulan</a>\r\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\r\n                            style=\"left: 0px; right: inherit;\">\r\n                            <li><a href=\"#\" class=\"dropdown-item\">Triwulan I</a></li>\r\n                            <li><a href=\"#\" class=\"dropdown-item\">Triwulan II</a></li>\r\n                            <li><a href=\"#\" class=\"dropdown-item\">Triwulan III</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"nav-item\">\r\n                        <router-link to=\"tentang\" class=\"nav-link\">Tentang</router-link>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <router-link to=\"kontak\" class=\"nav-link\">Kontak</router-link>\r\n                    </li>\r\n\r\n                    <li v-if=\"!currentUser\" class=\"nav-item\">\r\n                        <router-link to=\"login\" class=\"nav-link\">Login</router-link>\r\n                    </li>\r\n\r\n                    <li v-if=\"currentUser\" class=\"nav-item\">\r\n                        <a @click.prevent=\"logOut\" class=\"nav-link\">\r\n                            <p>Logout</p>\r\n                        </a>\r\n                    </li>\r\n                </ul> ")]), _hoisted_60])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_61, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_vue_progress_bar)]), _hoisted_62], 64 /* STABLE_FRAGMENT */);
+  }, _hoisted_75)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"navbar-nav\">\r\n\r\n                    <li class=\"nav-item\">\r\n                        <router-link to=\"landing\" class=\"nav-link\">Beranda</router-link>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <router-link to=\"isi-survey\" class=\"nav-link\">Isi Survey</router-link>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <router-link to=\"daftar-tamu\" class=\"nav-link\">Daftar Tamu</router-link>\r\n                    </li>\r\n                    <li class=\"nav-item dropdown\">\r\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\r\n                            class=\"nav-link dropdown-toggle\">Rekap Tahunan</a>\r\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\r\n                            style=\"left: 0px; right: inherit;\">\r\n                            <li><a href=\"#\" class=\"dropdown-item\">Rekapitulasi Tahun 2023 </a></li>\r\n                        </ul>\r\n                    </li>\r\n                    <li class=\"nav-item dropdown\">\r\n                        <a id=\"dropdownSubMenu1\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"\r\n                            class=\"nav-link dropdown-toggle\">Rekap Triwulan</a>\r\n                        <ul aria-labelledby=\"dropdownSubMenu1\" class=\"dropdown-menu border-0 shadow\"\r\n                            style=\"left: 0px; right: inherit;\">\r\n                            <li><a href=\"#\" class=\"dropdown-item\">Triwulan I</a></li>\r\n                            <li><a href=\"#\" class=\"dropdown-item\">Triwulan II</a></li>\r\n                            <li><a href=\"#\" class=\"dropdown-item\">Triwulan III</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"nav-item\">\r\n                        <router-link to=\"tentang\" class=\"nav-link\">Tentang</router-link>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <router-link to=\"kontak\" class=\"nav-link\">Kontak</router-link>\r\n                    </li>\r\n\r\n                    <li v-if=\"!currentUser\" class=\"nav-item\">\r\n                        <router-link to=\"login\" class=\"nav-link\">Login</router-link>\r\n                    </li>\r\n\r\n                    <li v-if=\"currentUser\" class=\"nav-item\">\r\n                        <a @click.prevent=\"logOut\" class=\"nav-link\">\r\n                            <p>Logout</p>\r\n                        </a>\r\n                    </li>\r\n                </ul> ")]), _hoisted_76])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_77, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_vue_progress_bar)]), _hoisted_78], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -493,7 +629,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-7c62b210] {\r\n    margin-left: 0 !important;\n}\n.main-footer[data-v-7c62b210] {\r\n    margin-left: 0 !important;\n}\n.main-header[data-v-7c62b210] {\r\n    margin-left: 0 !important;\n}\n.main-header[data-v-7c62b210] {\r\n    --bs-navbar-padding-x: 1rem !important;\n}\n.router-link-exact-active[data-v-7c62b210] {\r\n    background-color: #f8fafc !important;\r\n    color: rgba(0, 0, 0, 0.5) !important;\r\n    font-weight: bold;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrapper[data-v-7c62b210] {\r\n    margin-left: 0 !important;\n}\n.main-footer[data-v-7c62b210] {\r\n    margin-left: 0 !important;\n}\n.main-header[data-v-7c62b210] {\r\n    margin-left: 0 !important;\n}\n.main-header[data-v-7c62b210] {\r\n    --bs-navbar-padding-x: 1rem !important;\n}\n.router-link-exact-active[data-v-7c62b210] {\r\n    background-color: #f8fafc !important;\r\n    color: rgba(0, 0, 0, 0.5) !important;\r\n    font-weight: bold;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

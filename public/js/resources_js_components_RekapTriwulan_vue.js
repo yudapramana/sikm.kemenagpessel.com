@@ -19,11 +19,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! datatables.net-vue3 */ "./node_modules/datatables.net-vue3/dist/datatables.net-vue.esm.js");
 /* harmony import */ var datatables_net_bs5__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! datatables.net-bs5 */ "./node_modules/datatables.net-bs5/js/dataTables.bootstrap5.mjs");
 /* harmony import */ var vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vform/src/components/bootstrap5 */ "./node_modules/vform/src/components/bootstrap5/index.js");
-var _name$components$data;
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+var _name$components$comp;
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 
 
 
@@ -34,16 +37,42 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_select__WEBPACK_IMPORTED_MODULE_3__["default"]);
 datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_bs5__WEBPACK_IMPORTED_MODULE_4__["default"]);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_name$components$data = {
-  name: "Thanks",
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_name$components$comp = {
+  name: "Rekap Triwulan",
   components: {
     'has-error': vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_6__.HasError,
     'alert-error': vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_6__.AlertError,
     'DataTable': datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
+  computed: {
+    groupedRekap: function groupedRekap() {
+      var groups = {};
+      var _iterator = _createForOfIteratorHelper(this.rekap),
+        _step;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var _item$layanan, _item$layanan$unit;
+          var item = _step.value;
+          var unitName = ((_item$layanan = item.layanan) === null || _item$layanan === void 0 ? void 0 : (_item$layanan$unit = _item$layanan.unit) === null || _item$layanan$unit === void 0 ? void 0 : _item$layanan$unit.name) || 'Unit Tidak Diketahui';
+          if (!groups[unitName]) {
+            groups[unitName] = [];
+          }
+          groups[unitName].push(item);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+      return groups;
+    }
+  },
   data: function data() {
     return {
+      expandedUnits: [],
+      // track unit yang sedang terbuka
       data: [],
+      rekap: [],
       factored_recapitulation: [],
       ct_url: '/api/cetak_tabulasi/' + this.tipe_survey + '/' + this.year + '/' + this.quarter,
       ch_url: '/api/cetak_hasil/' + this.tipe_survey + '/' + this.year + '/' + this.quarter,
@@ -62,6 +91,7 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
       loading: false,
       disabled: false,
       editModal: false,
+      rangkuman_unit: null,
       columns: [{
         data: 'DT_RowIndex',
         className: "text-center fontsmaller smallfont"
@@ -87,34 +117,66 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
     };
   },
   methods: {
+    toggleUnit: function toggleUnit(unitName) {
+      this.rangkuman_unit = null;
+      var i = this.expandedUnits.indexOf(unitName);
+      if (i > -1) this.expandedUnits.splice(i, 1);else this.expandedUnits.push(unitName);
+    },
+    getMutuKategori: function getMutuKategori(avg) {
+      if (avg >= 3.26) return 'A (Sangat Baik)';
+      if (avg > 2.51) return 'B (Baik)';
+      if (avg > 1.76) return 'C (Kurang Baik)';
+      return 'D (Buruk)';
+    },
     logOut: function logOut() {
       this.$store.dispatch('auth/logout');
       this.$router.push('/login');
     },
-    loadData: function loadData() {
+    fetchRangkumanSurvey: function fetchRangkumanSurvey(unitName) {
       var _this = this;
+      var url = "/api/get/rekapitulasi-triwulan-per-unit/".concat(this.tipe_survey, "/").concat(this.year, "/").concat(this.quarter, "?unit_name=").concat(unitName);
+      axios.get(url).then(function (data) {
+        console.log(' wwkwkwkwkdat:');
+        console.log(data.data);
+        _this.rangkuman_unit = [];
+        _this.rangkuman_unit.nilai_sikm = data.data.nilai_sikm || '-';
+        _this.rangkuman_unit.unit_name = data.data.unit_name;
+        _this.rangkuman_unit.konversi = data.data.konversi || '-';
+        _this.rangkuman_unit.mutu_pelayanan = data.data.mutu_pelayanan || '-';
+        _this.rangkuman_unit.rangkuman_responden = data.data.rangkuman_responden;
+        _this.rangkuman_unit.gender = data.data.rangkuman_responden.gender;
+        _this.rangkuman_unit.age = data.data.rangkuman_responden.age;
+        _this.rangkuman_unit.education = data.data.rangkuman_responden.education;
+        _this.rangkuman_unit.work = data.data.rangkuman_responden.work;
+      })["catch"](function (err) {
+        console.error('Gagal mengambil data rangkuman:', err);
+      });
+    },
+    loadData: function loadData() {
+      var _this2 = this;
       this.$Progress.start();
       axios.get('/api/get/rekapitulasi-triwulan/' + this.$route.query.tipe_survey + '/' + this.$route.query.year + '/' + this.$route.query.quarter).then(function (response) {
         console.log('response getRekapTahunan');
         console.log(response.data);
-        _this.data = response.data.data;
-        _this.factored_recapitulation = response.data.factored_recapitulation;
-        _this.nilai_sikm = response.data.nilai_sikm;
-        _this.konversi = response.data.konversi;
-        _this.mutu_pelayanan = response.data.mutu_pelayanan;
-        _this.rangkuman_responden = response.data.rangkuman_responden;
-        _this.gender = response.data.rangkuman_responden.gender;
-        _this.age = response.data.rangkuman_responden.age;
-        _this.education = response.data.rangkuman_responden.education;
-        _this.work = response.data.rangkuman_responden.work;
+        _this2.data = response.data.data;
+        _this2.rekap = response.data.data;
+        _this2.factored_recapitulation = response.data.factored_recapitulation;
+        _this2.nilai_sikm = response.data.nilai_sikm;
+        _this2.konversi = response.data.konversi;
+        _this2.mutu_pelayanan = response.data.mutu_pelayanan;
+        _this2.rangkuman_responden = response.data.rangkuman_responden;
+        _this2.gender = response.data.rangkuman_responden.gender;
+        _this2.age = response.data.rangkuman_responden.age;
+        _this2.education = response.data.rangkuman_responden.education;
+        _this2.work = response.data.rangkuman_responden.work;
         // this.$Progress.finish();
       });
 
       axios.get('/api/unit-rekap-triwulan/' + this.$route.query.quarter).then(function (response) {
         console.log('response rekapUnitTriwulan');
         console.log(response.data);
-        _this.dataunit = response.data;
-        _this.$Progress.finish();
+        _this2.dataunit = response.data;
+        _this2.$Progress.finish();
       });
     }
   },
@@ -124,7 +186,7 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
   created: function created() {
     this.$Progress.start();
   }
-}, _defineProperty(_name$components$data, "mounted", function mounted() {
+}, _defineProperty(_name$components$comp, "mounted", function mounted() {
   this.loadData();
   this.triwulan = this.$route.query.quarter;
   this.quarter = this.$route.query.quarter;
@@ -132,7 +194,7 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
   this.year = this.$route.query.year;
 
   // alert(this.$route.query.year);
-}), _defineProperty(_name$components$data, "watch", {
+}), _defineProperty(_name$components$comp, "watch", {
   '$route.query.quarter': {
     handler: function handler(quarter) {
       console.log('quarter');
@@ -167,7 +229,7 @@ datatables_net_vue3__WEBPACK_IMPORTED_MODULE_5__["default"].use(datatables_net_b
     deep: true,
     immediate: true
   }
-}), _name$components$data);
+}), _name$components$comp);
 
 /***/ }),
 
@@ -255,7 +317,7 @@ var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
     "class": "text-center fontsmaller smallfont"
   }, "Nilai Rerata Unsur"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "text-center fontsmaller smallfont"
-  }, "Nilai Rerata Tertimbang Unsur")])], -1 /* HOISTED */);
+  }, "Nilai Rerata Tertimbang Unsur ")])], -1 /* HOISTED */);
 });
 var _hoisted_18 = {
   "class": "text-center"
@@ -375,7 +437,7 @@ var _hoisted_43 = /*#__PURE__*/_withScopeId(function () {
   }, "Semua Jenis Pelayanan")])], -1 /* HOISTED */);
 });
 var _hoisted_44 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     colspan: "4",
     "class": "text-center text-uppercase abu-abu-gelap",
     style: {
@@ -385,19 +447,21 @@ var _hoisted_44 = /*#__PURE__*/_withScopeId(function () {
     style: {
       "margin": "0"
     }
-  }, "Tahun Penilaian")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    colspan: "3",
-    "class": "text-center text-uppercase abu-abu",
-    style: {
-      "padding": "5px"
-    }
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
-    style: {
-      "margin": "0"
-    }
-  }, "2023")])], -1 /* HOISTED */);
+  }, "Tahun Penilaian")], -1 /* HOISTED */);
 });
 var _hoisted_45 = {
+  colspan: "3",
+  "class": "text-center text-uppercase abu-abu",
+  style: {
+    "padding": "5px"
+  }
+};
+var _hoisted_46 = {
+  style: {
+    "margin": "0"
+  }
+};
+var _hoisted_47 = {
   rowspan: "9",
   colspan: "4",
   "class": "text-center text-uppercase centered",
@@ -405,18 +469,18 @@ var _hoisted_45 = {
     "padding": "5px"
   }
 };
-var _hoisted_46 = {
+var _hoisted_48 = {
   style: {
     "margin": "0",
     "font-size": "137px !important"
   }
 };
-var _hoisted_47 = {
+var _hoisted_49 = {
   style: {
     "margin": "0"
   }
 };
-var _hoisted_48 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_50 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     colspan: "3",
     "class": "text-center text-uppercase abu-abu-gelap",
@@ -425,139 +489,371 @@ var _hoisted_48 = /*#__PURE__*/_withScopeId(function () {
     }
   }, " Ringkasan Responden", -1 /* HOISTED */);
 });
-var _hoisted_49 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_51 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "marginpadding-minimal centered abu-abu-gelap"
-  }, "Jumlah Responden", -1 /* HOISTED */);
+  }, "Jumlah Responden ", -1 /* HOISTED */);
 });
-var _hoisted_50 = {
+var _hoisted_52 = {
   "class": "marginpadding-minimal centered",
   colspan: "2"
 };
-var _hoisted_51 = {
+var _hoisted_53 = {
   key: 0,
   "class": "marginpadding-minimal centered abu-abu-gelap",
   rowspan: "2"
 };
-var _hoisted_52 = {
+var _hoisted_54 = {
   "class": "marginpadding-minimal abu-abu"
 };
-var _hoisted_53 = {
+var _hoisted_55 = {
   "class": "marginpadding-minimal righted"
 };
-var _hoisted_54 = {
+var _hoisted_56 = {
   key: 0,
   "class": "marginpadding-minimal centered abu-abu-gelap",
   rowspan: "5"
 };
-var _hoisted_55 = {
+var _hoisted_57 = {
   "class": "marginpadding-minimal abu-abu"
 };
-var _hoisted_56 = {
+var _hoisted_58 = {
   "class": "marginpadding-minimal righted"
 };
-var _hoisted_57 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_59 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "centered marginpadding-minimal abu-abu-gelap",
     rowspan: "2"
-  }, "Pekerjaan ", -1 /* HOISTED */);
+  }, " Pekerjaan ", -1 /* HOISTED */);
 });
-var _hoisted_58 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_60 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "centered marginpadding-minimal abu-abu-gelap",
     rowspan: "2"
-  }, "Pendidikan ", -1 /* HOISTED */);
+  }, " Pendidikan ", -1 /* HOISTED */);
 });
-var _hoisted_59 = {
+var _hoisted_61 = {
   "class": "row justify-content-md-center"
 };
-var _hoisted_60 = {
+var _hoisted_62 = {
   "class": "col-lg"
 };
-var _hoisted_61 = {
+var _hoisted_63 = {
   "class": "card"
 };
-var _hoisted_62 = {
+var _hoisted_64 = {
   "class": "card-body",
   style: {
     "overflow-x": "auto"
   }
 };
-var _hoisted_63 = {
-  "class": "col-12 text-center justify-content-center"
+var _hoisted_65 = {
+  "class": "space-y-4"
 };
-var _hoisted_64 = {
+var _hoisted_66 = ["onClick"];
+var _hoisted_67 = {
+  "class": "p-4 bg-white"
+};
+var _hoisted_68 = {
+  "class": "text-center mb-3"
+};
+var _hoisted_69 = {
   style: {
     "text-transform": "uppercase",
     "margin": "0 !important"
   }
 };
-var _hoisted_65 = {
+var _hoisted_70 = {
   key: 0
 };
-var _hoisted_66 = {
+var _hoisted_71 = {
   key: 1
 };
-var _hoisted_67 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
-var _hoisted_68 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_72 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
 });
-var _hoisted_69 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_73 = {
+  style: {
+    "font-size": "larger"
+  }
+};
+var _hoisted_74 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
 });
-var _hoisted_70 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_75 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN ");
+var _hoisted_76 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_77 = {
+  "class": "w-full text-sm leading-tight border border-gray-300"
+};
+var _hoisted_78 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", {
+    "class": "bg-gray-200 text-center text-xs font-semibold uppercase tracking-wider"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "border border-gray-300 px-2 py-1"
+  }, "Nama Layanan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "border border-gray-300 px-2 py-1"
+  }, "Jumlah Responden "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "border border-gray-300 px-2 py-1"
+  }, "Indeks Pelayanan "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "border border-gray-300 px-2 py-1"
+  }, "Konversi"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "border border-gray-300 px-2 py-1"
+  }, "Mutu Pelayanan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <th class=\"border border-gray-300 px-2 py-1\">Aksi</th> ")])], -1 /* HOISTED */);
+});
+var _hoisted_79 = {
+  "class": "border border-gray-200 px-2 py-1 text-left"
+};
+var _hoisted_80 = {
+  "class": "border border-gray-200 px-2 py-1 text-center"
+};
+var _hoisted_81 = {
+  "class": "border border-gray-200 px-2 py-1 text-center"
+};
+var _hoisted_82 = {
+  "class": "border border-gray-200 px-2 py-1 text-center"
+};
+var _hoisted_83 = {
+  "class": "border border-gray-200 px-2 py-1 text-center"
+};
+var _hoisted_84 = {
+  "class": "bg-yellow-100 font-medium text-sm",
+  style: {
+    "background-color": "yellow",
+    "font-weight": "bolder"
+  }
+};
+var _hoisted_85 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+    "class": "border border-gray-300 px-2 py-1 text-right"
+  }, " Rata-rata", -1 /* HOISTED */);
+});
+var _hoisted_86 = {
+  "class": "border border-gray-300 px-2 py-1 text-center"
+};
+var _hoisted_87 = {
+  "class": "border border-gray-300 px-2 py-1 text-center"
+};
+var _hoisted_88 = {
+  "class": "border border-gray-300 px-2 py-1 text-center"
+};
+var _hoisted_89 = {
+  "class": "border border-gray-300 px-2 py-1 text-center"
+};
+var _hoisted_90 = {
+  "class": "text-center my-3"
+};
+var _hoisted_91 = ["onClick"];
+var _hoisted_92 = {
+  type: "button",
+  "class": "btn btn-primary p2 m-2 btn-sm"
+};
+var _hoisted_93 = ["href"];
+var _hoisted_94 = {
+  type: "button",
+  "class": "btn btn-secondary p2 m-2 btn-sm"
+};
+var _hoisted_95 = ["href"];
+var _hoisted_96 = {
+  key: 0,
+  "class": "card mt-3"
+};
+var _hoisted_97 = {
+  "class": "card-body"
+};
+var _hoisted_98 = {
+  "class": "col-12 text-center justify-content-center"
+};
+var _hoisted_99 = {
+  style: {
+    "text-transform": "uppercase",
+    "margin": "0 !important"
+  }
+};
+var _hoisted_100 = {
+  key: 0
+};
+var _hoisted_101 = {
+  key: 1
+};
+var _hoisted_102 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
+var _hoisted_103 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_104 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
     style: {
       "text-transform": "uppercase"
     }
   }, " KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN ", -1 /* HOISTED */);
 });
-var _hoisted_71 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "No"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    width: "35%"
-  }, "Nama Layanan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "text-center"
-  }, "Nilai Index Pelayanan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Konversi"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Mutu Pelayanan"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Jumlah Responden"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    width: "10%"
-  }, "Aksi")])], -1 /* HOISTED */);
+var _hoisted_105 = {
+  "class": "col-12"
+};
+var _hoisted_106 = {
+  "class": "table table-hover table-bordered well wells dataTable no-footer",
+  style: {
+    "font-size": "small"
+  }
+};
+var _hoisted_107 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    colspan: "4",
+    "class": "text-center text-uppercase abu-abu-gelap",
+    style: {
+      "padding": "5px"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+    style: {
+      "margin": "0"
+    }
+  }, "Jenis Pelayanan yang dinilai ")], -1 /* HOISTED */);
 });
-var _hoisted_72 = {
+var _hoisted_108 = {
+  colspan: "3",
+  "class": "text-center text-uppercase abu-abu",
+  style: {
+    "padding": "5px"
+  }
+};
+var _hoisted_109 = {
+  style: {
+    "margin": "0"
+  }
+};
+var _hoisted_110 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    colspan: "4",
+    "class": "text-center text-uppercase abu-abu-gelap",
+    style: {
+      "padding": "5px"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+    style: {
+      "margin": "0"
+    }
+  }, "Waktu Penilaian")], -1 /* HOISTED */);
+});
+var _hoisted_111 = {
+  colspan: "3",
+  "class": "text-center text-uppercase abu-abu",
+  style: {
+    "padding": "5px"
+  }
+};
+var _hoisted_112 = {
+  style: {
+    "margin": "0"
+  }
+};
+var _hoisted_113 = {
+  rowspan: "9",
+  colspan: "4",
+  "class": "text-center text-uppercase centered",
+  style: {
+    "padding": "5px"
+  }
+};
+var _hoisted_114 = {
+  style: {
+    "margin": "0",
+    "font-size": "137px !important"
+  }
+};
+var _hoisted_115 = {
+  style: {
+    "margin": "0"
+  }
+};
+var _hoisted_116 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    colspan: "3",
+    "class": "text-center text-uppercase abu-abu-gelap",
+    style: {
+      "padding": "5px"
+    }
+  }, " Ringkasan Responden ", -1 /* HOISTED */);
+});
+var _hoisted_117 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "marginpadding-minimal centered abu-abu-gelap"
+  }, " Jumlah Responden", -1 /* HOISTED */);
+});
+var _hoisted_118 = {
+  "class": "marginpadding-minimal centered",
+  colspan: "2"
+};
+var _hoisted_119 = {
+  key: 0,
+  "class": "marginpadding-minimal centered abu-abu-gelap",
+  rowspan: "2"
+};
+var _hoisted_120 = {
+  "class": "marginpadding-minimal abu-abu"
+};
+var _hoisted_121 = {
+  "class": "marginpadding-minimal righted"
+};
+var _hoisted_122 = {
+  key: 0,
+  "class": "marginpadding-minimal centered abu-abu-gelap",
+  rowspan: "5"
+};
+var _hoisted_123 = {
+  "class": "marginpadding-minimal abu-abu"
+};
+var _hoisted_124 = {
+  "class": "marginpadding-minimal righted"
+};
+var _hoisted_125 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "centered marginpadding-minimal abu-abu-gelap",
+    rowspan: "2"
+  }, "Pekerjaan", -1 /* HOISTED */);
+});
+var _hoisted_126 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    "class": "centered marginpadding-minimal abu-abu-gelap",
+    rowspan: "2"
+  }, "Pendidikan", -1 /* HOISTED */);
+});
+var _hoisted_127 = {
   "class": "row justify-content-md-center"
 };
-var _hoisted_73 = {
+var _hoisted_128 = {
   "class": "col-lg"
 };
-var _hoisted_74 = {
+var _hoisted_129 = {
   "class": "card"
 };
-var _hoisted_75 = {
+var _hoisted_130 = {
   "class": "card-body"
 };
-var _hoisted_76 = {
+var _hoisted_131 = {
   type: "button",
   "class": "btn btn-primary p2 m-2"
 };
-var _hoisted_77 = ["href"];
-var _hoisted_78 = {
+var _hoisted_132 = ["href"];
+var _hoisted_133 = {
   type: "button",
   "class": "btn btn-secondary p2 m-2"
 };
-var _hoisted_79 = ["href"];
+var _hoisted_134 = ["href"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_DataTable = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DataTable");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"content-header\">\r\n        <div class=\"container-fluid\">\r\n            <div class=\"row mb-2 justify-content-md-center\">\r\n                <div class=\"col-sm-6\">\r\n                    <h1 class=\"m-0\"> Rekapitulasi Triwulan <strong> {{ triwulan }}</strong></h1>\r\n                </div>\r\n                <div class=\"col-sm-6\">\r\n                    <ol class=\"breadcrumb float-sm-right\">\r\n                        <li class=\"breadcrumb-item\"><a href=\"#\">Survey IKM</a></li>\r\n                        <li class=\"breadcrumb-item\"><a href=\"#\">Rekapitulasi Triwulan</a></li>\r\n                        <li class=\"breadcrumb-item active\">Index</li>\r\n                    </ol>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_8, [_ctx.tipe_survey === 'ikm' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_9, "Indeks Kepuasan Masyarakat")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.tipe_survey === 'ipk' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_10, "Indeks Persepsi Korupsi")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_11, _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Rekapitulasi per Unsur Triwulan " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.quarter) + " Tahun " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */), _hoisted_13]), _hoisted_14]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.factored_recapitulation, function (recap) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       key: recap.key
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(recap.key), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(recap.unsur), 1 /* TEXT */), _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(recap.summed), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(recap.average), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(recap.weighted_average), 1 /* TEXT */)]);
-  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.nilai_sikm), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.konversi), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.mutu_pelayanan), 1 /* TEXT */)])])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_34, [_ctx.tipe_survey === 'ikm' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_35, "Indeks Kepuasan Masyarakat")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.tipe_survey === 'ipk' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_36, "Indeks Persepsi Korupsi")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_37, _hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Rangkuman Survey Triwulan " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.quarter) + " Tahun " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */), _hoisted_39]), _hoisted_40]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [_hoisted_43, _hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.konversi), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.mutu_pelayanan), 1 /* TEXT */)]), _hoisted_48]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_49, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.rangkuman_responden.total_responden) + " orang", 1 /* TEXT */)]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.gender, function (value, name) {
+  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.nilai_sikm), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.konversi), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.mutu_pelayanan), 1 /* TEXT */)])])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_34, [_ctx.tipe_survey === 'ikm' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_35, "Indeks Kepuasan Masyarakat")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.tipe_survey === 'ipk' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_36, "Indeks Persepsi Korupsi")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_37, _hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Rangkuman Survey Triwulan " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.quarter) + " Tahun " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */), _hoisted_39]), _hoisted_40]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [_hoisted_43, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.konversi), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_49, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.mutu_pelayanan), 1 /* TEXT */)]), _hoisted_50]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_51, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_52, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.rangkuman_responden.total_responden) + " orang", 1 /* TEXT */)]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.gender, function (value, name) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       key: name
-    }, [name === 'Laki-laki' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", _hoisted_51, "Jenis Kelamin")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_52, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_53, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang", 1 /* TEXT */)]);
+    }, [name === 'Laki-laki' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", _hoisted_53, "Jenis Kelamin")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_54, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_55, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang", 1 /* TEXT */)]);
   }), 128 /* KEYED_FRAGMENT */)), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.age, function (value, name) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       key: name
-    }, [name === 'Dibawah 20 Tahun' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", _hoisted_54, " Umur")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_55, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_56, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang", 1 /* TEXT */)]);
-  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_57, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.work, function (value, name) {
+    }, [name === 'Dibawah 20 Tahun' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", _hoisted_56, " Umur")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_57, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_58, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang", 1 /* TEXT */)]);
+  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_59, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.work, function (value, name) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
       "class": "centered marginpadding-minimal abu-abu",
       key: name
@@ -567,7 +863,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "class": "centered marginpadding-minimal",
       key: name
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang ", 1 /* TEXT */);
-  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_58, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.education, function (value, name) {
+  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_60, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.education, function (value, name) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
       "class": "centered marginpadding-minimal abu-abu",
       key: name
@@ -577,37 +873,83 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "class": "centered marginpadding-minimal",
       key: name
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang ", 1 /* TEXT */);
-  }), 128 /* KEYED_FRAGMENT */))])])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_59, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_60, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_61, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"card-header\">\r\n            <h4 class=\"card-title m-0\">Rekapitulasi Triwulan <strong> {{ triwulan }}</strong></h4>\r\n        </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_62, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_63, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_64, [_ctx.tipe_survey === 'ikm' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_65, "Indeks Kepuasan Masyarakat")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.tipe_survey === 'ipk' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_66, "Indeks Persepsi Korupsi")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_67, _hoisted_68, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Rekapitulasi per Layanan Triwulan " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.quarter) + " Tahun " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */), _hoisted_69]), _hoisted_70]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DataTable, {
-    columns: $data.columns,
-    data: $data.data,
-    "class": "table table-hover table-bordered",
-    width: "100%",
-    options: {
-      order: false,
-      sort: false,
-      paging: true,
-      searching: false,
-      info: false
-    },
-    style: {
-      "font-size": "smaller !important"
-    }
-  }, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_71];
-    }),
-    _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["columns", "data"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_72, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_73, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_74, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_75, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_76, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }), 128 /* KEYED_FRAGMENT */))])])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_61, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_62, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_63, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"card-header\">\r\n            <h4 class=\"card-title m-0\">Rekapitulasi Triwulan <strong> {{ triwulan }}</strong></h4>\r\n        </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_64, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"col-12 text-center justify-content-center\">\r\n                                <h4 style=\"text-transform: uppercase; margin: 0 !important;\">\r\n                                    <span v-if=\"tipe_survey === 'ikm'\">Indeks Kepuasan Masyarakat</span>\r\n                                    <span v-if=\"tipe_survey === 'ipk'\">Indeks Persepsi Korupsi</span> <br>\r\n                                    Rekapitulasi per Layanan Triwulan {{ quarter }} Tahun {{ year }}<br>\r\n\r\n                                </h4>\r\n                                <h4 style=\"text-transform: uppercase;\">\r\n                                    KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN\r\n                                </h4>\r\n\r\n                            </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <DataTable :columns=\"columns\" :data=\"data\" class=\"table table-hover table-bordered\"\r\n                                width=\"100%\"\r\n                                :options=\"{ order: false, sort: false, paging: true, searching: false, info: false }\"\r\n                                style=\"font-size:smaller !important;\">\r\n                                <thead>\r\n                                    <tr>\r\n                                        <th>No</th>\r\n                                        <th width=\"35%\">Nama Layanan</th>\r\n                                        <th class=\"text-center\">Nilai Index Pelayanan</th>\r\n                                        <th>Konversi</th>\r\n                                        <th>Mutu Pelayanan</th>\r\n                                        <th>Jumlah Responden</th>\r\n                                        <th width=\"10%\">Aksi</th>\r\n                                    </tr>\r\n                                </thead>\r\n                            </DataTable> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div>\r\n                                <table\r\n                                    class=\"table table-hover table-bordered dataTable no-footer w-full text-sm leading-tight border border-gray-300\">\r\n                                    <thead>\r\n                                        <tr\r\n                                            class=\"bg-gray-200 text-center text-xs font-semibold uppercase tracking-wider\">\r\n                                            <th class=\"border border-gray-300 px-2 py-1\">Nama Layanan</th>\r\n                                            <th class=\"border border-gray-300 px-2 py-1\">Indeks Pelayanan</th>\r\n                                            <th class=\"border border-gray-300 px-2 py-1\">Konversi</th>\r\n                                            <th class=\"border border-gray-300 px-2 py-1\">Mutu Pelayanan</th>\r\n                                            <th class=\"border border-gray-300 px-2 py-1\">Jumlah Responden</th>\r\n                                            <th class=\"border border-gray-300 px-2 py-1\">Aksi</th>\r\n                                        </tr>\r\n                                    </thead>\r\n                                    <tbody>\r\n                                        <template v-for=\"(items, unitName) in groupedRekap\" :key=\"unitName\">\r\n                                            <tr class=\"bg-blue-200 text-center text-sm font-bold\">\r\n                                                <td :colspan=\"6\" class=\"border border-blue-300 px-2 py-2\">\r\n                                                    UNIT: {{ unitName }}\r\n                                                </td>\r\n                                            </tr>\r\n\r\n                                            <tr v-for=\"item in items\" :key=\"item.id\" class=\"hover:bg-gray-50\">\r\n                                                <td class=\"border border-gray-200 px-2 py-1 text-left\">{{\r\n                                                    item.layanan.name }}</td>\r\n                                                <td class=\"border border-gray-200 px-2 py-1 text-center\">{{\r\n                                                    item.index_pelayanan }}</td>\r\n                                                <td class=\"border border-gray-200 px-2 py-1 text-center\">{{\r\n                                                    item.konversi }}</td>\r\n                                                <td class=\"border border-gray-200 px-2 py-1 text-center\">{{\r\n                                                    item.mutu_pelayanan }}</td>\r\n                                                <td class=\"border border-gray-200 px-2 py-1 text-center\">{{\r\n                                                    item.jumlah_responden }}</td>\r\n                                                 <td class=\"border border-gray-300 text-center\">\r\n                                                    <a class=\"badge badge-primary text-white\">detail</a>\r\n                                                </td>\r\n                                            </tr>\r\n\r\n                                            <tr class=\"bg-yellow-100 font-medium text-sm\">\r\n                                                <td class=\"border border-gray-300 px-2 py-1 text-right\">Rata-rata</td>\r\n                                                <td class=\"border border-gray-300 px-2 py-1 text-center\">\r\n                                                    {{\r\n                                                        (\r\n                                                            items.reduce((sum, i) => sum + parseFloat(i.index_pelayanan || 0),\r\n                                                                0) / items.length\r\n                                                        ).toFixed(2)\r\n                                                    }}\r\n                                                </td>\r\n                                                <td class=\"border border-gray-300 px-2 py-1 text-center\">\r\n                                                    {{\r\n                                                        (\r\n                                                            items.reduce((sum, i) => sum + parseFloat(i.konversi || 0), 0) /\r\n                                                            items.length\r\n                                                        ).toFixed(2)\r\n                                                    }}\r\n                                                </td>\r\n                                                <td class=\"border border-gray-300 px-2 py-1 text-center\">\r\n                                                    {{getMutuKategori(\r\n                                                        items.reduce((sum, i) => sum + parseFloat(i.index_pelayanan || 0),\r\n                                                            0) / items.length\r\n                                                    )}}\r\n                                                </td>\r\n                                                <td class=\"border border-gray-300 px-2 py-1 text-center\">\r\n                                                    {{\r\n                                                        Math.round(\r\n                                                            items.reduce((sum, i) => sum + parseFloat(i.jumlah_responden || 0),\r\n                                                                0) / items.length\r\n                                                        )\r\n                                                    }}\r\n                                                </td>\r\n                                                <td class=\"border border-gray-300 text-center\">\r\n                                                    <a class=\"badge badge-primary text-white\">detail</a>\r\n                                                </td>\r\n                                            </tr>\r\n                                        </template>\r\n</tbody>\r\n</table>\r\n</div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_65, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.groupedRekap, function (items, unitName) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      key: unitName,
+      "class": "border border-gray-300 rounded-md"
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Accordion Header "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      onClick: function onClick($event) {
+        return $options.toggleUnit(unitName);
+      },
+      "class": "w-full text-left px-4 py-2 bg-blue-600 text-dark font-semibold rounded-t-md flex justify-between items-center"
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "UNIT: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(unitName), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.expandedUnits.includes(unitName) ? '−' : '+'), 1 /* TEXT */)], 8 /* PROPS */, _hoisted_66), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Accordion Content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_67, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", _hoisted_69, [_ctx.tipe_survey === 'ikm' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_70, "Indeks Kepuasan Masyarakat")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.tipe_survey === 'ipk' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_71, "Indeks Persepsi Korupsi")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Triwulan " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.quarter) + " Tahun " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year) + " ", 1 /* TEXT */), _hoisted_72, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_73, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(unitName), 1 /* TEXT */), _hoisted_74, _hoisted_75, _hoisted_76]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h5 style=\"text-transform: uppercase;\">\r\n                                                KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN\r\n                                            </h5> ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_77, [_hoisted_78, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Data Rows "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(items, function (item) {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+        key: item.id,
+        "class": "hover:bg-gray-50"
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_79, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.layanan.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_80, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.jumlah_responden), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_81, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(parseFloat(item.index_pelayanan).toFixed(2)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_82, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(parseFloat(item.konversi).toFixed(2)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_83, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.mutu_pelayanan), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td class=\"border border-gray-300 text-center\">\r\n                                                        <a\r\n                                                            class=\"badge badge-primary text-white cursor-pointer\">detail</a>\r\n                                                    </td> ")]);
+    }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Rata-rata Row "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_84, [_hoisted_85, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_86, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.round(items.reduce(function (sum, i) {
+      return sum + parseFloat(i.jumlah_responden || 0);
+    }, 0))), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_87, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((items.reduce(function (sum, i) {
+      return sum + parseFloat(i.index_pelayanan || 0);
+    }, 0) / items.length).toFixed(2)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_88, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((items.reduce(function (sum, i) {
+      return sum + parseFloat(i.konversi || 0);
+    }, 0) / items.length).toFixed(2)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_89, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getMutuKategori(items.reduce(function (sum, i) {
+      return sum + parseFloat(i.index_pelayanan || 0);
+    }, 0) / items.length)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td class=\"border border-gray-300 text-center\">\r\n                                                        <a class=\"badge badge-primary text-white\">detail</a>\r\n                                                    </td> ")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Tombol untuk melihat geografi responden "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_90, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      "class": "btn btn-success btn-sm",
+      onClick: function onClick($event) {
+        return $options.fetchRangkumanSurvey(unitName);
+      }
+    }, " Lihat Rangkuman Survey Unit ", 8 /* PROPS */, _hoisted_91), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_92, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+      "class": "text-white",
+      href: '/api/cetak_tabulasi/' + _ctx.tipe_survey + '/' + $data.year + '/' + $data.triwulan + '?unit_name=' + unitName,
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, "Cetak Tabulasi Data", 8 /* PROPS */, _hoisted_93)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_94, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+      "class": "text-white",
+      href: '/api/cetak_hasil/' + _ctx.tipe_survey + '/' + $data.year + '/' + $data.triwulan + '?unit_name=' + unitName,
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, "Cetak Hasil", 8 /* PROPS */, _hoisted_95)])]), $data.rangkuman_unit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_96, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_97, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_98, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_99, [_ctx.tipe_survey === 'ikm' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_100, "Indeks Kepuasan Masyarakat")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.tipe_survey === 'ipk' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_101, "Indeks Persepsi Korupsi")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_102, _hoisted_103, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Rangkuman Survey Triwulan " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.quarter) + " Tahun " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */)]), _hoisted_104]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_105, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_106, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_107, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_108, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", _hoisted_109, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.rangkuman_unit.unit_name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_110, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_111, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_112, "Triwulan " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.quarter) + " Tahun " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_113, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_114, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.rangkuman_unit.konversi), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_115, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.rangkuman_unit.mutu_pelayanan), 1 /* TEXT */)]), _hoisted_116]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_117, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_118, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.rangkuman_unit.rangkuman_responden.total_responden) + " orang ", 1 /* TEXT */)]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.rangkuman_unit.gender, function (value, name) {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+        key: name
+      }, [name === 'Laki-laki' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", _hoisted_119, " Jenis Kelamin ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_120, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_121, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang", 1 /* TEXT */)]);
+    }), 128 /* KEYED_FRAGMENT */)), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.rangkuman_unit.age, function (value, name) {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+        key: name
+      }, [name === 'Dibawah 20 Tahun' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", _hoisted_122, " Umur ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_123, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_124, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang", 1 /* TEXT */)]);
+    }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_125, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.rangkuman_unit.work, function (value, name) {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
+        "class": "centered marginpadding-minimal abu-abu",
+        key: name
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */);
+    }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.rangkuman_unit.work, function (value, name) {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
+        "class": "centered marginpadding-minimal",
+        key: name
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang ", 1 /* TEXT */);
+    }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_126, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.rangkuman_unit.education, function (value, name) {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
+        "class": "centered marginpadding-minimal abu-abu",
+        key: name
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(name), 1 /* TEXT */);
+    }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.rangkuman_unit.education, function (value, name) {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
+        "class": "centered marginpadding-minimal",
+        key: name
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value) + " orang ", 1 /* TEXT */);
+    }), 128 /* KEYED_FRAGMENT */))])])])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.expandedUnits.includes(unitName)]])]);
+  }), 128 /* KEYED_FRAGMENT */))])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_127, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_128, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_129, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_130, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_131, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "text-white",
     href: '/api/cetak_tabulasi/' + _ctx.tipe_survey + '/' + $data.year + '/' + $data.triwulan,
     target: "_blank",
     rel: "noopener noreferrer"
-  }, "Cetak Tabulasi Data", 8 /* PROPS */, _hoisted_77)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_78, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, "Cetak Tabulasi Data", 8 /* PROPS */, _hoisted_132)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_133, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "text-white",
     href: '/api/cetak_hasil/' + _ctx.tipe_survey + '/' + $data.year + '/' + $data.triwulan,
     target: "_blank",
     rel: "noopener noreferrer"
-  }, "Cetak Hasil", 8 /* PROPS */, _hoisted_79)])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"row\">\r\n                <div class=\"col-lg\">\r\n                    <div class=\"card\">\r\n                        <div class=\"card-header\">\r\n                            <h4 class=\"card-title m-0\">Rekapitulasi per <strong>Seksi</strong></h4>\r\n                            <a :href=\"calcurl + year\">Sinkronkan</a>\r\n                        </div>\r\n                    </div>\r\n\r\n\r\n                    <div class=\"mb-3 text-center row\">\r\n                        <div class=\"col-md-3\" v-for=\"item in dataunit\" :key=\"item.id_unit_rekap_triwulan\">\r\n                            <div class=\"card mb-4 shadow-sm\">\r\n                                <div class=\"card-header\" style=\"height: 80px !important;\">\r\n                                    <h4 class=\"my-0 font-weight-normal\">{{ item.unit.name }}</h4>\r\n                                </div>\r\n                                <div class=\"card-body\">\r\n                                    <h1>{{ item.konversi }}</h1>\r\n                                    <h3>{{ item.mutu_pelayanan }}</h3>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n\r\n                    </div>\r\n\r\n\r\n\r\n\r\n                </div>\r\n            </div> ")])])], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */);
+  }, "Cetak Hasil", 8 /* PROPS */, _hoisted_134)])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"row\">\r\n                <div class=\"col-lg\">\r\n                    <div class=\"card\">\r\n                        <div class=\"card-header\">\r\n                            <h4 class=\"card-title m-0\">Rekapitulasi per <strong>Seksi</strong></h4>\r\n                            <a :href=\"calcurl + year\">Sinkronkan</a>\r\n                        </div>\r\n                    </div>\r\n\r\n\r\n                    <div class=\"mb-3 text-center row\">\r\n                        <div class=\"col-md-3\" v-for=\"item in dataunit\" :key=\"item.id_unit_rekap_triwulan\">\r\n                            <div class=\"card mb-4 shadow-sm\">\r\n                                <div class=\"card-header\" style=\"height: 80px !important;\">\r\n                                    <h4 class=\"my-0 font-weight-normal\">{{ item.unit.name }}</h4>\r\n                                </div>\r\n                                <div class=\"card-body\">\r\n                                    <h1>{{ item.konversi }}</h1>\r\n                                    <h3>{{ item.mutu_pelayanan }}</h3>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n\r\n                    </div>\r\n\r\n\r\n\r\n\r\n                </div>\r\n            </div> ")])])], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */);
 }
 
 /***/ }),

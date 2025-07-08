@@ -62,6 +62,10 @@
                                     <router-link tabindex="-1" to="rekap-tahunan?tipe_survey=ikm&year=2024"
                                         class="dropdown-item">Tahun
                                         2024</router-link>
+
+                                    <router-link tabindex="-1" to="rekap-tahunan?tipe_survey=ikm&year=2025"
+                                        class="dropdown-item">Tahun
+                                        2025</router-link>
                                 </ul>
                             </li>
 
@@ -108,6 +112,27 @@
                                                 class="dropdown-item">Rekapitulasi Triwulan III</router-link>
                                             <router-link tabindex="-1"
                                                 to="rekap-triwulan?tipe_survey=ikm&year=2024&quarter=4"
+                                                class="dropdown-item">Rekapitulasi Triwulan IV</router-link>
+                                        </ul>
+                                    </li>
+
+                                    <li class="dropdown-submenu">
+                                        <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false"
+                                            class="dropdown-item dropdown-toggle">Tahun 2025</a>
+                                        <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
+
+                                            <router-link tabindex="-1"
+                                                to="rekap-triwulan?tipe_survey=ikm&year=2025&quarter=1"
+                                                class="dropdown-item">Rekapitulasi Triwulan I</router-link>
+                                            <router-link tabindex="-1"
+                                                to="rekap-triwulan?tipe_survey=ikm&year=2025&quarter=2"
+                                                class="dropdown-item">Rekapitulasi Triwulan II</router-link>
+                                            <router-link tabindex="-1"
+                                                to="rekap-triwulan?tipe_survey=ikm&year=2025&quarter=3"
+                                                class="dropdown-item">Rekapitulasi Triwulan III</router-link>
+                                            <router-link tabindex="-1"
+                                                to="rekap-triwulan?tipe_survey=ikm&year=2025&quarter=4"
                                                 class="dropdown-item">Rekapitulasi Triwulan IV</router-link>
                                         </ul>
                                     </li>

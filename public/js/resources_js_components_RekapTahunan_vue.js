@@ -525,6 +525,45 @@ var _hoisted_77 = {
   "class": "btn btn-secondary p2 m-2"
 };
 var _hoisted_78 = ["href"];
+var _hoisted_79 = {
+  "class": "row"
+};
+var _hoisted_80 = {
+  "class": "col-lg"
+};
+var _hoisted_81 = {
+  "class": "card"
+};
+var _hoisted_82 = {
+  "class": "card-header"
+};
+var _hoisted_83 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+    "class": "card-title m-0"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Rekapitulasi per "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Seksi Unit")], -1 /* HOISTED */);
+});
+var _hoisted_84 = ["href"];
+var _hoisted_85 = {
+  "class": "mb-3 text-center row"
+};
+var _hoisted_86 = {
+  "class": "card mb-4 shadow-sm"
+};
+var _hoisted_87 = {
+  "class": "card-header",
+  style: {
+    "height": "80px !important"
+  }
+};
+var _hoisted_88 = {
+  "class": "my-0 font-weight-normal",
+  style: {
+    "font-size": "smaller !important"
+  }
+};
+var _hoisted_89 = {
+  "class": "card-body"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_DataTable = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DataTable");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"content-header\">\r\n        <div class=\"container\">\r\n            <div class=\"row mb-2 justify-content-md-center\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"col-sm-6\">\r\n                    <h1 class=\"m-0\"> Rekapitulasi Tahun <strong> {{ year }}</strong></h1>\r\n                </div>\r\n                <div class=\"col-sm-6\">\r\n                    <ol class=\"breadcrumb float-sm-right\">\r\n                        <li class=\"breadcrumb-item\"><a href=\"#\">Survey IKM</a></li>\r\n                        <li class=\"breadcrumb-item\"><a href=\"#\">Rekapitulasi</a></li>\r\n                        <li class=\"breadcrumb-item active\">Index</li>\r\n                    </ol>\r\n                </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"col-12 text-center justify-content-center\">\r\n                    <h5 style=\"text-transform: uppercase; margin: 0 !important;\">\r\n                        Rekapitulasi Data Survey Kepuasan Masyarakat Per Layanan\r\n                    </h5>\r\n                    <h5 style=\"text-transform: uppercase; margin: 0 !important;\">\r\n                        KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN TAHUN {{ year }}\r\n                    </h5>\r\n                  \r\n                </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </div>\r\n        </div>\r\n    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_8, [$data.tipe_survey === 'ikm' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_9, "Indeks Kepuasan Masyarakat")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.tipe_survey === 'ipk' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_10, "Indeks Persepsi Korupsi")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_11, _hoisted_12]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_13, " KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN TAHUN " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.year), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.factored_recapitulation, function (recap) {
@@ -590,7 +629,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     href: '/api/cetak_hasil/' + $data.tipe_survey + '/' + $data.year,
     target: "_blank",
     rel: "noopener noreferrer"
-  }, "Cetak Hasil", 8 /* PROPS */, _hoisted_78)])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"row\">\r\n                <div class=\"col-lg\">\r\n                    <div class=\"card\">\r\n                        <div class=\"card-header\">\r\n                            <h4 class=\"card-title m-0\">Rekapitulasi per <strong>Seksi Unit</strong></h4>\r\n                            <a :href=\"calcurl + year\">Sinkronkan</a>\r\n                        </div>\r\n                    </div>\r\n\r\n                  \r\n\r\n\r\n                    <div class=\"mb-3 text-center row\">\r\n                        <div class=\"col-md-3\" v-for=\"item in dataunit\" :key=\"item.id_unit_rekap_triwulan\">\r\n                            <div class=\"card mb-4 shadow-sm\">\r\n                                <div class=\"card-header\" style=\"height: 80px !important;\">\r\n                                    <h4 class=\"my-0 font-weight-normal\">{{ item.unit.name }}</h4>\r\n                                </div>\r\n                                <div class=\"card-body\">\r\n                                    <h1>{{ item.konversi }}</h1>\r\n                                    <h3>{{ item.mutu_pelayanan }}</h3>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n\r\n                    </div>\r\n\r\n\r\n\r\n\r\n                </div>\r\n            </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"row\">\r\n\r\n                        <div class=\"card col-md-3\" v-for=\"item in dataunit\" :key=\"item.id_unit_rekap_triwulan\">\r\n                            <div class=\"card-header\">\r\n                                <h4 class=\"my-0 font-weight-normal\">{{ item.unit.name }}</h4>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h1 class=\"card-title pricing-card-title\">$0 <small class=\"text-muted\">/ mo</small></h1> ")])])], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */);
+  }, "Cetak Hasil", 8 /* PROPS */, _hoisted_78)])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_79, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_80, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_81, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_82, [_hoisted_83, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    href: $data.calcurl + $data.year
+  }, "Sinkronkan", 8 /* PROPS */, _hoisted_84)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_85, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.dataunit, function (item) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      "class": "col-md-3",
+      key: item.id_unit_rekap_triwulan
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_86, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_87, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_88, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.unit.name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_89, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.konversi), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.mutu_pelayanan), 1 /* TEXT */)])])]);
+  }), 128 /* KEYED_FRAGMENT */))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"row\">\r\n\r\n                        <div class=\"card col-md-3\" v-for=\"item in dataunit\" :key=\"item.id_unit_rekap_triwulan\">\r\n                            <div class=\"card-header\">\r\n                                <h4 class=\"my-0 font-weight-normal\">{{ item.unit.name }}</h4>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h1 class=\"card-title pricing-card-title\">$0 <small class=\"text-muted\">/ mo</small></h1> ")])])], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */);
 }
 
 /***/ }),

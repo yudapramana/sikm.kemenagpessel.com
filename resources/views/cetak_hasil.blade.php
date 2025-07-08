@@ -149,157 +149,147 @@
 
                             <div class="card-body"> --}}
 
-                                <div class="col-12 text-center justify-content-center" style="margin-bottom: 15pt;">
-                                    <h4
-                                        style="text-transform: uppercase; margin: 0 !important; font-weight:bolder; font-size: 15pt">
-                                        @if($tipe_survey === 'ikm')
-                                        <span v-if="tipe_survey === 'ikm'">Indeks Kepuasan Masyarakat</span>
-                                        @else
-                                        <span v-if="tipe_survey === 'ipk'" style="color: maroon;">Indeks Persepsi
-                                            Korupsi</span>
-                                        @endif
-                                    </h4>
-                                    <h4
-                                        style="text-transform: uppercase; margin: 0 !important; font-weight:bolder; font-size: 15pt">
-                                        KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN <br>TAHUN {{ $year }}
-                                        @if(isset($quarter)) TRIWULAN {{ $quarter }} @endif
-                                    </h4>
+                        <div class="col-12 text-center justify-content-center" style="margin-bottom: 15pt;">
+                            <h4 style="text-transform: uppercase; margin: 0 !important; font-weight:bolder; font-size: 15pt">
+                                @if ($tipe_survey === 'ikm')
+                                    <span v-if="tipe_survey === 'ikm'">Indeks Kepuasan Masyarakat</span>
+                                @else
+                                    <span v-if="tipe_survey === 'ipk'" style="color: maroon;">Indeks Persepsi
+                                        Korupsi</span>
+                                @endif
+                            </h4>
+                            <h4 style="text-transform: uppercase; margin: 0 !important; font-weight:bolder; font-size: 15pt">
+                                KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN <br>TAHUN {{ $year }}
+                                @if (isset($quarter))
+                                    TRIWULAN {{ $quarter }}
+                                @endif
+                            </h4>
 
-                                </div>
+                        </div>
 
-                                <div class="col-12">
+                        <div class="col-12">
 
-                                    <table class="table table-hover table-bordered well wells dataTable no-footer"
-                                        style="font-size: small;">
-                                        <thead>
-                                            <tr>
-                                                <th colspan="4" class="text-center text-uppercase abu-abu-gelap"
-                                                    style="padding:5px;">
-                                                    <h4 style="margin:0">Jenis Pelayanan yang dinilai</h4>
-                                                </th>
-                                                <th colspan="3" class="text-center text-uppercase abu-abu"
-                                                    style="padding:5px;">
-                                                    <h4 style="margin:0">Semua Jenis Pelayanan</h4>
-                                                </th>
+                            <table class="table table-hover table-bordered well wells dataTable no-footer" style="font-size: small;">
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" class="text-center text-uppercase abu-abu-gelap" style="padding:5px;">
+                                            <h4 style="margin:0">Jenis Pelayanan yang dinilai</h4>
+                                        </th>
+                                        <th colspan="3" class="text-center text-uppercase abu-abu" style="padding:5px;">
+                                            <h6 style="margin:0">
+                                                {{ $unit_name ? $unit_name : 'Semua Jenis Pelayanan' }}
 
-                                            </tr>
+                                            </h6>
+                                        </th>
 
-                                            <tr>
-                                                <th colspan="4" class="text-center text-uppercase abu-abu-gelap"
-                                                    style="padding:5px;">
-                                                    <h4 style="margin:0">Tahun Penilaian</h4>
-                                                </th>
-                                                <th colspan="3" class="text-center text-uppercase abu-abu"
-                                                    style="padding:5px;">
-                                                    <h4 style="margin:0">2023</h4>
-                                                </th>
-                                            </tr>
+                                    </tr>
 
-                                            <tr>
-                                                <th rowspan="9" colspan="4" class="text-center text-uppercase centered"
-                                                    style="padding:5px; margin:0 auto;">
-                                                    <h1 style="margin:0; font-size: 47pt !important;">{{ $konversi }}
-                                                    </h1>
-                                                    <h4 style="margin:0">{{ $mutu_pelayanan }}</h4>
-                                                </th>
-                                                <th colspan="3" class="text-center text-uppercase abu-abu-gelap"
-                                                    style="padding:5px;">
-                                                    Ringkasan Responden</th>
-                                            </tr>
+                                    <tr>
+                                        <th colspan="4" class="text-center text-uppercase abu-abu-gelap" style="padding:5px;">
+                                            <h4 style="margin:0">Tahun Penilaian</h4>
+                                        </th>
+                                        <th colspan="3" class="text-center text-uppercase abu-abu" style="padding:5px;">
+                                            <h4 style="margin:0">{{ $year }}</h4>
+                                        </th>
+                                    </tr>
 
-                                            <tr>
-                                                <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap">
-                                                    Jumlah
-                                                    Responden</th>
-                                                <th class="marginpadding-minimal centered fontsmaller" colspan="2">{{
-                                                    $rangkuman_responden['total_responden'] }} orang</th>
-                                            </tr>
+                                    <tr>
+                                        <th rowspan="9" colspan="4" class="text-center text-uppercase centered" style="padding:5px; margin:0 auto;">
+                                            <h1 style="margin:0; font-size: 47pt !important;">{{ $konversi }}
+                                            </h1>
+                                            <h4 style="margin:0">{{ $mutu_pelayanan }}</h4>
+                                        </th>
+                                        <th colspan="3" class="text-center text-uppercase abu-abu-gelap" style="padding:5px;">
+                                            Ringkasan Responden</th>
+                                    </tr>
 
-                                            @foreach ($rangkuman_responden['gender'] as $key => $item)
-                                            <tr>
+                                    <tr>
+                                        <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap">
+                                            Jumlah
+                                            Responden</th>
+                                        <th class="marginpadding-minimal centered fontsmaller" colspan="2">{{ $rangkuman_responden['total_responden'] }} orang</th>
+                                    </tr>
 
-                                                @if($key == 'Laki-laki')
-                                                <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap"
-                                                    rowspan="2">
+                                    @foreach ($rangkuman_responden['gender'] as $key => $item)
+                                        <tr>
+
+                                            @if ($key == 'Laki-laki')
+                                                <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap" rowspan="2">
                                                     Jenis Kelamin</th>
-                                                @endif
-                                                <th class="marginpadding-minimal abu-abu fontsmaller">{{ $key }}</th>
-                                                <th class="marginpadding-minimal righted fontsmaller">{{ $item }} orang
-                                                </th>
-                                            </tr>
+                                            @endif
+                                            <th class="marginpadding-minimal abu-abu fontsmaller">{{ $key }}</th>
+                                            <th class="marginpadding-minimal righted fontsmaller">{{ $item }} orang
+                                            </th>
+                                        </tr>
+                                    @endforeach
 
-                                            @endforeach
 
+                                    @foreach ($rangkuman_responden['age'] as $key => $item)
+                                        <tr>
 
-                                            @foreach ($rangkuman_responden['age'] as $key => $item)
-                                            <tr>
-
-                                                @if($key == 'Dibawah 20 Tahun')
-                                                <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap"
-                                                    rowspan="5">
+                                            @if ($key == 'Dibawah 20 Tahun')
+                                                <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap" rowspan="5">
                                                     Umur</th>
-                                                @endif
-                                                <th class="marginpadding-minimal abu-abu fontsmaller">{{ $key }}</th>
-                                                <th class="marginpadding-minimal righted fontsmaller">{{ $item }} orang
-                                                </th>
-                                            </tr>
-                                            @endforeach
+                                            @endif
+                                            <th class="marginpadding-minimal abu-abu fontsmaller">{{ $key }}</th>
+                                            <th class="marginpadding-minimal righted fontsmaller">{{ $item }} orang
+                                            </th>
+                                        </tr>
+                                    @endforeach
 
 
-                                            <tr>
-                                                <th class="centered fontsmaller marginpadding-minimal abu-abu-gelap"
-                                                    rowspan="2">
-                                                    Pekerjaan
-                                                </th>
-                                                @foreach ($rangkuman_responden['work'] as $key => $item)
-                                                <th class="centered fontsmaller marginpadding-minimal abu-abu">
-                                                    {{$key}}
-                                                </th>
-                                                @endforeach
-                                            </tr>
+                                    <tr>
+                                        <th class="centered fontsmaller marginpadding-minimal abu-abu-gelap" rowspan="2">
+                                            Pekerjaan
+                                        </th>
+                                        @foreach ($rangkuman_responden['work'] as $key => $item)
+                                            <th class="centered fontsmaller marginpadding-minimal abu-abu">
+                                                {{ $key }}
+                                            </th>
+                                        @endforeach
+                                    </tr>
 
-                                            <tr>
+                                    <tr>
 
-                                                @foreach ($rangkuman_responden['work'] as $key => $item)
-                                                <th class="centered fontsmaller marginpadding-minimal">
-                                                    {{$item}} orang
-                                                </th>
-                                                @endforeach
-                                            </tr>
-
-
-
-                                            <tr>
-                                                <th class="centered fontsmaller marginpadding-minimal abu-abu-gelap"
-                                                    rowspan="2">
-                                                    Pendidikan
-                                                </th>
-                                                @foreach ($rangkuman_responden['education'] as $key => $item)
-                                                <th class="centered fontsmaller marginpadding-minimal abu-abu">
-                                                    {{$key}}
-                                                </th>
-                                                @endforeach
-                                            </tr>
-
-                                            <tr>
-
-                                                @foreach ($rangkuman_responden['education'] as $key => $item)
-                                                <th class="centered fontsmaller marginpadding-minimal">
-                                                    {{$item}} orang
-                                                </th>
-                                                @endforeach
-                                            </tr>
-
-
-                                        </thead>
+                                        @foreach ($rangkuman_responden['work'] as $key => $item)
+                                            <th class="centered fontsmaller marginpadding-minimal">
+                                                {{ $item }} orang
+                                            </th>
+                                        @endforeach
+                                    </tr>
 
 
 
-                                    </table>
+                                    <tr>
+                                        <th class="centered fontsmaller marginpadding-minimal abu-abu-gelap" rowspan="2">
+                                            Pendidikan
+                                        </th>
+                                        @foreach ($rangkuman_responden['education'] as $key => $item)
+                                            <th class="centered fontsmaller marginpadding-minimal abu-abu">
+                                                {{ $key }}
+                                            </th>
+                                        @endforeach
+                                    </tr>
 
-                                </div>
+                                    <tr>
 
-                                {{--
+                                        @foreach ($rangkuman_responden['education'] as $key => $item)
+                                            <th class="centered fontsmaller marginpadding-minimal">
+                                                {{ $item }} orang
+                                            </th>
+                                        @endforeach
+                                    </tr>
+
+
+                                </thead>
+
+
+
+                            </table>
+
+                        </div>
+
+                        {{--
                             </div>
                         </div> --}}
 
@@ -316,95 +306,84 @@
 
                             <div class="card-body"> --}}
 
-                                <div class="col-12 text-center justify-content-center" style="margin-bottom: 15pt;">
-                                    <h4
-                                        style="text-transform: uppercase; margin: 0 !important; font-weight:bolder; font-size: 15pt">
-                                        Rangkuman per unsur
-                                        @if($tipe_survey === 'ikm')
-                                        <span v-if="tipe_survey === 'ikm'">Indeks Kepuasan Masyarakat</span>
-                                        @else
-                                        <span v-if="tipe_survey === 'ipk'" style="color: maroon;">Indeks Persepsi
-                                            Korupsi</span>
-                                        @endif
-                                    </h4>
-                                    <h4
-                                        style="text-transform: uppercase; margin: 0 !important; font-weight:bolder; font-size: 15pt">
-                                        KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN <br>TAHUN {{ $year }}
-                                        @if(isset($quarter)) TRIWULAN {{ $quarter }} @endif
-                                    </h4>
+                        <div class="col-12 text-center justify-content-center" style="margin-bottom: 15pt;">
+                            <h4 style="text-transform: uppercase; margin: 0 !important; font-weight:bolder; font-size: 15pt">
+                                Rangkuman per unsur
+                                @if ($tipe_survey === 'ikm')
+                                    <span v-if="tipe_survey === 'ikm'">Indeks Kepuasan Masyarakat</span>
+                                @else
+                                    <span v-if="tipe_survey === 'ipk'" style="color: maroon;">Indeks Persepsi
+                                        Korupsi</span>
+                                @endif
+                            </h4>
+                            <h4 style="text-transform: uppercase; margin: 0 !important; font-weight:bolder; font-size: 15pt">
+                                KANTOR KEMENTERIAN AGAMA KABUPATEN PESISIR SELATAN <br>TAHUN {{ $year }}
+                                @if (isset($quarter))
+                                    TRIWULAN {{ $quarter }}
+                                @endif
+                            </h4>
 
-                                </div>
+                        </div>
 
-                                <div class="col-12">
+                        <div class="col-12">
 
-                                    <table class="table table-hover table-bordered well wells dataTable no-footer"
-                                        style="font-size: small;">
-                                        <thead>
-                                            <tr>
-                                                <th class="centered fontsmaller marginpadding-minimal">No</th>
-                                                <th class="centered fontsmaller marginpadding-minimal">Unsur</th>
-                                                <th class="centered fontsmaller marginpadding-minimal">Jumlah Pertanyaan
-                                                </th>
-                                                <th class="centered fontsmaller marginpadding-minimal">Total Nilai</th>
-                                                <th class="centered fontsmaller marginpadding-minimal">Nilai Rerata
-                                                    Unsur</th>
-                                                <th class="centered fontsmaller marginpadding-minimal">Nilai Rerata
-                                                    Tertimbang
-                                                    Unsur</th>
-                                            </tr>
-                                        </thead>
+                            <table class="table table-hover table-bordered well wells dataTable no-footer" style="font-size: small;">
+                                <thead>
+                                    <tr>
+                                        <th class="centered fontsmaller marginpadding-minimal">No</th>
+                                        <th class="centered fontsmaller marginpadding-minimal">Unsur</th>
+                                        <th class="centered fontsmaller marginpadding-minimal">Jumlah Pertanyaan
+                                        </th>
+                                        <th class="centered fontsmaller marginpadding-minimal">Total Nilai</th>
+                                        <th class="centered fontsmaller marginpadding-minimal">Nilai Rerata
+                                            Unsur</th>
+                                        <th class="centered fontsmaller marginpadding-minimal">Nilai Rerata
+                                            Tertimbang
+                                            Unsur</th>
+                                    </tr>
+                                </thead>
 
-                                        <tbody>
-                                            @foreach ($factored_recapitulation as $key => $item)
-                                            <tr>
-                                                <td class="text-center centered fontsmaller marginpadding-minimal">{{
-                                                    $item['key'] }}</td>
-                                                <td class="fontsmaller marginpadding-minimal">{{ $item['unsur']
-                                                    }}</td>
-                                                <td class="text-center centered fontsmaller marginpadding-minimal">1
-                                                </td>
-                                                <td class="text-center centered fontsmaller marginpadding-minimal">{{
-                                                    $item['summed'] }}</td>
-                                                <td class="text-center centered fontsmaller marginpadding-minimal">{{
-                                                    $item['average'] }}</td>
-                                                <td class="text-center centered fontsmaller marginpadding-minimal">{{
-                                                    $item['weighted_average'] }}</td>
-                                            </tr>
-                                            @endforeach
+                                <tbody>
+                                    @foreach ($factored_recapitulation as $key => $item)
+                                        <tr>
+                                            <td class="text-center centered fontsmaller marginpadding-minimal">{{ $item['key'] }}</td>
+                                            <td class="fontsmaller marginpadding-minimal">{{ $item['unsur'] }}</td>
+                                            <td class="text-center centered fontsmaller marginpadding-minimal">1
+                                            </td>
+                                            <td class="text-center centered fontsmaller marginpadding-minimal">{{ $item['summed'] }}</td>
+                                            <td class="text-center centered fontsmaller marginpadding-minimal">{{ $item['average'] }}</td>
+                                            <td class="text-center centered fontsmaller marginpadding-minimal">{{ $item['weighted_average'] }}</td>
+                                        </tr>
+                                    @endforeach
 
 
-                                            <tr>
-                                                <td colspan="5"
-                                                    class="text-right font-weight-bold centered fontsmaller marginpadding-minimal">
-                                                    Indeks Survey
-                                                    Kepuasan
-                                                    Masyarakat</td>
-                                                <td
-                                                    class="text-center centered fontsmaller marginpadding-minimal font-weight-bold">
-                                                    {{ $nilai_sikm }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5"
-                                                    class="text-right font-weight-bold centered marginpadding-minimal">
-                                                    Konversi</td>
-                                                <td class="text-center centered marginpadding-minimal font-weight-bold">
-                                                    {{ $konversi }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5"
-                                                    class="text-right font-weight-bold centered  marginpadding-minimal">
-                                                    Mutu Pelayanan</td>
-                                                <td
-                                                    class="text-center centered  marginpadding-minimal font-weight-bold">
-                                                    {{ $mutu_pelayanan }}</td>
-                                            </tr>
-                                        </tbody>
+                                    <tr>
+                                        <td colspan="5" class="text-right font-weight-bold centered fontsmaller marginpadding-minimal">
+                                            Indeks Survey
+                                            Kepuasan
+                                            Masyarakat</td>
+                                        <td class="text-center centered fontsmaller marginpadding-minimal font-weight-bold">
+                                            {{ $nilai_sikm }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" class="text-right font-weight-bold centered marginpadding-minimal">
+                                            Konversi</td>
+                                        <td class="text-center centered marginpadding-minimal font-weight-bold">
+                                            {{ $konversi }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" class="text-right font-weight-bold centered  marginpadding-minimal">
+                                            Mutu Pelayanan</td>
+                                        <td class="text-center centered  marginpadding-minimal font-weight-bold">
+                                            {{ $mutu_pelayanan }}</td>
+                                    </tr>
+                                </tbody>
 
-                                    </table>
+                            </table>
 
-                                </div>
+                        </div>
 
-                                {{--
+                        {{--
                             </div>
                         </div> --}}
 
