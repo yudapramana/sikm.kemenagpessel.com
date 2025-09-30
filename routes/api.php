@@ -728,7 +728,7 @@ Route::get('/get/rekapitulasi/{tipe_survey}/{year}', function ($tipe_survey, $ye
     $educationMerged = array_merge_recursive_distinct($educationArr, $education);
 
     $workArr = [
-        'PNS / TNI / POLRI' => 0,
+        'ASN / TNI / POLRI' => 0,
         'Pegawai Swasta' => 0,
         'Wiraswasta' => 0,
         'Tenaga Honor / Ahli / Kontrak' => 0,
@@ -911,7 +911,7 @@ Route::get('/get/rekapitulasi-triwulan-per-unit/{tipe_survey}/{year}/{quarter}',
         $educationMerged = array_merge_recursive_distinct($educationArr, $education);
 
         $workArr = [
-            'PNS / TNI / POLRI' => 0,
+            'ASN / TNI / POLRI' => 0,
             'Pegawai Swasta' => 0,
             'Wiraswasta' => 0,
             'Tenaga Honor / Ahli / Kontrak' => 0,
@@ -1078,7 +1078,7 @@ Route::get('/get/rekapitulasi-triwulan/{tipe_survey}/{year}/{quarter}', function
         $educationMerged = array_merge_recursive_distinct($educationArr, $education);
 
         $workArr = [
-            'PNS / TNI / POLRI' => 0,
+            'ASN / TNI / POLRI' => 0,
             'Pegawai Swasta' => 0,
             'Wiraswasta' => 0,
             'Tenaga Honor / Ahli / Kontrak' => 0,
@@ -1729,7 +1729,7 @@ Route::get('/cetak_hasil/{tipe_survey}/{year}/{quarter?}', function ($tipe_surve
     $educationMerged = array_merge_recursive_distinct($educationArr, $education);
 
     $workArr = [
-        'PNS / TNI / POLRI' => 0,
+        'ASN / TNI / POLRI' => 0,
         'Pegawai Swasta' => 0,
         'Wiraswasta' => 0,
         'Tenaga Honor / Ahli / Kontrak' => 0,

@@ -179,7 +179,7 @@ var quiz = {
       myOptionsLayanan: [],
       genderOptions: ['Laki-laki', 'Perempuan'],
       educationOptions: ['SD', 'SMP atau Sederajat', 'SMA atau Sederajat', 'Strata 1 (S1)', 'Strata 2 (S2)', 'Strata 3 (S3)'],
-      workOptions: ['PNS / TNI / POLRI', 'Pegawai Swasta', 'Wiraswasta', 'Tenaga Honor / Ahli / Kontrak', 'Pelajar / Mahasiswa', 'Lainnya'],
+      workOptions: ['ASN / TNI / POLRI', 'Pegawai Swasta', 'Wiraswasta', 'Tenaga Honor / Ahli / Kontrak', 'Pelajar / Mahasiswa', 'Lainnya'],
       ageOptions: ['Dibawah 20 Tahun', '21 s/d 30 Tahun', '31 s/d 40 Tahun', '41 s/d 50 Tahun', 'Diatas 50 Tahun']
     };
   },
@@ -731,7 +731,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       placeholder: '-- Pilih Pendidikan Terakhir --'
     },
     required: ""
-  }, null, 8 /* PROPS */, ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [_hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select name=\"work\" id=\"work\" class=\"form-control\" v-model=\"form.work\">\r\n                                            <option selected=\"selected\" value=\"\">-- Pilih Pekerjaan --</option>\r\n                                            <option value=\"PNS / TNI / POLRI\">PNS / TNI / POLRI</option>\r\n                                            <option value=\"Pegawai Swasta\">Pegawai Swasta</option>\r\n                                            <option value=\"Wiraswasta\">Wiraswasta</option>\r\n                                            <option value=\"Tenaga Honor / Ahli / Kontrak\">Tenaga Honor / Ahli / Kontrak</option>\r\n                                            <option value=\"Pelajar / Mahasiswa\">Pelajar / Mahasiswa</option>\r\n                                            <option value=\"Lainnya\">Lainnya</option>\r\n                                        </select> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select2, {
+  }, null, 8 /* PROPS */, ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [_hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select name=\"work\" id=\"work\" class=\"form-control\" v-model=\"form.work\">\r\n                                            <option selected=\"selected\" value=\"\">-- Pilih Pekerjaan --</option>\r\n                                            <option value=\"ASN / TNI / POLRI\">ASN / TNI / POLRI</option>\r\n                                            <option value=\"Pegawai Swasta\">Pegawai Swasta</option>\r\n                                            <option value=\"Wiraswasta\">Wiraswasta</option>\r\n                                            <option value=\"Tenaga Honor / Ahli / Kontrak\">Tenaga Honor / Ahli / Kontrak</option>\r\n                                            <option value=\"Pelajar / Mahasiswa\">Pelajar / Mahasiswa</option>\r\n                                            <option value=\"Lainnya\">Lainnya</option>\r\n                                        </select> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select2, {
     modelValue: $data.form.work,
     "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
       return $data.form.work = $event;

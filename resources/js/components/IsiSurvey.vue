@@ -157,7 +157,7 @@
                                     <div class="col-sm-9">
                                         <!-- <select name="work" id="work" class="form-control" v-model="form.work">
                                             <option selected="selected" value="">-- Pilih Pekerjaan --</option>
-                                            <option value="PNS / TNI / POLRI">PNS / TNI / POLRI</option>
+                                            <option value="ASN / TNI / POLRI">ASN / TNI / POLRI</option>
                                             <option value="Pegawai Swasta">Pegawai Swasta</option>
                                             <option value="Wiraswasta">Wiraswasta</option>
                                             <option value="Tenaga Honor / Ahli / Kontrak">Tenaga Honor / Ahli / Kontrak</option>
@@ -604,7 +604,7 @@ export default {
                 'Strata 3 (S3)',
             ],
             workOptions: [
-                'PNS / TNI / POLRI',
+                'ASN / TNI / POLRI',
                 'Pegawai Swasta',
                 'Wiraswasta',
                 'Tenaga Honor / Ahli / Kontrak',

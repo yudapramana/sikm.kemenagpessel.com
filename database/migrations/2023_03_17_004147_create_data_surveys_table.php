@@ -46,7 +46,7 @@ class CreateDataSurveysTable extends Migration
             ]);
 
             $table->enum('work', [
-                'PNS / TNI / POLRI',
+                'ASN / TNI / POLRI',
                 'Pegawai Swasta',
                 'Wiraswasta',
                 'Tenaga Honor / Ahli / Kontrak',
