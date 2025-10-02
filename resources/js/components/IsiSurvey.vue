@@ -599,6 +599,7 @@ export default {
                 'SD',
                 'SMP atau Sederajat',
                 'SMA atau Sederajat',
+                'Diploma (D2/D3)',
                 'Strata 1 (S1)',
                 'Strata 2 (S2)',
                 'Strata 3 (S3)',
