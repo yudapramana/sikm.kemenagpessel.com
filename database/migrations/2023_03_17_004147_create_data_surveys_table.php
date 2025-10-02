@@ -40,7 +40,7 @@ class CreateDataSurveysTable extends Migration
                 'SD',
                 'SMP atau Sederajat',
                 'SMA atau Sederajat',
-                'Diploma (D2/D3)',
+                'Diploma',
                 'Strata 1 (S1)',
                 'Strata 2 (S2)',
                 'Strata 3 (S3)',
