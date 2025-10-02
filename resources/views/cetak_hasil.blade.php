@@ -175,7 +175,7 @@
                                         <th colspan="4" class="text-center text-uppercase abu-abu-gelap" style="padding:5px;">
                                             <h4 style="margin:0">Jenis Pelayanan yang dinilai</h4>
                                         </th>
-                                        <th colspan="3" class="text-center text-uppercase abu-abu" style="padding:5px;">
+                                        <th colspan="4" class="text-center text-uppercase abu-abu" style="padding:5px;">
                                             <h6 style="margin:0">
                                                 {{ $unit_name ? $unit_name : 'Semua Jenis Pelayanan' }}
 
@@ -188,7 +188,7 @@
                                         <th colspan="4" class="text-center text-uppercase abu-abu-gelap" style="padding:5px;">
                                             <h4 style="margin:0">Tahun Penilaian</h4>
                                         </th>
-                                        <th colspan="3" class="text-center text-uppercase abu-abu" style="padding:5px;">
+                                        <th colspan="4" class="text-center text-uppercase abu-abu" style="padding:5px;">
                                             <h4 style="margin:0">{{ $year }}</h4>
                                         </th>
                                     </tr>
@@ -199,7 +199,7 @@
                                             </h1>
                                             <h4 style="margin:0">{{ $mutu_pelayanan }}</h4>
                                         </th>
-                                        <th colspan="3" class="text-center text-uppercase abu-abu-gelap" style="padding:5px;">
+                                        <th colspan="4" class="text-center text-uppercase abu-abu-gelap" style="padding:5px;">
                                             Ringkasan Responden</th>
                                     </tr>
 
@@ -207,14 +207,14 @@
                                         <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap">
                                             Jumlah
                                             Responden</th>
-                                        <th class="marginpadding-minimal centered fontsmaller" colspan="2">{{ $rangkuman_responden['total_responden'] }} orang</th>
+                                        <th class="marginpadding-minimal centered fontsmaller" colspan="3">{{ $rangkuman_responden['total_responden'] }} orang</th>
                                     </tr>
 
                                     @foreach ($rangkuman_responden['gender'] as $key => $item)
                                         <tr>
 
                                             @if ($key == 'Laki-laki')
-                                                <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap" rowspan="2">
+                                                <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap" rowspan="2" colspan="2">
                                                     Jenis Kelamin</th>
                                             @endif
                                             <th class="marginpadding-minimal abu-abu fontsmaller">{{ $key }}</th>
@@ -228,7 +228,7 @@
                                         <tr>
 
                                             @if ($key == 'Dibawah 20 Tahun')
-                                                <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap" rowspan="5">
+                                                <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap" rowspan="5" colspan="2">
                                                     Umur</th>
                                             @endif
                                             <th class="marginpadding-minimal abu-abu fontsmaller">{{ $key }}</th>
@@ -239,7 +239,7 @@
 
 
                                     <tr>
-                                        <th class="centered fontsmaller marginpadding-minimal abu-abu-gelap" rowspan="2">
+                                        <th class="centered fontsmaller marginpadding-minimal abu-abu-gelap" rowspan="2" colspan="2">
                                             Pekerjaan
                                         </th>
                                         @foreach ($rangkuman_responden['work'] as $key => $item)
