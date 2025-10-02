@@ -136,7 +136,7 @@
                                                 style="padding:5px;">
                                                 <h4 style="margin:0">Jenis Pelayanan yang dinilai</h4>
                                             </th>
-                                            <th colspan="3" class="text-center text-uppercase abu-abu" style="padding:5px;">
+                                            <th colspan="4" class="text-center text-uppercase abu-abu" style="padding:5px;">
                                                 <h4 style="margin:0">Semua Jenis Pelayanan</h4>
                                             </th>
 
@@ -146,7 +146,7 @@
                                                 style="padding:5px;">
                                                 <h4 style="margin:0">Tahun Penilaian</h4>
                                             </th>
-                                            <th colspan="3" class="text-center text-uppercase abu-abu" style="padding:5px;">
+                                            <th colspan="4" class="text-center text-uppercase abu-abu" style="padding:5px;">
                                                 <h4 style="margin:0">2023</h4>
                                             </th>
                                         </tr>
@@ -156,18 +156,18 @@
                                                 <h1 style="margin:0; font-size: 137px !important;">{{ konversi }}</h1>
                                                 <h4 style="margin:0">{{ mutu_pelayanan }}</h4>
                                             </th>
-                                            <th colspan="3" class="text-center text-uppercase abu-abu-gelap"
+                                            <th colspan="4" class="text-center text-uppercase abu-abu-gelap"
                                                 style="padding:5px;">
                                                 Ringkasan Responden</th>
                                         </tr>
                                         <tr>
-                                            <th class="marginpadding-minimal centered abu-abu-gelap">Jumlah Responden</th>
+                                            <th class="marginpadding-minimal centered abu-abu-gelap" colspan="2">Jumlah Responden</th>
                                             <th class="marginpadding-minimal centered" colspan="2">{{
                                                 rangkuman_responden.total_responden }} orang</th>
                                         </tr>
 
                                         <tr v-for="(value, name) in gender" :key="name">
-                                            <th class="marginpadding-minimal centered abu-abu-gelap" rowspan="2"
+                                            <th class="marginpadding-minimal centered abu-abu-gelap" rowspan="2" colspan="2"
                                                 v-if="name === 'Laki-laki'">Jenis Kelamin</th>
                                             <th class="marginpadding-minimal abu-abu">{{ name }}</th>
                                             <th class="marginpadding-minimal righted">{{ value }} orang</th>
@@ -175,14 +175,14 @@
 
 
                                         <tr v-for="(value, name) in age" :key="name">
-                                            <th class="marginpadding-minimal centered abu-abu-gelap" rowspan="5"
+                                            <th class="marginpadding-minimal centered abu-abu-gelap" rowspan="5" colspan="2"
                                                 v-if="name === 'Dibawah 20 Tahun'">
                                                 Umur</th>
                                             <th class="marginpadding-minimal abu-abu">{{ name }}</th>
                                             <th class="marginpadding-minimal righted">{{ value }} orang</th>
                                         </tr>
                                         <tr>
-                                            <th class="centered marginpadding-minimal abu-abu-gelap" rowspan="2">Pekerjaan
+                                            <th class="centered marginpadding-minimal abu-abu-gelap" rowspan="2" colspan="2">Pekerjaan
                                             </th>
                                             <th class="centered marginpadding-minimal abu-abu" v-for="(value, name) in work"
                                                 :key="name">
