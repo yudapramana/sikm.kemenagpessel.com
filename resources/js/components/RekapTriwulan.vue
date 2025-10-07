@@ -512,7 +512,7 @@
                                                                     <h4 style="margin:0">Jenis Pelayanan yang dinilai
                                                                     </h4>
                                                                 </th>
-                                                                <th colspan="3"
+                                                                <th colspan="4"
                                                                     class="text-center text-uppercase abu-abu"
                                                                     style="padding:5px;">
                                                                     <h6 style="margin:0">{{ rangkuman_unit.unit_name }}
@@ -525,7 +525,7 @@
                                                                     style="padding:5px;">
                                                                     <h4 style="margin:0">Waktu Penilaian</h4>
                                                                 </th>
-                                                                <th colspan="3"
+                                                                <th colspan="4"
                                                                     class="text-center text-uppercase abu-abu"
                                                                     style="padding:5px;">
                                                                     <h4 style="margin:0">Triwulan {{ quarter }} Tahun {{
@@ -541,7 +541,7 @@
                                                                     <h4 style="margin:0">{{
                                                                         rangkuman_unit.mutu_pelayanan }}</h4>
                                                                 </th>
-                                                                <th colspan="3"
+                                                                <th colspan="4"
                                                                     class="text-center text-uppercase abu-abu-gelap"
                                                                     style="padding:5px;">
                                                                     Ringkasan Responden
@@ -551,7 +551,7 @@
                                                                 <th
                                                                     class="marginpadding-minimal centered abu-abu-gelap">
                                                                     Jumlah Responden</th>
-                                                                <th class="marginpadding-minimal centered" colspan="2">
+                                                                <th class="marginpadding-minimal centered" colspan="3">
                                                                     {{
                                                                         rangkuman_unit.rangkuman_responden.total_responden
                                                                     }} orang
@@ -561,7 +561,7 @@
                                                             <tr v-for="(value, name) in rangkuman_unit.gender"
                                                                 :key="name">
                                                                 <th class="marginpadding-minimal centered abu-abu-gelap"
-                                                                    rowspan="2" v-if="name === 'Laki-laki'">
+                                                                    rowspan="2" colspan="2" v-if="name === 'Laki-laki'">
                                                                     Jenis Kelamin
                                                                 </th>
                                                                 <th class="marginpadding-minimal abu-abu">{{ name }}
@@ -572,7 +572,7 @@
 
                                                             <tr v-for="(value, name) in rangkuman_unit.age" :key="name">
                                                                 <th class="marginpadding-minimal centered abu-abu-gelap"
-                                                                    rowspan="5" v-if="name === 'Dibawah 20 Tahun'">
+                                                                    rowspan="5" colspan="2" v-if="name === 'Dibawah 20 Tahun'">
                                                                     Umur
                                                                 </th>
                                                                 <th class="marginpadding-minimal abu-abu">{{ name }}
@@ -583,7 +583,7 @@
 
                                                             <tr>
                                                                 <th class="centered marginpadding-minimal abu-abu-gelap"
-                                                                    rowspan="2">Pekerjaan</th>
+                                                                    rowspan="2" colspan="2">Pekerjaan</th>
                                                                 <th class="centered marginpadding-minimal abu-abu"
                                                                     v-for="(value, name) in rangkuman_unit.work"
                                                                     :key="name">
