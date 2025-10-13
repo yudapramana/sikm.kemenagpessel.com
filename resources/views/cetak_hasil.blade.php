@@ -255,8 +255,12 @@
                                     <tr>
 
                                         @foreach ($rangkuman_responden['work'] as $key => $item)
-                                            <th class="centered fontsmaller marginpadding-minimal">
-                                                {{ $item }} orang
+                                            @if ($key == 'Lainnya')
+                                                <th class="centered fontsmaller marginpadding-minimal" colspan="2">
+                                                @else
+                                                <th class="centered fontsmaller marginpadding-minimal">
+                                            @endif
+                                            {{ $item }} orang
                                             </th>
                                         @endforeach
                                     </tr>
