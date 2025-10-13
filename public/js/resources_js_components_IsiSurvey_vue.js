@@ -178,7 +178,7 @@ var quiz = {
       myOptions: [],
       myOptionsLayanan: [],
       genderOptions: ['Laki-laki', 'Perempuan'],
-      educationOptions: ['SD', 'SMP atau Sederajat', 'SMA atau Sederajat', 'Strata 1 (S1)', 'Strata 2 (S2)', 'Strata 3 (S3)'],
+      educationOptions: ['SD', 'SMP atau Sederajat', 'SMA atau Sederajat', 'Diploma', 'Strata 1 (S1)', 'Strata 2 (S2)', 'Strata 3 (S3)'],
       workOptions: ['ASN / TNI / POLRI', 'Pegawai Swasta', 'Wiraswasta', 'Tenaga Honor / Ahli / Kontrak', 'Pelajar / Mahasiswa', 'Lainnya'],
       ageOptions: ['Dibawah 20 Tahun', '21 s/d 30 Tahun', '31 s/d 40 Tahun', '41 s/d 50 Tahun', 'Diatas 50 Tahun']
     };

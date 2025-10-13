@@ -343,7 +343,7 @@ var _hoisted_41 = /*#__PURE__*/_withScopeId(function () {
       "margin": "0"
     }
   }, "Jenis Pelayanan yang dinilai")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    colspan: "3",
+    colspan: "4",
     "class": "text-center text-uppercase abu-abu",
     style: {
       "padding": "5px"
@@ -366,7 +366,7 @@ var _hoisted_42 = /*#__PURE__*/_withScopeId(function () {
       "margin": "0"
     }
   }, "Tahun Penilaian")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    colspan: "3",
+    colspan: "4",
     "class": "text-center text-uppercase abu-abu",
     style: {
       "padding": "5px"
@@ -398,7 +398,7 @@ var _hoisted_45 = {
 };
 var _hoisted_46 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    colspan: "3",
+    colspan: "4",
     "class": "text-center text-uppercase abu-abu-gelap",
     style: {
       "padding": "5px"
@@ -407,7 +407,8 @@ var _hoisted_46 = /*#__PURE__*/_withScopeId(function () {
 });
 var _hoisted_47 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "marginpadding-minimal centered abu-abu-gelap"
+    "class": "marginpadding-minimal centered abu-abu-gelap",
+    colspan: "2"
   }, "Jumlah Responden", -1 /* HOISTED */);
 });
 var _hoisted_48 = {
@@ -417,7 +418,8 @@ var _hoisted_48 = {
 var _hoisted_49 = {
   key: 0,
   "class": "marginpadding-minimal centered abu-abu-gelap",
-  rowspan: "2"
+  rowspan: "2",
+  colspan: "2"
 };
 var _hoisted_50 = {
   "class": "marginpadding-minimal abu-abu"
@@ -428,7 +430,8 @@ var _hoisted_51 = {
 var _hoisted_52 = {
   key: 0,
   "class": "marginpadding-minimal centered abu-abu-gelap",
-  rowspan: "5"
+  rowspan: "5",
+  colspan: "2"
 };
 var _hoisted_53 = {
   "class": "marginpadding-minimal abu-abu"
@@ -439,7 +442,8 @@ var _hoisted_54 = {
 var _hoisted_55 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "centered marginpadding-minimal abu-abu-gelap",
-    rowspan: "2"
+    rowspan: "2",
+    colspan: "2"
   }, "Pekerjaan ", -1 /* HOISTED */);
 });
 var _hoisted_56 = /*#__PURE__*/_withScopeId(function () {

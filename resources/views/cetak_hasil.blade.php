@@ -242,7 +242,7 @@
                                             Pekerjaan
                                         </th>
                                         @foreach ($rangkuman_responden['work'] as $key => $item)
-                                            @if ($key == 1)
+                                            @if ($key == 'Lainnya')
                                                 <th class="centered fontsmaller marginpadding-minimal abu-abu" colspan="2">
                                                 @else
                                                 <th class="centered fontsmaller marginpadding-minimal abu-abu">
