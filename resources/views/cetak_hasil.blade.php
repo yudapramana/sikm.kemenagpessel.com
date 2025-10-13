@@ -204,10 +204,10 @@
                                     </tr>
 
                                     <tr>
-                                        <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap">
+                                        <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap" colspan="2">
                                             Jumlah
                                             Responden</th>
-                                        <th class="marginpadding-minimal centered fontsmaller" colspan="3">{{ $rangkuman_responden['total_responden'] }} orang</th>
+                                        <th class="marginpadding-minimal centered fontsmaller" colspan="2">{{ $rangkuman_responden['total_responden'] }} orang</th>
                                     </tr>
 
                                     @foreach ($rangkuman_responden['gender'] as $key => $item)
@@ -239,12 +239,16 @@
 
 
                                     <tr>
-                                        <th class="centered fontsmaller marginpadding-minimal abu-abu-gelap" rowspan="2" colspan="2">
+                                        <th class="centered fontsmaller marginpadding-minimal abu-abu-gelap" rowspan="2">
                                             Pekerjaan
                                         </th>
                                         @foreach ($rangkuman_responden['work'] as $key => $item)
-                                            <th class="centered fontsmaller marginpadding-minimal abu-abu">
-                                                {{ $key }}
+                                            @if ($key == 0)
+                                                <th class="centered fontsmaller marginpadding-minimal abu-abu" colspan="2">
+                                                @else
+                                                <th class="centered fontsmaller marginpadding-minimal abu-abu">
+                                            @endif
+                                            {{ $key }}
                                             </th>
                                         @endforeach
                                     </tr>
