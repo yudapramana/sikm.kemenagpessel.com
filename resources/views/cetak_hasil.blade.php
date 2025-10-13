@@ -204,20 +204,19 @@
                                     </tr>
 
                                     <tr>
-                                        <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap" colspan="2">
-                                            Jumlah
-                                            Responden</th>
-                                        <th class="marginpadding-minimal centered fontsmaller" colspan="2">{{ $rangkuman_responden['total_responden'] }} orang</th>
+                                        <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap">
+                                            Jumlah Responden</th>
+                                        <th class="marginpadding-minimal centered fontsmaller" colspan="3">{{ $rangkuman_responden['total_responden'] }} orang</th>
                                     </tr>
 
                                     @foreach ($rangkuman_responden['gender'] as $key => $item)
                                         <tr>
 
                                             @if ($key == 'Laki-laki')
-                                                <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap" rowspan="2" colspan="2">
+                                                <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap" rowspan="2">
                                                     Jenis Kelamin</th>
                                             @endif
-                                            <th class="marginpadding-minimal abu-abu fontsmaller">{{ $key }}</th>
+                                            <th class="marginpadding-minimal abu-abu fontsmaller" colspan="2">{{ $key }}</th>
                                             <th class="marginpadding-minimal righted fontsmaller">{{ $item }} orang
                                             </th>
                                         </tr>
@@ -228,10 +227,10 @@
                                         <tr>
 
                                             @if ($key == 'Dibawah 20 Tahun')
-                                                <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap" rowspan="5" colspan="2">
+                                                <th class="marginpadding-minimal centered fontsmaller abu-abu-gelap" rowspan="5">
                                                     Umur</th>
                                             @endif
-                                            <th class="marginpadding-minimal abu-abu fontsmaller">{{ $key }}</th>
+                                            <th class="marginpadding-minimal abu-abu fontsmaller" colspan="2">{{ $key }}</th>
                                             <th class="marginpadding-minimal righted fontsmaller">{{ $item }} orang
                                             </th>
                                         </tr>
@@ -243,7 +242,7 @@
                                             Pekerjaan
                                         </th>
                                         @foreach ($rangkuman_responden['work'] as $key => $item)
-                                            @if ($key == 0)
+                                            @if ($key == 1)
                                                 <th class="centered fontsmaller marginpadding-minimal abu-abu" colspan="2">
                                                 @else
                                                 <th class="centered fontsmaller marginpadding-minimal abu-abu">
