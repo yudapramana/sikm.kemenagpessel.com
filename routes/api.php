@@ -1600,20 +1600,20 @@ Route::get('/cetak_hasil/{tipe_survey}/{year}/{quarter?}', function ($tipe_surve
 
         switch ($quarter) {
             case '1':
-                $startDate = Carbon::now()->month(1)->startOfQuarter();
-                $endDate = Carbon::now()->month(1)->endOfQuarter();
+                $startDate = Carbon::now()->year($year)->month(1)->startOfQuarter();
+                $endDate = Carbon::now()->year($year)->month(1)->endOfQuarter();
                 break;
             case '2':
-                $startDate = Carbon::now()->month(4)->startOfQuarter();
-                $endDate = Carbon::now()->month(4)->endOfQuarter();
+                $startDate = Carbon::now()->year($year)->month(4)->startOfQuarter();
+                $endDate = Carbon::now()->year($year)->month(4)->endOfQuarter();
                 break;
             case '3':
-                $startDate = Carbon::now()->month(7)->startOfQuarter();
-                $endDate = Carbon::now()->month(7)->endOfQuarter();
+                $startDate = Carbon::now()->year($year)->month(7)->startOfQuarter();
+                $endDate = Carbon::now()->year($year)->month(7)->endOfQuarter();
                 break;
             case '4':
-                $startDate = Carbon::now()->month(10)->startOfQuarter();
-                $endDate = Carbon::now()->month(10)->endOfQuarter();
+                $startDate = Carbon::now()->year($year)->month(10)->startOfQuarter();
+                $endDate = Carbon::now()->year($year)->month(10)->endOfQuarter();
                 break;
 
             default:
