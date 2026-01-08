@@ -1152,21 +1152,21 @@ Route::get('/reset-to-submitted/{year}', function ($year) {
 });
 
 Route::get('/pull-to-approved/{year}', function ($year) {
-    $surveys = \App\Models\Survey::whereYear('submitted_at', $year)->get();
+    // $surveys = \App\Models\Survey::whereYear('submitted_at', $year)->get();
     // $surveys = \App\Models\Survey::whereYear('submitted_at', $year)->update(['status' => 'approved']);
-    // $surveysApproved = \App\Models\Survey::whereYear('submitted_at', $year)
-    //             ->where('average', '>', '3')->update(['status' => 'approved']);
+    $surveysApproved = \App\Models\Survey::whereYear('submitted_at', $year)
+                ->where('average', '>', '3')->update(['status' => 'approved']);
 
-    // $surveysRejected = \App\Models\Survey::whereYear('submitted_at', $year)
-    //             ->where('average', '<=', '3')->update(['status' => 'rejected']);
+    $surveysRejected = \App\Models\Survey::whereYear('submitted_at', $year)
+                ->where('average', '<=', '3')->update(['status' => 'rejected']);
 
 
-    foreach ($surveys as $key => $survey) {
-        $survey->status = 'approved';
-        $survey->save();
-    }
+    // foreach ($surveys as $key => $survey) {
+    //     $survey->status = 'approved';
+    //     $survey->save();
+    // }
 
-    return 'survey rekap resetted';
+    return 'survey rekap resetted updated code';
 });
 
 Route::get('/reset-recapitulation/{year}', function ($year) {
