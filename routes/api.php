@@ -1545,7 +1545,7 @@ Route::get('/cetak_tabulasi/{tipe_survey}/{year}/{quarter?}', function ($tipe_su
     $summedAvg = 0;
     $summedWeighted = 0;
 
-    return $counted;
+    return $surveys;
     foreach ($unsur_sikm as $key => $item) {
         $summed = $surveys->sum('answer_' . $item['key']);
         $counted = $surveys->count('answer_' . $item['key']);
