@@ -1494,10 +1494,10 @@ Route::get('/cetak_tabulasi/{tipe_survey}/{year}/{quarter?}', function ($tipe_su
                 break;
         }
 
-        return [
-            'startDate' => $startDate,
-            'endDate' => $endDate
-        ];
+        // return [
+        //     'startDate' => $startDate,
+        //     'endDate' => $endDate
+        // ];
 
         if($unitName) {
             $surveys = \App\Models\Survey::where('status', 'approved')
