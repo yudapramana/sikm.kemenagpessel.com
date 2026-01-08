@@ -1494,6 +1494,11 @@ Route::get('/cetak_tabulasi/{tipe_survey}/{year}/{quarter?}', function ($tipe_su
                 break;
         }
 
+        return [
+            'startDate' => $startDate,
+            'endDate' => $endDate
+        ];
+
         if($unitName) {
             $surveys = \App\Models\Survey::where('status', 'approved')
             ->whereBetween('submitted_at', [$startDate->format('Y-m-d') . " 00:00:00", $endDate->format('Y-m-d') . " 23:59:59"])
@@ -1545,7 +1550,6 @@ Route::get('/cetak_tabulasi/{tipe_survey}/{year}/{quarter?}', function ($tipe_su
     $summedAvg = 0;
     $summedWeighted = 0;
 
-    return $surveys;
     foreach ($unsur_sikm as $key => $item) {
         $summed = $surveys->sum('answer_' . $item['key']);
         $counted = $surveys->count('answer_' . $item['key']);
