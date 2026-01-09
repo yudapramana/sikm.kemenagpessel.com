@@ -1109,7 +1109,7 @@ Route::get('/get/rekapitulasi-triwulan/{tipe_survey}/{year}/{quarter}', function
     // return $startDate->toDateTimeString() . '     -    ' . $endDate->toDateTimeString();
 
     $rekap = \App\Models\RekapTriwulan::where([
-        'tahun' => date('Y'),
+        'tahun' => $year,
         'triwulan' => $quarter
     ])->with('layanan.unit')->get();
 
