@@ -1114,7 +1114,8 @@ Route::get('/get/rekapitulasi-triwulan/{tipe_survey}/{year}/{quarter}', function
 
     $rekap = \App\Models\RekapTriwulan::where([
         'tahun' => $year,
-        'triwulan' => $quarter
+        'triwulan' => $quarter,
+        'tipe_surve' => 'ikm'
     ])->with('layanan.unit')->get();
 
 
