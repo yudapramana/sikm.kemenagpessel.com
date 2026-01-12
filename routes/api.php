@@ -985,7 +985,7 @@ Route::get('/get/rekapitulasi-triwulan/{tipe_survey}/{year}/{quarter}', function
         ->whereBetween('submitted_at', [$startDate->format('Y-m-d') . " 00:00:00", $endDate->format('Y-m-d') . " 23:59:59"])
         ->get();
 
-    return $surveys;
+    // return $surveys;
 
     // return $startDate->format('Y-m-d') . " 00:00:00" . '    -   ' . $endDate->format('Y-m-d') . " 23:59:59";
 
