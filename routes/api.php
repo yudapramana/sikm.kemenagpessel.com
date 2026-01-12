@@ -1257,7 +1257,7 @@ Route::get('/calc-recap-quarter/{tipe_survey}/{year}', function ($tipe_survey, $
         $quarter = $created_at->quarter;
 
         $rekapTriwulan = \App\Models\RekapTriwulan::firstOrCreate([
-            'tahun' => date('Y'),
+            'tahun' => $year,
             'tipe_survey' => $tipe_survey,
             'triwulan' => $quarter,
             'id_layanan' => $survey->id_layanan,
