@@ -977,13 +977,15 @@ Route::get('/get/rekapitulasi-triwulan/{tipe_survey}/{year}/{quarter}', function
     }
 
 
-    return $startDate . '     -     ' . $endDate;
+    // return $startDate . '     -     ' . $endDate;
 
 
     // Modified
     $surveys = \App\Models\Survey::where('status', 'approved')
         ->whereBetween('submitted_at', [$startDate->format('Y-m-d') . " 00:00:00", $endDate->format('Y-m-d') . " 23:59:59"])
         ->get();
+
+    return $surveys;
 
     // return $startDate->format('Y-m-d') . " 00:00:00" . '    -   ' . $endDate->format('Y-m-d') . " 23:59:59";
 
