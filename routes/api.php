@@ -977,6 +977,8 @@ Route::get('/get/rekapitulasi-triwulan/{tipe_survey}/{year}/{quarter}', function
     }
 
 
+    return $startDate . '     -     ' . $endDate;
+
 
     // Modified
     $surveys = \App\Models\Survey::where('status', 'approved')
